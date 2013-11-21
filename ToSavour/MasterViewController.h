@@ -9,8 +9,11 @@
 #import <UIKit/UIKit.h>
 
 #import <CoreData/CoreData.h>
+// XXX
+#import <ChatHeads/CHDraggingCoordinator.h>
+// XXX
 
-@interface MasterViewController : UITableViewController <NSFetchedResultsControllerDelegate>
+@interface MasterViewController : UITableViewController <NSFetchedResultsControllerDelegate, /* XXX */CHDraggingCoordinatorDelegate/* XXX */>
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;

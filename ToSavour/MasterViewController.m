@@ -9,9 +9,17 @@
 #import "MasterViewController.h"
 
 #import "DetailViewController.h"
+// XXX
+#import "AppDelegate.h"
+#import <ChatHeads/CHDraggableView+Avatar.h>
+#import <ChatHeads/CHDraggingCoordinator.h>
+// XXX
 
 @interface MasterViewController ()
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
+// XXX
+@property (nonatomic, strong)   CHDraggingCoordinator *draggingCoordinator;
+// XXX
 @end
 
 @implementation MasterViewController
@@ -25,11 +33,30 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
+//    self.navigationItem.leftBarButtonItem = self.editButtonItem;  XXX
 
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
+    // XXX
+    CHDraggableView *draggableView = [CHDraggableView draggableViewWithImage:[UIImage imageNamed:@"kim"]];
+    draggableView.tag = 1;
+    
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    
+    self.draggingCoordinator = [[CHDraggingCoordinator alloc] initWithWindow:appDelegate.window draggableViewBounds:draggableView.bounds];
+    _draggingCoordinator.delegate = self;
+    _draggingCoordinator.snappingEdge = CHSnappingEdgeBoth;
+    draggableView.delegate = _draggingCoordinator;
+    
+    [appDelegate.window addSubview:draggableView];
+    // XXX
 }
+// XXX
+- (UIViewController *)draggingCoordinator:(CHDraggingCoordinator *)coordinator viewControllerForDraggableView:(CHDraggableView *)draggableView
+{
+    return [[DetailViewController alloc] init];
+}
+// XXX
 
 - (void)didReceiveMemoryWarning
 {
@@ -39,6 +66,14 @@
 
 - (void)insertNewObject:(id)sender
 {
+    // XXX
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    
+    CHDraggableView *draggableView = [CHDraggableView draggableViewWithImage:[UIImage imageNamed:@"kim"]];
+    draggableView.delegate = _draggingCoordinator;
+    [appDelegate.window addSubview:draggableView];
+    return;
+    // XXX
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
     NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
     NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
