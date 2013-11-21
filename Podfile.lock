@@ -1,0 +1,10 @@
+PODS:
+  - SASlideMenu (2.0.3)
+
+DEPENDENCIES:
+  - SASlideMenu
+
+SPEC CHECKSUMS:
+  SASlideMenu: a4a4443fa989afdef4fa4b556ea2334e48cc50f1
+
+COCOAPODS: 0.28.0
