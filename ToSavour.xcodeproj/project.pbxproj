@@ -27,6 +27,8 @@
 		D293E4E4183DEDEB00B73795 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D293E4E2183DEDEB00B73795 /* InfoPlist.strings */; };
 		D293E4E6183DEDEB00B73795 /* ToSavourTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D293E4E5183DEDEB00B73795 /* ToSavourTests.m */; };
 		D293E4F2183DF24000B73795 /* SlideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D293E4F1183DF24000B73795 /* SlideMenuViewController.m */; };
+		D293E4F6184357B400B73795 /* TimeTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = D293E4F5184357B400B73795 /* TimeTracker.m */; };
+		D293E4F818435DC100B73795 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4F718435DC100B73795 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +69,9 @@
 		D293E4E5183DEDEB00B73795 /* ToSavourTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToSavourTests.m; sourceTree = "<group>"; };
 		D293E4F0183DF24000B73795 /* SlideMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SlideMenuViewController.h; path = FrontEnd/SlideMenuViewController.h; sourceTree = "<group>"; };
 		D293E4F1183DF24000B73795 /* SlideMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SlideMenuViewController.m; path = FrontEnd/SlideMenuViewController.m; sourceTree = "<group>"; };
+		D293E4F4184357B400B73795 /* TimeTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TimeTracker.h; path = BackEnd/TimeTracker.h; sourceTree = "<group>"; };
+		D293E4F5184357B400B73795 /* TimeTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TimeTracker.m; path = BackEnd/TimeTracker.m; sourceTree = "<group>"; };
+		D293E4F718435DC100B73795 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +79,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D293E4F818435DC100B73795 /* CoreLocation.framework in Frameworks */,
 				D293E4B4183DEDEB00B73795 /* CoreGraphics.framework in Frameworks */,
 				D293E4B8183DEDEB00B73795 /* CoreData.framework in Frameworks */,
 				D293E4B6183DEDEB00B73795 /* UIKit.framework in Frameworks */,
@@ -119,6 +125,7 @@
 		D293E4B0183DEDEB00B73795 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D293E4F718435DC100B73795 /* CoreLocation.framework */,
 				D293E4B1183DEDEB00B73795 /* Foundation.framework */,
 				D293E4B3183DEDEB00B73795 /* CoreGraphics.framework */,
 				D293E4B5183DEDEB00B73795 /* UIKit.framework */,
@@ -132,6 +139,7 @@
 		D293E4B9183DEDEB00B73795 /* ToSavour */ = {
 			isa = PBXGroup;
 			children = (
+				D293E4F3184356D300B73795 /* BackEnd */,
 				D293E4EF183DF20D00B73795 /* FrontEnd */,
 				D293E4C2183DEDEB00B73795 /* AppDelegate.h */,
 				D293E4C3183DEDEB00B73795 /* AppDelegate.m */,
@@ -185,6 +193,15 @@
 			name = FrontEnd;
 			sourceTree = "<group>";
 		};
+		D293E4F3184356D300B73795 /* BackEnd */ = {
+			isa = PBXGroup;
+			children = (
+				D293E4F4184357B400B73795 /* TimeTracker.h */,
+				D293E4F5184357B400B73795 /* TimeTracker.m */,
+			);
+			name = BackEnd;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -234,6 +251,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = NBition;
 				TargetAttributes = {
+					D293E4AD183DEDEB00B73795 = {
+						DevelopmentTeam = 6R88WWP2F2;
+					};
 					D293E4D6183DEDEB00B73795 = {
 						TestTargetID = D293E4AD183DEDEB00B73795;
 					};
@@ -317,6 +337,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D293E4F6184357B400B73795 /* TimeTracker.m in Sources */,
 				D293E4D0183DEDEB00B73795 /* DetailViewController.m in Sources */,
 				D293E4CD183DEDEB00B73795 /* MasterViewController.m in Sources */,
 				D293E4C4183DEDEB00B73795 /* AppDelegate.m in Sources */,
@@ -450,11 +471,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ToSavour/ToSavour-Prefix.pch";
 				INFOPLIST_FILE = "ToSavour/ToSavour-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -465,11 +489,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ToSavour/ToSavour-Prefix.pch";
 				INFOPLIST_FILE = "ToSavour/ToSavour-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

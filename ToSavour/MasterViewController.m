@@ -13,6 +13,7 @@
 #import "AppDelegate.h"
 #import <ChatHeads/CHDraggableView+Avatar.h>
 #import <ChatHeads/CHDraggingCoordinator.h>
+#import "TimeTracker.h"
 // XXX
 
 @interface MasterViewController ()
@@ -49,6 +50,8 @@
     draggableView.delegate = _draggingCoordinator;
     
     [appDelegate.window addSubview:draggableView];
+    
+    [[TimeTracker sharedInstance] startTrackingWithApproxDuration:600];
     // XXX
 }
 // XXX

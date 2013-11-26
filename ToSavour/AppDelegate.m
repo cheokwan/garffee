@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 
 #import "MasterViewController.h"
+#import "TimeTracker.h" // XXX
 
 @implementation AppDelegate
 
@@ -18,6 +19,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    NSLog(@"%s", __FUNCTION__);  // XXX
     // Override point for customization after application launch.
 //    UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
 //    MasterViewController *controller = (MasterViewController *)navigationController.topViewController;
@@ -27,28 +29,45 @@
 							
 - (void)applicationWillResignActive:(UIApplication *)application
 {
+    NSLog(@"%s", __FUNCTION__);  // XXX
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
+    NSLog(@"%s", __FUNCTION__);  // XXX
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    // XXX
+    NSLog(@"%s - entering background", __FUNCTION__);
+    __block UIBackgroundTaskIdentifier bgTaskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+        [[UIApplication sharedApplication] endBackgroundTask:bgTaskId];
+        bgTaskId = UIBackgroundTaskInvalid;
+    }];
+    
+    [[TimeTracker sharedInstance] scheduleInBackground];
+    
+    [[UIApplication sharedApplication] endBackgroundTask:bgTaskId];
+    bgTaskId = UIBackgroundTaskInvalid;
+    // XXX
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
+    NSLog(@"%s", __FUNCTION__);  // XXX
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
+    NSLog(@"%s", __FUNCTION__);  // XXX
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
+    NSLog(@"%s", __FUNCTION__);  // XXX
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
 }
