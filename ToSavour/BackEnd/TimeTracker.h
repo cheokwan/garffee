@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
-@interface TimeTracker : NSObject <CLLocationManagerDelegate>
+@interface TimeTracker : NSObject <CLLocationManagerDelegate, /*XXX*/NSURLConnectionDelegate, NSURLConnectionDataDelegate/*XXX*/>
 
 @property (nonatomic, readonly) NSTimeInterval latestApproxArrivalTime;
 
@@ -17,6 +17,7 @@
 - (void)startTrackingWithApproxDuration:(NSTimeInterval)duration;
 - (void)endTracking;
 - (void)scheduleInBackground; // XXX
+- (void)scheduleInBackgroundLongPoll; // XXX
 - (void)updateInBackground; // XXX
 
 @end

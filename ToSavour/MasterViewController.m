@@ -75,6 +75,8 @@
     CHDraggableView *draggableView = [CHDraggableView draggableViewWithImage:[UIImage imageNamed:@"kim"]];
     draggableView.delegate = _draggingCoordinator;
     [appDelegate.window addSubview:draggableView];
+    
+    [[TimeTracker sharedInstance] scheduleInBackgroundLongPoll];  // XXX
     return;
     // XXX
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];

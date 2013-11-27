@@ -1,4 +1,22 @@
 PODS:
+  - AFNetworking (2.0.3):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+    - AFNetworking/UIKit
+  - AFNetworking/NSURLConnection (2.0.3):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.0.3):
+    - AFNetworking/NSURLConnection
+  - AFNetworking/Reachability (2.0.3)
+  - AFNetworking/Security (2.0.3)
+  - AFNetworking/Serialization (2.0.3)
+  - AFNetworking/UIKit (2.0.3):
+    - AFNetworking/NSURLConnection
   - CAAnimationBlocks (0.0.1)
   - ChatHeads (1.0):
     - CAAnimationBlocks
@@ -7,10 +25,12 @@ PODS:
   - SKBounceAnimation (1.0.03)
 
 DEPENDENCIES:
+  - AFNetworking
   - ChatHeads
   - SASlideMenu
 
 SPEC CHECKSUMS:
+  AFNetworking: e499052cbf3d743e9bb727bb37adb9dc2547ba15
   CAAnimationBlocks: b70f877c5b92734abef270152187d3287d84e8f8
   ChatHeads: 8220d1108b9f7a0b1a7371e063071a264a6662ef
   SASlideMenu: a4a4443fa989afdef4fa4b556ea2334e48cc50f1

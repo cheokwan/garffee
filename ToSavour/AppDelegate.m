@@ -41,15 +41,10 @@
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     // XXX
     NSLog(@"%s - entering background", __FUNCTION__);
-    __block UIBackgroundTaskIdentifier bgTaskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-        [[UIApplication sharedApplication] endBackgroundTask:bgTaskId];
-        bgTaskId = UIBackgroundTaskInvalid;
-    }];
     
-    [[TimeTracker sharedInstance] scheduleInBackground];
+    [[TimeTracker sharedInstance] scheduleInBackgroundLongPoll];
     
-    [[UIApplication sharedApplication] endBackgroundTask:bgTaskId];
-    bgTaskId = UIBackgroundTaskInvalid;
+    NSLog(@"%s - entered background", __FUNCTION__);
     // XXX
 }
 
