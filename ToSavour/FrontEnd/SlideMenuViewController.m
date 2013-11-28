@@ -69,28 +69,20 @@
 #pragma mark - SASlideMenuDelegate
 
 -(void) slideMenuWillSlideIn:(UINavigationController *)selectedContent{
-//    NSLog(@"slideMenuWillSlideIn");
 }
 -(void) slideMenuDidSlideIn:(UINavigationController *)selectedContent{
-//    NSLog(@"slideMenuDidSlideIn");
 }
 -(void) slideMenuWillSlideToSide:(UINavigationController *)selectedContent{
-//    NSLog(@"slideMenuWillSlideToSide");
 }
 -(void) slideMenuDidSlideToSide:(UINavigationController *)selectedContent{
-//    NSLog(@"slideMenuDidSlideToSide");
 }
 -(void) slideMenuWillSlideOut:(UINavigationController *)selectedContent{
-//    NSLog(@"slideMenuWillSlideOut");
 }
 -(void) slideMenuDidSlideOut:(UINavigationController *)selectedContent{
-//    NSLog(@"slideMenuDidSlideOut");
 }
 -(void) slideMenuWillSlideToLeft:(UINavigationController *)selectedContent{
-//    NSLog(@"slideMenuWillSlideToLeft");
 }
 -(void) slideMenuDidSlideToLeft:(UINavigationController *)selectedContent{
-//    NSLog(@"slideMenuDidSlideToLeft");
 }
 
 #pragma mark - UITableView related

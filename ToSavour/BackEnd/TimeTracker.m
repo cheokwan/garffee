@@ -7,6 +7,7 @@
 //
 
 #import "TimeTracker.h"
+#import "Essentials.h"
 #import <CoreLocation/CoreLocation.h>
 #import <AFNetworking/AFHTTPRequestOperationManager.h>  // XXX
 
@@ -120,7 +121,7 @@
             });
         }];
         
-        NSLog(@"%s - request succeeded: %@", __FUNCTION__, responseObject);
+        DDLogInfo(@"request succeeded: %@", responseObject);
         
         [self logStuff];
         
@@ -133,7 +134,7 @@
     };
     
     failureBlock = ^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s - request failed: %@", __FUNCTION__, error);
+        DDLogError(@"request failed: %@", error);
     };
     
     [_reqMan GET:_urlString parameters:nil success:successBlock failure:failureBlock];
@@ -144,24 +145,24 @@
 
 - (void)scheduleInBackgroundLongPoll {
     _bgTaskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-        NSLog(@"%s - background task going to expire", __FUNCTION__);
+        DDLogInfo(@"background task going to expire");
         [[UIApplication sharedApplication] endBackgroundTask:_bgTaskId];
         _bgTaskId = UIBackgroundTaskInvalid;
-        NSLog(@"%s - background task expired", __FUNCTION__);
+        DDLogInfo(@"background task expired");
     }];
     
     // set keep alive handler
-    NSLog(@"%s - setting keep alive handler", __FUNCTION__);
+    DDLogInfo(@"setting keep alive handler");
     [[UIApplication sharedApplication] setKeepAliveTimeout:600 handler:^{
         // restart stuff, or check the if the chain connection is broken
-//        NSLog(@"%s - keep alive handler fired", __FUNCTION__);
+//        DDLog(@"keep alive handler fired");
 //
 //        
 //        _bgTaskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-//            NSLog(@"%s - background task going to expire", __FUNCTION__);
+//            DDLog(@"background task going to expire");
 //            [[UIApplication sharedApplication] endBackgroundTask:_bgTaskId];
 //            _bgTaskId = UIBackgroundTaskInvalid;
-//            NSLog(@"%s - background task expired", __FUNCTION__);
+//            DDLog(@"background task expired");
 //        }];
 //        
 //        NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:_urlString] cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:600];
@@ -170,7 +171,7 @@
 //        
 //        [NSThread sleepForTimeInterval:3]; // give the last request a little more time to send out
 //        
-//        NSLog(@"%s - keep alive bg time remaining: %f", __FUNCTION__, [[UIApplication sharedApplication] backgroundTimeRemaining]);
+//        DDLog(@"keep alive bg time remaining: %f", [[UIApplication sharedApplication] backgroundTimeRemaining]);
     }];
     
     _showCount = 1;
@@ -194,14 +195,14 @@
 }
 
 - (void)handleBackgroundFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler code:(NSString *)code {
-    NSLog(@"%s - background fetch handler fired", __FUNCTION__);
-    NSLog(@"%s - b4 bgTask, bg time remaining: %f", __FUNCTION__, [[UIApplication sharedApplication] backgroundTimeRemaining]);
+    DDLogInfo(@"background fetch handler fired");
+    DDLogInfo(@"b4 bgTask, bg time remaining: %f", [[UIApplication sharedApplication] backgroundTimeRemaining]);
     
     _bgTaskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-        NSLog(@"%s - background task going to expire", __FUNCTION__);
+        DDLogInfo(@"background task going to expire");
         [[UIApplication sharedApplication] endBackgroundTask:_bgTaskId];
         _bgTaskId = UIBackgroundTaskInvalid;
-        NSLog(@"%s - background task expired", __FUNCTION__);
+        DDLogInfo(@"background task expired");
     }];
     
     [self logStuff:code];
@@ -222,7 +223,7 @@
     NSDate *now = [NSDate date];
     NSTimeInterval bgRemTime = [[UIApplication sharedApplication] backgroundTimeRemaining];
     
-    NSLog(@"%s - bg time remaining: %f", __FUNCTION__, bgRemTime);
+    DDLogInfo(@"bg time remaining: %f", bgRemTime);
     UILocalNotification *noti = [[UILocalNotification alloc] init];
     noti.fireDate = now;
     noti.timeZone = [NSTimeZone defaultTimeZone];
@@ -241,8 +242,8 @@
 #pragma mark - NSURLConnectionDelegate, NSURLConnectionDataDelegate
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    NSLog(@"%s - error: %@", __FUNCTION__, error);
-    NSLog(@"%s - terminating chain connections", __FUNCTION__);
+    DDLogError(@"error: %@", error);
+    DDLogError(@"terminating chain connections");
     
     [[UIApplication sharedApplication] endBackgroundTask:_bgTaskId];
     _bgTaskId = UIBackgroundTaskInvalid;
@@ -250,15 +251,15 @@
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
     UIBackgroundTaskIdentifier oldBgTaskId = _bgTaskId;
-    NSLog(@"%s - b4 killing old task, bg time remaining: %f", __FUNCTION__, [[UIApplication sharedApplication] backgroundTimeRemaining]);
+    DDLogInfo(@"b4 killing old task, bg time remaining: %f", [[UIApplication sharedApplication] backgroundTimeRemaining]);
     
     // start the next bg task
     _bgTaskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"%s - background task going to expire", __FUNCTION__);
+            DDLogInfo(@"background task going to expire");
             [[UIApplication sharedApplication] endBackgroundTask:_bgTaskId];
             _bgTaskId = UIBackgroundTaskInvalid;
-            NSLog(@"%s - background task expired", __FUNCTION__);
+            DDLogInfo(@"background task expired");
         });
     }];
     
@@ -266,10 +267,10 @@
     [[UIApplication sharedApplication] endBackgroundTask:oldBgTaskId];
     
     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-    NSLog(@"%s - response: %@", __FUNCTION__, httpResponse);
+    DDLogInfo(@"response: %@", httpResponse);
     
     if (httpResponse.statusCode == 200) {
-        NSLog(@"%s - HTTP status 200 OK", __FUNCTION__);
+        DDLogInfo(@"HTTP status 200 OK");
         
         if (_showCount < 30) {
             [self logStuff];
@@ -278,11 +279,11 @@
             req.networkServiceType = NSURLNetworkServiceTypeVoIP;
             NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:req delegate:self startImmediately:YES];
         } else {
-            NSLog(@"%s - too much responses, end logging stuff", __FUNCTION__);
+            DDLogWarn(@"too much responses, end logging stuff");
         }
     } else {
-        NSLog(@"%s - HTTP failed with status %d", __FUNCTION__, (int)httpResponse.statusCode);
-        NSLog(@"%s - terminating chain connections", __FUNCTION__);
+        DDLogError(@"HTTP failed with status %d", (int)httpResponse.statusCode);
+        DDLogError(@"terminating chain connections");
         
         [[UIApplication sharedApplication] endBackgroundTask:_bgTaskId];
         _bgTaskId = UIBackgroundTaskInvalid;
@@ -298,7 +299,7 @@
 #pragma mark - CLLocationManagerDelegate
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    NSLog(@"%s - didUpdateLocations: %@", __FUNCTION__, locations);  // XXX
+    DDLogInfo(@"didUpdateLocations: %@", locations);  // XXX
 }
 
 @end
