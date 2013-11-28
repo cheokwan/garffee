@@ -193,7 +193,32 @@
     [self logStuff];
 }
 
-- (void)logStuff {  // XXX
+- (void)handleBackgroundFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler code:(NSString *)code {
+    NSLog(@"%s - background fetch handler fired", __FUNCTION__);
+    NSLog(@"%s - b4 bgTask, bg time remaining: %f", __FUNCTION__, [[UIApplication sharedApplication] backgroundTimeRemaining]);
+    
+    _bgTaskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+        NSLog(@"%s - background task going to expire", __FUNCTION__);
+        [[UIApplication sharedApplication] endBackgroundTask:_bgTaskId];
+        _bgTaskId = UIBackgroundTaskInvalid;
+        NSLog(@"%s - background task expired", __FUNCTION__);
+    }];
+    
+    [self logStuff:code];
+    
+    if (completionHandler) {
+        completionHandler(UIBackgroundFetchResultNewData);
+    }
+    
+//    [[UIApplication sharedApplication] endBackgroundTask:_bgTaskId];  XXXX
+//    _bgTaskId = UIBackgroundTaskInvalid;
+}
+
+- (void)logStuff {
+    [self logStuff:@""];
+}
+
+- (void)logStuff:(NSString *)code {  // XXX
     NSDate *now = [NSDate date];
     NSTimeInterval bgRemTime = [[UIApplication sharedApplication] backgroundTimeRemaining];
     
@@ -204,11 +229,12 @@
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"MM/dd hh:mm:ss"];
-    noti.alertBody = [NSString stringWithFormat:@"%@-#%d, %d", [formatter stringFromDate:now], (int)_showCount, (int)bgRemTime];
+    noti.alertBody = [NSString stringWithFormat:@"%@-%@-#%d, %d", code, [formatter stringFromDate:now], (int)_showCount, (int)bgRemTime];
     
     noti.applicationIconBadgeNumber = _showCount;
-    noti.soundName = UILocalNotificationDefaultSoundName;
+    noti.soundName = nil;
     [[UIApplication sharedApplication] scheduleLocalNotification:noti];
+    
     _showCount++;
 }
 

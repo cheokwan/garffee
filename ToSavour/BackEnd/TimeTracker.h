@@ -12,6 +12,7 @@
 @interface TimeTracker : NSObject <CLLocationManagerDelegate, /*XXX*/NSURLConnectionDelegate, NSURLConnectionDataDelegate/*XXX*/>
 
 @property (nonatomic, readonly) NSTimeInterval latestApproxArrivalTime;
+@property (nonatomic, retain)   NSData *apnsToken;  // XXX
 
 + (TimeTracker *)sharedInstance;
 - (void)startTrackingWithApproxDuration:(NSTimeInterval)duration;
@@ -19,5 +20,6 @@
 - (void)scheduleInBackground; // XXX
 - (void)scheduleInBackgroundLongPoll; // XXX
 - (void)updateInBackground; // XXX
+- (void)handleBackgroundFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler code:(NSString *)code;  // XXX
 
 @end

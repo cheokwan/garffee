@@ -24,9 +24,15 @@
 //    UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
 //    MasterViewController *controller = (MasterViewController *)navigationController.topViewController;
 //    controller.managedObjectContext = self.managedObjectContext;
+    
+    // XXX
+    // for APNS
+    UIRemoteNotificationType notiTypes = UIRemoteNotificationTypeNewsstandContentAvailability;//UIRemoteNotificationTypeSound|UIRemoteNotificationTypeAlert;
+    [application registerForRemoteNotificationTypes:notiTypes];
+    // XXX
     return YES;
 }
-							
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     NSLog(@"%s", __FUNCTION__);  // XXX
@@ -42,11 +48,41 @@
     // XXX
     NSLog(@"%s - entering background", __FUNCTION__);
     
-    [[TimeTracker sharedInstance] scheduleInBackgroundLongPoll];
+//    [[TimeTracker sharedInstance] scheduleInBackgroundLongPoll];  XXXX
+    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+    NSLog(@"%s - minimum bg fetch interval: %f", __FUNCTION__, UIApplicationBackgroundFetchIntervalMinimum);
     
     NSLog(@"%s - entered background", __FUNCTION__);
     // XXX
 }
+
+// XXX
+- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    [[TimeTracker sharedInstance] handleBackgroundFetchWithCompletionHandler:completionHandler code:@"BF"];
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    NSLog(@"%s - got APNS token: %@", __FUNCTION__, deviceToken);
+    [[TimeTracker sharedInstance] setApnsToken:deviceToken];
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    NSLog(@"%s - failed to register APNS token: %@", __FUNCTION__, error);
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    NSLog(@"%s - ", __FUNCTION__);
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    NSLog(@"%s - ", __FUNCTION__);
+    [[TimeTracker sharedInstance] handleBackgroundFetchWithCompletionHandler:completionHandler code:@"RN"];
+}
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    NSLog(@"%s - ", __FUNCTION__);
+}
+// XXX
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
