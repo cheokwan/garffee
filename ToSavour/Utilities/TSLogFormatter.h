@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Essentials.h"
 
 @interface TSLogFormatter : NSObject <DDLogFormatter>
 

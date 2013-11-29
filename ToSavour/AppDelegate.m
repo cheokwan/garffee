@@ -7,13 +7,12 @@
 //
 
 #import "AppDelegate.h"
-#import "Essentials.h"
 #import <CocoaLumberjack/DDASLLogger.h>
 #import <CocoaLumberjack/DDTTYLogger.h>
 #import <CocoaLumberjack/DDFileLogger.h>
 #import "TSLogFormatter.h"
-
-#import "TimeTracker.h" // XXX
+#import "TimeTracker.h"
+#import "TSSettings.h"
 
 @implementation AppDelegate
 
@@ -43,6 +42,9 @@
     fileLogger.logFormatter = [[TSLogFormatter alloc] init];
     [DDASLLogger sharedInstance].logFormatter = [[TSLogFormatter alloc] init];
     [DDTTYLogger sharedInstance].logFormatter = [[TSLogFormatter alloc] init];
+    [DDTTYLogger sharedInstance].colorsEnabled = YES;
+    [[DDTTYLogger sharedInstance] setForegroundColor:[UIColor greenColor] backgroundColor:nil forFlag:LOG_FLAG_INFO];
+    [[DDTTYLogger sharedInstance] setForegroundColor:[UIColor purpleColor] backgroundColor:nil forFlag:LOG_FLAG_DEBUG];
     [DDLog addLogger:fileLogger];
     [DDLog addLogger:[DDASLLogger sharedInstance]];
     [DDLog addLogger:[DDTTYLogger sharedInstance]];
@@ -65,21 +67,26 @@
     
     DDLogInfo(@"entering background");
     
+    [[TimeTracker sharedInstance] scheduleInBackground];  // XXX schedule location timer in bg
+    
     DDLogInfo(@"entered background");
 }
 
-// XXX
+#pragma mark - Background Fetch and APNS
+
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    DDLogDebug(@"");
     [[TimeTracker sharedInstance] handleBackgroundFetchWithCompletionHandler:completionHandler code:@"BF"];
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     DDLogInfo(@"got APNS token: %@", deviceToken);
-    [[TimeTracker sharedInstance] setApnsToken:deviceToken];
+    [TSSettings sharedInstance].apnsToken = deviceToken;
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     DDLogWarn(@"failed to register APNS token: %@", error);
+    [TSSettings sharedInstance].apnsToken = nil;
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
@@ -94,7 +101,9 @@
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
     DDLogDebug(@"");
 }
-// XXX
+
+#pragma mark -
+
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
@@ -125,7 +134,7 @@
              // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
-        } 
+        }
     }
 }
 

@@ -9,17 +9,15 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
-@interface TimeTracker : NSObject <CLLocationManagerDelegate, /*XXX*/NSURLConnectionDelegate, NSURLConnectionDataDelegate/*XXX*/>
+@interface TimeTracker : NSObject <CLLocationManagerDelegate/*XXX, NSURLConnectionDelegate, NSURLConnectionDataDelegateXXX*/>
 
 @property (nonatomic, readonly) NSTimeInterval latestApproxArrivalTime;
-@property (nonatomic, retain)   NSData *apnsToken;  // XXX
 
 + (TimeTracker *)sharedInstance;
 - (void)startTrackingWithApproxDuration:(NSTimeInterval)duration;
 - (void)endTracking;
 - (void)scheduleInBackground; // XXX
-- (void)scheduleInBackgroundLongPoll; // XXX
-- (void)updateInBackground; // XXX
+//- (void)scheduleInBackgroundLongPoll; // XXX
 - (void)handleBackgroundFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler code:(NSString *)code;  // XXX
 
 @end

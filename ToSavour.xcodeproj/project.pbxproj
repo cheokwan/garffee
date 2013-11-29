@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C745B082CE144F8095231522 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C23BC4E3A4EF498CB2E1D08C /* libPods.a */; };
 		D239770318474F230002D655 /* TSLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D239770218474F230002D655 /* TSLogFormatter.m */; };
+		D243757518488358000009D7 /* TSSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = D243757418488358000009D7 /* TSSettings.m */; };
 		D293E4B2183DEDEB00B73795 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4B1183DEDEB00B73795 /* Foundation.framework */; };
 		D293E4B4183DEDEB00B73795 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4B3183DEDEB00B73795 /* CoreGraphics.framework */; };
 		D293E4B6183DEDEB00B73795 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4B5183DEDEB00B73795 /* UIKit.framework */; };
@@ -45,9 +46,10 @@
 /* Begin PBXFileReference section */
 		257842E4F2DE434C98166E63 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		C23BC4E3A4EF498CB2E1D08C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		D2397700184745CB0002D655 /* Essentials.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Essentials.h; path = Utilities/Essentials.h; sourceTree = "<group>"; };
 		D239770118474F230002D655 /* TSLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSLogFormatter.h; path = Utilities/TSLogFormatter.h; sourceTree = "<group>"; };
 		D239770218474F230002D655 /* TSLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSLogFormatter.m; path = Utilities/TSLogFormatter.m; sourceTree = "<group>"; };
+		D243757318488358000009D7 /* TSSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSSettings.h; path = Utilities/TSSettings.h; sourceTree = "<group>"; };
+		D243757418488358000009D7 /* TSSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSSettings.m; path = Utilities/TSSettings.m; sourceTree = "<group>"; };
 		D293E4AE183DEDEB00B73795 /* ToSavour.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToSavour.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D293E4B1183DEDEB00B73795 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D293E4B3183DEDEB00B73795 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -109,9 +111,10 @@
 		D23976FF184745860002D655 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				D2397700184745CB0002D655 /* Essentials.h */,
 				D239770118474F230002D655 /* TSLogFormatter.h */,
 				D239770218474F230002D655 /* TSLogFormatter.m */,
+				D243757318488358000009D7 /* TSSettings.h */,
+				D243757418488358000009D7 /* TSSettings.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -357,6 +360,7 @@
 				D293E4D0183DEDEB00B73795 /* DetailViewController.m in Sources */,
 				D293E4CD183DEDEB00B73795 /* MasterViewController.m in Sources */,
 				D293E4C4183DEDEB00B73795 /* AppDelegate.m in Sources */,
+				D243757518488358000009D7 /* TSSettings.m in Sources */,
 				D293E4F2183DF24000B73795 /* SlideMenuViewController.m in Sources */,
 				D293E4C0183DEDEB00B73795 /* main.m in Sources */,
 				D293E4CA183DEDEB00B73795 /* ToSavour.xcdatamodeld in Sources */,
