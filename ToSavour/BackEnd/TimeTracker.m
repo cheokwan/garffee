@@ -69,7 +69,7 @@
     _locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;  // TODO: figure out best accuracy or make it dynamic
     _locationManager.distanceFilter = 100;  // meters, TODO: make it dynamic
     _locationManager.pausesLocationUpdatesAutomatically = NO;  // XXX YES or NO?
-    _locationManager.activityType = CLActivityTypeAutomotiveNavigation;  // TODO: make it dynamic
+    _locationManager.activityType = CLActivityTypeFitness;  // XXX TODO: make it dynamic
 }
 
 - (void)startTrackingWithApproxDuration:(NSTimeInterval)duration {
@@ -88,13 +88,17 @@
     } else {
         DDLogInfo(@"location service is not available, user denied: %d", [[TSSettings sharedInstance] isLocationServiceDenied]);
     }
+    
+    _trackingStarted = YES;
 }
 
-- (void)endTracking {
+- (void)stopTracking {
     DDLogInfo(@"ending tracking location");
     [_locationManager stopUpdatingLocation];
     _locationManager.delegate = nil;
     [self reset];
+    
+    _trackingStarted = NO;
 }
 
 - (NSTimeInterval)latestApproxArrivalTime {
@@ -326,6 +330,11 @@
     NSDate *updateTime = loc.timestamp;
     NSTimeInterval howRecent = [updateTime timeIntervalSinceNow];
     DDLogInfo(@"location updated in: %f", howRecent);
+    
+//    [_locationManager allowDeferredLocationUpdatesUntilTraveled:100 timeout:60];  XXX: find out if useful
+//    [_locationManager disallowDeferredLocationUpdates];
+    
+    [_delegateMapView setCenterCoordinate:loc.coordinate];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {

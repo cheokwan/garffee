@@ -40,14 +40,13 @@
 #pragma mark - SASlideMenuDataSource
 
 -(void) prepareForSwitchToContentViewController:(UINavigationController *)content{
-    MasterViewController* controller = [content.viewControllers objectAtIndex:0];
-    controller.managedObjectContext = ((AppDelegate *)[UIApplication sharedApplication].delegate).managedObjectContext;
+//    MasterViewController* controller = [content.viewControllers objectAtIndex:0];  XXXX
+//    controller.managedObjectContext = ((AppDelegate *)[UIApplication sharedApplication].delegate).managedObjectContext;  XXXX
 }
 
 - (void)configureMenuButton:(UIButton *)menuButton {
     menuButton.frame = CGRectMake(0, 0, 40, 29);
-    menuButton.backgroundColor = [UIColor redColor];  // XXX
-    [menuButton setImage:[UIImage imageNamed:@"menuicon"] forState:UIControlStateNormal];
+    [menuButton setImage:[UIImage imageNamed:@"MenuIcon"] forState:UIControlStateNormal];
 }
 
 - (NSIndexPath *)selectedIndexPath {

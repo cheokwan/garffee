@@ -10,6 +10,7 @@
 		C745B082CE144F8095231522 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C23BC4E3A4EF498CB2E1D08C /* libPods.a */; };
 		D239770318474F230002D655 /* TSLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D239770218474F230002D655 /* TSLogFormatter.m */; };
 		D243757518488358000009D7 /* TSSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = D243757418488358000009D7 /* TSSettings.m */; };
+		D2437577184C3498000009D7 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2437576184C3497000009D7 /* MapKit.framework */; };
 		D293E4B2183DEDEB00B73795 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4B1183DEDEB00B73795 /* Foundation.framework */; };
 		D293E4B4183DEDEB00B73795 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4B3183DEDEB00B73795 /* CoreGraphics.framework */; };
 		D293E4B6183DEDEB00B73795 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4B5183DEDEB00B73795 /* UIKit.framework */; };
@@ -31,6 +32,7 @@
 		D293E4F2183DF24000B73795 /* SlideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D293E4F1183DF24000B73795 /* SlideMenuViewController.m */; };
 		D293E4F6184357B400B73795 /* TimeTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = D293E4F5184357B400B73795 /* TimeTracker.m */; };
 		D293E4F818435DC100B73795 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4F718435DC100B73795 /* CoreLocation.framework */; };
+		D2A556FB184C37F60039A5A0 /* MapTrackingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A556FA184C37F60039A5A0 /* MapTrackingViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +52,7 @@
 		D239770218474F230002D655 /* TSLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSLogFormatter.m; path = Utilities/TSLogFormatter.m; sourceTree = "<group>"; };
 		D243757318488358000009D7 /* TSSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSSettings.h; path = Utilities/TSSettings.h; sourceTree = "<group>"; };
 		D243757418488358000009D7 /* TSSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSSettings.m; path = Utilities/TSSettings.m; sourceTree = "<group>"; };
+		D2437576184C3497000009D7 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D293E4AE183DEDEB00B73795 /* ToSavour.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToSavour.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D293E4B1183DEDEB00B73795 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D293E4B3183DEDEB00B73795 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -78,6 +81,8 @@
 		D293E4F4184357B400B73795 /* TimeTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TimeTracker.h; path = BackEnd/TimeTracker.h; sourceTree = "<group>"; };
 		D293E4F5184357B400B73795 /* TimeTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TimeTracker.m; path = BackEnd/TimeTracker.m; sourceTree = "<group>"; };
 		D293E4F718435DC100B73795 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		D2A556F9184C37F60039A5A0 /* MapTrackingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapTrackingViewController.h; path = FrontEnd/MapTrackingViewController.h; sourceTree = "<group>"; };
+		D2A556FA184C37F60039A5A0 /* MapTrackingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapTrackingViewController.m; path = FrontEnd/MapTrackingViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2437577184C3498000009D7 /* MapKit.framework in Frameworks */,
 				D293E4F818435DC100B73795 /* CoreLocation.framework in Frameworks */,
 				D293E4B4183DEDEB00B73795 /* CoreGraphics.framework in Frameworks */,
 				D293E4B8183DEDEB00B73795 /* CoreData.framework in Frameworks */,
@@ -142,6 +148,7 @@
 		D293E4B0183DEDEB00B73795 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D2437576184C3497000009D7 /* MapKit.framework */,
 				D293E4F718435DC100B73795 /* CoreLocation.framework */,
 				D293E4B1183DEDEB00B73795 /* Foundation.framework */,
 				D293E4B3183DEDEB00B73795 /* CoreGraphics.framework */,
@@ -207,6 +214,8 @@
 			children = (
 				D293E4F0183DF24000B73795 /* SlideMenuViewController.h */,
 				D293E4F1183DF24000B73795 /* SlideMenuViewController.m */,
+				D2A556F9184C37F60039A5A0 /* MapTrackingViewController.h */,
+				D2A556FA184C37F60039A5A0 /* MapTrackingViewController.m */,
 			);
 			name = FrontEnd;
 			sourceTree = "<group>";
@@ -355,6 +364,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2A556FB184C37F60039A5A0 /* MapTrackingViewController.m in Sources */,
 				D239770318474F230002D655 /* TSLogFormatter.m in Sources */,
 				D293E4F6184357B400B73795 /* TimeTracker.m in Sources */,
 				D293E4D0183DEDEB00B73795 /* DetailViewController.m in Sources */,
