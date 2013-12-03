@@ -7,8 +7,8 @@
 //
 
 #import "SlideMenuViewController.h"
-#import "MasterViewController.h"
 #import "AppDelegate.h"
+#import "MapTrackingViewController.h"
 
 @interface SlideMenuViewController ()
 
@@ -40,8 +40,8 @@
 #pragma mark - SASlideMenuDataSource
 
 -(void) prepareForSwitchToContentViewController:(UINavigationController *)content{
-//    MasterViewController* controller = [content.viewControllers objectAtIndex:0];  XXXX
-//    controller.managedObjectContext = ((AppDelegate *)[UIApplication sharedApplication].delegate).managedObjectContext;  XXXX
+    MapTrackingViewController *controller = [content.viewControllers objectAtIndex:0];
+    controller.managedObjectContext = ((AppDelegate *)[UIApplication sharedApplication].delegate).managedObjectContext;
 }
 
 - (void)configureMenuButton:(UIButton *)menuButton {

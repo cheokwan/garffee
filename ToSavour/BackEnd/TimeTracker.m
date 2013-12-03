@@ -10,6 +10,8 @@
 #import <CoreLocation/CoreLocation.h>
 #import "TSSettings.h"
 //#import <AFNetworking/AFHTTPRequestOperationManager.h>  // XXX
+#import "AppDelegate.h"
+#import "MapTrackingAnnotation.h"  // XXX
 
 // combine CoreLocation, BLE iBeacon, UltraSound locationing, Wifi fingerprinting/probing,
 // motion activity, user reporting etc in approximating user arrival time
@@ -37,6 +39,7 @@
 
 
 @implementation TimeTracker
+@synthesize trackerState = _trackerState;
 
 + (TimeTracker *)sharedInstance {
     static dispatch_once_t token = 0;
@@ -49,6 +52,7 @@
 
 - (void)initialize {
     self.locationManager = [[CLLocationManager alloc] init];
+    _trackerState = TimeTrackerStateStopped;
     [self reset];
 }
 
@@ -60,11 +64,24 @@
     return self;
 }
 
+- (TimeTrackerState)trackerState {
+    if (_trackerState == TimeTrackerStateStarted &&
+        [UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
+        _trackerState = TimeTrackerStateBackgrounded;
+    }
+    if (_trackerState == TimeTrackerStateBackgrounded
+        && [UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
+        _trackerState = TimeTrackerStateStarted;
+    }
+    return _trackerState;
+}
+
 - (void)reset {
     self.startTime = 0;
     self.userReportedDuration = 0;
     self.approxRemainingDuration = 0;
     self.lastUpdateTime = 0;
+    _showCount = 0;
     
     _locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;  // TODO: figure out best accuracy or make it dynamic
     _locationManager.distanceFilter = 100;  // meters, TODO: make it dynamic
@@ -81,6 +98,12 @@
         self.userReportedDuration = duration;
         self.approxRemainingDuration = duration;
         self.lastUpdateTime = now;
+        _showCount = 1;  // XXX
+        
+        NSManagedObjectContext *context = ((AppDelegate *)([UIApplication sharedApplication].delegate)).managedObjectContext;
+        MapTrackingAnnotation *anno = [MapTrackingAnnotation newAnnotationWithLocation:CLLocationCoordinate2DMake(0, 0) annotationType:MapTrackingAnnotationTypeBackground serial:_showCount estimatedRemainingTime:0.0 inContext:context];
+        anno.title = @"Strated Tracking";
+        [_delegateMapView addAnnotation:anno];
         
         _locationManager.delegate = self;
         [_locationManager startUpdatingLocation];
@@ -88,8 +111,7 @@
     } else {
         DDLogInfo(@"location service is not available, user denied: %d", [[TSSettings sharedInstance] isLocationServiceDenied]);
     }
-    
-    _trackingStarted = YES;
+    _trackerState = TimeTrackerStateStarted;
 }
 
 - (void)stopTracking {
@@ -97,8 +119,12 @@
     [_locationManager stopUpdatingLocation];
     _locationManager.delegate = nil;
     [self reset];
+    _trackerState = TimeTrackerStateStopped;
     
-    _trackingStarted = NO;
+    NSManagedObjectContext *context = ((AppDelegate *)([UIApplication sharedApplication].delegate)).managedObjectContext;
+    MapTrackingAnnotation *anno = [MapTrackingAnnotation newAnnotationWithLocation:CLLocationCoordinate2DMake(0, 0) annotationType:MapTrackingAnnotationTypeBackground serial:_showCount estimatedRemainingTime:0.0 inContext:context];
+    anno.title = @"Stopped Tracking";
+    [_delegateMapView addAnnotation:anno];
 }
 
 - (NSTimeInterval)latestApproxArrivalTime {
@@ -106,16 +132,33 @@
 }
 
 - (void)scheduleInBackground {
+    if (self.trackerState == TimeTrackerStateStopped) {
+        return;
+    }
     DDLogInfo(@"location service available: %d", [[TSSettings sharedInstance] isLocationServiceAvailable]);
     DDLogInfo(@"APNS available: %d", [[TSSettings sharedInstance] isAPNSAvailable]);
     DDLogInfo(@"background fetch available: %d", [[TSSettings sharedInstance] isBackgroundRefreshAvailable]);
     
-    [_timer invalidate];
-    _showCount = 1;
     
-    [self startTrackingWithApproxDuration:600];  // XXXX
+    [_timer invalidate];
+//    _showCount = 1;
+    NSManagedObjectContext *context = ((AppDelegate *)([UIApplication sharedApplication].delegate)).managedObjectContext;
+    MapTrackingAnnotation *anno = [MapTrackingAnnotation newAnnotationWithLocation:CLLocationCoordinate2DMake(0, 0) annotationType:MapTrackingAnnotationTypeBackground serial:_showCount estimatedRemainingTime:0.0 inContext:context];
+    anno.title = @"Starting Background Update";
+    [_delegateMapView addAnnotation:anno];
+    
     self.timer = [NSTimer timerWithTimeInterval:60 target:self selector:@selector(updateInBackground) userInfo:nil repeats:YES];
     [[NSRunLoop mainRunLoop] addTimer:_timer forMode:NSDefaultRunLoopMode];
+}
+
+- (void)backToForeground {
+    if (self.trackerState == TimeTrackerStateStopped) {
+        return;
+    }
+    NSManagedObjectContext *context = ((AppDelegate *)([UIApplication sharedApplication].delegate)).managedObjectContext;
+    MapTrackingAnnotation *anno = [MapTrackingAnnotation newAnnotationWithLocation:CLLocationCoordinate2DMake(0, 0) annotationType:MapTrackingAnnotationTypeBackground serial:_showCount estimatedRemainingTime:0.0 inContext:context];
+    anno.title = @"Stopping Background Update";
+    [_delegateMapView addAnnotation:anno];
 }
 
 - (void)updateInBackground {
@@ -261,6 +304,10 @@
     noti.soundName = nil;
     [[UIApplication sharedApplication] scheduleLocalNotification:noti];
     
+    NSManagedObjectContext *context = ((AppDelegate *)([UIApplication sharedApplication].delegate)).managedObjectContext;
+    MapTrackingAnnotation *anno = [MapTrackingAnnotation newAnnotationWithLocation:CLLocationCoordinate2DMake(0, 0) annotationType:MapTrackingAnnotationTypeBackground serial:_showCount estimatedRemainingTime:0.0 inContext:context];
+    anno.title = [NSString stringWithFormat:@"Background Event %@", code];
+    [_delegateMapView addAnnotation:anno];
     _showCount++;
 }
 
@@ -334,7 +381,10 @@
 //    [_locationManager allowDeferredLocationUpdatesUntilTraveled:100 timeout:60];  XXX: find out if useful
 //    [_locationManager disallowDeferredLocationUpdates];
     
-    [_delegateMapView setCenterCoordinate:loc.coordinate];
+    NSManagedObjectContext *context = ((AppDelegate *)([UIApplication sharedApplication].delegate)).managedObjectContext;
+    MapTrackingAnnotation *anno = [MapTrackingAnnotation newAnnotationWithLocation:loc.coordinate annotationType:MapTrackingAnnotationTypeUpdate serial:_showCount estimatedRemainingTime:0.0 inContext:context];
+    [_delegateMapView addAnnotation:anno];
+    _showCount++;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {

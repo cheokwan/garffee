@@ -13,6 +13,7 @@
 #import "TSLogFormatter.h"
 #import "TimeTracker.h"
 #import "TSSettings.h"
+#import "MapTrackingViewController.h"
 
 @implementation AppDelegate
 
@@ -22,18 +23,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    DDLogDebug(@"");
     // Override point for customization after application launch.
-//    UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
-//    MasterViewController *controller = (MasterViewController *)navigationController.topViewController;
-//    controller.managedObjectContext = self.managedObjectContext;
-    
-    // Configure Fetch background mode
-    [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
-    
-    // Configure APNS
-    UIRemoteNotificationType notiTypes = UIRemoteNotificationTypeNewsstandContentAvailability|UIRemoteNotificationTypeSound|UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeBadge;
-    [application registerForRemoteNotificationTypes:notiTypes];
     
     // Configure CocoaLumberjack logging framework
     DDFileLogger *fileLogger = [[DDFileLogger alloc] init];
@@ -48,6 +38,15 @@
     [DDLog addLogger:fileLogger];
     [DDLog addLogger:[DDASLLogger sharedInstance]];
     [DDLog addLogger:[DDTTYLogger sharedInstance]];
+    
+    DDLogDebug(@"");
+    
+    // Configure Fetch background mode
+    [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+    
+    // Configure APNS
+    UIRemoteNotificationType notiTypes = UIRemoteNotificationTypeNewsstandContentAvailability|UIRemoteNotificationTypeSound|UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeBadge;
+    [application registerForRemoteNotificationTypes:notiTypes];
     
     return YES;
 }
@@ -109,6 +108,7 @@
 {
     DDLogDebug(@"");
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    [[TimeTracker sharedInstance] backToForeground];  // XXX
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application

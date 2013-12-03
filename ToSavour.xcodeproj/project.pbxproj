@@ -33,6 +33,8 @@
 		D293E4F6184357B400B73795 /* TimeTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = D293E4F5184357B400B73795 /* TimeTracker.m */; };
 		D293E4F818435DC100B73795 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4F718435DC100B73795 /* CoreLocation.framework */; };
 		D2A556FB184C37F60039A5A0 /* MapTrackingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A556FA184C37F60039A5A0 /* MapTrackingViewController.m */; };
+		D2A55711184DBF4C0039A5A0 /* MapTrackingAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A55710184DBF4C0039A5A0 /* MapTrackingAnnotation.m */; };
+		D2A55717184DC89F0039A5A0 /* NSManagedObject+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A55716184DC89F0039A5A0 /* NSManagedObject+Helper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +85,10 @@
 		D293E4F718435DC100B73795 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D2A556F9184C37F60039A5A0 /* MapTrackingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapTrackingViewController.h; path = FrontEnd/MapTrackingViewController.h; sourceTree = "<group>"; };
 		D2A556FA184C37F60039A5A0 /* MapTrackingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapTrackingViewController.m; path = FrontEnd/MapTrackingViewController.m; sourceTree = "<group>"; };
+		D2A5570F184DBF4C0039A5A0 /* MapTrackingAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapTrackingAnnotation.h; path = BackEnd/Model/MapTrackingAnnotation.h; sourceTree = "<group>"; };
+		D2A55710184DBF4C0039A5A0 /* MapTrackingAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapTrackingAnnotation.m; path = BackEnd/Model/MapTrackingAnnotation.m; sourceTree = "<group>"; };
+		D2A55715184DC89F0039A5A0 /* NSManagedObject+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+Helper.h"; path = "BackEnd/NSManagedObject+Helper.h"; sourceTree = "<group>"; };
+		D2A55716184DC89F0039A5A0 /* NSManagedObject+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObject+Helper.m"; path = "BackEnd/NSManagedObject+Helper.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,10 +229,22 @@
 		D293E4F3184356D300B73795 /* BackEnd */ = {
 			isa = PBXGroup;
 			children = (
+				D2A55702184DB5ED0039A5A0 /* Model */,
 				D293E4F4184357B400B73795 /* TimeTracker.h */,
 				D293E4F5184357B400B73795 /* TimeTracker.m */,
+				D2A55715184DC89F0039A5A0 /* NSManagedObject+Helper.h */,
+				D2A55716184DC89F0039A5A0 /* NSManagedObject+Helper.m */,
 			);
 			name = BackEnd;
+			sourceTree = "<group>";
+		};
+		D2A55702184DB5ED0039A5A0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D2A5570F184DBF4C0039A5A0 /* MapTrackingAnnotation.h */,
+				D2A55710184DBF4C0039A5A0 /* MapTrackingAnnotation.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -371,7 +389,9 @@
 				D293E4CD183DEDEB00B73795 /* MasterViewController.m in Sources */,
 				D293E4C4183DEDEB00B73795 /* AppDelegate.m in Sources */,
 				D243757518488358000009D7 /* TSSettings.m in Sources */,
+				D2A55717184DC89F0039A5A0 /* NSManagedObject+Helper.m in Sources */,
 				D293E4F2183DF24000B73795 /* SlideMenuViewController.m in Sources */,
+				D2A55711184DBF4C0039A5A0 /* MapTrackingAnnotation.m in Sources */,
 				D293E4C0183DEDEB00B73795 /* main.m in Sources */,
 				D293E4CA183DEDEB00B73795 /* ToSavour.xcdatamodeld in Sources */,
 			);

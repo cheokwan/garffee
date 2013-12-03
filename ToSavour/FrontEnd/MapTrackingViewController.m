@@ -8,46 +8,7 @@
 
 #import "MapTrackingViewController.h"
 #import "TimeTracker.h"
-
-@interface MapTrackingAnnotation : NSObject<MKAnnotation>
-@end
-
-@implementation MapTrackingAnnotation
-@synthesize coordinate = _coordinate;
-@synthesize title = _title;
-@synthesize subtitle = _subtitle;
-
-- (id)initWithLocation:(CLLocationCoordinate2D)coord {
-    self = [super init];
-    if (self) {
-        self.coordinate = coord;
-    }
-    return self;
-}
-
-- (void)setCoordinate:(CLLocationCoordinate2D)newCoordinate {
-    _coordinate = newCoordinate;
-}
-
-- (NSString *)title {
-    return @"Tracked Position";
-}
-
-- (NSString *)subtitle {
-    return [NSString stringWithFormat:@"altitude: %f, longtitude %f", _coordinate.latitude, _coordinate.longitude];
-}
-@end
-
-
-@interface MapDestinationAnnotation : MapTrackingAnnotation
-@end
-
-@implementation MapDestinationAnnotation
-- (NSString *)title {
-    return @"Final Destination";
-}
-@end
-
+#import "MapTrackingAnnotation.h"
 
 
 @interface MapTrackingViewController ()
@@ -57,8 +18,10 @@
 @property (nonatomic, strong)   UIBarButtonItem *buttonDropPin;
 @property (nonatomic, strong)   UIAlertView *alertViewDropPin;
 
-@property (nonatomic, strong)   MapDestinationAnnotation *destinationAnnotation;
+@property (nonatomic, strong)   MapTrackingAnnotation *destinationAnnotation;
 @property (nonatomic, strong)   UIButton *buttonTracking;
+
+@property (nonatomic, strong)   NSFetchedResultsController *fetchedResultsController;
 @end
 
 @implementation MapTrackingViewController
@@ -89,13 +52,6 @@
     [self initializeView];
     [TimeTracker sharedInstance].delegateMapView = _mapView;
     _mapView.showsUserLocation = YES;
-    
-    double delayInSeconds = 5.0;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        MKCoordinateRegion userCenter = MKCoordinateRegionMakeWithDistance(_mapView.userLocation.location.coordinate, 400, 400);
-        [_mapView setRegion:userCenter];
-    });
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -149,7 +105,7 @@
         self.buttonTracking = [UIButton buttonWithType:UIButtonTypeCustom];
         _buttonTracking.frame = CGRectMake(0, 0, 26, 26);
     }
-    UIImage *buttonImage = [TimeTracker sharedInstance].trackingStarted ? [UIImage imageNamed:@"StopIcon"] : [UIImage imageNamed:@"PlayIcon"];
+    UIImage *buttonImage = [TimeTracker sharedInstance].trackerState == TimeTrackerStateStopped ? [UIImage imageNamed:@"PlayIcon"] : [UIImage imageNamed:@"StopIcon"];
     [_buttonTracking setImage:buttonImage forState:UIControlStateNormal];
     return _buttonTracking;
 }
@@ -166,9 +122,13 @@
                 break;
             case 1: {   // Drop Destination
                 if (_destinationAnnotation) {
+                    if ([TimeTracker sharedInstance].trackerState == TimeTrackerStateStarted) {
+                        [[TimeTracker sharedInstance] stopTracking];
+                    }
                     [_mapView removeAnnotation:_destinationAnnotation];
+                    [_managedObjectContext deleteObject:_destinationAnnotation];
                 }
-                self.destinationAnnotation = [[MapDestinationAnnotation alloc] initWithLocation:_mapView.centerCoordinate];
+                self.destinationAnnotation = [MapTrackingAnnotation newAnnotationWithLocation:_mapView.centerCoordinate annotationType:MapTrackingAnnotationTypeDestination inContext:_managedObjectContext];
                 [_mapView addAnnotation:_destinationAnnotation];
             }
                 break;
@@ -176,17 +136,25 @@
                 for (id<MKAnnotation> anno in _mapView.annotations) {
                     if (anno != _mapView.userLocation) {
                         [_mapView removeAnnotation:anno];
+                        [_managedObjectContext deleteObject:anno];
                     }
+                }
+                for (MapTrackingAnnotation *anno in self.fetchedResultsController.fetchedObjects) {
+                    [_managedObjectContext deleteObject:anno];
                 }
             }
                 break;
             case 3: {   // Drop Red Pin
-                MapTrackingAnnotation *anno = [[MapTrackingAnnotation alloc] initWithLocation:_mapView.centerCoordinate];
+                MapTrackingAnnotation *anno = [MapTrackingAnnotation newAnnotationWithLocation:_mapView.centerCoordinate annotationType:MapTrackingAnnotationTypeUpdate inContext:_managedObjectContext];
                 [_mapView addAnnotation:anno];
             }
                 break;
             default:
                 break;
+        }
+        NSError *error = nil;
+        if (![_managedObjectContext save:&error]) {
+            DDLogError(@"CoreData save error %@, %@", error, [error userInfo]);
         }
     }
 }
@@ -195,7 +163,8 @@
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
     MKAnnotationView *annoView = nil;
-    if ([annotation isKindOfClass:[MapTrackingAnnotation class]]) {
+    MapTrackingAnnotation *mtAnnotation = annotation;
+    if ([mtAnnotation isKindOfClass:[MapTrackingAnnotation class]]) {
         MKPinAnnotationView *pinView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"MapTrackingAnnotation"];
         if (!pinView) {
             pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"MapTrackingAnnotation"];
@@ -207,28 +176,46 @@
         pinView.animatesDrop = YES;
         pinView.canShowCallout = YES;
         
-        annoView = pinView;
-    }
-    // indented fall through
-    if ([annotation isKindOfClass:[MapDestinationAnnotation class]]) {
-        MKPinAnnotationView *pinView = (MKPinAnnotationView *)annoView;
-        pinView.pinColor = MKPinAnnotationColorGreen;
-        pinView.draggable = YES;
+        if (mtAnnotation.annotationType == MapTrackingAnnotationTypeDestination) {
+            pinView.pinColor = MKPinAnnotationColorGreen;
+            pinView.draggable = YES;
+            pinView.rightCalloutAccessoryView = self.buttonTracking;
+        } else if (mtAnnotation.annotationType == MapTrackingAnnotationTypeBackground) {
+            pinView.pinColor = MKPinAnnotationColorPurple;
+        }
         
-        pinView.rightCalloutAccessoryView = self.buttonTracking;
+        annoView = pinView;
     }
     return annoView;
 }
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
-    if ([view.annotation isKindOfClass:[MapDestinationAnnotation class]]) {
-        if ([TimeTracker sharedInstance].trackingStarted) {
+    MapTrackingAnnotation *mtAnnotation = view.annotation;
+    if (mtAnnotation.annotationType == MapTrackingAnnotationTypeDestination) {
+        if ([TimeTracker sharedInstance].trackerState == TimeTrackerStateStarted) {
             [[TimeTracker sharedInstance] stopTracking];
         } else {
             [[TimeTracker sharedInstance] startTrackingWithApproxDuration:0];
         }
-        [self buttonTracking];  // update the button image just in case
+        [self buttonTracking];  // update button image
     }
+}
+
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
+    static dispatch_once_t onceToken = 0;
+    dispatch_once(&onceToken, ^{
+        MKCoordinateRegion userCenter = MKCoordinateRegionMakeWithDistance(_mapView.userLocation.location.coordinate, 400, 400);
+        [_mapView setRegion:userCenter];
+    });
+}
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view didChangeDragState:(MKAnnotationViewDragState)newState fromOldState:(MKAnnotationViewDragState)oldState {
+    if (oldState == MKAnnotationViewDragStateDragging && newState == MKAnnotationViewDragStateEnding) {
+        if ([TimeTracker sharedInstance].trackerState == TimeTrackerStateStarted) {
+            [[TimeTracker sharedInstance] stopTracking];
+        }
+    }
+    [self buttonTracking];  // udpate button image
 }
 
 
@@ -239,7 +226,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
+    return [self.fetchedResultsController fetchedObjects].count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -253,7 +240,6 @@
     static UIView *emptyView = nil;
     if (!emptyView) {
         emptyView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, _switcher.frame.origin.y - self.navigationController.navigationBar.frame.origin.y)];
-        emptyView.backgroundColor = [UIColor yellowColor];
     }
     if (section == 0) {
         return emptyView;
@@ -263,16 +249,80 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = nil;
-    
     if (indexPath.section == 0) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"LogCell" forIndexPath:indexPath];
+        [self configureCell:cell atIndexPath:indexPath];
+    }
+    return cell;
+}
+
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    MapTrackingAnnotation *annotation = (MapTrackingAnnotation *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.textLabel.text = annotation.title;
+    cell.detailTextLabel.text = annotation.subtitle;
+}
+
+#pragma mark - FetchedResultsController
+
+- (NSFetchedResultsController *)fetchedResultsController {
+    if (!_fetchedResultsController) {
         
-        if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:NSStringFromClass([MapTrackingAnnotation class]) inManagedObjectContext:_managedObjectContext];
+        [fetchRequest setEntity:entity];
+        
+        // Set the batch size to a suitable number.
+        [fetchRequest setFetchBatchSize:20];
+        
+        // Edit the sort key as appropriate.
+        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timestamp" ascending:NO];
+        NSArray *sortDescriptors = @[sortDescriptor];
+        
+        [fetchRequest setSortDescriptors:sortDescriptors];
+        
+        // Edit the section name key path and cache name if appropriate.
+        // nil for section name key path means "no sections".
+        self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:_managedObjectContext sectionNameKeyPath:nil cacheName:@"Master"];
+        _fetchedResultsController.delegate = self;
+        
+        NSError *error = nil;
+        if (![_fetchedResultsController performFetch:&error]) {
+            // Replace this implementation with code to handle the error appropriately.
+            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            DDLogError(@"CoreData saving error: %@, %@", error, [error userInfo]);
         }
     }
-    
-    return cell;
+    return _fetchedResultsController;
+}
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    [_logTable beginUpdates];
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
+    DDLogError(@"should not call this");
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+    switch(type) {
+        case NSFetchedResultsChangeInsert:
+            [_logTable insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+        case NSFetchedResultsChangeDelete:
+            [_logTable deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+        case NSFetchedResultsChangeUpdate:
+            [self configureCell:[_logTable cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+            break;
+        case NSFetchedResultsChangeMove:
+            [_logTable deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [_logTable insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    [_logTable endUpdates];
 }
 
 #pragma mark - UIBarPositioningDelegate
@@ -287,6 +337,5 @@
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleDefault;
 }
-
 
 @end

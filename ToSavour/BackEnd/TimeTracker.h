@@ -10,9 +10,15 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 
+typedef enum {
+    TimeTrackerStateStopped = 0,
+    TimeTrackerStateStarted,
+    TimeTrackerStateBackgrounded,   // started but in background
+} TimeTrackerState;
+
 @interface TimeTracker : NSObject <CLLocationManagerDelegate/*XXX, NSURLConnectionDelegate, NSURLConnectionDataDelegateXXX*/>
 
-@property (nonatomic, readonly) BOOL trackingStarted;  // XXX
+@property (nonatomic, readonly) TimeTrackerState trackerState;
 @property (nonatomic, readonly) NSTimeInterval latestApproxArrivalTime;
 @property (nonatomic, weak)     MKMapView *delegateMapView;  // XXX
 
@@ -20,6 +26,7 @@
 - (void)startTrackingWithApproxDuration:(NSTimeInterval)duration;
 - (void)stopTracking;
 - (void)scheduleInBackground; // XXX
+- (void)backToForeground; // XXX
 //- (void)scheduleInBackgroundLongPoll; // XXX
 - (void)handleBackgroundFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler code:(NSString *)code;  // XXX
 
