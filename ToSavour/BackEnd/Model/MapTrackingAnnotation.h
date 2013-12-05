@@ -14,7 +14,7 @@
 typedef enum {
     MapTrackingAnnotationTypeUpdate = 0,
     MapTrackingAnnotationTypeDestination,
-    MapTrackingAnnotationTypeBackground,
+    MapTrackingAnnotationTypeActivity,
 } MapTrackingAnnotationType;
 
 @interface MapTrackingAnnotation : NSManagedObject<MKAnnotation>
@@ -27,9 +27,11 @@ typedef enum {
 @property (nonatomic) NSTimeInterval timestamp;
 @property (nonatomic) NSTimeInterval estimatedRemainingTime;
 @property (nonatomic) int32_t annotationType;
+@property (nonatomic) double accuracy;
+@property (nonatomic) double remainingDistance;
 
 
 + (id)newAnnotationWithLocation:(CLLocationCoordinate2D)coordinate annotationType:(MapTrackingAnnotationType)annotationType inContext:(NSManagedObjectContext *)context;
-+ (id)newAnnotationWithLocation:(CLLocationCoordinate2D)coordinate annotationType:(MapTrackingAnnotationType)annotationType serial:(NSInteger)serial estimatedRemainingTime:(NSTimeInterval)estimatedRemainingTime inContext:(NSManagedObjectContext *)context;
++ (id)newAnnotationWithLocation:(CLLocationCoordinate2D)coordinate annotationType:(MapTrackingAnnotationType)annotationType serial:(NSInteger)serial accuracy:(double)accuracy remainingDistance:(CLLocationDistance)remainingDistance estimatedRemainingTime:(NSTimeInterval)estimatedRemainingTime inContext:(NSManagedObjectContext *)context;
 
 @end

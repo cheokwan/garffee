@@ -50,8 +50,6 @@
     draggableView.delegate = _draggingCoordinator;
     
     [appDelegate.window addSubview:draggableView];
-    
-    [[TimeTracker sharedInstance] startTrackingWithApproxDuration:600];
     // XXX
 }
 // XXX

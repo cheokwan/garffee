@@ -133,6 +133,9 @@
             }
                 break;
             case 2: {   // Clear Everything
+                if ([TimeTracker sharedInstance].trackerState == TimeTrackerStateStarted) {
+                    [[TimeTracker sharedInstance] stopTracking];
+                }
                 for (id<MKAnnotation> anno in _mapView.annotations) {
                     if (anno != _mapView.userLocation) {
                         [_mapView removeAnnotation:anno];
@@ -180,7 +183,7 @@
             pinView.pinColor = MKPinAnnotationColorGreen;
             pinView.draggable = YES;
             pinView.rightCalloutAccessoryView = self.buttonTracking;
-        } else if (mtAnnotation.annotationType == MapTrackingAnnotationTypeBackground) {
+        } else if (mtAnnotation.annotationType == MapTrackingAnnotationTypeActivity) {
             pinView.pinColor = MKPinAnnotationColorPurple;
         }
         
@@ -195,7 +198,7 @@
         if ([TimeTracker sharedInstance].trackerState == TimeTrackerStateStarted) {
             [[TimeTracker sharedInstance] stopTracking];
         } else {
-            [[TimeTracker sharedInstance] startTrackingWithApproxDuration:0];
+            [[TimeTracker sharedInstance] startTrackingWithDestinationCoordinate:mtAnnotation.coordinate];
         }
         [self buttonTracking];  // update button image
     }
@@ -287,8 +290,6 @@
         
         NSError *error = nil;
         if (![_fetchedResultsController performFetch:&error]) {
-            // Replace this implementation with code to handle the error appropriately.
-            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             DDLogError(@"CoreData saving error: %@, %@", error, [error userInfo]);
         }
     }

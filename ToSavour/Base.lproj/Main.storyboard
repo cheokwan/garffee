@@ -6,49 +6,6 @@
     </dependencies>
     <scenes>
         <!--Map Tracking View Controller-->
-        <scene sceneID="A90-r1-ssB">
-            <objects>
-                <viewController id="3PS-GE-IPo" customClass="MapTrackingViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="J5Y-ee-VJH"/>
-                        <viewControllerLayoutGuide type="bottom" id="x9P-LV-JF8"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="xuX-lh-fXZ">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="JKX-PI-aPO">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </tableView>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="fCD-bp-uFO">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            </mapView>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="auA-YX-PO3">
-                                <rect key="frame" x="99" y="10" width="123" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <segments>
-                                    <segment title="Map"/>
-                                    <segment title="Log"/>
-                                </segments>
-                            </segmentedControl>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="dBA-9q-m1b"/>
-                    <connections>
-                        <outlet property="logTable" destination="JKX-PI-aPO" id="U7v-x5-rGd"/>
-                        <outlet property="mapView" destination="fCD-bp-uFO" id="au7-8L-lbG"/>
-                        <outlet property="switcher" destination="auA-YX-PO3" id="1Rd-ca-a65"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cxZ-qe-AMI" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="459" y="-802"/>
-        </scene>
-        <!--Map Tracking View Controller-->
         <scene sceneID="TcQ-nx-tBK">
             <objects>
                 <viewController id="3Sc-30-wl1" customClass="MapTrackingViewController" sceneMemberID="viewController">

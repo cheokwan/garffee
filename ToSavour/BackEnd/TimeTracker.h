@@ -16,18 +16,17 @@ typedef enum {
     TimeTrackerStateBackgrounded,   // started but in background
 } TimeTrackerState;
 
-@interface TimeTracker : NSObject <CLLocationManagerDelegate/*XXX, NSURLConnectionDelegate, NSURLConnectionDataDelegateXXX*/>
+@interface TimeTracker : NSObject <CLLocationManagerDelegate>
 
 @property (nonatomic, readonly) TimeTrackerState trackerState;
 @property (nonatomic, readonly) NSTimeInterval latestApproxArrivalTime;
 @property (nonatomic, weak)     MKMapView *delegateMapView;  // XXX
 
 + (TimeTracker *)sharedInstance;
-- (void)startTrackingWithApproxDuration:(NSTimeInterval)duration;
+- (void)startTrackingWithDestinationCoordinate:(CLLocationCoordinate2D)destinationCoordinate;
 - (void)stopTracking;
 - (void)scheduleInBackground; // XXX
 - (void)backToForeground; // XXX
-//- (void)scheduleInBackgroundLongPoll; // XXX
 - (void)handleBackgroundFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler code:(NSString *)code;  // XXX
 
 @end

@@ -20,6 +20,8 @@
 @dynamic timestamp;
 @dynamic estimatedRemainingTime;
 @dynamic annotationType;
+@dynamic accuracy;
+@dynamic remainingDistance;
 
 
 + (NSDateFormatter *)dateFormatter {
@@ -34,14 +36,15 @@
 }
 
 + (id)newAnnotationWithLocation:(CLLocationCoordinate2D)coordinate annotationType:(MapTrackingAnnotationType)annotationType inContext:(NSManagedObjectContext *)context {
-    return [self newAnnotationWithLocation:coordinate annotationType:annotationType serial:0 estimatedRemainingTime:0.0 inContext:context];
+    return [self newAnnotationWithLocation:coordinate annotationType:annotationType serial:0 accuracy:0.0 remainingDistance:0.0 estimatedRemainingTime:0.0 inContext:context];
 }
 
-+ (id)newAnnotationWithLocation:(CLLocationCoordinate2D)coordinate annotationType:(MapTrackingAnnotationType)annotationType serial:(NSInteger)serial estimatedRemainingTime:(NSTimeInterval)estimatedRemainingTime inContext:(NSManagedObjectContext *)context {
++ (id)newAnnotationWithLocation:(CLLocationCoordinate2D)coordinate annotationType:(MapTrackingAnnotationType)annotationType serial:(NSInteger)serial accuracy:(double)accuracy remainingDistance:(CLLocationDistance)remainingDistance estimatedRemainingTime:(NSTimeInterval)estimatedRemainingTime inContext:(NSManagedObjectContext *)context {
     MapTrackingAnnotation *annotation = (MapTrackingAnnotation *)[self.class newObjectInContext:context];
     annotation.coordinate = coordinate;
     annotation.serial = serial;
     annotation.timestamp = [[NSDate date] timeIntervalSinceReferenceDate];
+    annotation.remainingDistance = remainingDistance;
     annotation.estimatedRemainingTime = estimatedRemainingTime;
     annotation.annotationType = annotationType;
     switch (annotationType) {
@@ -51,10 +54,11 @@
         case MapTrackingAnnotationTypeDestination:
              annotation.title = @"Final Destination";
             break;
-        case MapTrackingAnnotationTypeBackground:
+        case MapTrackingAnnotationTypeActivity:
             annotation.title = @"";  // @"Background Activity"
             break;
     }
+    annotation.accuracy = accuracy;
     return annotation;
 }
 
@@ -75,7 +79,7 @@
 //        case MapTrackingAnnotationTypeDestination:
 //            return @"Final Destination";
 //            break;
-//        case MapTrackingAnnotationTypeBackground:
+//        case MapTrackingAnnotationTypeActivity:
 //            return @"Background Activity";
 //            break;
 //    }
@@ -83,7 +87,7 @@
 //}
 
 - (NSString *)subtitle {
-    return [NSString stringWithFormat:@"#%d <%.3f, %.3f> %@", self.serial, self.latitude, self.longitude, [self.class.dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSinceReferenceDate:self.timestamp]]];
+    return [NSString stringWithFormat:@"#%d <%.3f, %.3f>+-%dm %@ [%dm to go]", self.serial, self.latitude, self.longitude, (int)self.accuracy, [self.class.dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSinceReferenceDate:self.timestamp]], (int)self.remainingDistance];
 }
 
 @end
