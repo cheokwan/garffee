@@ -7,8 +7,10 @@
 //
 
 #import "MapTrackingViewController.h"
+#import "AppDelegate.h"
 #import "TimeTracker.h"
 #import "MapTrackingAnnotation.h"
+#import "TSTheming.h"
 
 
 @interface MapTrackingViewController ()
@@ -44,17 +46,20 @@
     [_switcher addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
     self.buttonDropPin = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(buttonPressed:)];
     self.navigationItem.rightBarButtonItem = _buttonDropPin;
+    self.navigationItem.titleView = [TSTheming navigationBrandNameTitleView];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self initializeView];
+    self.managedObjectContext = ((AppDelegate *)[UIApplication sharedApplication].delegate).managedObjectContext;
     [TimeTracker sharedInstance].delegateMapView = _mapView;
     _mapView.showsUserLocation = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    _switcher.selectedSegmentIndex = 0;
     [self.view bringSubviewToFront:_logTable];
     [self.view bringSubviewToFront:_mapView];
     [self.view bringSubviewToFront:_switcher];
@@ -242,7 +247,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     static UIView *emptyView = nil;
     if (!emptyView) {
-        emptyView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, _switcher.frame.origin.y - self.navigationController.navigationBar.frame.origin.y)];
+        emptyView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, _switcher.frame.origin.y + _switcher.frame.size.height)];
     }
     if (section == 0) {
         return emptyView;
@@ -326,17 +331,13 @@
     [_logTable endUpdates];
 }
 
-#pragma mark - UIBarPositioningDelegate
+#pragma mark - UIGestureRecognizerDelegate
 
-- (UIBarPosition)positionForBar:(id<UIBarPositioning>)bar {
-    if (bar == self.navigationController.navigationBar) {
-        return UIBarPositionTopAttached;
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    if ([gestureRecognizer.view isKindOfClass:self.view.class]) {
+        return YES;
     }
-    return UIBarPositionAny;
-}
-
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleDefault;
+    return NO;
 }
 
 @end

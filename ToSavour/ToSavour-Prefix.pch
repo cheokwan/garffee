@@ -21,4 +21,6 @@
     #else
         static const int ddLogLevel = LOG_LEVEL_INFO;
     #endif
+
+    #import "Defines.h"
 #endif

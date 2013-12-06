@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <ECSlidingViewController/ECSlidingViewController.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
+
+@property (nonatomic, strong) ECSlidingViewController *slidingViewController;
 
 @property (strong, nonatomic) UIWindow *window;
 

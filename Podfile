@@ -1,6 +1,7 @@
 platform :ios, '7.0'
-pod 'AFNetworking'
-pod 'SASlideMenu'
-pod 'ChatHeads'
 pod 'CocoaLumberjack'
+pod 'ECSlidingViewController'
+pod 'UIColor-HexString'
+pod 'RestKit'
+pod 'ChatHeads'
 

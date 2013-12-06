@@ -6,8 +6,6 @@
 //  Copyright (c) 2013 NBition. All rights reserved.
 //
 
-#import "SASlideMenuViewController.h"
-
-@interface SlideMenuViewController : SASlideMenuViewController<SASlideMenuDataSource, SASlideMenuDelegate>
+@interface SlideMenuViewController : UITableViewController
 
 @end

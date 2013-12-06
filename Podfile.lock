@@ -1,22 +1,4 @@
 PODS:
-  - AFNetworking (2.0.3):
-    - AFNetworking/NSURLConnection
-    - AFNetworking/NSURLSession
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-    - AFNetworking/UIKit
-  - AFNetworking/NSURLConnection (2.0.3):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.0.3):
-    - AFNetworking/NSURLConnection
-  - AFNetworking/Reachability (2.0.3)
-  - AFNetworking/Security (2.0.3)
-  - AFNetworking/Serialization (2.0.3)
-  - AFNetworking/UIKit (2.0.3):
-    - AFNetworking/NSURLConnection
   - CAAnimationBlocks (0.0.1)
   - ChatHeads (1.0):
     - CAAnimationBlocks
@@ -27,21 +9,22 @@ PODS:
   - CocoaLumberjack/Core (1.6.4)
   - CocoaLumberjack/Extensions (1.6.4):
     - CocoaLumberjack/Core
-  - SASlideMenu (2.0.3)
+  - ECSlidingViewController (2.0.0-beta2)
   - SKBounceAnimation (1.0.03)
+  - UIColor-HexString (1.0.1)
 
 DEPENDENCIES:
-  - AFNetworking
   - ChatHeads
   - CocoaLumberjack
-  - SASlideMenu
+  - ECSlidingViewController
+  - UIColor-HexString
 
 SPEC CHECKSUMS:
-  AFNetworking: e499052cbf3d743e9bb727bb37adb9dc2547ba15
   CAAnimationBlocks: b70f877c5b92734abef270152187d3287d84e8f8
   ChatHeads: 8220d1108b9f7a0b1a7371e063071a264a6662ef
-  CocoaLumberjack: 006187e7e3c52f505aab43d7b5ba6af35838bf23
-  SASlideMenu: a4a4443fa989afdef4fa4b556ea2334e48cc50f1
+  CocoaLumberjack: a41a6cce03be251319e1ace1fdac5a610ce10467
+  ECSlidingViewController: 097e5451e8628611f17ed27a6e0829fa705f7851
   SKBounceAnimation: 116cdcda440d52f2f6d176032678ffd526ec652a
+  UIColor-HexString: 8a3f512f71b6d94a2cf6bdeabcad2f3532f31b5a
 
 COCOAPODS: 0.28.0

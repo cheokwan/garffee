@@ -71,21 +71,6 @@
     self.longitude = newCoordinate.longitude;
 }
 
-//- (NSString *)title {
-//    switch (self.annotationType) {
-//        case MapTrackingAnnotationTypeUpdate:
-//            return @"Tracked Position";
-//            break;
-//        case MapTrackingAnnotationTypeDestination:
-//            return @"Final Destination";
-//            break;
-//        case MapTrackingAnnotationTypeActivity:
-//            return @"Background Activity";
-//            break;
-//    }
-//    return nil;
-//}
-
 - (NSString *)subtitle {
     return [NSString stringWithFormat:@"#%d <%.3f, %.3f>+-%dm %@ [%dm to go]", self.serial, self.latitude, self.longitude, (int)self.accuracy, [self.class.dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSinceReferenceDate:self.timestamp]], (int)self.remainingDistance];
 }

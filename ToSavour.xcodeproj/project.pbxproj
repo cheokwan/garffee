@@ -32,6 +32,10 @@
 		D293E4F2183DF24000B73795 /* SlideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D293E4F1183DF24000B73795 /* SlideMenuViewController.m */; };
 		D293E4F6184357B400B73795 /* TimeTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = D293E4F5184357B400B73795 /* TimeTracker.m */; };
 		D293E4F818435DC100B73795 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4F718435DC100B73795 /* CoreLocation.framework */; };
+		D2A36A86185046B2004D3D99 /* TSTheming.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A36A85185046B2004D3D99 /* TSTheming.m */; };
+		D2A36A8E18504ADE004D3D99 /* TSNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A36A8D18504ADE004D3D99 /* TSNavigationController.m */; };
+		D2A36A911850684A004D3D99 /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A36A901850684A004D3D99 /* MainTabBarController.m */; };
+		D2A36A941850AA6C004D3D99 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A36A931850AA6C004D3D99 /* HomeViewController.m */; };
 		D2A556FB184C37F60039A5A0 /* MapTrackingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A556FA184C37F60039A5A0 /* MapTrackingViewController.m */; };
 		D2A55711184DBF4C0039A5A0 /* MapTrackingAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A55710184DBF4C0039A5A0 /* MapTrackingAnnotation.m */; };
 		D2A55717184DC89F0039A5A0 /* NSManagedObject+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A55716184DC89F0039A5A0 /* NSManagedObject+Helper.m */; };
@@ -83,6 +87,15 @@
 		D293E4F4184357B400B73795 /* TimeTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TimeTracker.h; path = BackEnd/TimeTracker.h; sourceTree = "<group>"; };
 		D293E4F5184357B400B73795 /* TimeTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TimeTracker.m; path = BackEnd/TimeTracker.m; sourceTree = "<group>"; };
 		D293E4F718435DC100B73795 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		D2A36A84185046B2004D3D99 /* TSTheming.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSTheming.h; path = Utilities/TSTheming.h; sourceTree = "<group>"; };
+		D2A36A85185046B2004D3D99 /* TSTheming.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSTheming.m; path = Utilities/TSTheming.m; sourceTree = "<group>"; };
+		D2A36A8718504743004D3D99 /* Defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Defines.h; path = Utilities/Defines.h; sourceTree = "<group>"; };
+		D2A36A8C18504ADE004D3D99 /* TSNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSNavigationController.h; path = FrontEnd/CustomUI/TSNavigationController.h; sourceTree = "<group>"; };
+		D2A36A8D18504ADE004D3D99 /* TSNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSNavigationController.m; path = FrontEnd/CustomUI/TSNavigationController.m; sourceTree = "<group>"; };
+		D2A36A8F1850684A004D3D99 /* MainTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainTabBarController.h; path = FrontEnd/MainTabBarController.h; sourceTree = "<group>"; };
+		D2A36A901850684A004D3D99 /* MainTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainTabBarController.m; path = FrontEnd/MainTabBarController.m; sourceTree = "<group>"; };
+		D2A36A921850AA6C004D3D99 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HomeViewController.h; path = FrontEnd/HomeViewController.h; sourceTree = "<group>"; };
+		D2A36A931850AA6C004D3D99 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HomeViewController.m; path = FrontEnd/HomeViewController.m; sourceTree = "<group>"; };
 		D2A556F9184C37F60039A5A0 /* MapTrackingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapTrackingViewController.h; path = FrontEnd/MapTrackingViewController.h; sourceTree = "<group>"; };
 		D2A556FA184C37F60039A5A0 /* MapTrackingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapTrackingViewController.m; path = FrontEnd/MapTrackingViewController.m; sourceTree = "<group>"; };
 		D2A5570F184DBF4C0039A5A0 /* MapTrackingAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapTrackingAnnotation.h; path = BackEnd/Model/MapTrackingAnnotation.h; sourceTree = "<group>"; };
@@ -127,6 +140,9 @@
 				D239770218474F230002D655 /* TSLogFormatter.m */,
 				D243757318488358000009D7 /* TSSettings.h */,
 				D243757418488358000009D7 /* TSSettings.m */,
+				D2A36A84185046B2004D3D99 /* TSTheming.h */,
+				D2A36A85185046B2004D3D99 /* TSTheming.m */,
+				D2A36A8718504743004D3D99 /* Defines.h */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -218,10 +234,15 @@
 		D293E4EF183DF20D00B73795 /* FrontEnd */ = {
 			isa = PBXGroup;
 			children = (
+				D2A36A8818504A12004D3D99 /* CustomUI */,
 				D293E4F0183DF24000B73795 /* SlideMenuViewController.h */,
 				D293E4F1183DF24000B73795 /* SlideMenuViewController.m */,
 				D2A556F9184C37F60039A5A0 /* MapTrackingViewController.h */,
 				D2A556FA184C37F60039A5A0 /* MapTrackingViewController.m */,
+				D2A36A8F1850684A004D3D99 /* MainTabBarController.h */,
+				D2A36A901850684A004D3D99 /* MainTabBarController.m */,
+				D2A36A921850AA6C004D3D99 /* HomeViewController.h */,
+				D2A36A931850AA6C004D3D99 /* HomeViewController.m */,
 			);
 			name = FrontEnd;
 			sourceTree = "<group>";
@@ -236,6 +257,15 @@
 				D2A55716184DC89F0039A5A0 /* NSManagedObject+Helper.m */,
 			);
 			name = BackEnd;
+			sourceTree = "<group>";
+		};
+		D2A36A8818504A12004D3D99 /* CustomUI */ = {
+			isa = PBXGroup;
+			children = (
+				D2A36A8C18504ADE004D3D99 /* TSNavigationController.h */,
+				D2A36A8D18504ADE004D3D99 /* TSNavigationController.m */,
+			);
+			name = CustomUI;
 			sourceTree = "<group>";
 		};
 		D2A55702184DB5ED0039A5A0 /* Model */ = {
@@ -389,10 +419,14 @@
 				D293E4CD183DEDEB00B73795 /* MasterViewController.m in Sources */,
 				D293E4C4183DEDEB00B73795 /* AppDelegate.m in Sources */,
 				D243757518488358000009D7 /* TSSettings.m in Sources */,
+				D2A36A941850AA6C004D3D99 /* HomeViewController.m in Sources */,
 				D2A55717184DC89F0039A5A0 /* NSManagedObject+Helper.m in Sources */,
 				D293E4F2183DF24000B73795 /* SlideMenuViewController.m in Sources */,
 				D2A55711184DBF4C0039A5A0 /* MapTrackingAnnotation.m in Sources */,
 				D293E4C0183DEDEB00B73795 /* main.m in Sources */,
+				D2A36A911850684A004D3D99 /* MainTabBarController.m in Sources */,
+				D2A36A86185046B2004D3D99 /* TSTheming.m in Sources */,
+				D2A36A8E18504ADE004D3D99 /* TSNavigationController.m in Sources */,
 				D293E4CA183DEDEB00B73795 /* ToSavour.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
