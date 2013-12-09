@@ -13,5 +13,15 @@
 #define LS_AWARDS               @"Awards"
 #define LS_CHALLENGE_NOW        @"Challenge Now"
 #define LS_COFFEE               @"Coffee"
+#define LS_ARE_YOU_READY        @"Are You Ready"
+#define LS_END                  @"End"
+#define LS_END_GAME             @"End Game"
+#define LS_END_GAME_DETAILS     @"Are you sure to end this game? You will lose the game"
+#define LS_CANCEL               @"Cancel"
+#define LS_LOSE_GAME_TITLE      @"Oh! You Lose!"
+#define LS_LOSE_GAME_DETAILS    @"Thank you for joining the daily game. Please try again tomorrow"
+#define LS_OK                   @"OK"
+#define LS_CONGRATULATIONS      @"Congratulations"
+#define LS_WIN_GAME_DETAILS     @"You win the daily award game. You received the coffee. Enjoy!"
 
 #endif
