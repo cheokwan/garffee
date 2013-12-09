@@ -1,0 +1,101 @@
+ [
+  {
+  "id":"18848",
+  "name":"I-Square",
+  "phoneNumber":"29479553",
+  "address":"Shop LB02, Lobby Floor iSQUARE, 35-79 Nathan Rd, Tsim Sha Tsui",
+  "region":"Kowloon",
+  "latitude":22.2967,
+  "longitude":114.17211,
+  "openTime":"08:00:00",
+  "closeTime":"22:30:00"
+  },
+  {
+  "id":"3267",
+  "name":"Knutsford Steps",
+  "phoneNumber":"31677908",
+  "address":"No. 3, Knutsford Steps, 1/F, Miramar Shopping Mall, Tsim Sha Tsui",
+  "region":"Kowloon",
+  "latitude":22.30095,
+  "longitude":114.17288,
+  "openTime":"08:00:00",
+  "closeTime":"23:30:00"
+  },
+  {
+  "id":"3246",
+  "name":"Sun Arcade",
+  "phoneNumber":"27367376",
+  "address":"Shop B06A, Basement 1 Floor, The Sun Arcade, 28 Canton Road, Tsim Sha Tsui",
+  "region":"Kowloon",
+  "latitude":22.29693,
+  "longitude":114.16947,
+  "openTime":"08:00:00",
+  "closeTime":"23:00:00"
+  },
+  {
+  "id":"1006080",
+  "name":"Windsor House",
+  "phoneNumber":null,
+  "address":"Shop 406, 4/F, Windsor House 311 Gloucester Road, Causeway Bay",
+  "region":"Hong Kong",
+  "latitude":22.280457,
+  "longitude":114.186568,
+  "openTime":"08:00:00",
+  "closeTime":"23:00:00"
+  },
+  {
+  "id":"3261",
+  "name":"Hang Lung Centre",
+  "phoneNumber":"25769337",
+  "address":"Shop S06-7, 2/F, Hang Lung Centre, 2-20 Paterson Street, Causeway Bay",
+  "region":"Hong Kong",
+  "latitude":22.2802,
+  "longitude":114.18601,
+  "openTime":"07:00:00",
+  "closeTime":"00:30:00"
+  },
+  {
+  "id":"19392",
+  "name":"Tung Lo Wan Road",
+  "phoneNumber":"25045711",
+  "address":"Shop 3, G/F, Cathay Mansion 3-17 Tung Lo Wan Road, Causeway Bay",
+  "region":"Hong Kong",
+  "latitude":22.27918,
+  "longitude":114.18812,
+  "openTime":"07:00:00",
+  "closeTime":"22:30:00"
+  },
+  {
+  "id":"113422",
+  "name":"Sunshine City Plaza",
+  "phoneNumber":"26796876",
+  "address":"Open Space next to Shop 2115-6, L2 Sun Shine City Plaza, Ma On Shan",
+  "region":"New Territories",
+  "latitude":22.42433,
+  "longitude":114.23198,
+  "openTime":"08:00:00",
+  "closeTime":"22:30:00"
+  },
+  {
+  "id":"87439",
+  "name":"Fo Tan",
+  "phoneNumber":"29078906",
+  "address":"Shops 12A & 12B on G/F Shatin Galleria 18-24 Shan Mei Street, Fo Tan",
+  "region":"New Territories",
+  "latitude":22.39736,
+  "longitude":114.19342,
+  "openTime":"08:00:00",
+  "closeTime":"20:00:00"
+  },
+  {
+  "id":"3258",
+  "name":"KCRC - Tai Po - Shop B",
+  "phoneNumber":"26536955",
+  "address":"MTR Kiosk No. TAP8 at Tai Po Market MTR Station",
+  "region":"New Territories",
+  "latitude":22.44453,
+  "longitude":114.1705,
+  "openTime":"06:30:00",
+  "closeTime":"22:30:00"
+  }
+  ]
