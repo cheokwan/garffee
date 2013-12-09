@@ -11,6 +11,7 @@
 @interface TSTheming : NSObject
 
 + (UIViewController *)viewControllerWithStoryboardIdentifier:(NSString *)identifier;
++ (UIViewController *)viewControllerWithStoryboardIdentifier:(NSString *)identifier storyboard:(NSString *)aStoryBoard;
 + (UIView *)navigationBrandNameTitleView;
 + (UIView *)navigationTitleViewWithString:(NSString *)titleString;
 

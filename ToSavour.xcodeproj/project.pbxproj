@@ -43,6 +43,9 @@
 		D2C075BE1852CACB00620114 /* ItemPickerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075BD1852CACB00620114 /* ItemPickerTableViewCell.m */; };
 		D2C075C11852E29500620114 /* ItemPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075C01852E29500620114 /* ItemPickerViewController.m */; };
 		D2C075C418533B6A00620114 /* ItemPickerScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075C318533B6A00620114 /* ItemPickerScrollView.m */; };
+		DFE628A518558AD600E1C8FE /* DailyGameStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DFE628A418558AD600E1C8FE /* DailyGameStoryboard.storyboard */; };
+		DFE628A81855992800E1C8FE /* ChooseGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFE628A71855992800E1C8FE /* ChooseGameViewController.m */; };
+		DFE628AD1855AF2C00E1C8FE /* TSNetworkServiceCalls.m in Sources */ = {isa = PBXBuildFile; fileRef = DFE628AC1855AF2C00E1C8FE /* TSNetworkServiceCalls.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +116,12 @@
 		D2C075C01852E29500620114 /* ItemPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ItemPickerViewController.m; path = FrontEnd/ItemPickerViewController.m; sourceTree = "<group>"; };
 		D2C075C218533B6A00620114 /* ItemPickerScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ItemPickerScrollView.h; path = FrontEnd/Views/ItemPickerScrollView.h; sourceTree = "<group>"; };
 		D2C075C318533B6A00620114 /* ItemPickerScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ItemPickerScrollView.m; path = FrontEnd/Views/ItemPickerScrollView.m; sourceTree = "<group>"; };
+		DFE628A418558AD600E1C8FE /* DailyGameStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DailyGameStoryboard.storyboard; sourceTree = "<group>"; };
+		DFE628A61855992800E1C8FE /* ChooseGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseGameViewController.h; sourceTree = "<group>"; };
+		DFE628A71855992800E1C8FE /* ChooseGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseGameViewController.m; sourceTree = "<group>"; };
+		DFE628A91855A6AA00E1C8FE /* TSLocalizedString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TSLocalizedString.h; sourceTree = "<group>"; };
+		DFE628AB1855AF2C00E1C8FE /* TSNetworkServiceCalls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSNetworkServiceCalls.h; sourceTree = "<group>"; };
+		DFE628AC1855AF2C00E1C8FE /* TSNetworkServiceCalls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSNetworkServiceCalls.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +163,7 @@
 				D2A36A84185046B2004D3D99 /* TSTheming.h */,
 				D2A36A85185046B2004D3D99 /* TSTheming.m */,
 				D2A36A8718504743004D3D99 /* Defines.h */,
+				DFE628A91855A6AA00E1C8FE /* TSLocalizedString.h */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -203,6 +213,7 @@
 				D293E4C2183DEDEB00B73795 /* AppDelegate.h */,
 				D293E4C3183DEDEB00B73795 /* AppDelegate.m */,
 				D293E4C5183DEDEB00B73795 /* Main.storyboard */,
+				DFE628A418558AD600E1C8FE /* DailyGameStoryboard.storyboard */,
 				D293E4CB183DEDEB00B73795 /* MasterViewController.h */,
 				D293E4CC183DEDEB00B73795 /* MasterViewController.m */,
 				D293E4CE183DEDEB00B73795 /* DetailViewController.h */,
@@ -258,6 +269,8 @@
 				D2A36A931850AA6C004D3D99 /* HomeViewController.m */,
 				D2C075BF1852E29500620114 /* ItemPickerViewController.h */,
 				D2C075C01852E29500620114 /* ItemPickerViewController.m */,
+				DFE628A61855992800E1C8FE /* ChooseGameViewController.h */,
+				DFE628A71855992800E1C8FE /* ChooseGameViewController.m */,
 			);
 			name = FrontEnd;
 			sourceTree = "<group>";
@@ -270,6 +283,8 @@
 				D293E4F5184357B400B73795 /* TimeTracker.m */,
 				D2A55715184DC89F0039A5A0 /* NSManagedObject+Helper.h */,
 				D2A55716184DC89F0039A5A0 /* NSManagedObject+Helper.m */,
+				DFE628AB1855AF2C00E1C8FE /* TSNetworkServiceCalls.h */,
+				DFE628AC1855AF2C00E1C8FE /* TSNetworkServiceCalls.m */,
 			);
 			name = BackEnd;
 			sourceTree = "<group>";
@@ -394,6 +409,7 @@
 			files = (
 				D293E4D2183DEDEB00B73795 /* Images.xcassets in Resources */,
 				D293E4BE183DEDEB00B73795 /* InfoPlist.strings in Resources */,
+				DFE628A518558AD600E1C8FE /* DailyGameStoryboard.storyboard in Resources */,
 				D293E4C7183DEDEB00B73795 /* Main.storyboard in Resources */,
 				D2C075B71851D33F00620114 /* MBranch.json in Resources */,
 			);
@@ -458,7 +474,9 @@
 				D2C075C418533B6A00620114 /* ItemPickerScrollView.m in Sources */,
 				D2A36A941850AA6C004D3D99 /* HomeViewController.m in Sources */,
 				D2A55717184DC89F0039A5A0 /* NSManagedObject+Helper.m in Sources */,
+				DFE628A81855992800E1C8FE /* ChooseGameViewController.m in Sources */,
 				D293E4F2183DF24000B73795 /* SlideMenuViewController.m in Sources */,
+				DFE628AD1855AF2C00E1C8FE /* TSNetworkServiceCalls.m in Sources */,
 				D2C075BE1852CACB00620114 /* ItemPickerTableViewCell.m in Sources */,
 				D2A55711184DBF4C0039A5A0 /* MapTrackingAnnotation.m in Sources */,
 				D293E4C0183DEDEB00B73795 /* main.m in Sources */,

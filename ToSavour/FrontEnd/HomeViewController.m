@@ -9,6 +9,8 @@
 #import "HomeViewController.h"
 #import "TSTheming.h"
 #import "AppDelegate.h"
+#import "ChooseGameViewController.h"
+#import "TSNavigationController.h"
 
 @interface HomeViewController ()
 
@@ -32,13 +34,16 @@
 }
 
 - (void)slideLeft {
-    static BOOL slided = NO;
-    if (!slided) {
-        [((AppDelegate *)[UIApplication sharedApplication].delegate).slidingViewController anchorTopViewToLeftAnimated:YES];
-    } else {
-        [((AppDelegate *)[UIApplication sharedApplication].delegate).slidingViewController resetTopViewAnimated:YES];
-    }
-    slided = !slided;
+    ChooseGameViewController *controller = (ChooseGameViewController*)[TSTheming viewControllerWithStoryboardIdentifier:@"ChooseGameViewController" storyboard:@"DailyGameStoryboard"];
+    TSNavigationController *naviController = [[TSNavigationController alloc] initWithRootViewController:controller];
+    [self presentViewController:naviController animated:YES completion:nil];
+//    static BOOL slided = NO;
+//    if (!slided) {
+//        [((AppDelegate *)[UIApplication sharedApplication].delegate).slidingViewController anchorTopViewToLeftAnimated:YES];
+//    } else {
+//        [((AppDelegate *)[UIApplication sharedApplication].delegate).slidingViewController resetTopViewAnimated:YES];
+//    }
+//    slided = !slided;
 }
 
 - (void)viewDidLoad
