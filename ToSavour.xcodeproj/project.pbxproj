@@ -20,8 +20,6 @@
 		D293E4C4183DEDEB00B73795 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D293E4C3183DEDEB00B73795 /* AppDelegate.m */; };
 		D293E4C7183DEDEB00B73795 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D293E4C5183DEDEB00B73795 /* Main.storyboard */; };
 		D293E4CA183DEDEB00B73795 /* ToSavour.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D293E4C8183DEDEB00B73795 /* ToSavour.xcdatamodeld */; };
-		D293E4CD183DEDEB00B73795 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D293E4CC183DEDEB00B73795 /* MasterViewController.m */; };
-		D293E4D0183DEDEB00B73795 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D293E4CF183DEDEB00B73795 /* DetailViewController.m */; };
 		D293E4D2183DEDEB00B73795 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D293E4D1183DEDEB00B73795 /* Images.xcassets */; };
 		D293E4D9183DEDEB00B73795 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4D8183DEDEB00B73795 /* XCTest.framework */; };
 		D293E4DA183DEDEB00B73795 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4B1183DEDEB00B73795 /* Foundation.framework */; };
@@ -43,6 +41,9 @@
 		D2C075BE1852CACB00620114 /* ItemPickerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075BD1852CACB00620114 /* ItemPickerTableViewCell.m */; };
 		D2C075C11852E29500620114 /* ItemPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075C01852E29500620114 /* ItemPickerViewController.m */; };
 		D2C075C418533B6A00620114 /* ItemPickerScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075C318533B6A00620114 /* ItemPickerScrollView.m */; };
+		D2C075CB1855C47200620114 /* TutorialLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075CA1855C47200620114 /* TutorialLoginViewController.m */; };
+		D2C075D01857245E00620114 /* UIView+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075CF1857245E00620114 /* UIView+Helper.m */; };
+		D2C075D31858092800620114 /* MUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075D21858092800620114 /* MUserInfo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,10 +77,6 @@
 		D293E4C3183DEDEB00B73795 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		D293E4C6183DEDEB00B73795 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D293E4C9183DEDEB00B73795 /* ToSavour.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ToSavour.xcdatamodel; sourceTree = "<group>"; };
-		D293E4CB183DEDEB00B73795 /* MasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
-		D293E4CC183DEDEB00B73795 /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
-		D293E4CE183DEDEB00B73795 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
-		D293E4CF183DEDEB00B73795 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		D293E4D1183DEDEB00B73795 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		D293E4D7183DEDEB00B73795 /* ToSavourTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ToSavourTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D293E4D8183DEDEB00B73795 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -113,6 +110,13 @@
 		D2C075C01852E29500620114 /* ItemPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ItemPickerViewController.m; path = FrontEnd/ItemPickerViewController.m; sourceTree = "<group>"; };
 		D2C075C218533B6A00620114 /* ItemPickerScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ItemPickerScrollView.h; path = FrontEnd/Views/ItemPickerScrollView.h; sourceTree = "<group>"; };
 		D2C075C318533B6A00620114 /* ItemPickerScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ItemPickerScrollView.m; path = FrontEnd/Views/ItemPickerScrollView.m; sourceTree = "<group>"; };
+		D2C075C91855C47200620114 /* TutorialLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialLoginViewController.h; path = FrontEnd/TutorialLoginViewController.h; sourceTree = "<group>"; };
+		D2C075CA1855C47200620114 /* TutorialLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TutorialLoginViewController.m; path = FrontEnd/TutorialLoginViewController.m; sourceTree = "<group>"; };
+		D2C075CC1855E8A600620114 /* TSLocalizedString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TSLocalizedString.h; path = Utilities/TSLocalizedString.h; sourceTree = "<group>"; };
+		D2C075CE1857245E00620114 /* UIView+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+Helper.h"; path = "Utilities/UIView+Helper.h"; sourceTree = "<group>"; };
+		D2C075CF1857245E00620114 /* UIView+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+Helper.m"; path = "Utilities/UIView+Helper.m"; sourceTree = "<group>"; };
+		D2C075D11858092800620114 /* MUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUserInfo.h; path = BackEnd/Model/MUserInfo.h; sourceTree = "<group>"; };
+		D2C075D21858092800620114 /* MUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUserInfo.m; path = BackEnd/Model/MUserInfo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +158,9 @@
 				D2A36A84185046B2004D3D99 /* TSTheming.h */,
 				D2A36A85185046B2004D3D99 /* TSTheming.m */,
 				D2A36A8718504743004D3D99 /* Defines.h */,
+				D2C075CC1855E8A600620114 /* TSLocalizedString.h */,
+				D2C075CE1857245E00620114 /* UIView+Helper.h */,
+				D2C075CF1857245E00620114 /* UIView+Helper.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -203,10 +210,6 @@
 				D293E4C2183DEDEB00B73795 /* AppDelegate.h */,
 				D293E4C3183DEDEB00B73795 /* AppDelegate.m */,
 				D293E4C5183DEDEB00B73795 /* Main.storyboard */,
-				D293E4CB183DEDEB00B73795 /* MasterViewController.h */,
-				D293E4CC183DEDEB00B73795 /* MasterViewController.m */,
-				D293E4CE183DEDEB00B73795 /* DetailViewController.h */,
-				D293E4CF183DEDEB00B73795 /* DetailViewController.m */,
 				D293E4D1183DEDEB00B73795 /* Images.xcassets */,
 				D293E4C8183DEDEB00B73795 /* ToSavour.xcdatamodeld */,
 				D293E4BA183DEDEB00B73795 /* Supporting Files */,
@@ -258,6 +261,8 @@
 				D2A36A931850AA6C004D3D99 /* HomeViewController.m */,
 				D2C075BF1852E29500620114 /* ItemPickerViewController.h */,
 				D2C075C01852E29500620114 /* ItemPickerViewController.m */,
+				D2C075C91855C47200620114 /* TutorialLoginViewController.h */,
+				D2C075CA1855C47200620114 /* TutorialLoginViewController.m */,
 			);
 			name = FrontEnd;
 			sourceTree = "<group>";
@@ -286,6 +291,8 @@
 		D2A55702184DB5ED0039A5A0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D2C075D11858092800620114 /* MUserInfo.h */,
+				D2C075D21858092800620114 /* MUserInfo.m */,
 				D2A5570F184DBF4C0039A5A0 /* MapTrackingAnnotation.h */,
 				D2A55710184DBF4C0039A5A0 /* MapTrackingAnnotation.m */,
 			);
@@ -447,13 +454,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2C075CB1855C47200620114 /* TutorialLoginViewController.m in Sources */,
 				D2A556FB184C37F60039A5A0 /* MapTrackingViewController.m in Sources */,
 				D239770318474F230002D655 /* TSLogFormatter.m in Sources */,
 				D293E4F6184357B400B73795 /* TimeTracker.m in Sources */,
-				D293E4D0183DEDEB00B73795 /* DetailViewController.m in Sources */,
-				D293E4CD183DEDEB00B73795 /* MasterViewController.m in Sources */,
 				D293E4C4183DEDEB00B73795 /* AppDelegate.m in Sources */,
 				D243757518488358000009D7 /* TSSettings.m in Sources */,
+				D2C075D31858092800620114 /* MUserInfo.m in Sources */,
 				D2C075C11852E29500620114 /* ItemPickerViewController.m in Sources */,
 				D2C075C418533B6A00620114 /* ItemPickerScrollView.m in Sources */,
 				D2A36A941850AA6C004D3D99 /* HomeViewController.m in Sources */,
@@ -466,6 +473,7 @@
 				D2A36A86185046B2004D3D99 /* TSTheming.m in Sources */,
 				D2A36A8E18504ADE004D3D99 /* TSNavigationController.m in Sources */,
 				D293E4CA183DEDEB00B73795 /* ToSavour.xcdatamodeld in Sources */,
+				D2C075D01857245E00620114 /* UIView+Helper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

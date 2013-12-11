@@ -34,9 +34,9 @@
 - (void)slideLeft {
     static BOOL slided = NO;
     if (!slided) {
-        [((AppDelegate *)[UIApplication sharedApplication].delegate).slidingViewController anchorTopViewToLeftAnimated:YES];
+        [[AppDelegate sharedAppDelegate].slidingViewController anchorTopViewToLeftAnimated:YES];
     } else {
-        [((AppDelegate *)[UIApplication sharedApplication].delegate).slidingViewController resetTopViewAnimated:YES];
+        [[AppDelegate sharedAppDelegate].slidingViewController resetTopViewAnimated:YES];
     }
     slided = !slided;
 }

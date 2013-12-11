@@ -5,11 +5,11 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller - Home-->
+        <!--Navigation Controller - Home!-->
         <scene sceneID="7k8-2e-1iw">
             <objects>
                 <navigationController definesPresentationContext="YES" id="krt-h0-myQ" customClass="TSNavigationController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Home" image="StopIcon" id="bmP-OM-RLS"/>
+                    <tabBarItem key="tabBarItem" title="Home!" image="StopIcon" id="bmP-OM-RLS"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="kDm-5u-YuV">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -24,7 +24,7 @@
         <!--Home View Controller-->
         <scene sceneID="s3L-Gb-BHU">
             <objects>
-                <viewController id="RuG-i4-w0N" customClass="HomeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeViewController" id="RuG-i4-w0N" customClass="HomeViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="RJO-C7-3vk"/>
                         <viewControllerLayoutGuide type="bottom" id="dIw-HY-r1i"/>
@@ -40,11 +40,11 @@
             </objects>
             <point key="canvasLocation" x="1760" y="2121"/>
         </scene>
-        <!--Navigation Controller - Store-->
+        <!--Navigation Controller - Store!-->
         <scene sceneID="k0V-xK-HQj">
             <objects>
                 <navigationController definesPresentationContext="YES" id="FqJ-wh-mxG" customClass="TSNavigationController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Store" image="StopIcon" id="O2g-30-YCw"/>
+                    <tabBarItem key="tabBarItem" title="Store!" image="StopIcon" id="O2g-30-YCw"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="NNP-1a-ny0">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -85,11 +85,11 @@
             </objects>
             <point key="canvasLocation" x="1760" y="2926"/>
         </scene>
-        <!--Navigation Controller - Order-->
+        <!--Navigation Controller - Order!-->
         <scene sceneID="Jt3-Zt-3yV">
             <objects>
                 <navigationController definesPresentationContext="YES" id="bIC-nq-g8G" customClass="TSNavigationController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Order" image="StopIcon" id="JDT-h0-Bfa"/>
+                    <tabBarItem key="tabBarItem" title="Order!" image="StopIcon" id="JDT-h0-Bfa"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vFm-vg-0DR">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -189,11 +189,11 @@
             </objects>
             <point key="canvasLocation" x="1760" y="4451"/>
         </scene>
-        <!--Navigation Controller - Account-->
+        <!--Navigation Controller - Account!-->
         <scene sceneID="cXu-xe-WAx">
             <objects>
                 <navigationController definesPresentationContext="YES" id="4PV-Mw-HQN" customClass="TSNavigationController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Account" image="StopIcon" id="eGv-d2-fVd"/>
+                    <tabBarItem key="tabBarItem" title="Account!" image="StopIcon" id="eGv-d2-fVd"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ggr-yd-WWx">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -348,13 +348,58 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="12d-gW-0Uq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-380" y="4454"/>
+            <point key="canvasLocation" x="224" y="4451"/>
         </scene>
-        <!--Navigation Controller - Map-->
+        <!--Tutorial Login View Controller-->
+        <scene sceneID="BZp-LP-GuI">
+            <objects>
+                <viewController storyboardIdentifier="TutorialLoginViewController" id="zT3-ME-bJm" customClass="TutorialLoginViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="zwo-j0-C3E"/>
+                        <viewControllerLayoutGuide type="bottom" id="ePI-CH-kup"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="NN1-CH-FAz">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="4" translatesAutoresizingMaskIntoConstraints="NO" id="uzl-qJ-s7z">
+                                <rect key="frame" x="132" y="491" width="55" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </pageControl>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZFw-dK-O5u">
+                                <rect key="frame" x="279" y="498" width="31" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                <state key="normal" title="Skip!"/>
+                            </button>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AgC-5i-pjB">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="uzl-qJ-s7z" secondAttribute="centerX" constant="0.5" id="GFM-Jc-1hP"/>
+                            <constraint firstAttribute="trailing" secondItem="ZFw-dK-O5u" secondAttribute="trailing" constant="10" id="NQm-Uj-w79"/>
+                            <constraint firstItem="ePI-CH-kup" firstAttribute="top" secondItem="ZFw-dK-O5u" secondAttribute="bottom" constant="42" id="WWw-jx-Saw"/>
+                            <constraint firstItem="ePI-CH-kup" firstAttribute="top" secondItem="uzl-qJ-s7z" secondAttribute="bottom" constant="40" id="jx2-HY-l3U"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="skipButton" destination="ZFw-dK-O5u" id="tDt-eN-4NQ"/>
+                        <outlet property="tutorialPageControl" destination="uzl-qJ-s7z" id="Kyw-qy-Nla"/>
+                        <outlet property="tutorialScrollView" destination="AgC-5i-pjB" id="Ghz-qW-uGK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KT7-Tz-AU7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="224" y="5217"/>
+        </scene>
+        <!--Navigation Controller - Map!-->
         <scene sceneID="KXn-JQ-m8D">
             <objects>
                 <navigationController definesPresentationContext="YES" id="vt6-ab-C7M" customClass="TSNavigationController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Map" image="RemoveRegion" id="rRd-D3-61R"/>
+                    <tabBarItem key="tabBarItem" title="Map!" image="RemoveRegion" id="rRd-D3-61R"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="YAl-dR-2di">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

@@ -53,7 +53,7 @@
 {
     [super viewDidLoad];
     [self initializeView];
-    self.managedObjectContext = ((AppDelegate *)[UIApplication sharedApplication].delegate).managedObjectContext;
+    self.managedObjectContext = [AppDelegate sharedAppDelegate].managedObjectContext;
     [TimeTracker sharedInstance].delegateMapView = _mapView;
     _mapView.showsUserLocation = YES;
 }
@@ -161,8 +161,8 @@
                 break;
         }
         NSError *error = nil;
-        if (![_managedObjectContext save:&error]) {
-            DDLogError(@"CoreData save error %@, %@", error, [error userInfo]);
+        if (![_managedObjectContext saveToPersistentStore:&error]) {
+            DDLogError(@"error saving dropped pins %@", error);
         }
     }
 }

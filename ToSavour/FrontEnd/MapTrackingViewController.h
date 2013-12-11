@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 
-@interface MapTrackingViewController : UIViewController <MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, UIAlertViewDelegate, /*XXX*/UIGestureRecognizerDelegate/*XXX*/>
+@interface MapTrackingViewController : UIViewController <MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong)   NSManagedObjectContext *managedObjectContext;
 

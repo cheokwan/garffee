@@ -4,4 +4,5 @@ pod 'ECSlidingViewController'
 pod 'UIColor-HexString'
 pod 'RestKit'
 pod 'ChatHeads'
+pod 'Facebook-iOS-SDK'
 
