@@ -7,7 +7,7 @@
 //
 
 #import "MainTabBarController.h"
-#import "TSTheming.h"
+#import "TSFrontEndIncludes.h"
 
 @interface MainTabBarController ()
 

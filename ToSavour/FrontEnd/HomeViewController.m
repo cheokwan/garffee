@@ -7,8 +7,11 @@
 //
 
 #import "HomeViewController.h"
-#import "TSTheming.h"
+#import "TSFrontEndIncludes.h"
 #import "AppDelegate.h"
+#import <FacebookSDK/FacebookSDK.h>  // XXX-TEST
+#import "MFriendInfo.h"  // XXX-TEST
+#import "NSManagedObject+Helper.h" // XXX-TEST
 
 @interface HomeViewController ()
 

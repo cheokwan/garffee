@@ -26,4 +26,5 @@
     #endif
 
     #import "Defines.h"
+    #import "TSLocalizedString.h"
 #endif

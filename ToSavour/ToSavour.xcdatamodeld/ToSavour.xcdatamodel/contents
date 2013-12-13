@@ -23,19 +23,26 @@
         <attribute name="phoneNumber" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="region" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="MFriendInfo" representedClassName="MFriendInfo" parentEntity="MUserInfo" syncable="YES">
+        <attribute name="canSendGift" optional="YES" attributeType="Boolean" syncable="YES"/>
+    </entity>
     <entity name="MUserInfo" representedClassName="MUserInfo" syncable="YES">
+        <attribute name="fbAgeRangeMin" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="fbBirthday" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fbFirstName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="fbId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fbGender" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fbID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fbLastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fbLink" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fbMiddleName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fbName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fbProfilePicURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fbUsername" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
         <element name="MapTrackingAnnotation" positionX="0" positionY="0" width="0" height="0"/>
         <element name="MBranch" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MFriendInfo" positionX="0" positionY="0" width="0" height="0"/>
         <element name="MUserInfo" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

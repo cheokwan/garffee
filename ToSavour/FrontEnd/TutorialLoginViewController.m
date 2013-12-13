@@ -7,9 +7,7 @@
 //
 
 #import "TutorialLoginViewController.h"
-#import "TSTheming.h"
-#import "TSLocalizedString.h"
-#import "UIView+Helper.h"
+#import "TSFrontEndIncludes.h"
 #import "MUserInfo.h"
 #import "AppDelegate.h"
 
@@ -77,7 +75,7 @@
 - (void)layoutLoginView {
     [self.loginView removeAllSubviews];
     _loginView.frame = CGRectMake(0, 0, _tutorialScrollView.bounds.size.width, _tutorialScrollView.bounds.size.height);
-    FBLoginView *facebookLoginButton = [[FBLoginView alloc] initWithReadPermissions:@[@"basic_info", @"email"]];
+    FBLoginView *facebookLoginButton = [[FBLoginView alloc] initWithReadPermissions:@[@"basic_info", @"email", @"user_birthday", @"friends_birthday"]];
     facebookLoginButton.delegate = self;
     [facebookLoginButton sizeToFit];
     facebookLoginButton.center = CGPointMake(_loginView.center.x, _loginView.bounds.size.height - 50.0);
@@ -164,6 +162,7 @@
     // user just logged into facebook, temporarily hides the view before dismissal
     // to give a better transition
     self.view.hidden = YES;
+    // XXX-BUG  if user skips the permission request -> black screen
 }
 
 - (void)loginViewShowingLoggedOutUser:(FBLoginView *)loginView {
@@ -176,7 +175,7 @@
     // create a new user info after initial logged in
     MUserInfo *userInfo = [MUserInfo newUserInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
     
-    userInfo.fbId = user.id;
+    userInfo.fbID = user.id;
     userInfo.fbUsername = user.username;
     userInfo.fbName = user.name;
     userInfo.fbFirstName = user.first_name;

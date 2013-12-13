@@ -10,7 +10,7 @@
 #import "AppDelegate.h"
 #import "TimeTracker.h"
 #import "MapTrackingAnnotation.h"
-#import "TSTheming.h"
+#import "TSFrontEndIncludes.h"
 
 
 @interface MapTrackingViewController ()
@@ -295,7 +295,7 @@
         
         NSError *error = nil;
         if (![_fetchedResultsController performFetch:&error]) {
-            DDLogError(@"CoreData saving error: %@, %@", error, [error userInfo]);
+            DDLogError(@"error fetching map annotations: %@", error);
         }
     }
     return _fetchedResultsController;

@@ -13,7 +13,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "TSLogFormatter.h"
 #import "TSSettings.h"
-#import "TSTheming.h"
+#import "TSFrontEndIncludes.h"
 #import "TimeTracker.h"
 #import "MainTabBarController.h"
 #import "SlideMenuViewController.h"
@@ -66,7 +66,7 @@
     [self.window makeKeyAndVisible];
     
     MUserInfo *currentUserInfo = [MUserInfo currentUserInfoInContext:self.managedObjectContext];
-    if (!currentUserInfo) {  // TODO: or facebook is not logged in
+    if (!currentUserInfo || ![[FBSession activeSession] isOpen]) {  // TODO: or facebook is not logged in
         // user info does not present, shows the tutorial and login screen
         // and delegate navigation flow to there
         TutorialLoginViewController *tutorialViewController = (TutorialLoginViewController *)[TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(TutorialLoginViewController.class)];
@@ -110,7 +110,7 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     BOOL handled = [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
-    DDLogInfo(@"Facebook login handled: %@", @(handled));  // XXX-TEST
+    DDLogInfo(@"facebook login handled: %@", @(handled));  // XXX-TEST
     return handled;
 }
 
@@ -225,7 +225,7 @@
     RKManagedObjectStore *managedObjectStore = [[RKManagedObjectStore alloc] initWithManagedObjectModel:self.managedObjectModel];
     // Initialize the Core Data stack
     [managedObjectStore createPersistentStoreCoordinator];
-//    NSPersistentStore __unused *persistentStore = [managedObjectStore addInMemoryPersistentStore:&error];
+//    NSPersistentStore __unused *persistentStore = [managedObjectStore addInMemoryPersistentStore:&error];  XXX-TEMP
     NSString *storePath = [RKApplicationDataDirectory() stringByAppendingPathComponent:@"ToSavour.sqlite"];
     NSPersistentStore __unused *persistentStore = [managedObjectStore addSQLitePersistentStoreAtPath:storePath fromSeedDatabaseAtPath:nil withConfiguration:nil options:nil error:&error];
     if (!persistentStore) {

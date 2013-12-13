@@ -7,7 +7,7 @@
 //
 
 #import "TSNavigationController.h"
-#import "TSTheming.h"
+#import "TSFrontEndIncludes.h"
 
 @interface TSNavigationController ()
 

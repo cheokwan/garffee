@@ -75,14 +75,14 @@
 
 - (ItemPickerTableViewCell *)itemPickerPrototypeCell {
     if (!_itemPickerPrototypeCell) {
-        self.itemPickerPrototypeCell = (ItemPickerTableViewCell *)[_itemTable dequeueReusableCellWithIdentifier:NSStringFromClass([ItemPickerTableViewCell class])];
+        self.itemPickerPrototypeCell = (ItemPickerTableViewCell *)[_itemTable dequeueReusableCellWithIdentifier:NSStringFromClass(ItemPickerTableViewCell.class)];
     }
     return _itemPickerPrototypeCell;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = nil;
-    cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([ItemPickerTableViewCell class]) forIndexPath:indexPath];
+    cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(ItemPickerTableViewCell.class) forIndexPath:indexPath];
     [self configureCell:cell atIndexPath:indexPath];
     return cell;
 }

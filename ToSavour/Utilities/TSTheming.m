@@ -7,7 +7,7 @@
 //
 
 #import "TSTheming.h"
-#import "UIColor+HexString.h"
+#import "TSFrontEndIncludes.h"
 
 @implementation TSTheming
 

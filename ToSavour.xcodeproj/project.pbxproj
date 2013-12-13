@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		C745B082CE144F8095231522 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C23BC4E3A4EF498CB2E1D08C /* libPods.a */; };
+		D221964D1859BCC6007528EE /* FriendsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D221964C1859BCC6007528EE /* FriendsListViewController.m */; };
+		D22196501859C24C007528EE /* FriendsListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D221964F1859C24C007528EE /* FriendsListTableViewCell.m */; };
+		D2219653185AACD8007528EE /* NSManagedObject+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2219652185AACD8007528EE /* NSManagedObject+Helper.m */; };
 		D239770318474F230002D655 /* TSLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D239770218474F230002D655 /* TSLogFormatter.m */; };
 		D243757518488358000009D7 /* TSSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = D243757418488358000009D7 /* TSSettings.m */; };
 		D2437577184C3498000009D7 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2437576184C3497000009D7 /* MapKit.framework */; };
@@ -36,7 +39,8 @@
 		D2A36A941850AA6C004D3D99 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A36A931850AA6C004D3D99 /* HomeViewController.m */; };
 		D2A556FB184C37F60039A5A0 /* MapTrackingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A556FA184C37F60039A5A0 /* MapTrackingViewController.m */; };
 		D2A55711184DBF4C0039A5A0 /* MapTrackingAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A55710184DBF4C0039A5A0 /* MapTrackingAnnotation.m */; };
-		D2A55717184DC89F0039A5A0 /* NSManagedObject+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A55716184DC89F0039A5A0 /* NSManagedObject+Helper.m */; };
+		D2A67A82185ACA8A00889114 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2A67A81185ACA8A00889114 /* QuartzCore.framework */; };
+		D2A67A88185B0EC000889114 /* AvatarView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A67A87185B0EC000889114 /* AvatarView.m */; };
 		D2C075B71851D33F00620114 /* MBranch.json in Resources */ = {isa = PBXBuildFile; fileRef = D2C075B61851D33F00620114 /* MBranch.json */; };
 		D2C075BE1852CACB00620114 /* ItemPickerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075BD1852CACB00620114 /* ItemPickerTableViewCell.m */; };
 		D2C075C11852E29500620114 /* ItemPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075C01852E29500620114 /* ItemPickerViewController.m */; };
@@ -44,6 +48,7 @@
 		D2C075CB1855C47200620114 /* TutorialLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075CA1855C47200620114 /* TutorialLoginViewController.m */; };
 		D2C075D01857245E00620114 /* UIView+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075CF1857245E00620114 /* UIView+Helper.m */; };
 		D2C075D31858092800620114 /* MUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075D21858092800620114 /* MUserInfo.m */; };
+		D2C075E11859694700620114 /* MFriendInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075E01859694700620114 /* MFriendInfo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +64,14 @@
 /* Begin PBXFileReference section */
 		257842E4F2DE434C98166E63 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		C23BC4E3A4EF498CB2E1D08C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D221964718598E0B007528EE /* RKMappableEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RKMappableEntity.h; path = BackEnd/RKMappableEntity.h; sourceTree = "<group>"; };
+		D221964B1859BCC6007528EE /* FriendsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FriendsListViewController.h; path = FrontEnd/FriendsListViewController.h; sourceTree = "<group>"; };
+		D221964C1859BCC6007528EE /* FriendsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FriendsListViewController.m; path = FrontEnd/FriendsListViewController.m; sourceTree = "<group>"; };
+		D221964E1859C24C007528EE /* FriendsListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FriendsListTableViewCell.h; path = FrontEnd/Views/FriendsListTableViewCell.h; sourceTree = "<group>"; };
+		D221964F1859C24C007528EE /* FriendsListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FriendsListTableViewCell.m; path = FrontEnd/Views/FriendsListTableViewCell.m; sourceTree = "<group>"; };
+		D2219651185AACD8007528EE /* NSManagedObject+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+Helper.h"; path = "Utilities/NSManagedObject+Helper.h"; sourceTree = "<group>"; };
+		D2219652185AACD8007528EE /* NSManagedObject+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObject+Helper.m"; path = "Utilities/NSManagedObject+Helper.m"; sourceTree = "<group>"; };
+		D2219654185AAD5C007528EE /* TSFrontEndIncludes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TSFrontEndIncludes.h; path = Utilities/TSFrontEndIncludes.h; sourceTree = "<group>"; };
 		D239770118474F230002D655 /* TSLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSLogFormatter.h; path = Utilities/TSLogFormatter.h; sourceTree = "<group>"; };
 		D239770218474F230002D655 /* TSLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSLogFormatter.m; path = Utilities/TSLogFormatter.m; sourceTree = "<group>"; };
 		D243757318488358000009D7 /* TSSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSSettings.h; path = Utilities/TSSettings.h; sourceTree = "<group>"; };
@@ -101,8 +114,9 @@
 		D2A556FA184C37F60039A5A0 /* MapTrackingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapTrackingViewController.m; path = FrontEnd/MapTrackingViewController.m; sourceTree = "<group>"; };
 		D2A5570F184DBF4C0039A5A0 /* MapTrackingAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapTrackingAnnotation.h; path = BackEnd/Model/MapTrackingAnnotation.h; sourceTree = "<group>"; };
 		D2A55710184DBF4C0039A5A0 /* MapTrackingAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapTrackingAnnotation.m; path = BackEnd/Model/MapTrackingAnnotation.m; sourceTree = "<group>"; };
-		D2A55715184DC89F0039A5A0 /* NSManagedObject+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+Helper.h"; path = "BackEnd/NSManagedObject+Helper.h"; sourceTree = "<group>"; };
-		D2A55716184DC89F0039A5A0 /* NSManagedObject+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObject+Helper.m"; path = "BackEnd/NSManagedObject+Helper.m"; sourceTree = "<group>"; };
+		D2A67A81185ACA8A00889114 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		D2A67A86185B0EC000889114 /* AvatarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AvatarView.h; path = FrontEnd/Views/AvatarView.h; sourceTree = "<group>"; };
+		D2A67A87185B0EC000889114 /* AvatarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AvatarView.m; path = FrontEnd/Views/AvatarView.m; sourceTree = "<group>"; };
 		D2C075B61851D33F00620114 /* MBranch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = MBranch.json; path = Resource/MBranch.json; sourceTree = "<group>"; };
 		D2C075BC1852CACB00620114 /* ItemPickerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ItemPickerTableViewCell.h; path = FrontEnd/Views/ItemPickerTableViewCell.h; sourceTree = "<group>"; };
 		D2C075BD1852CACB00620114 /* ItemPickerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ItemPickerTableViewCell.m; path = FrontEnd/Views/ItemPickerTableViewCell.m; sourceTree = "<group>"; };
@@ -117,6 +131,8 @@
 		D2C075CF1857245E00620114 /* UIView+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+Helper.m"; path = "Utilities/UIView+Helper.m"; sourceTree = "<group>"; };
 		D2C075D11858092800620114 /* MUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUserInfo.h; path = BackEnd/Model/MUserInfo.h; sourceTree = "<group>"; };
 		D2C075D21858092800620114 /* MUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUserInfo.m; path = BackEnd/Model/MUserInfo.m; sourceTree = "<group>"; };
+		D2C075DF1859694700620114 /* MFriendInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MFriendInfo.h; path = BackEnd/Model/MFriendInfo.h; sourceTree = "<group>"; };
+		D2C075E01859694700620114 /* MFriendInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MFriendInfo.m; path = BackEnd/Model/MFriendInfo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +140,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2A67A82185ACA8A00889114 /* QuartzCore.framework in Frameworks */,
 				D2437577184C3498000009D7 /* MapKit.framework in Frameworks */,
 				D293E4F818435DC100B73795 /* CoreLocation.framework in Frameworks */,
 				D293E4B4183DEDEB00B73795 /* CoreGraphics.framework in Frameworks */,
@@ -151,6 +168,8 @@
 		D23976FF184745860002D655 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				D2219651185AACD8007528EE /* NSManagedObject+Helper.h */,
+				D2219652185AACD8007528EE /* NSManagedObject+Helper.m */,
 				D239770118474F230002D655 /* TSLogFormatter.h */,
 				D239770218474F230002D655 /* TSLogFormatter.m */,
 				D243757318488358000009D7 /* TSSettings.h */,
@@ -161,6 +180,7 @@
 				D2C075CC1855E8A600620114 /* TSLocalizedString.h */,
 				D2C075CE1857245E00620114 /* UIView+Helper.h */,
 				D2C075CF1857245E00620114 /* UIView+Helper.m */,
+				D2219654185AAD5C007528EE /* TSFrontEndIncludes.h */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -188,6 +208,7 @@
 		D293E4B0183DEDEB00B73795 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D2A67A81185ACA8A00889114 /* QuartzCore.framework */,
 				D2437576184C3497000009D7 /* MapKit.framework */,
 				D293E4F718435DC100B73795 /* CoreLocation.framework */,
 				D293E4B1183DEDEB00B73795 /* Foundation.framework */,
@@ -263,6 +284,8 @@
 				D2C075C01852E29500620114 /* ItemPickerViewController.m */,
 				D2C075C91855C47200620114 /* TutorialLoginViewController.h */,
 				D2C075CA1855C47200620114 /* TutorialLoginViewController.m */,
+				D221964B1859BCC6007528EE /* FriendsListViewController.h */,
+				D221964C1859BCC6007528EE /* FriendsListViewController.m */,
 			);
 			name = FrontEnd;
 			sourceTree = "<group>";
@@ -273,8 +296,7 @@
 				D2A55702184DB5ED0039A5A0 /* Model */,
 				D293E4F4184357B400B73795 /* TimeTracker.h */,
 				D293E4F5184357B400B73795 /* TimeTracker.m */,
-				D2A55715184DC89F0039A5A0 /* NSManagedObject+Helper.h */,
-				D2A55716184DC89F0039A5A0 /* NSManagedObject+Helper.m */,
+				D221964718598E0B007528EE /* RKMappableEntity.h */,
 			);
 			name = BackEnd;
 			sourceTree = "<group>";
@@ -291,6 +313,8 @@
 		D2A55702184DB5ED0039A5A0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D2C075DF1859694700620114 /* MFriendInfo.h */,
+				D2C075E01859694700620114 /* MFriendInfo.m */,
 				D2C075D11858092800620114 /* MUserInfo.h */,
 				D2C075D21858092800620114 /* MUserInfo.m */,
 				D2A5570F184DBF4C0039A5A0 /* MapTrackingAnnotation.h */,
@@ -314,6 +338,10 @@
 				D2C075BD1852CACB00620114 /* ItemPickerTableViewCell.m */,
 				D2C075C218533B6A00620114 /* ItemPickerScrollView.h */,
 				D2C075C318533B6A00620114 /* ItemPickerScrollView.m */,
+				D221964E1859C24C007528EE /* FriendsListTableViewCell.h */,
+				D221964F1859C24C007528EE /* FriendsListTableViewCell.m */,
+				D2A67A86185B0EC000889114 /* AvatarView.h */,
+				D2A67A87185B0EC000889114 /* AvatarView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -460,20 +488,24 @@
 				D293E4F6184357B400B73795 /* TimeTracker.m in Sources */,
 				D293E4C4183DEDEB00B73795 /* AppDelegate.m in Sources */,
 				D243757518488358000009D7 /* TSSettings.m in Sources */,
+				D2A67A88185B0EC000889114 /* AvatarView.m in Sources */,
 				D2C075D31858092800620114 /* MUserInfo.m in Sources */,
 				D2C075C11852E29500620114 /* ItemPickerViewController.m in Sources */,
+				D221964D1859BCC6007528EE /* FriendsListViewController.m in Sources */,
 				D2C075C418533B6A00620114 /* ItemPickerScrollView.m in Sources */,
 				D2A36A941850AA6C004D3D99 /* HomeViewController.m in Sources */,
-				D2A55717184DC89F0039A5A0 /* NSManagedObject+Helper.m in Sources */,
 				D293E4F2183DF24000B73795 /* SlideMenuViewController.m in Sources */,
 				D2C075BE1852CACB00620114 /* ItemPickerTableViewCell.m in Sources */,
 				D2A55711184DBF4C0039A5A0 /* MapTrackingAnnotation.m in Sources */,
 				D293E4C0183DEDEB00B73795 /* main.m in Sources */,
 				D2A36A911850684A004D3D99 /* MainTabBarController.m in Sources */,
 				D2A36A86185046B2004D3D99 /* TSTheming.m in Sources */,
+				D2219653185AACD8007528EE /* NSManagedObject+Helper.m in Sources */,
 				D2A36A8E18504ADE004D3D99 /* TSNavigationController.m in Sources */,
 				D293E4CA183DEDEB00B73795 /* ToSavour.xcdatamodeld in Sources */,
+				D22196501859C24C007528EE /* FriendsListTableViewCell.m in Sources */,
 				D2C075D01857245E00620114 /* UIView+Helper.m in Sources */,
+				D2C075E11859694700620114 /* MFriendInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
