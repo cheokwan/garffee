@@ -43,12 +43,9 @@
 		D2C075BE1852CACB00620114 /* ItemPickerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075BD1852CACB00620114 /* ItemPickerTableViewCell.m */; };
 		D2C075C11852E29500620114 /* ItemPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075C01852E29500620114 /* ItemPickerViewController.m */; };
 		D2C075C418533B6A00620114 /* ItemPickerScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075C318533B6A00620114 /* ItemPickerScrollView.m */; };
-		DFBDA14C1856111500BF3755 /* PhotoHuntViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFBDA14B1856111500BF3755 /* PhotoHuntViewController.m */; };
 		DFE628A518558AD600E1C8FE /* DailyGameStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DFE628A418558AD600E1C8FE /* DailyGameStoryboard.storyboard */; };
 		DFE628A81855992800E1C8FE /* ChooseGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFE628A71855992800E1C8FE /* ChooseGameViewController.m */; };
 		DFE628AD1855AF2C00E1C8FE /* TSNetworkServiceCalls.m in Sources */ = {isa = PBXBuildFile; fileRef = DFE628AC1855AF2C00E1C8FE /* TSNetworkServiceCalls.m */; };
-		DFE628B11855FB7D00E1C8FE /* AreYouReadyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFE628B01855FB7D00E1C8FE /* AreYouReadyViewController.m */; };
-		DFE628B41855FE0D00E1C8FE /* CountDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = DFE628B31855FE0C00E1C8FE /* CountDownButton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,18 +116,12 @@
 		D2C075C01852E29500620114 /* ItemPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ItemPickerViewController.m; path = FrontEnd/ItemPickerViewController.m; sourceTree = "<group>"; };
 		D2C075C218533B6A00620114 /* ItemPickerScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ItemPickerScrollView.h; path = FrontEnd/Views/ItemPickerScrollView.h; sourceTree = "<group>"; };
 		D2C075C318533B6A00620114 /* ItemPickerScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ItemPickerScrollView.m; path = FrontEnd/Views/ItemPickerScrollView.m; sourceTree = "<group>"; };
-		DFBDA14A1856111500BF3755 /* PhotoHuntViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoHuntViewController.h; sourceTree = "<group>"; };
-		DFBDA14B1856111500BF3755 /* PhotoHuntViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoHuntViewController.m; sourceTree = "<group>"; };
 		DFE628A418558AD600E1C8FE /* DailyGameStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DailyGameStoryboard.storyboard; sourceTree = "<group>"; };
 		DFE628A61855992800E1C8FE /* ChooseGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseGameViewController.h; sourceTree = "<group>"; };
 		DFE628A71855992800E1C8FE /* ChooseGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseGameViewController.m; sourceTree = "<group>"; };
 		DFE628A91855A6AA00E1C8FE /* TSLocalizedString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TSLocalizedString.h; sourceTree = "<group>"; };
 		DFE628AB1855AF2C00E1C8FE /* TSNetworkServiceCalls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSNetworkServiceCalls.h; sourceTree = "<group>"; };
 		DFE628AC1855AF2C00E1C8FE /* TSNetworkServiceCalls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSNetworkServiceCalls.m; sourceTree = "<group>"; };
-		DFE628AF1855FB7D00E1C8FE /* AreYouReadyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AreYouReadyViewController.h; sourceTree = "<group>"; };
-		DFE628B01855FB7D00E1C8FE /* AreYouReadyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AreYouReadyViewController.m; sourceTree = "<group>"; };
-		DFE628B21855FE0C00E1C8FE /* CountDownButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountDownButton.h; sourceTree = "<group>"; };
-		DFE628B31855FE0C00E1C8FE /* CountDownButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountDownButton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -266,7 +257,6 @@
 		D293E4EF183DF20D00B73795 /* FrontEnd */ = {
 			isa = PBXGroup;
 			children = (
-				DFE628AE1855FB5A00E1C8FE /* DailyAwardGame */,
 				D2C075B81852CA4700620114 /* Views */,
 				D2A36A8818504A12004D3D99 /* CustomUI */,
 				D293E4F0183DF24000B73795 /* SlideMenuViewController.h */,
@@ -279,6 +269,8 @@
 				D2A36A931850AA6C004D3D99 /* HomeViewController.m */,
 				D2C075BF1852E29500620114 /* ItemPickerViewController.h */,
 				D2C075C01852E29500620114 /* ItemPickerViewController.m */,
+				DFE628A61855992800E1C8FE /* ChooseGameViewController.h */,
+				DFE628A71855992800E1C8FE /* ChooseGameViewController.m */,
 			);
 			name = FrontEnd;
 			sourceTree = "<group>";
@@ -332,21 +324,6 @@
 				D2C075C318533B6A00620114 /* ItemPickerScrollView.m */,
 			);
 			name = Views;
-			sourceTree = "<group>";
-		};
-		DFE628AE1855FB5A00E1C8FE /* DailyAwardGame */ = {
-			isa = PBXGroup;
-			children = (
-				DFE628A61855992800E1C8FE /* ChooseGameViewController.h */,
-				DFE628A71855992800E1C8FE /* ChooseGameViewController.m */,
-				DFE628AF1855FB7D00E1C8FE /* AreYouReadyViewController.h */,
-				DFE628B01855FB7D00E1C8FE /* AreYouReadyViewController.m */,
-				DFE628B21855FE0C00E1C8FE /* CountDownButton.h */,
-				DFE628B31855FE0C00E1C8FE /* CountDownButton.m */,
-				DFBDA14A1856111500BF3755 /* PhotoHuntViewController.h */,
-				DFBDA14B1856111500BF3755 /* PhotoHuntViewController.m */,
-			);
-			name = DailyAwardGame;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -498,14 +475,11 @@
 				D2A36A941850AA6C004D3D99 /* HomeViewController.m in Sources */,
 				D2A55717184DC89F0039A5A0 /* NSManagedObject+Helper.m in Sources */,
 				DFE628A81855992800E1C8FE /* ChooseGameViewController.m in Sources */,
-				DFBDA14C1856111500BF3755 /* PhotoHuntViewController.m in Sources */,
 				D293E4F2183DF24000B73795 /* SlideMenuViewController.m in Sources */,
 				DFE628AD1855AF2C00E1C8FE /* TSNetworkServiceCalls.m in Sources */,
 				D2C075BE1852CACB00620114 /* ItemPickerTableViewCell.m in Sources */,
-				DFE628B41855FE0D00E1C8FE /* CountDownButton.m in Sources */,
 				D2A55711184DBF4C0039A5A0 /* MapTrackingAnnotation.m in Sources */,
 				D293E4C0183DEDEB00B73795 /* main.m in Sources */,
-				DFE628B11855FB7D00E1C8FE /* AreYouReadyViewController.m in Sources */,
 				D2A36A911850684A004D3D99 /* MainTabBarController.m in Sources */,
 				D2A36A86185046B2004D3D99 /* TSTheming.m in Sources */,
 				D2A36A8E18504ADE004D3D99 /* TSNavigationController.m in Sources */,

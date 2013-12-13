@@ -7,11 +7,9 @@
 //
 
 #import "ChooseGameViewController.h"
-
+#import "TSTheming.h"
 #import <AFNetworking.h>
 #import <UIView+Helpers.h>
-#import "TSNavigationController.h"
-#import "TSTheming.h"
 
 @interface ChooseGameViewController ()
 
@@ -43,8 +41,7 @@
     _awardStrLabel.text = LS_AWARDS;
     NSUInteger awardNum = 1;
     _awardDetailsLabel.text = [NSString stringWithFormat:@"%@ X %d", LS_COFFEE, awardNum];
-    [_challengeNowButton setTitle:LS_CHALLENGE_NOW forState:UIControlStateNormal];
-    [_challengeNowButton addTarget:self action:@selector(challengeNowButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    _challengeNowStrLabel.text = LS_CHALLENGE_NOW;
     [self initializeScrollView];
 }
 
@@ -65,13 +62,6 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)challengeNowButtonPressed:(id)sender {
-    AreYouReadyViewController *controller = (AreYouReadyViewController *)[TSTheming viewControllerWithStoryboardIdentifier:@"AreYouReadyViewController" storyboard:@"DailyGameStoryboard"];
-    TSNavigationController *naviController = [[TSNavigationController alloc] initWithRootViewController:controller];
-    controller.delegate = self;
-    [self presentViewController:naviController animated:NO completion:nil];
-}
-
 #pragma mark - scroll view related
 - (void)initializeScrollView {
     float width = 0.0f;
@@ -90,24 +80,6 @@
 
 - (NSUInteger)numberOfGames {
     return 3;
-}
-
-#pragma mark - AreYouReadyViewControllerDelegate
-- (void)areYouReadyViewControllerDidFinishCountDown:(AreYouReadyViewController *)controller {
-    PhotoHuntViewController *photoHuntercontroller = (PhotoHuntViewController *)[TSTheming viewControllerWithStoryboardIdentifier:@"PhotoHuntViewController" storyboard:@"DailyGameStoryboard"];
-    photoHuntercontroller.timeLimit = [self gameTimeLimit];
-    TSNavigationController *naviController = [[TSNavigationController alloc] initWithRootViewController:photoHuntercontroller];
-    photoHuntercontroller.delegate = self;
-    [self presentViewController:naviController animated:NO completion:nil];
-}
-
-#pragma mark - PhotoHuntViewControllerDelegate / related
-- (void)photoHuntViewControllerDidFinishGame:(PhotoHuntViewController *)controller {
-    //XXX-ML
-}
-
-- (float)gameTimeLimit {
-    return 5.0f;
 }
 
 @end

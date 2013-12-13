@@ -8,19 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-#import "AreYouReadyViewController.h"
-#import "PhotoHuntViewController.h"
-
 @class ChooseGameViewController;
 @protocol ChooseGameViewControllerDelegate <NSObject>
 - (void)chooseGameViewControllerWillDismiss:(ChooseGameViewController *)chooseGameViewContoller;
 @end
 
-@interface ChooseGameViewController : UIViewController <AreYouReadyViewControllerDelegate, PhotoHuntViewControllerDelagte>
+@interface ChooseGameViewController : UIViewController
 
 @property (nonatomic, weak) id<ChooseGameViewControllerDelegate> delegate;
-@property (nonatomic, strong) IBOutlet UILabel *awardStrLabel, *awardDetailsLabel;
-@property (nonatomic, strong) IBOutlet UIButton *challengeNowButton;
+@property (nonatomic, strong) IBOutlet UILabel *awardStrLabel, *awardDetailsLabel, *challengeNowStrLabel;
 @property (nonatomic, strong) IBOutlet UIScrollView *gamesScrollView;
 
 @end
