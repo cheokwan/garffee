@@ -43,6 +43,10 @@
 		D2C075BE1852CACB00620114 /* ItemPickerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075BD1852CACB00620114 /* ItemPickerTableViewCell.m */; };
 		D2C075C11852E29500620114 /* ItemPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075C01852E29500620114 /* ItemPickerViewController.m */; };
 		D2C075C418533B6A00620114 /* ItemPickerScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075C318533B6A00620114 /* ItemPickerScrollView.m */; };
+		DF60E74D185B47BA00DB10DE /* PhotoHuntGridButton.m in Sources */ = {isa = PBXBuildFile; fileRef = DF60E74C185B47BA00DB10DE /* PhotoHuntGridButton.m */; };
+		DF60E750185C0D8000DB10DE /* PhotoHuntManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DF60E74F185C0D8000DB10DE /* PhotoHuntManager.m */; };
+		DF60E756185C455200DB10DE /* PhotoHuntImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = DF60E755185C455200DB10DE /* PhotoHuntImageView.m */; };
+		DF60E759185C642F00DB10DE /* NSMutableArray+Shuffle.m in Sources */ = {isa = PBXBuildFile; fileRef = DF60E758185C642F00DB10DE /* NSMutableArray+Shuffle.m */; };
 		DFBDA14C1856111500BF3755 /* PhotoHuntViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFBDA14B1856111500BF3755 /* PhotoHuntViewController.m */; };
 		DFE628A518558AD600E1C8FE /* DailyGameStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DFE628A418558AD600E1C8FE /* DailyGameStoryboard.storyboard */; };
 		DFE628A81855992800E1C8FE /* ChooseGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFE628A71855992800E1C8FE /* ChooseGameViewController.m */; };
@@ -119,6 +123,14 @@
 		D2C075C01852E29500620114 /* ItemPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ItemPickerViewController.m; path = FrontEnd/ItemPickerViewController.m; sourceTree = "<group>"; };
 		D2C075C218533B6A00620114 /* ItemPickerScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ItemPickerScrollView.h; path = FrontEnd/Views/ItemPickerScrollView.h; sourceTree = "<group>"; };
 		D2C075C318533B6A00620114 /* ItemPickerScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ItemPickerScrollView.m; path = FrontEnd/Views/ItemPickerScrollView.m; sourceTree = "<group>"; };
+		DF60E74B185B47BA00DB10DE /* PhotoHuntGridButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoHuntGridButton.h; sourceTree = "<group>"; };
+		DF60E74C185B47BA00DB10DE /* PhotoHuntGridButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoHuntGridButton.m; sourceTree = "<group>"; };
+		DF60E74E185C0D8000DB10DE /* PhotoHuntManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoHuntManager.h; sourceTree = "<group>"; };
+		DF60E74F185C0D8000DB10DE /* PhotoHuntManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoHuntManager.m; sourceTree = "<group>"; };
+		DF60E754185C455200DB10DE /* PhotoHuntImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoHuntImageView.h; sourceTree = "<group>"; };
+		DF60E755185C455200DB10DE /* PhotoHuntImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoHuntImageView.m; sourceTree = "<group>"; };
+		DF60E757185C642F00DB10DE /* NSMutableArray+Shuffle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Shuffle.h"; sourceTree = "<group>"; };
+		DF60E758185C642F00DB10DE /* NSMutableArray+Shuffle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Shuffle.m"; sourceTree = "<group>"; };
 		DFBDA14A1856111500BF3755 /* PhotoHuntViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoHuntViewController.h; sourceTree = "<group>"; };
 		DFBDA14B1856111500BF3755 /* PhotoHuntViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoHuntViewController.m; sourceTree = "<group>"; };
 		DFE628A418558AD600E1C8FE /* DailyGameStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DailyGameStoryboard.storyboard; sourceTree = "<group>"; };
@@ -173,6 +185,8 @@
 				D2A36A85185046B2004D3D99 /* TSTheming.m */,
 				D2A36A8718504743004D3D99 /* Defines.h */,
 				DFE628A91855A6AA00E1C8FE /* TSLocalizedString.h */,
+				DF60E757185C642F00DB10DE /* NSMutableArray+Shuffle.h */,
+				DF60E758185C642F00DB10DE /* NSMutableArray+Shuffle.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -345,6 +359,12 @@
 				DFE628B31855FE0C00E1C8FE /* CountDownButton.m */,
 				DFBDA14A1856111500BF3755 /* PhotoHuntViewController.h */,
 				DFBDA14B1856111500BF3755 /* PhotoHuntViewController.m */,
+				DF60E74B185B47BA00DB10DE /* PhotoHuntGridButton.h */,
+				DF60E74C185B47BA00DB10DE /* PhotoHuntGridButton.m */,
+				DF60E74E185C0D8000DB10DE /* PhotoHuntManager.h */,
+				DF60E74F185C0D8000DB10DE /* PhotoHuntManager.m */,
+				DF60E754185C455200DB10DE /* PhotoHuntImageView.h */,
+				DF60E755185C455200DB10DE /* PhotoHuntImageView.m */,
 			);
 			name = DailyAwardGame;
 			sourceTree = "<group>";
@@ -486,6 +506,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF60E74D185B47BA00DB10DE /* PhotoHuntGridButton.m in Sources */,
 				D2A556FB184C37F60039A5A0 /* MapTrackingViewController.m in Sources */,
 				D239770318474F230002D655 /* TSLogFormatter.m in Sources */,
 				D293E4F6184357B400B73795 /* TimeTracker.m in Sources */,
@@ -506,8 +527,11 @@
 				D2A55711184DBF4C0039A5A0 /* MapTrackingAnnotation.m in Sources */,
 				D293E4C0183DEDEB00B73795 /* main.m in Sources */,
 				DFE628B11855FB7D00E1C8FE /* AreYouReadyViewController.m in Sources */,
+				DF60E759185C642F00DB10DE /* NSMutableArray+Shuffle.m in Sources */,
+				DF60E750185C0D8000DB10DE /* PhotoHuntManager.m in Sources */,
 				D2A36A911850684A004D3D99 /* MainTabBarController.m in Sources */,
 				D2A36A86185046B2004D3D99 /* TSTheming.m in Sources */,
+				DF60E756185C455200DB10DE /* PhotoHuntImageView.m in Sources */,
 				D2A36A8E18504ADE004D3D99 /* TSNavigationController.m in Sources */,
 				D293E4CA183DEDEB00B73795 /* ToSavour.xcdatamodeld in Sources */,
 			);

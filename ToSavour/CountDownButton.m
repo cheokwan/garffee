@@ -27,11 +27,8 @@
     // Drawing code
     CGRect borderRect = CGRectMake(0.0, 0.0, self.frameSizeWidth, self.frameSizeHeight);
     CGContextRef context = UIGraphicsGetCurrentContext();
-//    CGContextSetRGBStrokeColor(context, 1.0, 1.0, 1.0, 1.0);
     CGContextSetFillColorWithColor(context, self.fillColor.CGColor);
-//    CGContextSetLineWidth(context, 2.0);
     CGContextFillEllipseInRect (context, borderRect);
-//    CGContextStrokeEllipseInRect(context, borderRect);
     CGContextFillPath(context);
 }
 

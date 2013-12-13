@@ -8,19 +8,24 @@
 
 #import <UIKit/UIKit.h>
 
-#import "AreYouReadyViewController.h"
+#import "CountDownButton.h"
 #import "PhotoHuntViewController.h"
+
+#define COUNT_DOWN_INTERVAL     1.0f
 
 @class ChooseGameViewController;
 @protocol ChooseGameViewControllerDelegate <NSObject>
 - (void)chooseGameViewControllerWillDismiss:(ChooseGameViewController *)chooseGameViewContoller;
 @end
 
-@interface ChooseGameViewController : UIViewController <AreYouReadyViewControllerDelegate, PhotoHuntViewControllerDelagte>
+@interface ChooseGameViewController : UIViewController <PhotoHuntViewControllerDelagte, UIScrollViewDelegate>
 
 @property (nonatomic, weak) id<ChooseGameViewControllerDelegate> delegate;
 @property (nonatomic, strong) IBOutlet UILabel *awardStrLabel, *awardDetailsLabel, *winLabel;
 @property (nonatomic, strong) IBOutlet UIButton *challengeNowButton;
 @property (nonatomic, strong) IBOutlet UIScrollView *gamesScrollView;
+
+@property (nonatomic, strong) IBOutlet UIView *countDownView;
+@property (nonatomic, strong) IBOutlet CountDownButton *num1Button, *num2Button, *num3Button;
 
 @end

@@ -10,8 +10,6 @@
 
 #import "TSTheming.h"
 
-#define COUNT_DOWN_INTERVAL     1.0f
-
 @interface AreYouReadyViewController ()
 @property (nonatomic, strong) NSMutableDictionary *buttonDict;
 @end
@@ -56,14 +54,17 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    float interval = 0.5f;
-    [self performSelector:@selector(countDown:) withObject:@(3) afterDelay:interval];
-    interval += COUNT_DOWN_INTERVAL;
-    [self performSelector:@selector(countDown:) withObject:@(2) afterDelay:interval];
-    interval += COUNT_DOWN_INTERVAL;
-    [self performSelector:@selector(countDown:) withObject:@(1) afterDelay:interval];
-    interval += COUNT_DOWN_INTERVAL;
-    [self performSelector:@selector(proceed) withObject:nil afterDelay:interval];
+}
+
+- (void)startCountDown {
+//    float interval = 0.5f;
+//    [self performSelector:@selector(countDown:) withObject:@(3) afterDelay:interval];
+//    interval += COUNT_DOWN_INTERVAL;
+//    [self performSelector:@selector(countDown:) withObject:@(2) afterDelay:interval];
+//    interval += COUNT_DOWN_INTERVAL;
+//    [self performSelector:@selector(countDown:) withObject:@(1) afterDelay:interval];
+//    interval += COUNT_DOWN_INTERVAL;
+//    [self performSelector:@selector(proceed) withObject:nil afterDelay:interval];
 }
 
 - (void)countDown:(NSNumber *)countStr {

@@ -8,15 +8,30 @@
 
 #import <UIKit/UIKit.h>
 
+#import "PhotoHuntGridButton.h"
+#import "PhotoHuntImageView.h"
+#import "PhotoHuntManager.h"
+
+#define GRID_WIDTH                  10.0f
+#define GRID_HEIGHT                 10.0f
+#define COUNT_DOWN_UPDATE_INTERVAL  0.1f
+#define CHANGE_IMAGE_START_INDEX    1
+
 @class PhotoHuntViewController;
 @protocol PhotoHuntViewControllerDelagte <NSObject>
 - (void)photoHuntViewControllerDidFinishGame:(PhotoHuntViewController *)controller;
 @end
 
-@interface PhotoHuntViewController : UIViewController <UIAlertViewDelegate>
+@interface PhotoHuntViewController : UIViewController <UIAlertViewDelegate, PhotoHuntGridButtonDelegate, PhotoHuntManagerDelegate>
+
+- (id)initWithFilePackageName:(NSString *)packageName;
 
 @property (nonatomic, weak) id<PhotoHuntViewControllerDelagte> delegate;
 @property (nonatomic, strong) IBOutlet UISlider *countDownSlider;
+@property (nonatomic, strong) IBOutlet UIView *sliderContainerView;
+@property (nonatomic, strong) IBOutlet PhotoHuntImageView *upperImageView, *lowerImageView;
 @property (nonatomic) float timeLimit;
+@property (nonatomic) float timePenalty;
+@property (nonatomic, strong) NSString *filePackageName;
 
 @end

@@ -14,19 +14,10 @@
 #import "TSTheming.h"
 
 @interface ChooseGameViewController ()
-
+@property (nonatomic, strong) NSMutableDictionary *buttonDict;
 @end
 
 @implementation ChooseGameViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
@@ -44,20 +35,22 @@
     NSUInteger awardNum = 1;
     _awardDetailsLabel.text = [NSString stringWithFormat:@"%@ X %d", LS_COFFEE, awardNum];
     [_challengeNowButton setTitle:LS_CHALLENGE_NOW forState:UIControlStateNormal];
+    [_challengeNowButton setTitle:LS_ALREADY_PLAYED forState:UIControlStateDisabled];
+    [_challengeNowButton setTitleColor:[UIColor redColor] forState:UIControlStateDisabled];
     [_challengeNowButton addTarget:self action:@selector(challengeNowButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self initializeScrollView];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [self initializeCountDownView];
 }
 
 - (void)dealloc {
     self.delegate = nil;
 }
 
+- (void)gameUpdated {
+    
+}
+
+#pragma mark - button pressed
 - (void)cancelButtonPressed:(id)sender {
     if ([_delegate respondsToSelector:@selector(chooseGameViewControllerWillDismiss:)]) {
         [_delegate chooseGameViewControllerWillDismiss:self];
@@ -66,10 +59,9 @@
 }
 
 - (void)challengeNowButtonPressed:(id)sender {
-    AreYouReadyViewController *controller = (AreYouReadyViewController *)[TSTheming viewControllerWithStoryboardIdentifier:@"AreYouReadyViewController" storyboard:@"DailyGameStoryboard"];
-    TSNavigationController *naviController = [[TSNavigationController alloc] initWithRootViewController:controller];
-    controller.delegate = self;
-    [self presentViewController:naviController animated:NO completion:nil];
+    _countDownView.hidden = NO;
+    [self.view bringSubviewToFront:_countDownView];
+    [self startCountDown];
 }
 
 #pragma mark - scroll view related
@@ -88,14 +80,69 @@
     _gamesScrollView.pagingEnabled = YES;
 }
 
+- (int)currentPage {
+    return (int)_gamesScrollView.contentOffset.x / self.view.frameSizeWidth;
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    [self gameUpdated];
+}
+
+#pragma mark - count down view related
+- (void)initializeCountDownView {
+    _num1Button.userInteractionEnabled = NO;
+    _num2Button.userInteractionEnabled = NO;
+    _num3Button.userInteractionEnabled = NO;
+    _num1Button.fillColor = [UIColor grayColor];
+    _num2Button.fillColor = [UIColor grayColor];
+    _num3Button.fillColor = [UIColor grayColor];
+    [_num1Button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [_num2Button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [_num3Button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    self.buttonDict = [NSMutableDictionary dictionary];
+    _buttonDict[@(3)] = _num3Button;
+    _buttonDict[@(2)] = _num2Button;
+    _buttonDict[@(1)] = _num1Button;
+    _countDownView.hidden = YES;
+    _countDownView.userInteractionEnabled = NO;
+}
+
+- (void)startCountDown {
+    [self countDown:@(0)];
+    float interval = 0.5f;
+    [self performSelector:@selector(countDown:) withObject:@(3) afterDelay:interval];
+    interval += COUNT_DOWN_INTERVAL;
+    [self performSelector:@selector(countDown:) withObject:@(2) afterDelay:interval];
+    interval += COUNT_DOWN_INTERVAL;
+    [self performSelector:@selector(countDown:) withObject:@(1) afterDelay:interval];
+    interval += COUNT_DOWN_INTERVAL;
+    [self performSelector:@selector(proceedFromCountDown) withObject:nil afterDelay:interval];
+}
+
+- (void)countDown:(NSNumber *)countStr {
+    for (NSString *key in _buttonDict.allKeys) {
+        if ([key intValue] == [countStr intValue]) {
+            ((CountDownButton *)_buttonDict[key]).fillColor = [TSTheming defaultThemeColor];
+            ((CountDownButton *)_buttonDict[key]).titleLabel.textColor = [UIColor whiteColor];
+        } else {
+            ((CountDownButton *)_buttonDict[key]).fillColor = [UIColor lightGrayColor];
+            ((CountDownButton *)_buttonDict[key]).titleLabel.textColor = [UIColor whiteColor];
+        }
+        [(CountDownButton *)_buttonDict[key] setNeedsDisplay];
+    }
+}
+
 - (NSUInteger)numberOfGames {
     return 3;
 }
 
-#pragma mark - AreYouReadyViewControllerDelegate
-- (void)areYouReadyViewControllerDidFinishCountDown:(AreYouReadyViewController *)controller {
-    PhotoHuntViewController *photoHuntercontroller = (PhotoHuntViewController *)[TSTheming viewControllerWithStoryboardIdentifier:@"PhotoHuntViewController" storyboard:@"DailyGameStoryboard"];
+- (void)proceedFromCountDown {
+    _countDownView.hidden = YES;
+    [self.view sendSubviewToBack:_countDownView];
+    [self countDown:@(0)];
+    PhotoHuntViewController *photoHuntercontroller = [[PhotoHuntViewController alloc] initWithFilePackageName:@"AinoKishi01"];
     photoHuntercontroller.timeLimit = [self gameTimeLimit];
+    photoHuntercontroller.timePenalty = [self gamePenalty];
     TSNavigationController *naviController = [[TSNavigationController alloc] initWithRootViewController:photoHuntercontroller];
     photoHuntercontroller.delegate = self;
     [self presentViewController:naviController animated:NO completion:nil];
@@ -108,7 +155,11 @@
 }
 
 - (float)gameTimeLimit {
-    return 5.0f;
+    return 50.0f;
+}
+
+- (float)gamePenalty {
+    return 3.0f;
 }
 
 @end

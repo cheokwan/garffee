@@ -12,6 +12,7 @@
 #define LS_DAILY_AWARD_GAME     @"Daily Award Game"
 #define LS_AWARDS               @"Awards"
 #define LS_CHALLENGE_NOW        @"Challenge Now"
+#define LS_ALREADY_PLAYED       @"You have already played this game"
 #define LS_COFFEE               @"Coffee"
 #define LS_ARE_YOU_READY        @"Are You Ready"
 #define LS_END                  @"End"
