@@ -43,7 +43,6 @@
 		D2C075BE1852CACB00620114 /* ItemPickerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075BD1852CACB00620114 /* ItemPickerTableViewCell.m */; };
 		D2C075C11852E29500620114 /* ItemPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075C01852E29500620114 /* ItemPickerViewController.m */; };
 		D2C075C418533B6A00620114 /* ItemPickerScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075C318533B6A00620114 /* ItemPickerScrollView.m */; };
-		DF60E74D185B47BA00DB10DE /* PhotoHuntGridButton.m in Sources */ = {isa = PBXBuildFile; fileRef = DF60E74C185B47BA00DB10DE /* PhotoHuntGridButton.m */; };
 		DFBDA14C1856111500BF3755 /* PhotoHuntViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFBDA14B1856111500BF3755 /* PhotoHuntViewController.m */; };
 		DFE628A518558AD600E1C8FE /* DailyGameStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DFE628A418558AD600E1C8FE /* DailyGameStoryboard.storyboard */; };
 		DFE628A81855992800E1C8FE /* ChooseGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFE628A71855992800E1C8FE /* ChooseGameViewController.m */; };
@@ -120,8 +119,6 @@
 		D2C075C01852E29500620114 /* ItemPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ItemPickerViewController.m; path = FrontEnd/ItemPickerViewController.m; sourceTree = "<group>"; };
 		D2C075C218533B6A00620114 /* ItemPickerScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ItemPickerScrollView.h; path = FrontEnd/Views/ItemPickerScrollView.h; sourceTree = "<group>"; };
 		D2C075C318533B6A00620114 /* ItemPickerScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ItemPickerScrollView.m; path = FrontEnd/Views/ItemPickerScrollView.m; sourceTree = "<group>"; };
-		DF60E74B185B47BA00DB10DE /* PhotoHuntGridButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoHuntGridButton.h; sourceTree = "<group>"; };
-		DF60E74C185B47BA00DB10DE /* PhotoHuntGridButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoHuntGridButton.m; sourceTree = "<group>"; };
 		DFBDA14A1856111500BF3755 /* PhotoHuntViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoHuntViewController.h; sourceTree = "<group>"; };
 		DFBDA14B1856111500BF3755 /* PhotoHuntViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoHuntViewController.m; sourceTree = "<group>"; };
 		DFE628A418558AD600E1C8FE /* DailyGameStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DailyGameStoryboard.storyboard; sourceTree = "<group>"; };
@@ -348,8 +345,6 @@
 				DFE628B31855FE0C00E1C8FE /* CountDownButton.m */,
 				DFBDA14A1856111500BF3755 /* PhotoHuntViewController.h */,
 				DFBDA14B1856111500BF3755 /* PhotoHuntViewController.m */,
-				DF60E74B185B47BA00DB10DE /* PhotoHuntGridButton.h */,
-				DF60E74C185B47BA00DB10DE /* PhotoHuntGridButton.m */,
 			);
 			name = DailyAwardGame;
 			sourceTree = "<group>";
@@ -491,7 +486,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF60E74D185B47BA00DB10DE /* PhotoHuntGridButton.m in Sources */,
 				D2A556FB184C37F60039A5A0 /* MapTrackingViewController.m in Sources */,
 				D239770318474F230002D655 /* TSLogFormatter.m in Sources */,
 				D293E4F6184357B400B73795 /* TimeTracker.m in Sources */,

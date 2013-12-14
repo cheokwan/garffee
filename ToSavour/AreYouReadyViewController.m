@@ -56,18 +56,14 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
-    //XXX-ML
-    [self proceed];
-    
-//    float interval = 0.5f;
-//    [self performSelector:@selector(countDown:) withObject:@(3) afterDelay:interval];
-//    interval += COUNT_DOWN_INTERVAL;
-//    [self performSelector:@selector(countDown:) withObject:@(2) afterDelay:interval];
-//    interval += COUNT_DOWN_INTERVAL;
-//    [self performSelector:@selector(countDown:) withObject:@(1) afterDelay:interval];
-//    interval += COUNT_DOWN_INTERVAL;
-//    [self performSelector:@selector(proceed) withObject:nil afterDelay:interval];
+    float interval = 0.5f;
+    [self performSelector:@selector(countDown:) withObject:@(3) afterDelay:interval];
+    interval += COUNT_DOWN_INTERVAL;
+    [self performSelector:@selector(countDown:) withObject:@(2) afterDelay:interval];
+    interval += COUNT_DOWN_INTERVAL;
+    [self performSelector:@selector(countDown:) withObject:@(1) afterDelay:interval];
+    interval += COUNT_DOWN_INTERVAL;
+    [self performSelector:@selector(proceed) withObject:nil afterDelay:interval];
 }
 
 - (void)countDown:(NSNumber *)countStr {

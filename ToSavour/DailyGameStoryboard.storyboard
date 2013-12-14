@@ -158,38 +158,20 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bBN-OU-yU4">
-                                <rect key="frame" x="0.0" y="230" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="cXl-O4-VPD">
+                            <slider opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="cXl-O4-VPD">
                                 <rect key="frame" x="33" y="235" width="269" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </slider>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z22-8n-OAO">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="230"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TPm-Z3-m3g">
-                                <rect key="frame" x="0.0" y="274" width="320" height="230"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.39607843139999999" green="0.73725490199999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerY" secondItem="bBN-OU-yU4" secondAttribute="centerY" id="UMr-m2-Dhe"/>
-                            <constraint firstAttribute="centerX" secondItem="bBN-OU-yU4" secondAttribute="centerX" id="aVX-Te-Wio"/>
+                            <constraint firstAttribute="centerX" secondItem="cXl-O4-VPD" secondAttribute="centerX" constant="-7.5" id="aQZ-rT-gKb"/>
+                            <constraint firstAttribute="centerY" secondItem="cXl-O4-VPD" secondAttribute="centerY" constant="0.5" id="iOl-Bh-5rK"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="1xu-9x-Qx5"/>
                     <connections>
                         <outlet property="countDownSlider" destination="cXl-O4-VPD" id="BRA-X0-77h"/>
-                        <outlet property="lowerImageView" destination="TPm-Z3-m3g" id="AK5-lW-iwU"/>
-                        <outlet property="sliderContainerView" destination="bBN-OU-yU4" id="kba-oe-gTC"/>
-                        <outlet property="upperImageView" destination="Z22-8n-OAO" id="0wT-d2-Wvn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kuR-9o-jSA" userLabel="First Responder" sceneMemberID="firstResponder"/>
