@@ -41,6 +41,11 @@
 		D2A55711184DBF4C0039A5A0 /* MapTrackingAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A55710184DBF4C0039A5A0 /* MapTrackingAnnotation.m */; };
 		D2A67A82185ACA8A00889114 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2A67A81185ACA8A00889114 /* QuartzCore.framework */; };
 		D2A67A88185B0EC000889114 /* AvatarView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A67A87185B0EC000889114 /* AvatarView.m */; };
+		D2A67A8E185B467400889114 /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A67A8D185B467400889114 /* AccountViewController.m */; };
+		D2A67A91185C21C500889114 /* AccountHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2A67A90185C21C500889114 /* AccountHeaderView.xib */; };
+		D2A67A94185C26E100889114 /* AccountHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A67A93185C26E100889114 /* AccountHeaderView.m */; };
+		D2A67A97185C487A00889114 /* AccountInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A67A96185C487A00889114 /* AccountInfoTableViewCell.m */; };
+		D2A67A9A185C48B100889114 /* TransactionHistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A67A99185C48B100889114 /* TransactionHistoryTableViewCell.m */; };
 		D2C075B71851D33F00620114 /* MBranch.json in Resources */ = {isa = PBXBuildFile; fileRef = D2C075B61851D33F00620114 /* MBranch.json */; };
 		D2C075BE1852CACB00620114 /* ItemPickerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075BD1852CACB00620114 /* ItemPickerTableViewCell.m */; };
 		D2C075C11852E29500620114 /* ItemPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075C01852E29500620114 /* ItemPickerViewController.m */; };
@@ -117,6 +122,15 @@
 		D2A67A81185ACA8A00889114 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D2A67A86185B0EC000889114 /* AvatarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AvatarView.h; path = FrontEnd/Views/AvatarView.h; sourceTree = "<group>"; };
 		D2A67A87185B0EC000889114 /* AvatarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AvatarView.m; path = FrontEnd/Views/AvatarView.m; sourceTree = "<group>"; };
+		D2A67A8C185B467400889114 /* AccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AccountViewController.h; path = FrontEnd/AccountViewController.h; sourceTree = "<group>"; };
+		D2A67A8D185B467400889114 /* AccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AccountViewController.m; path = FrontEnd/AccountViewController.m; sourceTree = "<group>"; };
+		D2A67A90185C21C500889114 /* AccountHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AccountHeaderView.xib; path = FrontEnd/XIBs/AccountHeaderView.xib; sourceTree = "<group>"; };
+		D2A67A92185C26E100889114 /* AccountHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AccountHeaderView.h; path = FrontEnd/Views/AccountHeaderView.h; sourceTree = "<group>"; };
+		D2A67A93185C26E100889114 /* AccountHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AccountHeaderView.m; path = FrontEnd/Views/AccountHeaderView.m; sourceTree = "<group>"; };
+		D2A67A95185C487A00889114 /* AccountInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AccountInfoTableViewCell.h; path = FrontEnd/Views/AccountInfoTableViewCell.h; sourceTree = "<group>"; };
+		D2A67A96185C487A00889114 /* AccountInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AccountInfoTableViewCell.m; path = FrontEnd/Views/AccountInfoTableViewCell.m; sourceTree = "<group>"; };
+		D2A67A98185C48B100889114 /* TransactionHistoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TransactionHistoryTableViewCell.h; path = FrontEnd/Views/TransactionHistoryTableViewCell.h; sourceTree = "<group>"; };
+		D2A67A99185C48B100889114 /* TransactionHistoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TransactionHistoryTableViewCell.m; path = FrontEnd/Views/TransactionHistoryTableViewCell.m; sourceTree = "<group>"; };
 		D2C075B61851D33F00620114 /* MBranch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = MBranch.json; path = Resource/MBranch.json; sourceTree = "<group>"; };
 		D2C075BC1852CACB00620114 /* ItemPickerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ItemPickerTableViewCell.h; path = FrontEnd/Views/ItemPickerTableViewCell.h; sourceTree = "<group>"; };
 		D2C075BD1852CACB00620114 /* ItemPickerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ItemPickerTableViewCell.m; path = FrontEnd/Views/ItemPickerTableViewCell.m; sourceTree = "<group>"; };
@@ -270,6 +284,7 @@
 		D293E4EF183DF20D00B73795 /* FrontEnd */ = {
 			isa = PBXGroup;
 			children = (
+				D2A67A8F185C218300889114 /* XIBs */,
 				D2C075B81852CA4700620114 /* Views */,
 				D2A36A8818504A12004D3D99 /* CustomUI */,
 				D293E4F0183DF24000B73795 /* SlideMenuViewController.h */,
@@ -286,6 +301,8 @@
 				D2C075CA1855C47200620114 /* TutorialLoginViewController.m */,
 				D221964B1859BCC6007528EE /* FriendsListViewController.h */,
 				D221964C1859BCC6007528EE /* FriendsListViewController.m */,
+				D2A67A8C185B467400889114 /* AccountViewController.h */,
+				D2A67A8D185B467400889114 /* AccountViewController.m */,
 			);
 			name = FrontEnd;
 			sourceTree = "<group>";
@@ -323,6 +340,14 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		D2A67A8F185C218300889114 /* XIBs */ = {
+			isa = PBXGroup;
+			children = (
+				D2A67A90185C21C500889114 /* AccountHeaderView.xib */,
+			);
+			name = XIBs;
+			sourceTree = "<group>";
+		};
 		D2C075B51851D23800620114 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -342,6 +367,12 @@
 				D221964F1859C24C007528EE /* FriendsListTableViewCell.m */,
 				D2A67A86185B0EC000889114 /* AvatarView.h */,
 				D2A67A87185B0EC000889114 /* AvatarView.m */,
+				D2A67A92185C26E100889114 /* AccountHeaderView.h */,
+				D2A67A93185C26E100889114 /* AccountHeaderView.m */,
+				D2A67A95185C487A00889114 /* AccountInfoTableViewCell.h */,
+				D2A67A96185C487A00889114 /* AccountInfoTableViewCell.m */,
+				D2A67A98185C48B100889114 /* TransactionHistoryTableViewCell.h */,
+				D2A67A99185C48B100889114 /* TransactionHistoryTableViewCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -430,6 +461,7 @@
 				D293E4D2183DEDEB00B73795 /* Images.xcassets in Resources */,
 				D293E4BE183DEDEB00B73795 /* InfoPlist.strings in Resources */,
 				D293E4C7183DEDEB00B73795 /* Main.storyboard in Resources */,
+				D2A67A91185C21C500889114 /* AccountHeaderView.xib in Resources */,
 				D2C075B71851D33F00620114 /* MBranch.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -487,6 +519,8 @@
 				D239770318474F230002D655 /* TSLogFormatter.m in Sources */,
 				D293E4F6184357B400B73795 /* TimeTracker.m in Sources */,
 				D293E4C4183DEDEB00B73795 /* AppDelegate.m in Sources */,
+				D2A67A9A185C48B100889114 /* TransactionHistoryTableViewCell.m in Sources */,
+				D2A67A94185C26E100889114 /* AccountHeaderView.m in Sources */,
 				D243757518488358000009D7 /* TSSettings.m in Sources */,
 				D2A67A88185B0EC000889114 /* AvatarView.m in Sources */,
 				D2C075D31858092800620114 /* MUserInfo.m in Sources */,
@@ -494,6 +528,7 @@
 				D221964D1859BCC6007528EE /* FriendsListViewController.m in Sources */,
 				D2C075C418533B6A00620114 /* ItemPickerScrollView.m in Sources */,
 				D2A36A941850AA6C004D3D99 /* HomeViewController.m in Sources */,
+				D2A67A97185C487A00889114 /* AccountInfoTableViewCell.m in Sources */,
 				D293E4F2183DF24000B73795 /* SlideMenuViewController.m in Sources */,
 				D2C075BE1852CACB00620114 /* ItemPickerTableViewCell.m in Sources */,
 				D2A55711184DBF4C0039A5A0 /* MapTrackingAnnotation.m in Sources */,
@@ -501,6 +536,7 @@
 				D2A36A911850684A004D3D99 /* MainTabBarController.m in Sources */,
 				D2A36A86185046B2004D3D99 /* TSTheming.m in Sources */,
 				D2219653185AACD8007528EE /* NSManagedObject+Helper.m in Sources */,
+				D2A67A8E185B467400889114 /* AccountViewController.m in Sources */,
 				D2A36A8E18504ADE004D3D99 /* TSNavigationController.m in Sources */,
 				D293E4CA183DEDEB00B73795 /* ToSavour.xcdatamodeld in Sources */,
 				D22196501859C24C007528EE /* FriendsListTableViewCell.m in Sources */,

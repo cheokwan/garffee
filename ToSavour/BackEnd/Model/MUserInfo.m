@@ -8,7 +8,7 @@
 
 #import "MUserInfo.h"
 #import "NSManagedObject+Helper.h"
-#import <BlocksKit/BlocksKit.h>
+//#import <BlocksKit/BlocksKit.h>  XXX-BUG has build issues
 
 
 @implementation MUserInfo
@@ -35,9 +35,18 @@
     request.includesPropertyValues = YES;
     NSError *error = nil;
     NSArray *allUserInfo = [context executeFetchRequest:request error:&error];
-    allUserInfo = [allUserInfo bk_select:^BOOL(id obj) {
-        return (((NSObject *)obj).class == self.class);
-    }];
+//    allUserInfo = [allUserInfo bk_select:^BOOL(id obj) {
+//        return (((NSObject *)obj).class == self.class);
+//    }];  XXX-BUG has build issues
+    NSMutableArray *filteredAllUserInfo = [NSMutableArray array];
+    for (NSObject *obj in allUserInfo) {
+        if (obj.class == self.class) {
+            [filteredAllUserInfo addObject:obj];
+        }
+    }
+    allUserInfo = filteredAllUserInfo;
+    // XXX-FIX condense this
+    
     if (error) {
         DDLogError(@"unable to fetch user info: %@", error);
         return nil;
@@ -47,7 +56,7 @@
         return nil;
     }
     if (allUserInfo.count > 1) {
-        DDLogWarn(@"more than one user info exists: %d, unexpected", allUserInfo.count);
+        DDLogWarn(@"more than one user info exists: %ud, unexpected", allUserInfo.count);
     }
     return allUserInfo[0];
 }
@@ -68,12 +77,12 @@
                                                   @"birthday": @"fbBirthday",
                                                   @"picture.data.url": @"fbProfilePicURL"
                                                   }];
-    mapping.identificationAttributes = @[@"fbID"];
+    mapping.identificationAttributes = @[@"fbID"];  // XXX-BUG this is not working for NSString!!!
     return mapping;
 }
 
 + (RKResponseDescriptor *)defaultResponseDescriptor {
-    return [RKResponseDescriptor responseDescriptorWithMapping:[self.class defaultEntityMapping] method:RKRequestMethodAny pathPattern:nil keyPath:@"data" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+    return [RKResponseDescriptor responseDescriptorWithMapping:[self.class defaultEntityMapping] method:RKRequestMethodAny pathPattern:nil keyPath:nil statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
 }
 
 - (NSString *)description {

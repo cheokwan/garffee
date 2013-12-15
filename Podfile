@@ -6,6 +6,5 @@ pod 'RestKit'
 pod 'Facebook-iOS-SDK'
 pod 'SDWebImage'
 pod 'UIImage-Resize'
-pod 'BlocksKit'
 pod 'ChatHeads'
 

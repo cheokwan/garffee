@@ -24,6 +24,11 @@
     return viewController;
 }
 
++ (UIView *)viewWithNibName:(NSString *)identifier {
+    NSArray *views = [[NSBundle mainBundle] loadNibNamed:identifier owner:nil options:nil];
+    return views.count > 0 ? views[0] : nil;
+}
+
 + (UIColor *)defaultThemeColor {
     return [UIColor colorWithHexString:@"E74C3C"];  // alizarin red
 }

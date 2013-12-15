@@ -41,19 +41,6 @@
 {
     [super viewDidLoad];
     [self initializeView];
-    // XXX-TEST
-    NSString *token = [[[FBSession activeSession] accessTokenData] accessToken];
-    DDLogError(@"token: %@", token);
-    
-    RKLogConfigureByName("RestKit/Network", RKLogLevelTrace);
-    NSString *urlString = [NSString stringWithFormat:@"https://graph.facebook.com/me/friends?access_token=%@&fields=id,name,username,first_name,middle_name,last_name,gender,age_range,link,locale,birthday,picture.width(100),picture.height(100)", token];
-    
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-    RKResponseDescriptor *responseDescriptor = [MFriendInfo defaultResponseDescriptor];
-    RKManagedObjectRequestOperation *managedObjectRequestOperation = [[RKManagedObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[responseDescriptor]];
-    managedObjectRequestOperation.managedObjectContext = [AppDelegate sharedAppDelegate].managedObjectContext;
-    [[NSOperationQueue currentQueue] addOperation:managedObjectRequestOperation];
-    // XXX
 }
 
 - (void)didReceiveMemoryWarning
@@ -97,8 +84,10 @@
     friendCell.subtitle.text = friendInfo.fbBirthday;
     
     NSURL *profilePicURL = [NSURL URLWithString:friendInfo.fbProfilePicURL];
+    [friendCell.avatarView removeFromSuperview];
     friendCell.avatarView = [[AvatarView alloc] initWithFrame:friendCell.avatarView.frame avatarImageURL:profilePicURL accessoryImageURL:[NSURL URLWithString:@"http://talk.onevietnam.org/wp-content/uploads/2011/04/facebook_icon-1024x1024.png"]];  // XXX-TEST
     [friendCell addSubview:friendCell.avatarView];
+    friendCell.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate

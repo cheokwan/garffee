@@ -9,6 +9,7 @@
 #import "TutorialLoginViewController.h"
 #import "TSFrontEndIncludes.h"
 #import "MUserInfo.h"
+#import "MFriendInfo.h"
 #import "AppDelegate.h"
 
 @interface TutorialLoginViewController ()
@@ -172,29 +173,63 @@
 - (void)loginViewFetchedUserInfo:(FBLoginView *)loginView user:(id<FBGraphUser>)user {
     DDLogInfo(@"fetched user facebook info");
     
-    // create a new user info after initial logged in
-    MUserInfo *userInfo = [MUserInfo newUserInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
+    // XXX-TEST
+    NSString *token = [[[FBSession activeSession] accessTokenData] accessToken];
+    DDLogError(@"token: %@", token);
     
-    userInfo.fbID = user.id;
-    userInfo.fbUsername = user.username;
-    userInfo.fbName = user.name;
-    userInfo.fbFirstName = user.first_name;
-    userInfo.fbMiddleName = user.middle_name;
-    userInfo.fbLastName = user.last_name;
-    userInfo.fbBirthday = user.birthday;
-    userInfo.fbLink = user.link;
-    
-    NSError *error = nil;
-    [[AppDelegate sharedAppDelegate].managedObjectContext saveToPersistentStore:&error];
-    if (error) {
-        DDLogError(@"error in saving after creating new user info");
-        // TODO: handle this error
+    if (![MUserInfo currentUserInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext]) {
+        // XXX-BUG this is not working correctly!!!
+        RKLogConfigureByName("RestKit/Network", RKLogLevelTrace);
+        // fetch user info
+        NSString *urlString = [NSString stringWithFormat:@"https://graph.facebook.com/me/?access_token=%@&fields=id,name,username,first_name,middle_name,last_name,gender,age_range,link,locale,birthday,picture.width(100),picture.height(100)", token];
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+        
+        request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:urlString] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:60];
+        RKResponseDescriptor *responseDescriptor = [MUserInfo defaultResponseDescriptor];
+        RKManagedObjectRequestOperation *managedObjectRequestOperation = [[RKManagedObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[responseDescriptor]];
+        managedObjectRequestOperation.managedObjectContext = [AppDelegate sharedAppDelegate].managedObjectContext;
+        [[NSOperationQueue currentQueue] addOperation:managedObjectRequestOperation];
+        
+        // fetch friends info
+        urlString = [NSString stringWithFormat:@"https://graph.facebook.com/me/friends?access_token=%@&fields=id,name,username,first_name,middle_name,last_name,gender,age_range,link,locale,birthday,picture.width(100),picture.height(100)", token];
+        
+        request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+        request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:urlString] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:60];
+        responseDescriptor = [MFriendInfo defaultResponseDescriptor];
+        managedObjectRequestOperation = [[RKManagedObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[responseDescriptor]];
+        managedObjectRequestOperation.managedObjectContext = [AppDelegate sharedAppDelegate].managedObjectContext;
+        [[NSOperationQueue currentQueue] addOperation:managedObjectRequestOperation];
     }
     
     // successfully logged in and fetched user info, dismiss the login view now
     loginView.delegate = nil;
     self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     [self dismissViewControllerAnimated:YES completion:nil];
+    // XXX
+    
+//    // create a new user info after initial logged in
+//    MUserInfo *userInfo = [MUserInfo newUserInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
+//    
+//    userInfo.fbID = user.id;
+//    userInfo.fbUsername = user.username;
+//    userInfo.fbName = user.name;
+//    userInfo.fbFirstName = user.first_name;
+//    userInfo.fbMiddleName = user.middle_name;
+//    userInfo.fbLastName = user.last_name;
+//    userInfo.fbBirthday = user.birthday;
+//    userInfo.fbLink = user.link;
+//    
+//    NSError *error = nil;
+//    [[AppDelegate sharedAppDelegate].managedObjectContext saveToPersistentStore:&error];
+//    if (error) {
+//        DDLogError(@"error in saving after creating new user info");
+//        // TODO: handle this error
+//    }
+//    
+//    // successfully logged in and fetched user info, dismiss the login view now
+//    loginView.delegate = nil;
+//    self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+//    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)loginView:(FBLoginView *)loginView handleError:(NSError *)error {

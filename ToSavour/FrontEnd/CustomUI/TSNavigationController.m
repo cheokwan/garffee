@@ -17,11 +17,12 @@
 
 - (void)initialize {
     if ([self.navigationBar respondsToSelector:@selector(setBarTintColor:)]) {
-        [self.navigationBar setBarTintColor:[TSTheming defaultThemeColor]];
+//        [self.navigationBar setBarTintColor:[TSTheming defaultContrastColor]];  XXX-TEST
+        [self.navigationBar setBarTintColor:[UIColor grayColor]];  // XXX-TEST
     } else {
-        [self.navigationBar setTintColor:[TSTheming defaultThemeColor]];
+        [self.navigationBar setTintColor:[TSTheming defaultContrastColor]];
     }
-    [self.navigationBar setTranslucent:NO];
+    self.navigationBar.translucent = YES;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

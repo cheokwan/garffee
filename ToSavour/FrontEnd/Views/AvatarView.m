@@ -54,6 +54,7 @@
     if (self) {
         self.avatarImageURL = avatarImageURL;
         self.accessoryImageURL = accessoryImageURL;
+        [self initializeView];  // TODO: generalize to other init methods
     }
     return self;
 }
@@ -78,9 +79,7 @@
     }
 }
 
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    
+- (void)initializeView {
     // add the avatar button and image
     _avatarButton.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
     
@@ -94,17 +93,31 @@
     _accessoryButton.imageView.layer.cornerRadius = _accessoryButton.frame.size.height / 2.0;
     
     __weak UIButton *weakAvatarButton = _avatarButton;
+    __weak NSURL *weakAvatarImageURL = _avatarImageURL;
     [_avatarButton.imageView setImageWithURL:_avatarImageURL placeholderImage:nil options:SDWebImageRefreshCached completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-        [weakAvatarButton setImage:image forState:UIControlStateNormal];
+        if (image && !error) {
+            [weakAvatarButton setImage:image forState:UIControlStateNormal];
+        } else if (error) {
+            DDLogWarn(@"error setting avatar image %@: %@", weakAvatarImageURL, error);
+        }
     }];
     __weak UIButton *weakAccessoryButton = _accessoryButton;
+    __weak NSURL *weakAccessoryImageURL = _accessoryImageURL;
     [_accessoryButton.imageView setImageWithURL:_accessoryImageURL placeholderImage:nil options:SDWebImageRefreshCached completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-        [weakAccessoryButton setImage:image forState:UIControlStateNormal];
+        if (image && !error) {
+            [weakAccessoryButton setImage:image forState:UIControlStateNormal];
+        } else if (error) {
+            DDLogWarn(@"error setting accessory image %@: %@", weakAccessoryImageURL, error);
+        }
     }];
     
     [self addSubview:_avatarButton];
     [self addSubview:_accessoryButton];
 }
+
+//- (void)layoutSubviews {
+//    [super layoutSubviews];
+//}
 
 /*
 // Only override drawRect: if you perform custom drawing.
