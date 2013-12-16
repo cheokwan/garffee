@@ -7,6 +7,7 @@
 //
 
 #import "ItemPickerScrollView.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation ItemPickerScrollView
 
@@ -64,6 +65,8 @@
         offsetX += self.itemViewDimension;
     }
     self.contentSize = CGSizeMake(offsetX + self.sideMargin, self.itemViewDimension);
+    
+    [self updateScaleForItems];
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -86,14 +89,37 @@
     }
 }
 
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
-    if ([_pickerDelegate respondsToSelector:@selector(pickerAtIndexPath:didSelectItemAtIndex:)]) {
-        [_pickerDelegate pickerAtIndexPath:self.occupiedIndexPath didSelectItemAtIndex:[self getCurrentSelectedItemIndex]];
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView == self) {
+        [self updateScaleForItems];
     }
 }
 
+- (CGFloat)scaleForOffsetFromFocusPoint:(CGFloat)offset {
+    CGFloat normalizedOffset = fabsf(offset / self.itemViewDimension);
+    CGFloat scalar = 1.0;
+    if (normalizedOffset <= 0.5) {
+        CGFloat scalarMax = 1.4;
+        scalar = ((-(scalarMax - 1.0) / 0.5) * normalizedOffset) + scalarMax;
+    }
+    return scalar;
+}
+
+- (void)updateScaleForItems {
+    [UIView animateWithDuration:0.25 animations:^{
+        [self.subviews enumerateObjectsUsingBlock:^(UIView *container, NSUInteger index, BOOL *stop) {
+            CGFloat offset = index * self.itemViewDimension + self.itemViewDimension / 2.0;
+            CGFloat center = self.contentOffset.x + self.itemViewDimension / 2.0;
+            CGFloat distance = offset - center;
+            CGFloat scale = [self scaleForOffsetFromFocusPoint:distance];
+            container.transform = CGAffineTransformMakeScale(scale, scale);
+        }];
+    }];
+}
+
 - (NSInteger)getCurrentSelectedItemIndex {
-    return 0;  // TODO
+    CGFloat index = self.contentOffset.x / self.itemViewDimension;
+    return (NSInteger)index;
 }
 
 - (void)snapToColumn {
@@ -108,6 +134,13 @@
         newPoint.x = newPoint.x + self.itemViewDimension;
     }
     [self setContentOffset:newPoint animated:YES];
+    
+    if ([_pickerDelegate respondsToSelector:@selector(pickerAtIndexPath:didSelectItem:atIndex:)]) {
+        CGFloat itemIndex = newPoint.x / self.itemViewDimension;
+        // newPoint is relative to contentOffset which disregards the side margin
+        UIView *itemSubview = [self subviewAtOrigin:CGPointMake(newPoint.x + self.sideMargin, newPoint.y)];
+        [_pickerDelegate pickerAtIndexPath:self.occupiedIndexPath didSelectItem:itemSubview atIndex:itemIndex];
+    }
 }
 
 @end

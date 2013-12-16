@@ -18,7 +18,7 @@
 #import "MainTabBarController.h"
 #import "SlideMenuViewController.h"
 #import "TutorialLoginViewController.h"
-#import "MUserInfo.h"
+#import "TSModelIncludes.h"
 
 @implementation AppDelegate
 
@@ -49,6 +49,11 @@
     [DDLog addLogger:[DDTTYLogger sharedInstance]];
     
     DDLogDebug(@"");
+    
+    // Populate CoreData stuff
+#ifdef RESTKIT_GENERATE_SEED_DB
+    [self generateSeedDatabase];
+#endif
     
     // Configure Fetch background mode
     [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
@@ -171,46 +176,35 @@
 #pragma mark - Core Data stack
 
 - (void)generateSeedDatabase {
-    // XXX-FIX TODO:
-//    NSManagedObjectModel *managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
-//    RKManagedObjectStore *managedObjectStore = [[RKManagedObjectStore alloc] initWithManagedObjectModel:managedObjectModel];
-//    NSError *error = nil;
-//    BOOL success = RKEnsureDirectoryExistsAtPath(RKApplicationDataDirectory(), &error);
-//    if (!success) {
-//        DDLogError(@"Failed to create Application Data Directory at path '%@': %@", RKApplicationDataDirectory(), error);
-//        return;
-//    }
-//    NSString *path = [RKApplicationDataDirectory() stringByAppendingPathComponent:@"ToSavourSeed.sqlite"];
-//    NSPersistentStore *persistentStore = [managedObjectStore addSQLitePersistentStoreAtPath:path fromSeedDatabaseAtPath:nil withConfiguration:nil options:nil error:&error];
-//    if (!persistentStore) {
-//        DDLogError(@"Failed adding persistent store at path '%@': %@", path, error);
-//        return;
-//    }
-//    [managedObjectStore createManagedObjectContexts];
-//    
-//    RKEntityMapping *articleMapping = [RKEntityMapping mappingForEntityForName:@"Article" inManagedObjectStore:managedObjectStore];
-//    [articleMapping addAttributeMappingsFromArray:@[@"title", @"author", @"body"]];
-//    
-//    RKEntityMapping *branchMapping = [RKEntityMapping mappingForEntityForName:@"MBranch" inManagedObjectStore:managedObjectStore];
-//    [branchMapping addAttributeMappingsFromDictionary:@{@"id": @"",
-//                                                        @"name": @""}];
-//    
-//    NSString *seedPath = [RKApplicationDataDirectory() stringByAppendingPathComponent:@"MySeedDatabase.sqlite"];
-//    RKManagedObjectImporter *importer = [[RKManagedObjectImporter alloc] initWithManagedObjectModel:managedObjectStore.managedObjectModel storePath:seedPath];
-//    
-//    // Import the files "articles.json" from the Main Bundle using our RKEntityMapping
-//    // JSON looks like {"articles": [ {"title": "Article 1", "body": "Text", "author": "Blake" ]}
-//    NSError *error;
-//    NSBundle *mainBundle = [NSBundle mainBundle];
-//    [importer importObjectsFromItemAtPath:[mainBundle pathForResource:@"articles" ofType:@"json"]
-//                              withMapping:articleMapping
-//                                  keyPath:@"articles"
+    // XXX-TEST
+    RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelInfo);
+    RKLogConfigureByName("RestKit/CoreData", RKLogLevelTrace);
+    
+    NSError *error = nil;
+    BOOL success = RKEnsureDirectoryExistsAtPath(RKApplicationDataDirectory(), &error);
+    if (! success) {
+        RKLogError(@"Failed to create Application Data Directory at path '%@': %@", RKApplicationDataDirectory(), error);
+    }
+    
+    RKManagedObjectStore *managedObjectStore = [[RKManagedObjectStore alloc] initWithManagedObjectModel:self.managedObjectModel];
+    [RKManagedObjectStore setDefaultStore:managedObjectStore];
+    
+    NSString *seedStorePath = [RKApplicationDataDirectory() stringByAppendingPathComponent:@"ToSavourSeed.sqlite"];
+    RKManagedObjectImporter *importer = [[RKManagedObjectImporter alloc] initWithManagedObjectModel:self.managedObjectModel storePath:seedStorePath];
+    [importer importObjectsFromItemAtPath:[[NSBundle mainBundle] pathForResource:@"MProductInfo" ofType:@"json"]
+                              withMapping:[MProductInfo defaultEntityMapping]
+                                  keyPath:nil
+                                    error:&error];
+//    [importer importObjectsFromItemAtPath:[[NSBundle mainBundle] pathForResource:@"MProductConfigurableOption" ofType:@"json"]
+//                              withMapping:[MProductConfigurableOption defaultEntityMapping]
+//                                  keyPath:nil
 //                                    error:&error];
-//    
-//    BOOL success = [importer finishImporting:&error];
-//    if (success) {
-//        [importer logSeedingInfo];
-//    }
+    success = [importer finishImporting:&error];
+    if (success) {
+        [importer logSeedingInfo];
+    } else {
+        RKLogError(@"Failed to finish import and save seed database due to error: %@", error);
+    }
 }
 
 // Returns the managed object context for the application.
@@ -225,9 +219,10 @@
     RKManagedObjectStore *managedObjectStore = [[RKManagedObjectStore alloc] initWithManagedObjectModel:self.managedObjectModel];
     // Initialize the Core Data stack
     [managedObjectStore createPersistentStoreCoordinator];
-//    NSPersistentStore __unused *persistentStore = [managedObjectStore addInMemoryPersistentStore:&error];  XXX-TEMP
     NSString *storePath = [RKApplicationDataDirectory() stringByAppendingPathComponent:@"ToSavour.sqlite"];
-    NSPersistentStore __unused *persistentStore = [managedObjectStore addSQLitePersistentStoreAtPath:storePath fromSeedDatabaseAtPath:nil withConfiguration:nil options:nil error:&error];
+    NSString *seedPath = [[NSBundle mainBundle] pathForResource:@"ToSavourSeed" ofType:@"sqlite"];
+    
+    NSPersistentStore __unused *persistentStore = [managedObjectStore addSQLitePersistentStoreAtPath:storePath fromSeedDatabaseAtPath:seedPath withConfiguration:nil options:nil error:&error];
     if (!persistentStore) {
         DDLogError(@"Failed to add persistent store: %@", error);
         _managedObjectContext = nil;

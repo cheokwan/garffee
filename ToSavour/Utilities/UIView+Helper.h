@@ -11,5 +11,6 @@
 @interface UIView (Helper)
 
 - (void)removeAllSubviews;
+- (UIView *)subviewAtOrigin:(CGPoint)origin;
 
 @end

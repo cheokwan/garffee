@@ -1,0 +1,79 @@
+[
+ {
+ "id": 0,
+ "name": "Latte",
+ "type": "real",
+ "category": "coffee",
+ "imageURL": "http://www.mcdonalds.com/content/dam/McDonalds/item/s-mcdonalds-McCafe-Latte-Small.png"
+ },
+ {
+ "id": 1,
+ "name": "Espresso",
+ "type": "real",
+ "category": "coffee",
+ "imageURL": "http://www.mcdonalds.com/content/dam/McDonalds/item/s-mcdonalds-Coffee-Small.png"
+ },
+ {
+ "id": 2,
+ "name": "Machiato",
+ "type": "real",
+ "category": "coffee",
+ "imageURL": "http://www.mcdonalds.com/content/dam/McDonalds/item/s-mcdonalds-McCaf-White-Chocolate-Mocha-Small.png"
+ },
+ {
+ "id": 3,
+ "name": "Mocha",
+ "type": "real",
+ "category": "coffee",
+ "imageURL": "http://www.mcdonalds.com/content/dam/McDonalds/item/s-mcdonalds-McCafe-Mocha-Small.png"
+ },
+ {
+ "id": 4,
+ "name": "Cappuccino",
+ "type": "real",
+ "category": "coffee",
+ "imageURL": "http://www.mcdonalds.com/content/dam/McDonalds/item/s-mcdonalds-McCafe-Caramel-Mocha-Small.png"
+ },
+ {
+ "id": 5,
+ "name": "Cheateau Laftte",
+ "type": "real",
+ "category": "wine",
+ "imageURL": "http://www.mcdonalds.com/content/dam/McDonalds/item/s-mcdonalds-1-Low-Fat-Milk-Jug.png"
+ },
+ {
+ "id": 6,
+ "name": "Burger",
+ "type": "real",
+ "category": "food",
+ "imageURL": "http://www.mcdonalds.com/content/dam/McDonalds/item/s-mcdonalds-Big-Mac.png"
+ },
+ {
+ "id": 7,
+ "name": "Sandwich",
+ "type": "real",
+ "category": "food",
+ "imageURL": "http://www.mcdonalds.com/content/dam/McDonalds/item/s-mcdonalds-Premium-McWrap-Southwest-Chicken-Crispy.png"
+ },
+ {
+ "id": 8,
+ "name": "Cake",
+ "type": "real",
+ "category": "food",
+ "imageURL": "http://www.mcdonalds.com/content/dam/McDonalds/item/s-mcdonalds-Baked-Hot-Apple-Pie.png"
+ },
+ {
+ "id": 9,
+ "name": "Recharge 50",
+ "type": "virtual",
+ "category": "recharge",
+ "imageURL": "http://www.mcdonalds.com/content/dam/McDonalds/item/s-mcdonalds-Chocolate-Chip-Cookie.png"
+ },
+ {
+ "id": 10,
+ "name": "Recharge 100",
+ "type": "virtual",
+ "category": "recharge",
+ "imageURL": "http://www.mcdonalds.com/content/dam/McDonalds/item/s-mcdonalds-Oatmeal-Raisin-Cookie.png"
+ }
+ ]

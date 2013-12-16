@@ -49,11 +49,12 @@
     return self;
 }
 
-- (id)initWithFrame:(CGRect)frame avatarImageURL:(NSURL *)avatarImageURL accessoryImageURL:(NSURL *)accessoryImageURL {
+- (id)initWithFrame:(CGRect)frame avatarImageURL:(NSURL *)avatarImageURL accessoryImageURL:(NSURL *)accessoryImageURL interactable:(BOOL)interactable {
     self = [self initWithFrame:frame];
     if (self) {
         self.avatarImageURL = avatarImageURL;
         self.accessoryImageURL = accessoryImageURL;
+        self.isInteractable = interactable;
         [self initializeView];  // TODO: generalize to other init methods
     }
     return self;
@@ -61,9 +62,9 @@
 
 - (void)setIsInteractable:(BOOL)isInteractable {
     _isInteractable = isInteractable;
-    _avatarButton.enabled = _isInteractable;
+//    _avatarButton.enabled = _isInteractable;
     _avatarButton.userInteractionEnabled = _isInteractable;
-    _accessoryButton.enabled = _isInteractable;
+//    _accessoryButton.enabled = _isInteractable;
     _accessoryButton.userInteractionEnabled = _isInteractable;
 }
 
@@ -91,22 +92,26 @@
     
     _avatarButton.imageView.layer.cornerRadius = _avatarButton.frame.size.height / 2.0;
     _accessoryButton.imageView.layer.cornerRadius = _accessoryButton.frame.size.height / 2.0;
+    _avatarButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    _avatarButton.contentVerticalAlignment = UIControlContentHorizontalAlignmentCenter;
     
     __weak UIButton *weakAvatarButton = _avatarButton;
     __weak NSURL *weakAvatarImageURL = _avatarImageURL;
     [_avatarButton.imageView setImageWithURL:_avatarImageURL placeholderImage:nil options:SDWebImageRefreshCached completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-        if (image && !error) {
-            [weakAvatarButton setImage:image forState:UIControlStateNormal];
-        } else if (error) {
+        if (image) {
+            UIImage *resizedImage = [image resizedImageToSize:weakAvatarButton.frame.size];
+            [weakAvatarButton setImage:resizedImage forState:UIControlStateNormal];
+        } else {
             DDLogWarn(@"error setting avatar image %@: %@", weakAvatarImageURL, error);
         }
     }];
     __weak UIButton *weakAccessoryButton = _accessoryButton;
     __weak NSURL *weakAccessoryImageURL = _accessoryImageURL;
     [_accessoryButton.imageView setImageWithURL:_accessoryImageURL placeholderImage:nil options:SDWebImageRefreshCached completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-        if (image && !error) {
-            [weakAccessoryButton setImage:image forState:UIControlStateNormal];
-        } else if (error) {
+        if (image) {
+            UIImage *resizedImage = [image resizedImageToSize:weakAccessoryButton.frame.size];
+            [weakAccessoryButton setImage:resizedImage forState:UIControlStateNormal];
+        } else {
             DDLogWarn(@"error setting accessory image %@: %@", weakAccessoryImageURL, error);
         }
     }];

@@ -25,7 +25,11 @@
 }
 
 + (UIView *)viewWithNibName:(NSString *)identifier {
-    NSArray *views = [[NSBundle mainBundle] loadNibNamed:identifier owner:nil options:nil];
+    return [self viewWithNibName:identifier owner:nil];
+}
+
++ (UIView *)viewWithNibName:(NSString *)identifier owner:(id)owner {
+    NSArray *views = [[NSBundle mainBundle] loadNibNamed:identifier owner:owner options:nil];
     return views.count > 0 ? views[0] : nil;
 }
 

@@ -32,6 +32,9 @@
     _infoTable.bounces = NO;
     _infoTable.delegate = self;
     _infoTable.dataSource = self;
+    _accountHeaderView.delegate = self;
+    _accountHeaderView.avatarView.delegate = self;
+    self.navigationItem.titleView = [TSTheming navigationTitleViewWithString:LS_ACCOUNT];
 }
 
 - (void)viewDidLoad
@@ -60,7 +63,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 30;
+    return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -90,10 +93,68 @@
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     AccountInfoTableViewCell *accountInfoCell = (AccountInfoTableViewCell *)cell;
-    accountInfoCell.titleLabel.text = @"Fuck You";  // XXX-TEST
+    accountInfoCell.titleLabel.text = @"Title";  // XXX-TEST
     return;
 }
 
-#pragma <#arguments#>
+#pragma mark - AccountHeaderViewDelegate
+
+- (void)accountHeaderView:(AccountHeaderView *)accountHeaderView didSwitchToTableSegment:(NSInteger)segmentIndex {
+}
+
+#pragma mark - UIImagePickerControllerDelegate
+
+- (UIImagePickerController *)avatarImagePicker {
+    if (!_avatarImagePicker) {
+        self.avatarImagePicker = [[UIImagePickerController alloc] init];
+        _avatarImagePicker.delegate = self;
+        _avatarImagePicker.allowsEditing = YES;
+    }
+    return _avatarImagePicker;
+}
+
+- (UIActionSheet *)imagePickerActionSheet {
+    if (!_imagePickerActionSheet) {
+        self.imagePickerActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:LS_CANCEL destructiveButtonTitle:nil otherButtonTitles:LS_CAMERA, LS_PHOTO_LIBRARY, nil];
+    }
+    return _imagePickerActionSheet;
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    UIImage *pickedImage = info[UIImagePickerControllerEditedImage];
+    // TODO: save image to disk, generate URL, replace URL in MUserInfo, refresh avatar view
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (actionSheet == _imagePickerActionSheet) {
+        switch (buttonIndex) {
+            case 0: {  // Camera
+                self.avatarImagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+                [self presentViewController:_avatarImagePicker animated:YES completion:nil];
+            }
+                break;
+            case 1: {  // Photo Library
+                self.avatarImagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                [self presentViewController:_avatarImagePicker animated:YES completion:nil];
+            }
+            case 2: {  // Cancel
+            }
+            default:
+                break;
+        }
+    }
+}
+
+#pragma makr - AvatarViewDelegate
+
+- (void)avatarButtonPressedInAvatarView:(AvatarView *)avatarView {
+    [self.imagePickerActionSheet showFromRect:avatarView.frame inView:_accountHeaderView animated:YES];
+}
+
+- (void)accessoryButtonPressedInAvatarView:(AvatarView *)avatarView {
+}
 
 @end

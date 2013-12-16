@@ -14,6 +14,61 @@
 		D239770318474F230002D655 /* TSLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D239770218474F230002D655 /* TSLogFormatter.m */; };
 		D243757518488358000009D7 /* TSSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = D243757418488358000009D7 /* TSSettings.m */; };
 		D2437577184C3498000009D7 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2437576184C3497000009D7 /* MapKit.framework */; };
+		D24667FB185F15F70089D5DB /* TutorialLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075CA1855C47200620114 /* TutorialLoginViewController.m */; };
+		D24667FC185F15F70089D5DB /* MapTrackingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A556FA184C37F60039A5A0 /* MapTrackingViewController.m */; };
+		D24667FD185F15F70089D5DB /* TSLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D239770218474F230002D655 /* TSLogFormatter.m */; };
+		D24667FE185F15F70089D5DB /* MProductInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C91694185EECBA00452891 /* MProductInfo.m */; };
+		D24667FF185F15F70089D5DB /* TimeTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = D293E4F5184357B400B73795 /* TimeTracker.m */; };
+		D2466800185F15F70089D5DB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D293E4C3183DEDEB00B73795 /* AppDelegate.m */; };
+		D2466801185F15F70089D5DB /* TransactionHistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A67A99185C48B100889114 /* TransactionHistoryTableViewCell.m */; };
+		D2466802185F15F70089D5DB /* AccountHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A67A93185C26E100889114 /* AccountHeaderView.m */; };
+		D2466803185F15F70089D5DB /* TSSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = D243757418488358000009D7 /* TSSettings.m */; };
+		D2466804185F15F70089D5DB /* AvatarView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A67A87185B0EC000889114 /* AvatarView.m */; };
+		D2466805185F15F70089D5DB /* MUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075D21858092800620114 /* MUserInfo.m */; };
+		D2466806185F15F70089D5DB /* MProductConfigurableOption.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C91691185EECA600452891 /* MProductConfigurableOption.m */; };
+		D2466807185F15F70089D5DB /* ItemPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075C01852E29500620114 /* ItemPickerViewController.m */; };
+		D2466808185F15F70089D5DB /* MItemInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C9168B185EEC7500452891 /* MItemInfo.m */; };
+		D2466809185F15F70089D5DB /* FriendsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D221964C1859BCC6007528EE /* FriendsListViewController.m */; };
+		D246680A185F15F70089D5DB /* ItemPickerScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075C318533B6A00620114 /* ItemPickerScrollView.m */; };
+		D246680B185F15F70089D5DB /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A36A931850AA6C004D3D99 /* HomeViewController.m */; };
+		D246680C185F15F70089D5DB /* AccountInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A67A96185C487A00889114 /* AccountInfoTableViewCell.m */; };
+		D246680D185F15F70089D5DB /* SlideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D293E4F1183DF24000B73795 /* SlideMenuViewController.m */; };
+		D246680E185F15F70089D5DB /* ItemPickerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075BD1852CACB00620114 /* ItemPickerTableViewCell.m */; };
+		D246680F185F15F70089D5DB /* MapTrackingAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A55710184DBF4C0039A5A0 /* MapTrackingAnnotation.m */; };
+		D2466810185F15F70089D5DB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D293E4BF183DEDEB00B73795 /* main.m */; };
+		D2466811185F15F70089D5DB /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A36A901850684A004D3D99 /* MainTabBarController.m */; };
+		D2466812185F15F70089D5DB /* TSTheming.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A36A85185046B2004D3D99 /* TSTheming.m */; };
+		D2466813185F15F70089D5DB /* MItemSelectedOption.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C9168E185EEC9000452891 /* MItemSelectedOption.m */; };
+		D2466814185F15F70089D5DB /* NSManagedObject+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2219652185AACD8007528EE /* NSManagedObject+Helper.m */; };
+		D2466815185F15F70089D5DB /* MProductOptionChoice.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C91697185EECED00452891 /* MProductOptionChoice.m */; };
+		D2466816185F15F70089D5DB /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A67A8D185B467400889114 /* AccountViewController.m */; };
+		D2466817185F15F70089D5DB /* TSNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A36A8D18504ADE004D3D99 /* TSNavigationController.m */; };
+		D2466818185F15F70089D5DB /* ToSavour.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D293E4C8183DEDEB00B73795 /* ToSavour.xcdatamodeld */; };
+		D2466819185F15F70089D5DB /* FriendsListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D221964F1859C24C007528EE /* FriendsListTableViewCell.m */; };
+		D246681A185F15F70089D5DB /* UIView+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075CF1857245E00620114 /* UIView+Helper.m */; };
+		D246681B185F15F70089D5DB /* MFriendInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075E01859694700620114 /* MFriendInfo.m */; };
+		D246681D185F15F70089D5DB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2A67A81185ACA8A00889114 /* QuartzCore.framework */; };
+		D246681E185F15F70089D5DB /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2437576184C3497000009D7 /* MapKit.framework */; };
+		D246681F185F15F70089D5DB /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4F718435DC100B73795 /* CoreLocation.framework */; };
+		D2466820185F15F70089D5DB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4B3183DEDEB00B73795 /* CoreGraphics.framework */; };
+		D2466821185F15F70089D5DB /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4B7183DEDEB00B73795 /* CoreData.framework */; };
+		D2466822185F15F70089D5DB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4B5183DEDEB00B73795 /* UIKit.framework */; };
+		D2466823185F15F70089D5DB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4B1183DEDEB00B73795 /* Foundation.framework */; };
+		D2466824185F15F70089D5DB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C23BC4E3A4EF498CB2E1D08C /* libPods.a */; };
+		D2466826185F15F70089D5DB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D293E4D1183DEDEB00B73795 /* Images.xcassets */; };
+		D2466827185F15F70089D5DB /* MProductConfigurableOption.json in Resources */ = {isa = PBXBuildFile; fileRef = D293EB27185F04ED00A69034 /* MProductConfigurableOption.json */; };
+		D2466828185F15F70089D5DB /* MProductInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = D293EB28185F04ED00A69034 /* MProductInfo.json */; };
+		D2466829185F15F70089D5DB /* MProductOptionChoice.json in Resources */ = {isa = PBXBuildFile; fileRef = D293EB29185F04ED00A69034 /* MProductOptionChoice.json */; };
+		D246682A185F15F70089D5DB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D293E4BC183DEDEB00B73795 /* InfoPlist.strings */; };
+		D246682B185F15F70089D5DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D293E4C5183DEDEB00B73795 /* Main.storyboard */; };
+		D246682C185F15F70089D5DB /* AccountHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2A67A90185C21C500889114 /* AccountHeaderView.xib */; };
+		D246682D185F15F70089D5DB /* MBranch.json in Resources */ = {isa = PBXBuildFile; fileRef = D2C075B61851D33F00620114 /* MBranch.json */; };
+		D246683D186032BC0089D5DB /* CartHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D246683C186032BC0089D5DB /* CartHeaderView.xib */; };
+		D2466840186036BB0089D5DB /* CartHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D246683F186036BB0089D5DB /* CartHeaderView.m */; };
+		D246684318603C800089D5DB /* CartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D246684218603C800089D5DB /* CartViewController.m */; };
+		D2466846186052450089D5DB /* CartItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D2466845186052450089D5DB /* CartItemTableViewCell.m */; };
+		D2466849186062DC0089D5DB /* NSString+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2466848186062DC0089D5DB /* NSString+Helper.m */; };
+		D246684B186154830089D5DB /* ToSavourSeed.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = D246684A186154830089D5DB /* ToSavourSeed.sqlite */; };
 		D293E4B2183DEDEB00B73795 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4B1183DEDEB00B73795 /* Foundation.framework */; };
 		D293E4B4183DEDEB00B73795 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4B3183DEDEB00B73795 /* CoreGraphics.framework */; };
 		D293E4B6183DEDEB00B73795 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4B5183DEDEB00B73795 /* UIKit.framework */; };
@@ -33,6 +88,9 @@
 		D293E4F2183DF24000B73795 /* SlideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D293E4F1183DF24000B73795 /* SlideMenuViewController.m */; };
 		D293E4F6184357B400B73795 /* TimeTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = D293E4F5184357B400B73795 /* TimeTracker.m */; };
 		D293E4F818435DC100B73795 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4F718435DC100B73795 /* CoreLocation.framework */; };
+		D293EB2A185F04ED00A69034 /* MProductConfigurableOption.json in Resources */ = {isa = PBXBuildFile; fileRef = D293EB27185F04ED00A69034 /* MProductConfigurableOption.json */; };
+		D293EB2B185F04ED00A69034 /* MProductInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = D293EB28185F04ED00A69034 /* MProductInfo.json */; };
+		D293EB2C185F04ED00A69034 /* MProductOptionChoice.json in Resources */ = {isa = PBXBuildFile; fileRef = D293EB29185F04ED00A69034 /* MProductOptionChoice.json */; };
 		D2A36A86185046B2004D3D99 /* TSTheming.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A36A85185046B2004D3D99 /* TSTheming.m */; };
 		D2A36A8E18504ADE004D3D99 /* TSNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A36A8D18504ADE004D3D99 /* TSNavigationController.m */; };
 		D2A36A911850684A004D3D99 /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A36A901850684A004D3D99 /* MainTabBarController.m */; };
@@ -54,6 +112,11 @@
 		D2C075D01857245E00620114 /* UIView+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075CF1857245E00620114 /* UIView+Helper.m */; };
 		D2C075D31858092800620114 /* MUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075D21858092800620114 /* MUserInfo.m */; };
 		D2C075E11859694700620114 /* MFriendInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075E01859694700620114 /* MFriendInfo.m */; };
+		D2C9168C185EEC7500452891 /* MItemInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C9168B185EEC7500452891 /* MItemInfo.m */; };
+		D2C9168F185EEC9000452891 /* MItemSelectedOption.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C9168E185EEC9000452891 /* MItemSelectedOption.m */; };
+		D2C91692185EECA600452891 /* MProductConfigurableOption.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C91691185EECA600452891 /* MProductConfigurableOption.m */; };
+		D2C91695185EECBA00452891 /* MProductInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C91694185EECBA00452891 /* MProductInfo.m */; };
+		D2C91698185EECED00452891 /* MProductOptionChoice.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C91697185EECED00452891 /* MProductOptionChoice.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +145,18 @@
 		D243757318488358000009D7 /* TSSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSSettings.h; path = Utilities/TSSettings.h; sourceTree = "<group>"; };
 		D243757418488358000009D7 /* TSSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSSettings.m; path = Utilities/TSSettings.m; sourceTree = "<group>"; };
 		D2437576184C3497000009D7 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		D2466832185F15F70089D5DB /* ToSavour copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ToSavour copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2466833185F15F90089D5DB /* ToSavour copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "ToSavour copy-Info.plist"; path = "/Users/jasonwan/workspace/git/tosavour_ios/ToSavour-iOS/ToSavour copy-Info.plist"; sourceTree = "<absolute>"; };
+		D246683C186032BC0089D5DB /* CartHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CartHeaderView.xib; path = FrontEnd/Views/CartHeaderView.xib; sourceTree = "<group>"; };
+		D246683E186036BB0089D5DB /* CartHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CartHeaderView.h; path = FrontEnd/Views/CartHeaderView.h; sourceTree = "<group>"; };
+		D246683F186036BB0089D5DB /* CartHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CartHeaderView.m; path = FrontEnd/Views/CartHeaderView.m; sourceTree = "<group>"; };
+		D246684118603C800089D5DB /* CartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CartViewController.h; path = FrontEnd/CartViewController.h; sourceTree = "<group>"; };
+		D246684218603C800089D5DB /* CartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CartViewController.m; path = FrontEnd/CartViewController.m; sourceTree = "<group>"; };
+		D2466844186052450089D5DB /* CartItemTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CartItemTableViewCell.h; path = FrontEnd/Views/CartItemTableViewCell.h; sourceTree = "<group>"; };
+		D2466845186052450089D5DB /* CartItemTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CartItemTableViewCell.m; path = FrontEnd/Views/CartItemTableViewCell.m; sourceTree = "<group>"; };
+		D2466847186062DC0089D5DB /* NSString+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Helper.h"; path = "Utilities/NSString+Helper.h"; sourceTree = "<group>"; };
+		D2466848186062DC0089D5DB /* NSString+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Helper.m"; path = "Utilities/NSString+Helper.m"; sourceTree = "<group>"; };
+		D246684A186154830089D5DB /* ToSavourSeed.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = ToSavourSeed.sqlite; sourceTree = "<group>"; };
 		D293E4AE183DEDEB00B73795 /* ToSavour.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToSavour.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D293E4B1183DEDEB00B73795 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D293E4B3183DEDEB00B73795 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -106,6 +181,9 @@
 		D293E4F4184357B400B73795 /* TimeTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TimeTracker.h; path = BackEnd/TimeTracker.h; sourceTree = "<group>"; };
 		D293E4F5184357B400B73795 /* TimeTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TimeTracker.m; path = BackEnd/TimeTracker.m; sourceTree = "<group>"; };
 		D293E4F718435DC100B73795 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		D293EB27185F04ED00A69034 /* MProductConfigurableOption.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = MProductConfigurableOption.json; path = Resource/MProductConfigurableOption.json; sourceTree = "<group>"; };
+		D293EB28185F04ED00A69034 /* MProductInfo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = MProductInfo.json; path = Resource/MProductInfo.json; sourceTree = "<group>"; };
+		D293EB29185F04ED00A69034 /* MProductOptionChoice.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = MProductOptionChoice.json; path = Resource/MProductOptionChoice.json; sourceTree = "<group>"; };
 		D2A36A84185046B2004D3D99 /* TSTheming.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSTheming.h; path = Utilities/TSTheming.h; sourceTree = "<group>"; };
 		D2A36A85185046B2004D3D99 /* TSTheming.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSTheming.m; path = Utilities/TSTheming.m; sourceTree = "<group>"; };
 		D2A36A8718504743004D3D99 /* Defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Defines.h; path = Utilities/Defines.h; sourceTree = "<group>"; };
@@ -147,9 +225,35 @@
 		D2C075D21858092800620114 /* MUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUserInfo.m; path = BackEnd/Model/MUserInfo.m; sourceTree = "<group>"; };
 		D2C075DF1859694700620114 /* MFriendInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MFriendInfo.h; path = BackEnd/Model/MFriendInfo.h; sourceTree = "<group>"; };
 		D2C075E01859694700620114 /* MFriendInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MFriendInfo.m; path = BackEnd/Model/MFriendInfo.m; sourceTree = "<group>"; };
+		D2C9168A185EEC7500452891 /* MItemInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MItemInfo.h; path = BackEnd/Model/MItemInfo.h; sourceTree = "<group>"; };
+		D2C9168B185EEC7500452891 /* MItemInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MItemInfo.m; path = BackEnd/Model/MItemInfo.m; sourceTree = "<group>"; };
+		D2C9168D185EEC9000452891 /* MItemSelectedOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MItemSelectedOption.h; path = BackEnd/Model/MItemSelectedOption.h; sourceTree = "<group>"; };
+		D2C9168E185EEC9000452891 /* MItemSelectedOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MItemSelectedOption.m; path = BackEnd/Model/MItemSelectedOption.m; sourceTree = "<group>"; };
+		D2C91690185EECA600452891 /* MProductConfigurableOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MProductConfigurableOption.h; path = BackEnd/Model/MProductConfigurableOption.h; sourceTree = "<group>"; };
+		D2C91691185EECA600452891 /* MProductConfigurableOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MProductConfigurableOption.m; path = BackEnd/Model/MProductConfigurableOption.m; sourceTree = "<group>"; };
+		D2C91693185EECB900452891 /* MProductInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MProductInfo.h; path = BackEnd/Model/MProductInfo.h; sourceTree = "<group>"; };
+		D2C91694185EECBA00452891 /* MProductInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MProductInfo.m; path = BackEnd/Model/MProductInfo.m; sourceTree = "<group>"; };
+		D2C91696185EECED00452891 /* MProductOptionChoice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MProductOptionChoice.h; path = BackEnd/Model/MProductOptionChoice.h; sourceTree = "<group>"; };
+		D2C91697185EECED00452891 /* MProductOptionChoice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MProductOptionChoice.m; path = BackEnd/Model/MProductOptionChoice.m; sourceTree = "<group>"; };
+		D2C916A3185F015800452891 /* TSModelIncludes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TSModelIncludes.h; path = BackEnd/Model/TSModelIncludes.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		D246681C185F15F70089D5DB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D246681D185F15F70089D5DB /* QuartzCore.framework in Frameworks */,
+				D246681E185F15F70089D5DB /* MapKit.framework in Frameworks */,
+				D246681F185F15F70089D5DB /* CoreLocation.framework in Frameworks */,
+				D2466820185F15F70089D5DB /* CoreGraphics.framework in Frameworks */,
+				D2466821185F15F70089D5DB /* CoreData.framework in Frameworks */,
+				D2466822185F15F70089D5DB /* UIKit.framework in Frameworks */,
+				D2466823185F15F70089D5DB /* Foundation.framework in Frameworks */,
+				D2466824185F15F70089D5DB /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D293E4AB183DEDEB00B73795 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -195,6 +299,8 @@
 				D2C075CE1857245E00620114 /* UIView+Helper.h */,
 				D2C075CF1857245E00620114 /* UIView+Helper.m */,
 				D2219654185AAD5C007528EE /* TSFrontEndIncludes.h */,
+				D2466847186062DC0089D5DB /* NSString+Helper.h */,
+				D2466848186062DC0089D5DB /* NSString+Helper.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -207,6 +313,7 @@
 				D293E4B0183DEDEB00B73795 /* Frameworks */,
 				D293E4AF183DEDEB00B73795 /* Products */,
 				257842E4F2DE434C98166E63 /* Pods.xcconfig */,
+				D2466833185F15F90089D5DB /* ToSavour copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -215,6 +322,7 @@
 			children = (
 				D293E4AE183DEDEB00B73795 /* ToSavour.app */,
 				D293E4D7183DEDEB00B73795 /* ToSavourTests.xctest */,
+				D2466832185F15F70089D5DB /* ToSavour copy.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -303,6 +411,8 @@
 				D221964C1859BCC6007528EE /* FriendsListViewController.m */,
 				D2A67A8C185B467400889114 /* AccountViewController.h */,
 				D2A67A8D185B467400889114 /* AccountViewController.m */,
+				D246684118603C800089D5DB /* CartViewController.h */,
+				D246684218603C800089D5DB /* CartViewController.m */,
 			);
 			name = FrontEnd;
 			sourceTree = "<group>";
@@ -310,6 +420,7 @@
 		D293E4F3184356D300B73795 /* BackEnd */ = {
 			isa = PBXGroup;
 			children = (
+				D246684A186154830089D5DB /* ToSavourSeed.sqlite */,
 				D2A55702184DB5ED0039A5A0 /* Model */,
 				D293E4F4184357B400B73795 /* TimeTracker.h */,
 				D293E4F5184357B400B73795 /* TimeTracker.m */,
@@ -330,12 +441,23 @@
 		D2A55702184DB5ED0039A5A0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D2C9168A185EEC7500452891 /* MItemInfo.h */,
+				D2C9168B185EEC7500452891 /* MItemInfo.m */,
+				D2C91696185EECED00452891 /* MProductOptionChoice.h */,
+				D2C91697185EECED00452891 /* MProductOptionChoice.m */,
+				D2C91693185EECB900452891 /* MProductInfo.h */,
+				D2C91694185EECBA00452891 /* MProductInfo.m */,
+				D2C91690185EECA600452891 /* MProductConfigurableOption.h */,
+				D2C91691185EECA600452891 /* MProductConfigurableOption.m */,
+				D2C9168D185EEC9000452891 /* MItemSelectedOption.h */,
+				D2C9168E185EEC9000452891 /* MItemSelectedOption.m */,
 				D2C075DF1859694700620114 /* MFriendInfo.h */,
 				D2C075E01859694700620114 /* MFriendInfo.m */,
 				D2C075D11858092800620114 /* MUserInfo.h */,
 				D2C075D21858092800620114 /* MUserInfo.m */,
 				D2A5570F184DBF4C0039A5A0 /* MapTrackingAnnotation.h */,
 				D2A55710184DBF4C0039A5A0 /* MapTrackingAnnotation.m */,
+				D2C916A3185F015800452891 /* TSModelIncludes.h */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -344,6 +466,7 @@
 			isa = PBXGroup;
 			children = (
 				D2A67A90185C21C500889114 /* AccountHeaderView.xib */,
+				D246683C186032BC0089D5DB /* CartHeaderView.xib */,
 			);
 			name = XIBs;
 			sourceTree = "<group>";
@@ -351,6 +474,9 @@
 		D2C075B51851D23800620114 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				D293EB27185F04ED00A69034 /* MProductConfigurableOption.json */,
+				D293EB28185F04ED00A69034 /* MProductInfo.json */,
+				D293EB29185F04ED00A69034 /* MProductOptionChoice.json */,
 				D2C075B61851D33F00620114 /* MBranch.json */,
 			);
 			name = Resource;
@@ -373,6 +499,10 @@
 				D2A67A96185C487A00889114 /* AccountInfoTableViewCell.m */,
 				D2A67A98185C48B100889114 /* TransactionHistoryTableViewCell.h */,
 				D2A67A99185C48B100889114 /* TransactionHistoryTableViewCell.m */,
+				D246683E186036BB0089D5DB /* CartHeaderView.h */,
+				D246683F186036BB0089D5DB /* CartHeaderView.m */,
+				D2466844186052450089D5DB /* CartItemTableViewCell.h */,
+				D2466845186052450089D5DB /* CartItemTableViewCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -380,6 +510,25 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		D24667F8185F15F70089D5DB /* ToSavour Generate Seed DB */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D246682F185F15F70089D5DB /* Build configuration list for PBXNativeTarget "ToSavour Generate Seed DB" */;
+			buildPhases = (
+				D24667F9185F15F70089D5DB /* Check Pods Manifest.lock */,
+				D24667FA185F15F70089D5DB /* Sources */,
+				D246681C185F15F70089D5DB /* Frameworks */,
+				D2466825185F15F70089D5DB /* Resources */,
+				D246682E185F15F70089D5DB /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "ToSavour Generate Seed DB";
+			productName = ToSavour;
+			productReference = D2466832185F15F70089D5DB /* ToSavour copy.app */;
+			productType = "com.apple.product-type.application";
+		};
 		D293E4AD183DEDEB00B73795 /* ToSavour */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D293E4E9183DEDEB00B73795 /* Build configuration list for PBXNativeTarget "ToSavour" */;
@@ -449,20 +598,41 @@
 			targets = (
 				D293E4AD183DEDEB00B73795 /* ToSavour */,
 				D293E4D6183DEDEB00B73795 /* ToSavourTests */,
+				D24667F8185F15F70089D5DB /* ToSavour Generate Seed DB */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		D2466825185F15F70089D5DB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D2466826185F15F70089D5DB /* Images.xcassets in Resources */,
+				D2466827185F15F70089D5DB /* MProductConfigurableOption.json in Resources */,
+				D2466828185F15F70089D5DB /* MProductInfo.json in Resources */,
+				D2466829185F15F70089D5DB /* MProductOptionChoice.json in Resources */,
+				D246682A185F15F70089D5DB /* InfoPlist.strings in Resources */,
+				D246682B185F15F70089D5DB /* Main.storyboard in Resources */,
+				D246682C185F15F70089D5DB /* AccountHeaderView.xib in Resources */,
+				D246682D185F15F70089D5DB /* MBranch.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D293E4AC183DEDEB00B73795 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				D293E4D2183DEDEB00B73795 /* Images.xcassets in Resources */,
+				D293EB2A185F04ED00A69034 /* MProductConfigurableOption.json in Resources */,
+				D293EB2B185F04ED00A69034 /* MProductInfo.json in Resources */,
+				D293EB2C185F04ED00A69034 /* MProductOptionChoice.json in Resources */,
 				D293E4BE183DEDEB00B73795 /* InfoPlist.strings in Resources */,
+				D246684B186154830089D5DB /* ToSavourSeed.sqlite in Resources */,
 				D293E4C7183DEDEB00B73795 /* Main.storyboard in Resources */,
 				D2A67A91185C21C500889114 /* AccountHeaderView.xib in Resources */,
 				D2C075B71851D33F00620114 /* MBranch.json in Resources */,
+				D246683D186032BC0089D5DB /* CartHeaderView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -507,9 +677,79 @@
 			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		D24667F9185F15F70089D5DB /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D246682E185F15F70089D5DB /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		D24667FA185F15F70089D5DB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D24667FB185F15F70089D5DB /* TutorialLoginViewController.m in Sources */,
+				D24667FC185F15F70089D5DB /* MapTrackingViewController.m in Sources */,
+				D24667FD185F15F70089D5DB /* TSLogFormatter.m in Sources */,
+				D24667FE185F15F70089D5DB /* MProductInfo.m in Sources */,
+				D24667FF185F15F70089D5DB /* TimeTracker.m in Sources */,
+				D2466800185F15F70089D5DB /* AppDelegate.m in Sources */,
+				D2466801185F15F70089D5DB /* TransactionHistoryTableViewCell.m in Sources */,
+				D2466802185F15F70089D5DB /* AccountHeaderView.m in Sources */,
+				D2466803185F15F70089D5DB /* TSSettings.m in Sources */,
+				D2466804185F15F70089D5DB /* AvatarView.m in Sources */,
+				D2466805185F15F70089D5DB /* MUserInfo.m in Sources */,
+				D2466806185F15F70089D5DB /* MProductConfigurableOption.m in Sources */,
+				D2466807185F15F70089D5DB /* ItemPickerViewController.m in Sources */,
+				D2466808185F15F70089D5DB /* MItemInfo.m in Sources */,
+				D2466809185F15F70089D5DB /* FriendsListViewController.m in Sources */,
+				D246680A185F15F70089D5DB /* ItemPickerScrollView.m in Sources */,
+				D246680B185F15F70089D5DB /* HomeViewController.m in Sources */,
+				D246680C185F15F70089D5DB /* AccountInfoTableViewCell.m in Sources */,
+				D246680D185F15F70089D5DB /* SlideMenuViewController.m in Sources */,
+				D246680E185F15F70089D5DB /* ItemPickerTableViewCell.m in Sources */,
+				D246680F185F15F70089D5DB /* MapTrackingAnnotation.m in Sources */,
+				D2466810185F15F70089D5DB /* main.m in Sources */,
+				D2466811185F15F70089D5DB /* MainTabBarController.m in Sources */,
+				D2466812185F15F70089D5DB /* TSTheming.m in Sources */,
+				D2466813185F15F70089D5DB /* MItemSelectedOption.m in Sources */,
+				D2466814185F15F70089D5DB /* NSManagedObject+Helper.m in Sources */,
+				D2466815185F15F70089D5DB /* MProductOptionChoice.m in Sources */,
+				D2466816185F15F70089D5DB /* AccountViewController.m in Sources */,
+				D2466817185F15F70089D5DB /* TSNavigationController.m in Sources */,
+				D2466818185F15F70089D5DB /* ToSavour.xcdatamodeld in Sources */,
+				D2466819185F15F70089D5DB /* FriendsListTableViewCell.m in Sources */,
+				D246681A185F15F70089D5DB /* UIView+Helper.m in Sources */,
+				D246681B185F15F70089D5DB /* MFriendInfo.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D293E4AA183DEDEB00B73795 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -517,6 +757,7 @@
 				D2C075CB1855C47200620114 /* TutorialLoginViewController.m in Sources */,
 				D2A556FB184C37F60039A5A0 /* MapTrackingViewController.m in Sources */,
 				D239770318474F230002D655 /* TSLogFormatter.m in Sources */,
+				D2C91695185EECBA00452891 /* MProductInfo.m in Sources */,
 				D293E4F6184357B400B73795 /* TimeTracker.m in Sources */,
 				D293E4C4183DEDEB00B73795 /* AppDelegate.m in Sources */,
 				D2A67A9A185C48B100889114 /* TransactionHistoryTableViewCell.m in Sources */,
@@ -524,22 +765,30 @@
 				D243757518488358000009D7 /* TSSettings.m in Sources */,
 				D2A67A88185B0EC000889114 /* AvatarView.m in Sources */,
 				D2C075D31858092800620114 /* MUserInfo.m in Sources */,
+				D2C91692185EECA600452891 /* MProductConfigurableOption.m in Sources */,
 				D2C075C11852E29500620114 /* ItemPickerViewController.m in Sources */,
+				D2C9168C185EEC7500452891 /* MItemInfo.m in Sources */,
 				D221964D1859BCC6007528EE /* FriendsListViewController.m in Sources */,
+				D2466849186062DC0089D5DB /* NSString+Helper.m in Sources */,
 				D2C075C418533B6A00620114 /* ItemPickerScrollView.m in Sources */,
 				D2A36A941850AA6C004D3D99 /* HomeViewController.m in Sources */,
 				D2A67A97185C487A00889114 /* AccountInfoTableViewCell.m in Sources */,
+				D2466846186052450089D5DB /* CartItemTableViewCell.m in Sources */,
 				D293E4F2183DF24000B73795 /* SlideMenuViewController.m in Sources */,
 				D2C075BE1852CACB00620114 /* ItemPickerTableViewCell.m in Sources */,
 				D2A55711184DBF4C0039A5A0 /* MapTrackingAnnotation.m in Sources */,
 				D293E4C0183DEDEB00B73795 /* main.m in Sources */,
 				D2A36A911850684A004D3D99 /* MainTabBarController.m in Sources */,
 				D2A36A86185046B2004D3D99 /* TSTheming.m in Sources */,
+				D2C9168F185EEC9000452891 /* MItemSelectedOption.m in Sources */,
 				D2219653185AACD8007528EE /* NSManagedObject+Helper.m in Sources */,
+				D246684318603C800089D5DB /* CartViewController.m in Sources */,
+				D2C91698185EECED00452891 /* MProductOptionChoice.m in Sources */,
 				D2A67A8E185B467400889114 /* AccountViewController.m in Sources */,
 				D2A36A8E18504ADE004D3D99 /* TSNavigationController.m in Sources */,
 				D293E4CA183DEDEB00B73795 /* ToSavour.xcdatamodeld in Sources */,
 				D22196501859C24C007528EE /* FriendsListTableViewCell.m in Sources */,
+				D2466840186036BB0089D5DB /* CartHeaderView.m in Sources */,
 				D2C075D01857245E00620114 /* UIView+Helper.m in Sources */,
 				D2C075E11859694700620114 /* MFriendInfo.m in Sources */,
 			);
@@ -591,6 +840,52 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		D2466830185F15F70089D5DB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 257842E4F2DE434C98166E63 /* Pods.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ToSavour/ToSavour-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"RESTKIT_GENERATE_SEED_DB=1",
+				);
+				INFOPLIST_FILE = "ToSavour copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				PRODUCT_NAME = "ToSavour copy";
+				PROVISIONING_PROFILE = "";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		D2466831185F15F70089D5DB /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 257842E4F2DE434C98166E63 /* Pods.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ToSavour/ToSavour-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"RESTKIT_GENERATE_SEED_DB=1",
+				);
+				INFOPLIST_FILE = "ToSavour copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				PRODUCT_NAME = "ToSavour copy";
+				PROVISIONING_PROFILE = "";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
 		D293E4E7183DEDEB00B73795 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -744,6 +1039,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		D246682F185F15F70089D5DB /* Build configuration list for PBXNativeTarget "ToSavour Generate Seed DB" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D2466830185F15F70089D5DB /* Debug */,
+				D2466831185F15F70089D5DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D293E4A9183DEDEB00B73795 /* Build configuration list for PBXProject "ToSavour" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

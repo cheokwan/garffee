@@ -27,4 +27,7 @@
 
     #import "Defines.h"
     #import "TSLocalizedString.h"
+    #import "NSString+Helper.h"
+    #import "NSManagedObject+Helper.h"
+    #import "UIView+Helper.h"
 #endif

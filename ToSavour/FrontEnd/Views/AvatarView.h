@@ -23,6 +23,6 @@
 @property (nonatomic, assign)   BOOL isInteractable;
 @property (nonatomic, weak)     id<AvatarViewDelegate> delegate;
 
-- (id)initWithFrame:(CGRect)frame avatarImageURL:(NSURL *)avatarImageURL accessoryImageURL:(NSURL *)accessoryImageURL;
+- (id)initWithFrame:(CGRect)frame avatarImageURL:(NSURL *)avatarImageURL accessoryImageURL:(NSURL *)accessoryImageURL interactable:(BOOL)interactable;
 
 @end

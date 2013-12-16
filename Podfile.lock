@@ -36,7 +36,7 @@ PODS:
   - SDWebImage (3.5.1):
     - SDWebImage/Core
   - SDWebImage/Core (3.5.1)
-  - SKBounceAnimation (1.0.03)
+  - SKBounceAnimation (1.0.04)
   - SOCKit (1.1)
   - TransitionKit (2.0.0)
   - UIColor-HexString (1.0.1)
@@ -63,7 +63,7 @@ SPEC CHECKSUMS:
   RestKit: dc107a0aa4f962575ad0385bac5b3c5e4f591f4e
   RKValueTransformers: 1562d458b9c9d59ce777bfc5982f2e1aef2e9182
   SDWebImage: a408b548a634b792372e07e753fc1079aff5032a
-  SKBounceAnimation: 116cdcda440d52f2f6d176032678ffd526ec652a
+  SKBounceAnimation: 1d53d07c3496c1f61015e9d93bbaefda8391dc0d
   SOCKit: 2f3bc4d07910de12dcc202815e07db68a3802581
   TransitionKit: 433284465abacdc07852d7db6dd0cc075010059a
   UIColor-HexString: 8a3f512f71b6d94a2cf6bdeabcad2f3532f31b5a

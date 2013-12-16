@@ -16,4 +16,14 @@
     }
 }
 
+- (UIView *)subviewAtOrigin:(CGPoint)origin {
+    for (UIView *subview in self.subviews) {
+        if ((int)subview.frame.origin.x == (int)origin.x &&
+            (int)subview.frame.origin.y == (int)origin.y) {
+            return subview;
+        }
+    }
+    return nil;
+}
+
 @end

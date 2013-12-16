@@ -89,14 +89,14 @@
     return [NSString stringWithFormat:
             @"fbBirthday:%@, "
             @"fbFirstName:%@, "
-            @"fbID:%@, "
+            @"fbID:%d, "
             @"fbLastName:%@, "
             @"fbLink:%@, "
             @"fbMiddleName:%@, "
             @"fbName:%@, "
             @"fbProfilePicURL:%@, "
             @"fbUsername:%@, "
-            @"fbAgeRangeMin:%@, "
+            @"fbAgeRangeMin:%d, "
             @"fbGender:%@, ",
             self.fbBirthday,
             self.fbFirstName,

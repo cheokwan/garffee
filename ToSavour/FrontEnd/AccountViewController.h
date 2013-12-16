@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "AccountHeaderView.h"
+#import "AvatarView.h"
 
-@interface AccountViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
+@interface AccountViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, AccountHeaderViewDelegate, AvatarViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, strong)   IBOutlet UITableView *infoTable;
 @property (nonatomic, strong)   AccountHeaderView *accountHeaderView;
+@property (nonatomic, strong)   UIImagePickerController *avatarImagePicker;
+@property (nonatomic, strong)   UIActionSheet *imagePickerActionSheet;
 
 @end

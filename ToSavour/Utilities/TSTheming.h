@@ -12,6 +12,7 @@
 
 + (UIViewController *)viewControllerWithStoryboardIdentifier:(NSString *)identifier;
 + (UIView *)viewWithNibName:(NSString *)identifier;
++ (UIView *)viewWithNibName:(NSString *)identifier owner:(id)owner;
 + (UIView *)navigationBrandNameTitleView;
 + (UIView *)navigationTitleViewWithString:(NSString *)titleString;
 

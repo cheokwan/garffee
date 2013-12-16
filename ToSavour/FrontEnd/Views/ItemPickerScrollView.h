@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @protocol ItemPickerScrollViewDelegate <NSObject>
-- (void)pickerAtIndexPath:(NSIndexPath *)indexPath didSelectItemAtIndex:(NSInteger)index;
+- (void)pickerAtIndexPath:(NSIndexPath *)indexPath didSelectItem:(UIView *)itemView atIndex:(NSInteger)index;
 @end
 
 

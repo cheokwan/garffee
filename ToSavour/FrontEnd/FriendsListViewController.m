@@ -35,6 +35,7 @@
 - (void)initializeView {
     _friendsList.delegate = self;
     _friendsList.dataSource = self;
+    self.navigationItem.titleView = [TSTheming navigationTitleViewWithString:LS_FRIENDS];
 }
 
 - (void)viewDidLoad
@@ -85,7 +86,7 @@
     
     NSURL *profilePicURL = [NSURL URLWithString:friendInfo.fbProfilePicURL];
     [friendCell.avatarView removeFromSuperview];
-    friendCell.avatarView = [[AvatarView alloc] initWithFrame:friendCell.avatarView.frame avatarImageURL:profilePicURL accessoryImageURL:[NSURL URLWithString:@"http://talk.onevietnam.org/wp-content/uploads/2011/04/facebook_icon-1024x1024.png"]];  // XXX-TEST
+    friendCell.avatarView = [[AvatarView alloc] initWithFrame:friendCell.avatarView.frame avatarImageURL:profilePicURL accessoryImageURL:[NSURL URLWithString:@"http://files.softicons.com/download/social-media-icons/simple-icons-by-dan-leech/png/128x128/facebook.png"] interactable:NO];  // XXX-TEST
     [friendCell addSubview:friendCell.avatarView];
     friendCell.selectionStyle = UITableViewCellSelectionStyleNone;
 }
