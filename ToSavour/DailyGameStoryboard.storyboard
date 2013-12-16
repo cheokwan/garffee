@@ -21,7 +21,8 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="161"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="320" id="I5e-mV-8wx"/>
+                                    <constraint firstAttribute="height" constant="161" id="IPt-2s-w6s"/>
+                                    <constraint firstAttribute="width" constant="320" id="uV2-s4-R3s"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="delegate" destination="ZI8-K7-vMs" id="UfV-1a-sTh"/>
@@ -49,13 +50,6 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8gs-Jp-VXR">
-                                <rect key="frame" x="248" y="182" width="42" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xub-QR-81G">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -64,6 +58,41 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lIE-14-aLw">
+                                        <rect key="frame" x="0.0" y="230" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Downloading" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f3i-51-vXG">
+                                                <rect key="frame" x="60" y="8" width="200" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="200" id="jma-NU-4fY"/>
+                                                    <constraint firstAttribute="height" constant="21" id="kXy-o1-x8I"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="vd2-C3-S0c">
+                                                <rect key="frame" x="35" y="30" width="250" height="2"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="250" id="YmN-vF-KNi"/>
+                                                    <constraint firstAttribute="height" constant="2" id="cdT-sp-7UL"/>
+                                                </constraints>
+                                            </progressView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="f3i-51-vXG" firstAttribute="top" secondItem="lIE-14-aLw" secondAttribute="top" constant="8" id="Fjp-3g-oDV"/>
+                                            <constraint firstAttribute="width" constant="320" id="YPz-jd-RnR"/>
+                                            <constraint firstAttribute="height" constant="44" id="aAk-4R-Dby"/>
+                                            <constraint firstAttribute="bottom" secondItem="vd2-C3-S0c" secondAttribute="bottom" constant="12" id="bgt-R5-EQB"/>
+                                            <constraint firstAttribute="centerX" secondItem="f3i-51-vXG" secondAttribute="centerX" id="n2q-S5-fME"/>
+                                            <constraint firstAttribute="centerX" secondItem="vd2-C3-S0c" secondAttribute="centerX" id="vvb-AE-Eab"/>
+                                        </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="70x-Gh-MRu">
                                         <rect key="frame" x="0.0" y="230" width="320" height="44"/>
@@ -124,6 +153,8 @@
                                     <constraint firstAttribute="centerX" secondItem="yDv-Xs-SDj" secondAttribute="centerX" id="OTu-W3-28W"/>
                                     <constraint firstAttribute="centerY" secondItem="70x-Gh-MRu" secondAttribute="centerY" id="RA7-xs-GdN"/>
                                     <constraint firstAttribute="centerX" secondItem="70x-Gh-MRu" secondAttribute="centerX" id="jtB-0z-hdp"/>
+                                    <constraint firstAttribute="centerX" secondItem="lIE-14-aLw" secondAttribute="centerX" id="srY-qI-xrj"/>
+                                    <constraint firstAttribute="centerY" secondItem="lIE-14-aLw" secondAttribute="centerY" id="tmF-7y-dLe"/>
                                     <constraint firstAttribute="bottom" secondItem="yDv-Xs-SDj" secondAttribute="bottom" id="ydX-cn-Iz6"/>
                                 </constraints>
                             </view>
@@ -134,13 +165,11 @@
                             <constraint firstItem="8yh-Dp-Zng" firstAttribute="centerX" secondItem="Qpi-S1-qBa" secondAttribute="centerX" id="8Rv-al-Ylx"/>
                             <constraint firstItem="UH4-ek-FpS" firstAttribute="leading" secondItem="NmV-yE-56B" secondAttribute="leading" constant="20" symbolic="YES" id="9Fk-Js-L1Z"/>
                             <constraint firstItem="CDL-qu-2Ro" firstAttribute="baseline" secondItem="UH4-ek-FpS" secondAttribute="baseline" id="9dX-Dq-3OA"/>
-                            <constraint firstAttribute="trailing" secondItem="8gs-Jp-VXR" secondAttribute="trailing" constant="30" id="CSQ-E8-zcz"/>
                             <constraint firstItem="8Fn-4M-sKq" firstAttribute="top" secondItem="Qpi-S1-qBa" secondAttribute="bottom" constant="50" id="LmT-bs-3c8"/>
                             <constraint firstItem="8Fn-4M-sKq" firstAttribute="top" secondItem="Xub-QR-81G" secondAttribute="bottom" id="QVx-WD-bAv"/>
                             <constraint firstAttribute="bottom" secondItem="8yh-Dp-Zng" secondAttribute="bottom" constant="343" id="Sgr-Zg-8aJ"/>
                             <constraint firstItem="8yh-Dp-Zng" firstAttribute="top" secondItem="NmV-yE-56B" secondAttribute="top" id="TT3-N4-tB3"/>
                             <constraint firstAttribute="centerX" secondItem="Qpi-S1-qBa" secondAttribute="centerX" id="ZL8-5v-15t"/>
-                            <constraint firstItem="8gs-Jp-VXR" firstAttribute="top" secondItem="8yh-Dp-Zng" secondAttribute="bottom" constant="21" id="efd-Vl-Hht"/>
                             <constraint firstItem="Xub-QR-81G" firstAttribute="top" secondItem="8yh-Dp-Zng" secondAttribute="top" id="g8V-og-t52"/>
                             <constraint firstItem="8Fn-4M-sKq" firstAttribute="top" secondItem="UH4-ek-FpS" secondAttribute="bottom" constant="122" id="kQJ-Ld-4aR"/>
                             <constraint firstItem="CDL-qu-2Ro" firstAttribute="leading" secondItem="UH4-ek-FpS" secondAttribute="trailing" constant="44" id="kVi-ZI-UQT"/>
@@ -155,12 +184,15 @@
                         <outlet property="awardDetailsLabel" destination="CDL-qu-2Ro" id="Kht-mg-AOu"/>
                         <outlet property="awardStrLabel" destination="UH4-ek-FpS" id="qpK-HL-a61"/>
                         <outlet property="challengeNowButton" destination="Qpi-S1-qBa" id="O1n-Vh-l0M"/>
-                        <outlet property="countDownView" destination="Xub-QR-81G" id="rwW-Wd-a4z"/>
+                        <outlet property="countDownView" destination="70x-Gh-MRu" id="waU-p7-yLG"/>
                         <outlet property="gamesScrollView" destination="8yh-Dp-Zng" id="LvA-mj-QU6"/>
                         <outlet property="num1Button" destination="ddg-C2-Fk7" id="v9I-E4-XtD"/>
                         <outlet property="num2Button" destination="8XZ-ut-upc" id="6ub-xu-Hum"/>
                         <outlet property="num3Button" destination="7CB-NF-Cgh" id="mSP-PE-Flb"/>
-                        <outlet property="winLabel" destination="8gs-Jp-VXR" id="x22-tH-a8v"/>
+                        <outlet property="progressContainerView" destination="lIE-14-aLw" id="pay-G7-TM0"/>
+                        <outlet property="progressLabel" destination="f3i-51-vXG" id="DID-2q-A2l"/>
+                        <outlet property="progressPanel" destination="Xub-QR-81G" id="jdV-lt-D3p"/>
+                        <outlet property="progressView" destination="vd2-C3-S0c" id="CUc-A3-vuC"/>
                         <segue destination="1Ha-2Z-W08" kind="push" identifier="AreYouReadyViewController" id="0YK-dq-5zl"/>
                     </connections>
                 </viewController>

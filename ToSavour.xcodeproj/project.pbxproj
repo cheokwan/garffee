@@ -50,20 +50,22 @@
 		D2C075BE1852CACB00620114 /* ItemPickerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075BD1852CACB00620114 /* ItemPickerTableViewCell.m */; };
 		D2C075C11852E29500620114 /* ItemPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075C01852E29500620114 /* ItemPickerViewController.m */; };
 		D2C075C418533B6A00620114 /* ItemPickerScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075C318533B6A00620114 /* ItemPickerScrollView.m */; };
+		D2C075CB1855C47200620114 /* TutorialLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075CA1855C47200620114 /* TutorialLoginViewController.m */; };
+		D2C075D01857245E00620114 /* UIView+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075CF1857245E00620114 /* UIView+Helper.m */; };
+		D2C075D31858092800620114 /* MUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075D21858092800620114 /* MUserInfo.m */; };
+		D2C075E11859694700620114 /* MFriendInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075E01859694700620114 /* MFriendInfo.m */; };
 		DF60E74D185B47BA00DB10DE /* PhotoHuntGridButton.m in Sources */ = {isa = PBXBuildFile; fileRef = DF60E74C185B47BA00DB10DE /* PhotoHuntGridButton.m */; };
 		DF60E750185C0D8000DB10DE /* PhotoHuntManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DF60E74F185C0D8000DB10DE /* PhotoHuntManager.m */; };
 		DF60E756185C455200DB10DE /* PhotoHuntImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = DF60E755185C455200DB10DE /* PhotoHuntImageView.m */; };
 		DF60E759185C642F00DB10DE /* NSMutableArray+Shuffle.m in Sources */ = {isa = PBXBuildFile; fileRef = DF60E758185C642F00DB10DE /* NSMutableArray+Shuffle.m */; };
+		DF852709185EDDBC0087E247 /* TSGame.m in Sources */ = {isa = PBXBuildFile; fileRef = DF852708185EDDBC0087E247 /* TSGame.m */; };
+		DF85270C185EDE450087E247 /* TSGameDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DF85270B185EDE450087E247 /* TSGameDownloadManager.m */; };
 		DFBDA14C1856111500BF3755 /* PhotoHuntViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFBDA14B1856111500BF3755 /* PhotoHuntViewController.m */; };
 		DFE628A518558AD600E1C8FE /* DailyGameStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DFE628A418558AD600E1C8FE /* DailyGameStoryboard.storyboard */; };
 		DFE628A81855992800E1C8FE /* ChooseGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFE628A71855992800E1C8FE /* ChooseGameViewController.m */; };
 		DFE628AD1855AF2C00E1C8FE /* TSNetworkServiceCalls.m in Sources */ = {isa = PBXBuildFile; fileRef = DFE628AC1855AF2C00E1C8FE /* TSNetworkServiceCalls.m */; };
 		DFE628B11855FB7D00E1C8FE /* AreYouReadyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFE628B01855FB7D00E1C8FE /* AreYouReadyViewController.m */; };
 		DFE628B41855FE0D00E1C8FE /* CountDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = DFE628B31855FE0C00E1C8FE /* CountDownButton.m */; };
-		D2C075CB1855C47200620114 /* TutorialLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075CA1855C47200620114 /* TutorialLoginViewController.m */; };
-		D2C075D01857245E00620114 /* UIView+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075CF1857245E00620114 /* UIView+Helper.m */; };
-		D2C075D31858092800620114 /* MUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075D21858092800620114 /* MUserInfo.m */; };
-		D2C075E11859694700620114 /* MFriendInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075E01859694700620114 /* MFriendInfo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -148,6 +150,14 @@
 		D2C075C01852E29500620114 /* ItemPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ItemPickerViewController.m; path = FrontEnd/ItemPickerViewController.m; sourceTree = "<group>"; };
 		D2C075C218533B6A00620114 /* ItemPickerScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ItemPickerScrollView.h; path = FrontEnd/Views/ItemPickerScrollView.h; sourceTree = "<group>"; };
 		D2C075C318533B6A00620114 /* ItemPickerScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ItemPickerScrollView.m; path = FrontEnd/Views/ItemPickerScrollView.m; sourceTree = "<group>"; };
+		D2C075C91855C47200620114 /* TutorialLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialLoginViewController.h; path = FrontEnd/TutorialLoginViewController.h; sourceTree = "<group>"; };
+		D2C075CA1855C47200620114 /* TutorialLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TutorialLoginViewController.m; path = FrontEnd/TutorialLoginViewController.m; sourceTree = "<group>"; };
+		D2C075CE1857245E00620114 /* UIView+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+Helper.h"; path = "Utilities/UIView+Helper.h"; sourceTree = "<group>"; };
+		D2C075CF1857245E00620114 /* UIView+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+Helper.m"; path = "Utilities/UIView+Helper.m"; sourceTree = "<group>"; };
+		D2C075D11858092800620114 /* MUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUserInfo.h; path = BackEnd/Model/MUserInfo.h; sourceTree = "<group>"; };
+		D2C075D21858092800620114 /* MUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUserInfo.m; path = BackEnd/Model/MUserInfo.m; sourceTree = "<group>"; };
+		D2C075DF1859694700620114 /* MFriendInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MFriendInfo.h; path = BackEnd/Model/MFriendInfo.h; sourceTree = "<group>"; };
+		D2C075E01859694700620114 /* MFriendInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MFriendInfo.m; path = BackEnd/Model/MFriendInfo.m; sourceTree = "<group>"; };
 		DF60E74B185B47BA00DB10DE /* PhotoHuntGridButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoHuntGridButton.h; sourceTree = "<group>"; };
 		DF60E74C185B47BA00DB10DE /* PhotoHuntGridButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoHuntGridButton.m; sourceTree = "<group>"; };
 		DF60E74E185C0D8000DB10DE /* PhotoHuntManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoHuntManager.h; sourceTree = "<group>"; };
@@ -156,6 +166,10 @@
 		DF60E755185C455200DB10DE /* PhotoHuntImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoHuntImageView.m; sourceTree = "<group>"; };
 		DF60E757185C642F00DB10DE /* NSMutableArray+Shuffle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Shuffle.h"; sourceTree = "<group>"; };
 		DF60E758185C642F00DB10DE /* NSMutableArray+Shuffle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Shuffle.m"; sourceTree = "<group>"; };
+		DF852707185EDDBC0087E247 /* TSGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSGame.h; sourceTree = "<group>"; };
+		DF852708185EDDBC0087E247 /* TSGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSGame.m; sourceTree = "<group>"; };
+		DF85270A185EDE450087E247 /* TSGameDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSGameDownloadManager.h; sourceTree = "<group>"; };
+		DF85270B185EDE450087E247 /* TSGameDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSGameDownloadManager.m; sourceTree = "<group>"; };
 		DFBDA14A1856111500BF3755 /* PhotoHuntViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoHuntViewController.h; sourceTree = "<group>"; };
 		DFBDA14B1856111500BF3755 /* PhotoHuntViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoHuntViewController.m; sourceTree = "<group>"; };
 		DFE628A418558AD600E1C8FE /* DailyGameStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DailyGameStoryboard.storyboard; sourceTree = "<group>"; };
@@ -168,14 +182,6 @@
 		DFE628B01855FB7D00E1C8FE /* AreYouReadyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AreYouReadyViewController.m; sourceTree = "<group>"; };
 		DFE628B21855FE0C00E1C8FE /* CountDownButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountDownButton.h; sourceTree = "<group>"; };
 		DFE628B31855FE0C00E1C8FE /* CountDownButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountDownButton.m; sourceTree = "<group>"; };
-		D2C075C91855C47200620114 /* TutorialLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialLoginViewController.h; path = FrontEnd/TutorialLoginViewController.h; sourceTree = "<group>"; };
-		D2C075CA1855C47200620114 /* TutorialLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TutorialLoginViewController.m; path = FrontEnd/TutorialLoginViewController.m; sourceTree = "<group>"; };
-		D2C075CE1857245E00620114 /* UIView+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+Helper.h"; path = "Utilities/UIView+Helper.h"; sourceTree = "<group>"; };
-		D2C075CF1857245E00620114 /* UIView+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+Helper.m"; path = "Utilities/UIView+Helper.m"; sourceTree = "<group>"; };
-		D2C075D11858092800620114 /* MUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUserInfo.h; path = BackEnd/Model/MUserInfo.h; sourceTree = "<group>"; };
-		D2C075D21858092800620114 /* MUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUserInfo.m; path = BackEnd/Model/MUserInfo.m; sourceTree = "<group>"; };
-		D2C075DF1859694700620114 /* MFriendInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MFriendInfo.h; path = BackEnd/Model/MFriendInfo.h; sourceTree = "<group>"; };
-		D2C075E01859694700620114 /* MFriendInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MFriendInfo.m; path = BackEnd/Model/MFriendInfo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -343,6 +349,7 @@
 		D293E4F3184356D300B73795 /* BackEnd */ = {
 			isa = PBXGroup;
 			children = (
+				DF852706185EDDAA0087E247 /* DailyAwardGame */,
 				D2A55702184DB5ED0039A5A0 /* Model */,
 				D293E4F4184357B400B73795 /* TimeTracker.h */,
 				D293E4F5184357B400B73795 /* TimeTracker.m */,
@@ -410,6 +417,17 @@
 				D2A67A99185C48B100889114 /* TransactionHistoryTableViewCell.m */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		DF852706185EDDAA0087E247 /* DailyAwardGame */ = {
+			isa = PBXGroup;
+			children = (
+				DF852707185EDDBC0087E247 /* TSGame.h */,
+				DF852708185EDDBC0087E247 /* TSGame.m */,
+				DF85270A185EDE450087E247 /* TSGameDownloadManager.h */,
+				DF85270B185EDE450087E247 /* TSGameDownloadManager.m */,
+			);
+			name = DailyAwardGame;
 			sourceTree = "<group>";
 		};
 		DFE628AE1855FB5A00E1C8FE /* DailyAwardGame */ = {
@@ -590,6 +608,7 @@
 				DFBDA14C1856111500BF3755 /* PhotoHuntViewController.m in Sources */,
 				D2A67A97185C487A00889114 /* AccountInfoTableViewCell.m in Sources */,
 				D293E4F2183DF24000B73795 /* SlideMenuViewController.m in Sources */,
+				DF85270C185EDE450087E247 /* TSGameDownloadManager.m in Sources */,
 				DFE628AD1855AF2C00E1C8FE /* TSNetworkServiceCalls.m in Sources */,
 				D2C075BE1852CACB00620114 /* ItemPickerTableViewCell.m in Sources */,
 				DFE628B41855FE0D00E1C8FE /* CountDownButton.m in Sources */,
@@ -605,6 +624,7 @@
 				D2A67A8E185B467400889114 /* AccountViewController.m in Sources */,
 				D2A36A8E18504ADE004D3D99 /* TSNavigationController.m in Sources */,
 				D293E4CA183DEDEB00B73795 /* ToSavour.xcdatamodeld in Sources */,
+				DF852709185EDDBC0087E247 /* TSGame.m in Sources */,
 				D22196501859C24C007528EE /* FriendsListTableViewCell.m in Sources */,
 				D2C075D01857245E00620114 /* UIView+Helper.m in Sources */,
 				D2C075E11859694700620114 /* MFriendInfo.m in Sources */,

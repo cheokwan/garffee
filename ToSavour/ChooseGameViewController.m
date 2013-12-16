@@ -10,8 +10,12 @@
 
 #import <AFNetworking.h>
 #import <UIView+Helpers.h>
+#import "TSGame.h"
+#import "TSGameDownloadManager.h"
 #import "TSNavigationController.h"
 #import "TSTheming.h"
+
+#define PROGRESS_LABEL_PREFIX   [NSString stringWithFormat:@"%@...", LS_DOWNLOADING]
 
 @interface ChooseGameViewController ()
 @property (nonatomic, strong) NSMutableDictionary *buttonDict;
@@ -33,7 +37,7 @@
     
     _awardStrLabel.text = LS_AWARDS;
     NSUInteger awardNum = 1;
-    _awardDetailsLabel.text = [NSString stringWithFormat:@"%@ X %d", LS_COFFEE, awardNum];
+    _awardDetailsLabel.text = [NSString stringWithFormat:@"%@ X %lu", LS_COFFEE, awardNum];
     [_challengeNowButton setTitle:LS_CHALLENGE_NOW forState:UIControlStateNormal];
     [_challengeNowButton setTitle:LS_ALREADY_PLAYED forState:UIControlStateDisabled];
     [_challengeNowButton setTitleColor:[UIColor redColor] forState:UIControlStateDisabled];
@@ -63,13 +67,49 @@
 }
 
 - (void)challengeNowButtonPressed:(id)sender {
-    _countDownView.hidden = NO;
-    [self.view bringSubviewToFront:_countDownView];
+    _progressPanel.hidden = NO;
+    [self.view bringSubviewToFront:_progressPanel];
+    [_progressPanel bringSubviewToFront:_progressContainerView];
+    [self downloadPackage:nil];
+}
+
+#pragma mark - download game package
+- (void)downloadPackage:(TSGame *)game {
+    _progressLabel.text = [NSString stringWithFormat:@"%@ %d%%", PROGRESS_LABEL_PREFIX, 0];
+    [_progressView setProgress:0.0f animated:NO];
+    [[TSGameDownloadManager getInstance] downloadGamePackage:@"http://www.cse.ust.hk/esc/examples/proj_rome.zip" packageName:@"abc" success:^(NSString *fileFullPath) {
+        [self downloadSucceed:game];
+    }failure:^(NSString *fileFullPath) {
+        [self downloadFailed:game];
+    }progress:^(long long currentBytesRead, long long expectedTotalBytesRead){
+        [self updateDownloadProgress:(float)currentBytesRead/expectedTotalBytesRead];
+    }];
+}
+
+- (void)downloadSucceed:(TSGame *)game {
+    [_progressPanel bringSubviewToFront:_countDownView];
     [self startCountDown];
+}
+
+- (void)downloadFailed:(TSGame *)game {
+}
+
+- (void)updateDownloadProgress:(float)progress {
+    float newProgress = progress;
+    if (newProgress > 1.0f) {
+        newProgress = 1.0f;
+    } else if (newProgress < 0.0f) {
+        newProgress = 0.0f;
+    }
+    if (newProgress > _progressView.progress) {
+        [_progressView setProgress:newProgress animated:YES];
+        _progressLabel.text = [NSString stringWithFormat:@"%@ %d%%", PROGRESS_LABEL_PREFIX, (int)newProgress * 100];
+    }
 }
 
 #pragma mark - scroll view related
 - (void)initializeScrollView {
+    _gamesScrollView.backgroundColor = [UIColor yellowColor];
     float width = 0.0f;
     for (int i=0; i<[self numberOfGames]; i++) {
         CGRect rect = CGRectMake(i*_gamesScrollView.frameSizeWidth, 0, _gamesScrollView.frameSizeWidth, _gamesScrollView.frameSizeHeight);
@@ -107,8 +147,8 @@
     _buttonDict[@(3)] = _num3Button;
     _buttonDict[@(2)] = _num2Button;
     _buttonDict[@(1)] = _num1Button;
-    _countDownView.hidden = YES;
-    _countDownView.userInteractionEnabled = NO;
+    _progressPanel.hidden = YES;
+    _progressPanel.userInteractionEnabled = NO;
 }
 
 - (void)startCountDown {
@@ -141,8 +181,8 @@
 }
 
 - (void)proceedFromCountDown {
-    _countDownView.hidden = YES;
-    [self.view sendSubviewToBack:_countDownView];
+    _progressPanel.hidden = YES;
+    [self.view sendSubviewToBack:_progressPanel];
     [self countDown:@(0)];
     PhotoHuntViewController *photoHuntercontroller = [[PhotoHuntViewController alloc] initWithFilePackageName:@"AinoKishi01"];
     photoHuntercontroller.timeLimit = [self gameTimeLimit];
