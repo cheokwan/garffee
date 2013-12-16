@@ -25,7 +25,7 @@
 
 
 + (NSDateFormatter *)dateFormatter {
-    // XXX - non thread safe
+    // TODO: non thread safe
     static dispatch_once_t onceToken = 0;
     static NSDateFormatter *_dateFormatter = nil;
     dispatch_once(&onceToken, ^{

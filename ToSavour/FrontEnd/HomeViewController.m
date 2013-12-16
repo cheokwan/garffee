@@ -7,10 +7,11 @@
 //
 
 #import "HomeViewController.h"
-#import "TSTheming.h"
+#import "TSFrontEndIncludes.h"
 #import "AppDelegate.h"
-#import "ChooseGameViewController.h"
-#import "TSNavigationController.h"
+#import <FacebookSDK/FacebookSDK.h>  // XXX-TEST
+#import "MFriendInfo.h"  // XXX-TEST
+#import "NSManagedObject+Helper.h" // XXX-TEST
 
 @interface HomeViewController ()
 
@@ -34,16 +35,13 @@
 }
 
 - (void)slideLeft {
-    ChooseGameViewController *controller = (ChooseGameViewController*)[TSTheming viewControllerWithStoryboardIdentifier:@"ChooseGameViewController" storyboard:@"DailyGameStoryboard"];
-    TSNavigationController *naviController = [[TSNavigationController alloc] initWithRootViewController:controller];
-    [self presentViewController:naviController animated:YES completion:nil];
-//    static BOOL slided = NO;
-//    if (!slided) {
-//        [((AppDelegate *)[UIApplication sharedApplication].delegate).slidingViewController anchorTopViewToLeftAnimated:YES];
-//    } else {
-//        [((AppDelegate *)[UIApplication sharedApplication].delegate).slidingViewController resetTopViewAnimated:YES];
-//    }
-//    slided = !slided;
+     static BOOL slided = NO;
+     if (!slided) {
+         [[AppDelegate sharedAppDelegate].slidingViewController anchorTopViewToLeftAnimated:YES];
+     } else {
+         [[AppDelegate sharedAppDelegate].slidingViewController resetTopViewAnimated:YES];
+     }
+     slided = !slided;
 }
 
 - (void)viewDidLoad

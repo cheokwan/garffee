@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		C745B082CE144F8095231522 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C23BC4E3A4EF498CB2E1D08C /* libPods.a */; };
+		D221964D1859BCC6007528EE /* FriendsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D221964C1859BCC6007528EE /* FriendsListViewController.m */; };
+		D22196501859C24C007528EE /* FriendsListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D221964F1859C24C007528EE /* FriendsListTableViewCell.m */; };
+		D2219653185AACD8007528EE /* NSManagedObject+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2219652185AACD8007528EE /* NSManagedObject+Helper.m */; };
 		D239770318474F230002D655 /* TSLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D239770218474F230002D655 /* TSLogFormatter.m */; };
 		D243757518488358000009D7 /* TSSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = D243757418488358000009D7 /* TSSettings.m */; };
 		D2437577184C3498000009D7 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2437576184C3497000009D7 /* MapKit.framework */; };
@@ -20,8 +23,6 @@
 		D293E4C4183DEDEB00B73795 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D293E4C3183DEDEB00B73795 /* AppDelegate.m */; };
 		D293E4C7183DEDEB00B73795 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D293E4C5183DEDEB00B73795 /* Main.storyboard */; };
 		D293E4CA183DEDEB00B73795 /* ToSavour.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D293E4C8183DEDEB00B73795 /* ToSavour.xcdatamodeld */; };
-		D293E4CD183DEDEB00B73795 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D293E4CC183DEDEB00B73795 /* MasterViewController.m */; };
-		D293E4D0183DEDEB00B73795 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D293E4CF183DEDEB00B73795 /* DetailViewController.m */; };
 		D293E4D2183DEDEB00B73795 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D293E4D1183DEDEB00B73795 /* Images.xcassets */; };
 		D293E4D9183DEDEB00B73795 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4D8183DEDEB00B73795 /* XCTest.framework */; };
 		D293E4DA183DEDEB00B73795 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4B1183DEDEB00B73795 /* Foundation.framework */; };
@@ -38,7 +39,13 @@
 		D2A36A941850AA6C004D3D99 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A36A931850AA6C004D3D99 /* HomeViewController.m */; };
 		D2A556FB184C37F60039A5A0 /* MapTrackingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A556FA184C37F60039A5A0 /* MapTrackingViewController.m */; };
 		D2A55711184DBF4C0039A5A0 /* MapTrackingAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A55710184DBF4C0039A5A0 /* MapTrackingAnnotation.m */; };
-		D2A55717184DC89F0039A5A0 /* NSManagedObject+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A55716184DC89F0039A5A0 /* NSManagedObject+Helper.m */; };
+		D2A67A82185ACA8A00889114 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2A67A81185ACA8A00889114 /* QuartzCore.framework */; };
+		D2A67A88185B0EC000889114 /* AvatarView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A67A87185B0EC000889114 /* AvatarView.m */; };
+		D2A67A8E185B467400889114 /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A67A8D185B467400889114 /* AccountViewController.m */; };
+		D2A67A91185C21C500889114 /* AccountHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2A67A90185C21C500889114 /* AccountHeaderView.xib */; };
+		D2A67A94185C26E100889114 /* AccountHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A67A93185C26E100889114 /* AccountHeaderView.m */; };
+		D2A67A97185C487A00889114 /* AccountInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A67A96185C487A00889114 /* AccountInfoTableViewCell.m */; };
+		D2A67A9A185C48B100889114 /* TransactionHistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A67A99185C48B100889114 /* TransactionHistoryTableViewCell.m */; };
 		D2C075B71851D33F00620114 /* MBranch.json in Resources */ = {isa = PBXBuildFile; fileRef = D2C075B61851D33F00620114 /* MBranch.json */; };
 		D2C075BE1852CACB00620114 /* ItemPickerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075BD1852CACB00620114 /* ItemPickerTableViewCell.m */; };
 		D2C075C11852E29500620114 /* ItemPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075C01852E29500620114 /* ItemPickerViewController.m */; };
@@ -53,6 +60,10 @@
 		DFE628AD1855AF2C00E1C8FE /* TSNetworkServiceCalls.m in Sources */ = {isa = PBXBuildFile; fileRef = DFE628AC1855AF2C00E1C8FE /* TSNetworkServiceCalls.m */; };
 		DFE628B11855FB7D00E1C8FE /* AreYouReadyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFE628B01855FB7D00E1C8FE /* AreYouReadyViewController.m */; };
 		DFE628B41855FE0D00E1C8FE /* CountDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = DFE628B31855FE0C00E1C8FE /* CountDownButton.m */; };
+		D2C075CB1855C47200620114 /* TutorialLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075CA1855C47200620114 /* TutorialLoginViewController.m */; };
+		D2C075D01857245E00620114 /* UIView+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075CF1857245E00620114 /* UIView+Helper.m */; };
+		D2C075D31858092800620114 /* MUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075D21858092800620114 /* MUserInfo.m */; };
+		D2C075E11859694700620114 /* MFriendInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075E01859694700620114 /* MFriendInfo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +79,14 @@
 /* Begin PBXFileReference section */
 		257842E4F2DE434C98166E63 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		C23BC4E3A4EF498CB2E1D08C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D221964718598E0B007528EE /* RKMappableEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RKMappableEntity.h; path = BackEnd/RKMappableEntity.h; sourceTree = "<group>"; };
+		D221964B1859BCC6007528EE /* FriendsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FriendsListViewController.h; path = FrontEnd/FriendsListViewController.h; sourceTree = "<group>"; };
+		D221964C1859BCC6007528EE /* FriendsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FriendsListViewController.m; path = FrontEnd/FriendsListViewController.m; sourceTree = "<group>"; };
+		D221964E1859C24C007528EE /* FriendsListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FriendsListTableViewCell.h; path = FrontEnd/Views/FriendsListTableViewCell.h; sourceTree = "<group>"; };
+		D221964F1859C24C007528EE /* FriendsListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FriendsListTableViewCell.m; path = FrontEnd/Views/FriendsListTableViewCell.m; sourceTree = "<group>"; };
+		D2219651185AACD8007528EE /* NSManagedObject+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+Helper.h"; path = "Utilities/NSManagedObject+Helper.h"; sourceTree = "<group>"; };
+		D2219652185AACD8007528EE /* NSManagedObject+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObject+Helper.m"; path = "Utilities/NSManagedObject+Helper.m"; sourceTree = "<group>"; };
+		D2219654185AAD5C007528EE /* TSFrontEndIncludes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TSFrontEndIncludes.h; path = Utilities/TSFrontEndIncludes.h; sourceTree = "<group>"; };
 		D239770118474F230002D655 /* TSLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSLogFormatter.h; path = Utilities/TSLogFormatter.h; sourceTree = "<group>"; };
 		D239770218474F230002D655 /* TSLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSLogFormatter.m; path = Utilities/TSLogFormatter.m; sourceTree = "<group>"; };
 		D243757318488358000009D7 /* TSSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSSettings.h; path = Utilities/TSSettings.h; sourceTree = "<group>"; };
@@ -86,10 +105,6 @@
 		D293E4C3183DEDEB00B73795 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		D293E4C6183DEDEB00B73795 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D293E4C9183DEDEB00B73795 /* ToSavour.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ToSavour.xcdatamodel; sourceTree = "<group>"; };
-		D293E4CB183DEDEB00B73795 /* MasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
-		D293E4CC183DEDEB00B73795 /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
-		D293E4CE183DEDEB00B73795 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
-		D293E4CF183DEDEB00B73795 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		D293E4D1183DEDEB00B73795 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		D293E4D7183DEDEB00B73795 /* ToSavourTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ToSavourTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D293E4D8183DEDEB00B73795 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -114,8 +129,18 @@
 		D2A556FA184C37F60039A5A0 /* MapTrackingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapTrackingViewController.m; path = FrontEnd/MapTrackingViewController.m; sourceTree = "<group>"; };
 		D2A5570F184DBF4C0039A5A0 /* MapTrackingAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapTrackingAnnotation.h; path = BackEnd/Model/MapTrackingAnnotation.h; sourceTree = "<group>"; };
 		D2A55710184DBF4C0039A5A0 /* MapTrackingAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapTrackingAnnotation.m; path = BackEnd/Model/MapTrackingAnnotation.m; sourceTree = "<group>"; };
-		D2A55715184DC89F0039A5A0 /* NSManagedObject+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+Helper.h"; path = "BackEnd/NSManagedObject+Helper.h"; sourceTree = "<group>"; };
-		D2A55716184DC89F0039A5A0 /* NSManagedObject+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObject+Helper.m"; path = "BackEnd/NSManagedObject+Helper.m"; sourceTree = "<group>"; };
+		D2A67A81185ACA8A00889114 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		D2A67A86185B0EC000889114 /* AvatarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AvatarView.h; path = FrontEnd/Views/AvatarView.h; sourceTree = "<group>"; };
+		D2A67A87185B0EC000889114 /* AvatarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AvatarView.m; path = FrontEnd/Views/AvatarView.m; sourceTree = "<group>"; };
+		D2A67A8C185B467400889114 /* AccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AccountViewController.h; path = FrontEnd/AccountViewController.h; sourceTree = "<group>"; };
+		D2A67A8D185B467400889114 /* AccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AccountViewController.m; path = FrontEnd/AccountViewController.m; sourceTree = "<group>"; };
+		D2A67A90185C21C500889114 /* AccountHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AccountHeaderView.xib; path = FrontEnd/XIBs/AccountHeaderView.xib; sourceTree = "<group>"; };
+		D2A67A92185C26E100889114 /* AccountHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AccountHeaderView.h; path = FrontEnd/Views/AccountHeaderView.h; sourceTree = "<group>"; };
+		D2A67A93185C26E100889114 /* AccountHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AccountHeaderView.m; path = FrontEnd/Views/AccountHeaderView.m; sourceTree = "<group>"; };
+		D2A67A95185C487A00889114 /* AccountInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AccountInfoTableViewCell.h; path = FrontEnd/Views/AccountInfoTableViewCell.h; sourceTree = "<group>"; };
+		D2A67A96185C487A00889114 /* AccountInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AccountInfoTableViewCell.m; path = FrontEnd/Views/AccountInfoTableViewCell.m; sourceTree = "<group>"; };
+		D2A67A98185C48B100889114 /* TransactionHistoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TransactionHistoryTableViewCell.h; path = FrontEnd/Views/TransactionHistoryTableViewCell.h; sourceTree = "<group>"; };
+		D2A67A99185C48B100889114 /* TransactionHistoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TransactionHistoryTableViewCell.m; path = FrontEnd/Views/TransactionHistoryTableViewCell.m; sourceTree = "<group>"; };
 		D2C075B61851D33F00620114 /* MBranch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = MBranch.json; path = Resource/MBranch.json; sourceTree = "<group>"; };
 		D2C075BC1852CACB00620114 /* ItemPickerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ItemPickerTableViewCell.h; path = FrontEnd/Views/ItemPickerTableViewCell.h; sourceTree = "<group>"; };
 		D2C075BD1852CACB00620114 /* ItemPickerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ItemPickerTableViewCell.m; path = FrontEnd/Views/ItemPickerTableViewCell.m; sourceTree = "<group>"; };
@@ -143,6 +168,14 @@
 		DFE628B01855FB7D00E1C8FE /* AreYouReadyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AreYouReadyViewController.m; sourceTree = "<group>"; };
 		DFE628B21855FE0C00E1C8FE /* CountDownButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountDownButton.h; sourceTree = "<group>"; };
 		DFE628B31855FE0C00E1C8FE /* CountDownButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountDownButton.m; sourceTree = "<group>"; };
+		D2C075C91855C47200620114 /* TutorialLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialLoginViewController.h; path = FrontEnd/TutorialLoginViewController.h; sourceTree = "<group>"; };
+		D2C075CA1855C47200620114 /* TutorialLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TutorialLoginViewController.m; path = FrontEnd/TutorialLoginViewController.m; sourceTree = "<group>"; };
+		D2C075CE1857245E00620114 /* UIView+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+Helper.h"; path = "Utilities/UIView+Helper.h"; sourceTree = "<group>"; };
+		D2C075CF1857245E00620114 /* UIView+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+Helper.m"; path = "Utilities/UIView+Helper.m"; sourceTree = "<group>"; };
+		D2C075D11858092800620114 /* MUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUserInfo.h; path = BackEnd/Model/MUserInfo.h; sourceTree = "<group>"; };
+		D2C075D21858092800620114 /* MUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUserInfo.m; path = BackEnd/Model/MUserInfo.m; sourceTree = "<group>"; };
+		D2C075DF1859694700620114 /* MFriendInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MFriendInfo.h; path = BackEnd/Model/MFriendInfo.h; sourceTree = "<group>"; };
+		D2C075E01859694700620114 /* MFriendInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MFriendInfo.m; path = BackEnd/Model/MFriendInfo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +183,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2A67A82185ACA8A00889114 /* QuartzCore.framework in Frameworks */,
 				D2437577184C3498000009D7 /* MapKit.framework in Frameworks */,
 				D293E4F818435DC100B73795 /* CoreLocation.framework in Frameworks */,
 				D293E4B4183DEDEB00B73795 /* CoreGraphics.framework in Frameworks */,
@@ -177,6 +211,8 @@
 		D23976FF184745860002D655 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				D2219651185AACD8007528EE /* NSManagedObject+Helper.h */,
+				D2219652185AACD8007528EE /* NSManagedObject+Helper.m */,
 				D239770118474F230002D655 /* TSLogFormatter.h */,
 				D239770218474F230002D655 /* TSLogFormatter.m */,
 				D243757318488358000009D7 /* TSSettings.h */,
@@ -184,9 +220,12 @@
 				D2A36A84185046B2004D3D99 /* TSTheming.h */,
 				D2A36A85185046B2004D3D99 /* TSTheming.m */,
 				D2A36A8718504743004D3D99 /* Defines.h */,
-				DFE628A91855A6AA00E1C8FE /* TSLocalizedString.h */,
 				DF60E757185C642F00DB10DE /* NSMutableArray+Shuffle.h */,
 				DF60E758185C642F00DB10DE /* NSMutableArray+Shuffle.m */,
+				DFE628A91855A6AA00E1C8FE /* TSLocalizedString.h */,
+				D2C075CE1857245E00620114 /* UIView+Helper.h */,
+				D2C075CF1857245E00620114 /* UIView+Helper.m */,
+				D2219654185AAD5C007528EE /* TSFrontEndIncludes.h */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -214,6 +253,7 @@
 		D293E4B0183DEDEB00B73795 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D2A67A81185ACA8A00889114 /* QuartzCore.framework */,
 				D2437576184C3497000009D7 /* MapKit.framework */,
 				D293E4F718435DC100B73795 /* CoreLocation.framework */,
 				D293E4B1183DEDEB00B73795 /* Foundation.framework */,
@@ -237,10 +277,6 @@
 				D293E4C3183DEDEB00B73795 /* AppDelegate.m */,
 				D293E4C5183DEDEB00B73795 /* Main.storyboard */,
 				DFE628A418558AD600E1C8FE /* DailyGameStoryboard.storyboard */,
-				D293E4CB183DEDEB00B73795 /* MasterViewController.h */,
-				D293E4CC183DEDEB00B73795 /* MasterViewController.m */,
-				D293E4CE183DEDEB00B73795 /* DetailViewController.h */,
-				D293E4CF183DEDEB00B73795 /* DetailViewController.m */,
 				D293E4D1183DEDEB00B73795 /* Images.xcassets */,
 				D293E4C8183DEDEB00B73795 /* ToSavour.xcdatamodeld */,
 				D293E4BA183DEDEB00B73795 /* Supporting Files */,
@@ -281,6 +317,7 @@
 			isa = PBXGroup;
 			children = (
 				DFE628AE1855FB5A00E1C8FE /* DailyAwardGame */,
+				D2A67A8F185C218300889114 /* XIBs */,
 				D2C075B81852CA4700620114 /* Views */,
 				D2A36A8818504A12004D3D99 /* CustomUI */,
 				D293E4F0183DF24000B73795 /* SlideMenuViewController.h */,
@@ -293,6 +330,12 @@
 				D2A36A931850AA6C004D3D99 /* HomeViewController.m */,
 				D2C075BF1852E29500620114 /* ItemPickerViewController.h */,
 				D2C075C01852E29500620114 /* ItemPickerViewController.m */,
+				D2C075C91855C47200620114 /* TutorialLoginViewController.h */,
+				D2C075CA1855C47200620114 /* TutorialLoginViewController.m */,
+				D221964B1859BCC6007528EE /* FriendsListViewController.h */,
+				D221964C1859BCC6007528EE /* FriendsListViewController.m */,
+				D2A67A8C185B467400889114 /* AccountViewController.h */,
+				D2A67A8D185B467400889114 /* AccountViewController.m */,
 			);
 			name = FrontEnd;
 			sourceTree = "<group>";
@@ -303,10 +346,9 @@
 				D2A55702184DB5ED0039A5A0 /* Model */,
 				D293E4F4184357B400B73795 /* TimeTracker.h */,
 				D293E4F5184357B400B73795 /* TimeTracker.m */,
-				D2A55715184DC89F0039A5A0 /* NSManagedObject+Helper.h */,
-				D2A55716184DC89F0039A5A0 /* NSManagedObject+Helper.m */,
 				DFE628AB1855AF2C00E1C8FE /* TSNetworkServiceCalls.h */,
 				DFE628AC1855AF2C00E1C8FE /* TSNetworkServiceCalls.m */,
+				D221964718598E0B007528EE /* RKMappableEntity.h */,
 			);
 			name = BackEnd;
 			sourceTree = "<group>";
@@ -323,10 +365,22 @@
 		D2A55702184DB5ED0039A5A0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D2C075DF1859694700620114 /* MFriendInfo.h */,
+				D2C075E01859694700620114 /* MFriendInfo.m */,
+				D2C075D11858092800620114 /* MUserInfo.h */,
+				D2C075D21858092800620114 /* MUserInfo.m */,
 				D2A5570F184DBF4C0039A5A0 /* MapTrackingAnnotation.h */,
 				D2A55710184DBF4C0039A5A0 /* MapTrackingAnnotation.m */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		D2A67A8F185C218300889114 /* XIBs */ = {
+			isa = PBXGroup;
+			children = (
+				D2A67A90185C21C500889114 /* AccountHeaderView.xib */,
+			);
+			name = XIBs;
 			sourceTree = "<group>";
 		};
 		D2C075B51851D23800620114 /* Resource */ = {
@@ -344,6 +398,16 @@
 				D2C075BD1852CACB00620114 /* ItemPickerTableViewCell.m */,
 				D2C075C218533B6A00620114 /* ItemPickerScrollView.h */,
 				D2C075C318533B6A00620114 /* ItemPickerScrollView.m */,
+				D221964E1859C24C007528EE /* FriendsListTableViewCell.h */,
+				D221964F1859C24C007528EE /* FriendsListTableViewCell.m */,
+				D2A67A86185B0EC000889114 /* AvatarView.h */,
+				D2A67A87185B0EC000889114 /* AvatarView.m */,
+				D2A67A92185C26E100889114 /* AccountHeaderView.h */,
+				D2A67A93185C26E100889114 /* AccountHeaderView.m */,
+				D2A67A95185C487A00889114 /* AccountInfoTableViewCell.h */,
+				D2A67A96185C487A00889114 /* AccountInfoTableViewCell.m */,
+				D2A67A98185C48B100889114 /* TransactionHistoryTableViewCell.h */,
+				D2A67A99185C48B100889114 /* TransactionHistoryTableViewCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -454,6 +518,7 @@
 				D293E4BE183DEDEB00B73795 /* InfoPlist.strings in Resources */,
 				DFE628A518558AD600E1C8FE /* DailyGameStoryboard.storyboard in Resources */,
 				D293E4C7183DEDEB00B73795 /* Main.storyboard in Resources */,
+				D2A67A91185C21C500889114 /* AccountHeaderView.xib in Resources */,
 				D2C075B71851D33F00620114 /* MBranch.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -507,19 +572,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				DF60E74D185B47BA00DB10DE /* PhotoHuntGridButton.m in Sources */,
+				D2C075CB1855C47200620114 /* TutorialLoginViewController.m in Sources */,
 				D2A556FB184C37F60039A5A0 /* MapTrackingViewController.m in Sources */,
 				D239770318474F230002D655 /* TSLogFormatter.m in Sources */,
 				D293E4F6184357B400B73795 /* TimeTracker.m in Sources */,
-				D293E4D0183DEDEB00B73795 /* DetailViewController.m in Sources */,
-				D293E4CD183DEDEB00B73795 /* MasterViewController.m in Sources */,
 				D293E4C4183DEDEB00B73795 /* AppDelegate.m in Sources */,
+				D2A67A9A185C48B100889114 /* TransactionHistoryTableViewCell.m in Sources */,
+				D2A67A94185C26E100889114 /* AccountHeaderView.m in Sources */,
 				D243757518488358000009D7 /* TSSettings.m in Sources */,
+				D2A67A88185B0EC000889114 /* AvatarView.m in Sources */,
+				D2C075D31858092800620114 /* MUserInfo.m in Sources */,
 				D2C075C11852E29500620114 /* ItemPickerViewController.m in Sources */,
+				D221964D1859BCC6007528EE /* FriendsListViewController.m in Sources */,
 				D2C075C418533B6A00620114 /* ItemPickerScrollView.m in Sources */,
 				D2A36A941850AA6C004D3D99 /* HomeViewController.m in Sources */,
-				D2A55717184DC89F0039A5A0 /* NSManagedObject+Helper.m in Sources */,
 				DFE628A81855992800E1C8FE /* ChooseGameViewController.m in Sources */,
 				DFBDA14C1856111500BF3755 /* PhotoHuntViewController.m in Sources */,
+				D2A67A97185C487A00889114 /* AccountInfoTableViewCell.m in Sources */,
 				D293E4F2183DF24000B73795 /* SlideMenuViewController.m in Sources */,
 				DFE628AD1855AF2C00E1C8FE /* TSNetworkServiceCalls.m in Sources */,
 				D2C075BE1852CACB00620114 /* ItemPickerTableViewCell.m in Sources */,
@@ -532,8 +601,13 @@
 				D2A36A911850684A004D3D99 /* MainTabBarController.m in Sources */,
 				D2A36A86185046B2004D3D99 /* TSTheming.m in Sources */,
 				DF60E756185C455200DB10DE /* PhotoHuntImageView.m in Sources */,
+				D2219653185AACD8007528EE /* NSManagedObject+Helper.m in Sources */,
+				D2A67A8E185B467400889114 /* AccountViewController.m in Sources */,
 				D2A36A8E18504ADE004D3D99 /* TSNavigationController.m in Sources */,
 				D293E4CA183DEDEB00B73795 /* ToSavour.xcdatamodeld in Sources */,
+				D22196501859C24C007528EE /* FriendsListTableViewCell.m in Sources */,
+				D2C075D01857245E00620114 /* UIView+Helper.m in Sources */,
+				D2C075E11859694700620114 /* MFriendInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

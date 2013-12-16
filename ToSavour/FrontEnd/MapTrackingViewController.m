@@ -10,7 +10,7 @@
 #import "AppDelegate.h"
 #import "TimeTracker.h"
 #import "MapTrackingAnnotation.h"
-#import "TSTheming.h"
+#import "TSFrontEndIncludes.h"
 
 
 @interface MapTrackingViewController ()
@@ -53,7 +53,7 @@
 {
     [super viewDidLoad];
     [self initializeView];
-    self.managedObjectContext = ((AppDelegate *)[UIApplication sharedApplication].delegate).managedObjectContext;
+    self.managedObjectContext = [AppDelegate sharedAppDelegate].managedObjectContext;
     [TimeTracker sharedInstance].delegateMapView = _mapView;
     _mapView.showsUserLocation = YES;
 }
@@ -96,7 +96,7 @@
     }
 }
 
-- (void)buttonPressed:(id)sender {
+- (void)buttonPressed:(id)sender {    
     if (sender == _buttonDropPin) {
         if (!_alertViewDropPin) {
             self.alertViewDropPin = [[UIAlertView alloc] initWithTitle:nil message:@"What do you want?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Drop Destination", @"Clear Everything", @"Drop Red Pin", nil];
@@ -161,8 +161,8 @@
                 break;
         }
         NSError *error = nil;
-        if (![_managedObjectContext save:&error]) {
-            DDLogError(@"CoreData save error %@, %@", error, [error userInfo]);
+        if (![_managedObjectContext saveToPersistentStore:&error]) {
+            DDLogError(@"error saving dropped pins %@", error);
         }
     }
 }
@@ -295,7 +295,7 @@
         
         NSError *error = nil;
         if (![_fetchedResultsController performFetch:&error]) {
-            DDLogError(@"CoreData saving error: %@, %@", error, [error userInfo]);
+            DDLogError(@"error fetching map annotations: %@", error);
         }
     }
     return _fetchedResultsController;

@@ -15,6 +15,7 @@
     self.showsVerticalScrollIndicator = NO;
     self.clipsToBounds = YES;
     self.pagingEnabled = NO;  // manual paging
+    self.decelerationRate = UIScrollViewDecelerationRateNormal / 2.0;
     self.delegate = self;
 }
 
@@ -69,7 +70,7 @@
 
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
     
-    double delayInSeconds = 1.0;
+    double delayInSeconds = 0.5;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         [self snapToColumn];
@@ -85,12 +86,22 @@
     }
 }
 
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+    if ([_pickerDelegate respondsToSelector:@selector(pickerAtIndexPath:didSelectItemAtIndex:)]) {
+        [_pickerDelegate pickerAtIndexPath:self.occupiedIndexPath didSelectItemAtIndex:[self getCurrentSelectedItemIndex]];
+    }
+}
+
+- (NSInteger)getCurrentSelectedItemIndex {
+    return 0;  // TODO
+}
+
 - (void)snapToColumn {
     // snsp to the nearest whole item
     CGFloat offsetX = self.contentOffset.x;
-    CGFloat offsetXDecimalPart = offsetX - (int)offsetX;
-    offsetX = (int)offsetX % (int)self.itemViewDimension;
-    offsetX += offsetXDecimalPart;
+    CGFloat offsetXFraction = offsetX - floor(offsetX);
+    offsetX = (int)floor(offsetX) % (int)floor(self.itemViewDimension);
+    offsetX += offsetXFraction;
     
     CGPoint newPoint = CGPointMake(self.contentOffset.x - offsetX, self.contentOffset.y);
     if (offsetX > (self.itemViewDimension / 2.0)) {

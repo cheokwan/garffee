@@ -82,6 +82,10 @@ typedef enum {
     [_countDownSlider setValue:1.0f animated:NO];
     _sliderContainerView.backgroundColor = [UIColor lightGrayColor];
     
+    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
+    
     //XXX-ML
     [self tempMethods];
     //XXX-ML

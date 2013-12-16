@@ -10,7 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import "TSSettings.h"
 #import "AppDelegate.h"
-#import "MapTrackingAnnotation.h"  // XXX
+#import "MapTrackingAnnotation.h"  // XXX-TEMP
 
 // combine CoreLocation, BLE iBeacon, UltraSound locationing, Wifi fingerprinting/probing,
 // motion activity, user reporting etc in approximating user arrival time
@@ -22,7 +22,7 @@
 @property (nonatomic, strong)   CLLocation *destinationLocation;
 @property (nonatomic, strong)   CLLocation *lastUpdatedLocation;
 
-// XXX
+// XXX-FIX
 @property (nonatomic, strong)   NSTimer *timer;
 @property (nonatomic, assign)   NSInteger showCount;
 @property (nonatomic, assign)   __block UIBackgroundTaskIdentifier bgTaskId;
@@ -74,10 +74,10 @@
     self.lastUpdatedLocation = nil;
     _showCount = 0;
     
-    _locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;  // TODO: figure out best accuracy or make it dynamic
+    _locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;  // XXX-TEMP TODO: figure out best accuracy or make it dynamic
     _locationManager.distanceFilter = 100;  // meters, TODO: make it dynamic
-    _locationManager.pausesLocationUpdatesAutomatically = YES;  // XXX YES or NO?
-    _locationManager.activityType = CLActivityTypeAutomotiveNavigation;  // XXX TODO: make it dynamic
+    _locationManager.pausesLocationUpdatesAutomatically = YES;  // XXX-FIX YES or NO?
+    _locationManager.activityType = CLActivityTypeAutomotiveNavigation;  // TODO: make it dynamic
 }
 
 - (void)startTrackingWithDestinationCoordinate:(CLLocationCoordinate2D)destinationCoordinate {
@@ -85,12 +85,12 @@
     
     if ([[TSSettings sharedInstance] isLocationServiceAvailable]) {
         self.destinationLocation = [[CLLocation alloc] initWithCoordinate:destinationCoordinate altitude:0.0 horizontalAccuracy:0.0 verticalAccuracy:0.0 timestamp:[NSDate date]];
-        _showCount = 1;  // XXX
+        _showCount = 1;  // XXX-TEST
         
         [self dropPin:MapTrackingAnnotationTypeActivity title:@"Strated Tracking"];
         
         _locationManager.delegate = self;
-        [_locationManager allowDeferredLocationUpdatesUntilTraveled:100 timeout:60];  // XXX find out if useful
+        [_locationManager allowDeferredLocationUpdatesUntilTraveled:100 timeout:60];  // XXX-FIX find out if useful
         //    [_locationManager disallowDeferredLocationUpdates];
         [_locationManager startUpdatingLocation];
         _trackerState = TimeTrackerStateStarted;
@@ -111,7 +111,7 @@
 }
 
 - (NSTimeInterval)latestApproxArrivalTime {
-    return 0.0;  // XXX
+    return 0.0;  // XXX-FIX
 }
 
 - (void)scheduleInBackground {
@@ -177,7 +177,7 @@
     });
 }
 
-- (void)logStuff:(NSString *)code {  // XXX
+- (void)logStuff:(NSString *)code {  // XXX-TEMP
     NSDate *now = [NSDate date];
     NSTimeInterval bgRemTime = [[UIApplication sharedApplication] backgroundTimeRemaining];
     
@@ -204,7 +204,7 @@
     CLLocationDistance remainingDistance = [_destinationLocation distanceFromLocation:loc];
     NSTimeInterval timeRemaining = loc.speed > 0.0 ? (remainingDistance / loc.speed) : [[NSDate distantFuture] timeIntervalSinceReferenceDate];
     
-    NSManagedObjectContext *context = ((AppDelegate *)([UIApplication sharedApplication].delegate)).managedObjectContext;
+    NSManagedObjectContext *context = [AppDelegate sharedAppDelegate].managedObjectContext;
     MapTrackingAnnotation *anno = [MapTrackingAnnotation newAnnotationWithLocation:loc.coordinate annotationType:pinType serial:_showCount accuracy:loc.horizontalAccuracy remainingDistance:remainingDistance estimatedRemainingTime:timeRemaining inContext:context];
     if (pinType == MapTrackingAnnotationTypeActivity) {
         anno.title = title;
@@ -215,7 +215,7 @@
 #pragma mark - CLLocationManagerDelegate
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    DDLogInfo(@"didUpdateLocations: %@", locations);  // XXX
+    DDLogInfo(@"didUpdateLocations: %@", locations);  // XXX-FIX
     
     self.lastUpdatedLocation = [locations lastObject];
     NSDate *updateTime = _lastUpdatedLocation.timestamp;

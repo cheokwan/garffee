@@ -2,13 +2,14 @@
 //  TSLocalizedString.h
 //  ToSavour
 //
-//  Created by LAU Leung Yan on 9/12/13.
+//  Created by Jason Wan on 9/12/13.
 //  Copyright (c) 2013 NBition. All rights reserved.
 //
 
 #ifndef ToSavour_TSLocalizedString_h
 #define ToSavour_TSLocalizedString_h
 
+#define LS_SKIP     NSLocalizedString(@"Skip", @"")
 #define LS_DAILY_AWARD_GAME     @"Daily Award Game"
 #define LS_AWARDS               @"Awards"
 #define LS_CHALLENGE_NOW        @"Challenge Now"
@@ -24,6 +25,5 @@
 #define LS_OK                   @"OK"
 #define LS_CONGRATULATIONS      @"Congratulations"
 #define LS_WIN_GAME_DETAILS     @"You win the daily award game. You received the coffee. Enjoy!"
-#define LS_SKIP                 @"Skip"
 
 #endif

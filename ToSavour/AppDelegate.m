@@ -10,18 +10,25 @@
 #import <CocoaLumberjack/DDASLLogger.h>
 #import <CocoaLumberjack/DDTTYLogger.h>
 #import <CocoaLumberjack/DDFileLogger.h>
+#import <FacebookSDK/FacebookSDK.h>
 #import "TSLogFormatter.h"
-#import "TimeTracker.h"
 #import "TSSettings.h"
-#import "TSTheming.h"
+#import "TSFrontEndIncludes.h"
+#import "TimeTracker.h"
+#import "MainTabBarController.h"
 #import "SlideMenuViewController.h"
-#import <RestKit/RestKit.h>
+#import "TutorialLoginViewController.h"
+#import "MUserInfo.h"
 
 @implementation AppDelegate
 
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
+
++ (AppDelegate *)sharedAppDelegate {
+    return [UIApplication sharedApplication].delegate;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -52,12 +59,19 @@
     
     // Populate views
     self.slidingViewController = (ECSlidingViewController *)self.window.rootViewController;
-    _slidingViewController.topViewController = [TSTheming viewControllerWithStoryboardIdentifier:@"MainTabBarController"];
-    _slidingViewController.underRightViewController = [TSTheming viewControllerWithStoryboardIdentifier:@"SlideMenuViewController"];
+    _slidingViewController.topViewController = [TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(MainTabBarController.class)];
+    _slidingViewController.underRightViewController = [TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(SlideMenuViewController.class)];
     _slidingViewController.anchorRightPeekAmount  = 100.0;
-    _slidingViewController.anchorLeftRevealAmount = 250.0;
-//    _slidingViewController.topViewAnchoredGesture = ECSlidingViewControllerAnchoredGesturePanning;  // XXXX
+    _slidingViewController.anchorLeftRevealAmount = 250.0;  // XXX-FIX set correct amount
     [self.window makeKeyAndVisible];
+    
+    MUserInfo *currentUserInfo = [MUserInfo currentUserInfoInContext:self.managedObjectContext];
+    if (!currentUserInfo || ![[FBSession activeSession] isOpen]) {  // TODO: or facebook is not logged in
+        // user info does not present, shows the tutorial and login screen
+        // and delegate navigation flow to there
+        TutorialLoginViewController *tutorialViewController = (TutorialLoginViewController *)[TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(TutorialLoginViewController.class)];
+        [_slidingViewController.topViewController presentViewController:tutorialViewController animated:NO completion:nil];
+    }
     
     return YES;
 }
@@ -94,6 +108,12 @@
 
 #pragma mark -
 
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    BOOL handled = [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
+    DDLogInfo(@"facebook login handled: %@", @(handled));  // XXX-TEST
+    return handled;
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     DDLogDebug(@"");
@@ -109,7 +129,7 @@
     
     DDLogInfo(@"entering background");
     
-    [[TimeTracker sharedInstance] scheduleInBackground];  // XXX schedule location timer in bg
+    [[TimeTracker sharedInstance] scheduleInBackground];  // XXX-FIX schedule location timer in bg
     
     DDLogInfo(@"entered background");
 }
@@ -118,7 +138,7 @@
 {
     DDLogDebug(@"");
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-    [[TimeTracker sharedInstance] backToForeground];  // XXX
+    [[TimeTracker sharedInstance] backToForeground];  // XXX-FIX
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -151,7 +171,7 @@
 #pragma mark - Core Data stack
 
 - (void)generateSeedDatabase {
-    // XXXX TODO
+    // XXX-FIX TODO:
 //    NSManagedObjectModel *managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
 //    RKManagedObjectStore *managedObjectStore = [[RKManagedObjectStore alloc] initWithManagedObjectModel:managedObjectModel];
 //    NSError *error = nil;
@@ -205,7 +225,9 @@
     RKManagedObjectStore *managedObjectStore = [[RKManagedObjectStore alloc] initWithManagedObjectModel:self.managedObjectModel];
     // Initialize the Core Data stack
     [managedObjectStore createPersistentStoreCoordinator];
-    NSPersistentStore __unused *persistentStore = [managedObjectStore addInMemoryPersistentStore:&error];
+//    NSPersistentStore __unused *persistentStore = [managedObjectStore addInMemoryPersistentStore:&error];  XXX-TEMP
+    NSString *storePath = [RKApplicationDataDirectory() stringByAppendingPathComponent:@"ToSavour.sqlite"];
+    NSPersistentStore __unused *persistentStore = [managedObjectStore addSQLitePersistentStoreAtPath:storePath fromSeedDatabaseAtPath:nil withConfiguration:nil options:nil error:&error];
     if (!persistentStore) {
         DDLogError(@"Failed to add persistent store: %@", error);
         _managedObjectContext = nil;

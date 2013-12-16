@@ -17,6 +17,7 @@
     #import <SystemConfiguration/SystemConfiguration.h>
     #import <MobileCoreServices/MobileCoreServices.h>
     #import <CocoaLumberjack/DDLog.h>
+    #import <RestKit/RestKit.h>
 
     #ifdef DEBUG
         static const int ddLogLevel = LOG_LEVEL_VERBOSE;

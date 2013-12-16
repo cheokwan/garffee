@@ -7,7 +7,7 @@
 //
 
 #import "MainTabBarController.h"
-#import "TSTheming.h"
+#import "TSFrontEndIncludes.h"
 
 @interface MainTabBarController ()
 
@@ -16,12 +16,12 @@
 @implementation MainTabBarController
 
 - (void)initializeView {
-    [self.view setBackgroundColor:[TSTheming defaultThemeColor]];
     if ([self.tabBar respondsToSelector:@selector(setBarTintColor:)]) {
-        [self.tabBar setBarTintColor:[TSTheming defaultThemeColor]];
+        [self.tabBar setBarTintColor:[TSTheming defaultContrastColor]];
         [self.tabBar setTintColor:[TSTheming defaultAccentColor]];
+        self.tabBar.alpha = 0.8; // XXX-TEST
     } else {
-        [self.tabBar setTintColor:[TSTheming defaultThemeColor]];
+        [self.tabBar setTintColor:[TSTheming defaultContrastColor]];
         [[UITabBar appearance] setSelectedImageTintColor:[TSTheming defaultAccentColor]];
     }
 }
