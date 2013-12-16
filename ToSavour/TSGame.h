@@ -10,7 +10,7 @@
 
 @interface TSGame : NSObject
 
-@property (nonatomic, strong) NSString *gameId, *name, *gameImageURL, *gamePackageURL;
+@property (nonatomic, strong) NSString *gameId, *name, *gameImageURL, *gamePackageURL, *gamePackageName, *gamePackageFullPath, *gamePackageUnzippedFullPath;
 @property (nonatomic) int timeLimit;
 
 @end

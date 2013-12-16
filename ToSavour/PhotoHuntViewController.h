@@ -11,6 +11,7 @@
 #import "PhotoHuntGridButton.h"
 #import "PhotoHuntImageView.h"
 #import "PhotoHuntManager.h"
+#import "TSGame.h"
 
 #define GRID_WIDTH                  10.0f
 #define GRID_HEIGHT                 10.0f
@@ -24,7 +25,7 @@
 
 @interface PhotoHuntViewController : UIViewController <UIAlertViewDelegate, PhotoHuntGridButtonDelegate, PhotoHuntManagerDelegate>
 
-- (id)initWithFilePackageName:(NSString *)packageName;
+- (id)initWithGame:(TSGame *)game;
 
 @property (nonatomic, weak) id<PhotoHuntViewControllerDelagte> delegate;
 @property (nonatomic, strong) IBOutlet UISlider *countDownSlider;
@@ -32,6 +33,7 @@
 @property (nonatomic, strong) IBOutlet PhotoHuntImageView *upperImageView, *lowerImageView;
 @property (nonatomic) float timeLimit;
 @property (nonatomic) float timePenalty;
-@property (nonatomic, strong) NSString *filePackageName;
+@property (nonatomic, strong) TSGame *game;
+//@property (nonatomic, strong) NSString *filePackageName;
 
 @end

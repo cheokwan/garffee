@@ -22,47 +22,33 @@
 @end
 
 @implementation PhotoHuntManager
-- (id)initWithPackageName:(NSString *)packageName delegate:(id<PhotoHuntManagerDelegate>)delegate {
+- (id)initWithGame:(TSGame *)game delegate:(id<PhotoHuntManagerDelegate>)delegate {
     self = [self init];
     if (self) {
         self.delegate = delegate;
-        self.packageName = packageName;
+        self.game = game;
         self.foundChanges = [NSMutableArray array];
-        if (![self unzipFile:_packageName extension:@"zip"]) {DDLogError(@"unzip failed: %@", _packageName);}
+        if (![self unzipGame:_game]) {DDLogError(@"unzip failed: %@", game.gamePackageName);}
     }
     return self;
 }
 
-- (BOOL)unzipFile:(NSString *)fileName extension:(NSString *)extension {
-    if (!fileName || !extension) {
-        DDLogError(@"_filePackageName is nil");
+- (BOOL)unzipGame:(TSGame *)game {
+    if (!game.gamePackageFullPath) {
+        DDLogError(@"game.gamePackageFullPath is nil");
         return NO;
     }
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *filePath = [NSString stringWithFormat:@"%@/%@.%@", documentsDirectory, fileName, extension];
-    NSString *zipPath = filePath;
-    
-    return [SSZipArchive unzipFileAtPath:zipPath toDestination:documentsDirectory];
-}
-
-- (NSString *)packageFullPathFromPackageName:(NSString *)packageName {
-    if (!packageName) {
-        return nil;
-    }
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *fullPath = [NSString stringWithFormat:@"%@/%@", documentsDirectory, packageName];
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    if (![fileManager fileExistsAtPath:fullPath]) {
-        fullPath = nil;
-    }
-    return fullPath;
+    NSString *unzippedPath = nil;
+    BOOL isUnzipSuccess = [SSZipArchive unzipFileAtPath:game.gamePackageFullPath toDestination:documentsDirectory unzippedPath:&unzippedPath overwrite:YES password:nil error:nil delegate:nil];
+    game.gamePackageUnzippedFullPath = unzippedPath;
+    return isUnzipSuccess;
 }
 
 - (NSDictionary *)changesDictionary {
     if (!_changesDictionary) {
-        self.changesDictionary = [self changesDictionaryWithPackageFullPath:[self packageFullPath]];
+        self.changesDictionary = [self changesDictionaryWithPackageFullPath:_game.gamePackageUnzippedFullPath];
     }
     return _changesDictionary;
 }
@@ -91,14 +77,15 @@
     self.changesValidDict = [NSMutableDictionary dictionary];
     NSMutableArray *keys = [dict.allKeys mutableCopy];
     [keys shuffle];
-    for (int i=0; i<_validNumOfChanges; i++) {
+    int numberOfValidChanges = MIN(keys.count, _validNumOfChanges);
+    for (int i=0; i<numberOfValidChanges; i++) {
         _changesValidDict[[keys objectAtIndex:i]] = @(YES);
     }
     return dict;
 }
 
 - (NSString *)originalImageFullPathFromPackageName:(NSString *)packageName {
-    return [NSString stringWithFormat:@"%@/%@_org.jpg", [self packageFullPathFromPackageName:packageName], packageName];
+    return [NSString stringWithFormat:@"%@/%@_org.jpg", _game.gamePackageUnzippedFullPath, _game.gamePackageName];
 }
 
 - (NSDictionary *)buttonToChangeDict {
@@ -130,7 +117,7 @@
         error = nil;
         NSArray *fileList = [fileManager contentsOfDirectoryAtPath:fullPath error:&error];
         for (NSString *element in fileList) {
-            NSString *prefix = [NSString stringWithFormat:@"%@_", _packageName];
+            NSString *prefix = [NSString stringWithFormat:@"%@_", _game.gamePackageName];
             NSString *numberStr = [element stringByReplacingOccurrencesOfString:prefix withString:@""];
             NSString *extension = [NSString stringWithFormat:@".%@", CHANGE_IMAGE_EXTENSION];
             numberStr = [numberStr stringByReplacingOccurrencesOfString:extension withString:@""];
@@ -164,13 +151,6 @@
     return [_foundChanges containsObject:changeGroup];
 }
 
-- (NSString *)packageFullPath {
-    if (!_packageFullPath) {
-        self. packageFullPath = [self packageFullPathFromPackageName:_packageName];
-    }
-    return _packageFullPath;
-}
-
 - (NSString *)changeGroupOfButtonIndex:(int)buttonIndex {
     NSString *groupKey = CHANGE_GROUP_NONE;
     if (self.buttonToChangeDict[@(buttonIndex)]) {
@@ -184,7 +164,7 @@
 }
 
 - (NSString *)originalImageFullPath {
-    return [self originalImageFullPathFromPackageName:_packageName];
+    return [self originalImageFullPathFromPackageName:_game.gamePackageName];
 }
 
 - (NSString *)gridButtonImageOfButtonIndex:(int)buttonIndex isOriginalImage:(BOOL)isOriginalImage {
@@ -196,7 +176,7 @@
     if (group) {
         NSString *groupPath = nil;
         if ((groupPath = self.changesDictionary[group])) {
-            NSString *prefix = [NSString stringWithFormat:@"%@_", _packageName];
+            NSString *prefix = [NSString stringWithFormat:@"%@_", _game.gamePackageName];
             NSString *extension = [NSString stringWithFormat:@".%@", CHANGE_IMAGE_EXTENSION];
             imagePath = [NSString stringWithFormat:@"%@/%@%d%@", groupPath, prefix, buttonIndex, extension];
         }

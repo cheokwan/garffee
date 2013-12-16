@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "TSGame.h"
+
 #define CHANGE_GROUP_NONE           @"<NONE>"
 
 typedef enum {
@@ -24,15 +26,16 @@ typedef enum {
 @interface PhotoHuntManager : NSObject
 
 @property (nonatomic, assign) int validNumOfChanges;
-@property (nonatomic, strong) NSString *packageName;
-@property (nonatomic, strong) NSString *packageFullPath;
+//@property (nonatomic, strong) NSString *packageName;
+//@property (nonatomic, strong) NSString *packageFullPath;
+@property (nonatomic, strong) TSGame *game;
 @property (nonatomic, strong) NSDictionary *changesDictionary;
 @property (nonatomic, strong) NSString *originalImageFullPath;
 @property (nonatomic, strong) NSDictionary *buttonToChangeDict;
 @property (nonatomic, strong) NSDictionary *changeToButtonsDict;
 @property (nonatomic, assign) id<PhotoHuntManagerDelegate> delegate;
 
-- (id)initWithPackageName:(NSString *)packageName delegate:(id<PhotoHuntManagerDelegate>)delegate;
+- (id)initWithGame:(TSGame *)game delegate:(id<PhotoHuntManagerDelegate>)delegate;
 - (NSString *)changeGroupOfButtonIndex:(int)buttonIndex;
 - (NSString *)gridButtonImageOfButtonIndex:(int)buttonIndex isOriginalImage:(BOOL)isOriginalImage;
 

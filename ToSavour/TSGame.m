@@ -15,6 +15,9 @@
     self.name = nil;
     self.gameImageURL = nil;
     self.gamePackageURL = nil;
+    self.gamePackageName = nil;
+    self.gamePackageFullPath = nil;
+    self.gamePackageUnzippedFullPath = nil;
 }
 
 @end

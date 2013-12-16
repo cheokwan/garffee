@@ -36,8 +36,8 @@
     self.navigationItem.titleView = [TSTheming navigationTitleViewWithString:LS_DAILY_AWARD_GAME];
     
     _awardStrLabel.text = LS_AWARDS;
-    NSUInteger awardNum = 1;
-    _awardDetailsLabel.text = [NSString stringWithFormat:@"%@ X %lu", LS_COFFEE, awardNum];
+    int awardNum = 1;
+    _awardDetailsLabel.text = [NSString stringWithFormat:@"%@ X %d", LS_COFFEE, awardNum];
     [_challengeNowButton setTitle:LS_CHALLENGE_NOW forState:UIControlStateNormal];
     [_challengeNowButton setTitle:LS_ALREADY_PLAYED forState:UIControlStateDisabled];
     [_challengeNowButton setTitleColor:[UIColor redColor] forState:UIControlStateDisabled];
@@ -70,14 +70,25 @@
     _progressPanel.hidden = NO;
     [self.view bringSubviewToFront:_progressPanel];
     [_progressPanel bringSubviewToFront:_progressContainerView];
-    [self downloadPackage:nil];
+    
+    //XXX-ML
+    TSGame *game = [[TSGame alloc] init];
+    game.gameId = @"0001";
+    game.name = @"Game 1";
+    game.gamePackageURL = @"http://www.cse.ust.hk/esc/examples/proj_rome.zip";
+    game.gameImageURL = @"http://1.bp.blogspot.com/-rU0MAHswsms/URx10AfQXvI/AAAAAAAAAQM/_Tq6WUIrBS0/s1600/Free-HD-Logo-Nike-Wallpaper.jpg";
+    game.gamePackageName = @"nike";
+    //XXX-ML
+    
+    [self downloadPackage:game];
 }
 
 #pragma mark - download game package
 - (void)downloadPackage:(TSGame *)game {
     _progressLabel.text = [NSString stringWithFormat:@"%@ %d%%", PROGRESS_LABEL_PREFIX, 0];
     [_progressView setProgress:0.0f animated:NO];
-    [[TSGameDownloadManager getInstance] downloadGamePackage:@"http://www.cse.ust.hk/esc/examples/proj_rome.zip" packageName:@"abc" success:^(NSString *fileFullPath) {
+    [[TSGameDownloadManager getInstance] downloadGamePackage:game.gamePackageURL packageName:@"abc" success:^(NSString *fileFullPath) {
+        game.gamePackageFullPath = fileFullPath;
         [self downloadSucceed:game];
     }failure:^(NSString *fileFullPath) {
         [self downloadFailed:game];
@@ -88,10 +99,13 @@
 
 - (void)downloadSucceed:(TSGame *)game {
     [_progressPanel bringSubviewToFront:_countDownView];
-    [self startCountDown];
+    [self startCountDown:game];
 }
 
 - (void)downloadFailed:(TSGame *)game {
+    [self hideProgressPanel];
+    UIAlertView *downloadFailedAlertView = [[UIAlertView alloc] initWithTitle:LS_DOWNLOAD_FAILED message:LS_DOWNLOAD_FAILED_DETAILS delegate:nil cancelButtonTitle:LS_OK otherButtonTitles:nil];
+    [downloadFailedAlertView show];
 }
 
 - (void)updateDownloadProgress:(float)progress {
@@ -151,7 +165,7 @@
     _progressPanel.userInteractionEnabled = NO;
 }
 
-- (void)startCountDown {
+- (void)startCountDown:(TSGame *)game {
     [self countDown:@(0)];
     float interval = 0.5f;
     [self performSelector:@selector(countDown:) withObject:@(3) afterDelay:interval];
@@ -160,7 +174,7 @@
     interval += COUNT_DOWN_INTERVAL;
     [self performSelector:@selector(countDown:) withObject:@(1) afterDelay:interval];
     interval += COUNT_DOWN_INTERVAL;
-    [self performSelector:@selector(proceedFromCountDown) withObject:nil afterDelay:interval];
+    [self performSelector:@selector(proceedFromCountDown:) withObject:game afterDelay:interval];
 }
 
 - (void)countDown:(NSNumber *)countStr {
@@ -180,16 +194,20 @@
     return 3;
 }
 
-- (void)proceedFromCountDown {
-    _progressPanel.hidden = YES;
-    [self.view sendSubviewToBack:_progressPanel];
+- (void)proceedFromCountDown:(TSGame *)game {
+    [self hideProgressPanel];
     [self countDown:@(0)];
-    PhotoHuntViewController *photoHuntercontroller = [[PhotoHuntViewController alloc] initWithFilePackageName:@"AinoKishi01"];
+    PhotoHuntViewController *photoHuntercontroller = [[PhotoHuntViewController alloc] initWithGame:game];
     photoHuntercontroller.timeLimit = [self gameTimeLimit];
     photoHuntercontroller.timePenalty = [self gamePenalty];
     TSNavigationController *naviController = [[TSNavigationController alloc] initWithRootViewController:photoHuntercontroller];
     photoHuntercontroller.delegate = self;
     [self presentViewController:naviController animated:NO completion:nil];
+}
+
+- (void)hideProgressPanel {
+    _progressPanel.hidden = YES;
+    [self.view sendSubviewToBack:_progressPanel];
 }
 
 #pragma mark - PhotoHuntViewControllerDelegate / related

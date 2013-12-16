@@ -44,6 +44,11 @@ static TSGameDownloadManager *sharedInstance = nil;
             filePath = [NSString stringWithFormat:@"%@/%@.zip", documentsDirectory, packageName];
             [data writeToFile:filePath atomically:NO];
         }
+        
+        //XXX-ML
+        filePath = @"/Users/maximum168/Library/Application Support/iPhone Simulator/7.0/Applications/58D7AFB2-F0DC-400C-B3C3-356AF3A5E44E/Documents/nike.zip";
+        //XXX-ML
+        
         if (successCallback) successCallback(filePath);
     }failure:^(AFHTTPRequestOperation *operation, NSError *error){
         DDLogError(@"Download game package fail: %@", error);

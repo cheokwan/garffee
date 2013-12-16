@@ -333,13 +333,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="TPm-Z3-m3g" firstAttribute="leading" secondItem="so0-eq-G6y" secondAttribute="trailing" constant="-320" id="78x-u7-PMN"/>
-                            <constraint firstItem="so0-eq-G6y" firstAttribute="top" secondItem="TPm-Z3-m3g" secondAttribute="bottom" id="IpG-4c-C9e"/>
+                            <constraint firstItem="dkt-sI-eJ9" firstAttribute="top" secondItem="Z22-8n-OAO" secondAttribute="bottom" constant="-230" id="C1a-aj-cGu"/>
+                            <constraint firstItem="TPm-Z3-m3g" firstAttribute="leading" secondItem="so0-eq-G6y" secondAttribute="trailing" constant="-320" id="Fg8-X9-LeA"/>
                             <constraint firstAttribute="centerX" secondItem="TPm-Z3-m3g" secondAttribute="centerX" id="Q6l-KI-v0T"/>
                             <constraint firstAttribute="centerY" secondItem="bBN-OU-yU4" secondAttribute="centerY" id="UMr-m2-Dhe"/>
                             <constraint firstItem="Z22-8n-OAO" firstAttribute="leading" secondItem="nzW-3v-vyC" secondAttribute="leading" id="Xub-H1-j1J"/>
                             <constraint firstAttribute="centerX" secondItem="bBN-OU-yU4" secondAttribute="centerX" id="aVX-Te-Wio"/>
-                            <constraint firstItem="dkt-sI-eJ9" firstAttribute="top" secondItem="Z22-8n-OAO" secondAttribute="bottom" constant="-230" id="djY-BZ-Kco"/>
+                            <constraint firstItem="so0-eq-G6y" firstAttribute="top" secondItem="TPm-Z3-m3g" secondAttribute="bottom" id="fd3-F6-bB8"/>
                             <constraint firstAttribute="centerX" secondItem="Z22-8n-OAO" secondAttribute="centerX" id="iYq-v5-cbK"/>
                         </constraints>
                     </view>

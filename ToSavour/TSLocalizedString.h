@@ -26,5 +26,7 @@
 #define LS_WIN_GAME_DETAILS     @"You win the daily award game. You received the coffee. Enjoy!"
 #define LS_SKIP                 @"Skip"
 #define LS_DOWNLOADING          @"Downloading"
+#define LS_DOWNLOAD_FAILED      @"Download Failed"
+#define LS_DOWNLOAD_FAILED_DETAILS  @"Oops! Download Failed"
 
 #endif

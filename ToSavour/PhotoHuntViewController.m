@@ -32,11 +32,10 @@ typedef enum {
 @end
 
 @implementation PhotoHuntViewController
-
-- (id)initWithFilePackageName:(NSString *)packageName {
+- (id)initWithGame:(TSGame *)game {
     self = (PhotoHuntViewController *)[TSTheming viewControllerWithStoryboardIdentifier:@"PhotoHuntViewController" storyboard:@"DailyGameStoryboard"];
     if (self) {
-        self.filePackageName = packageName;
+        self.game = game;
     }
     return self;
 }
@@ -47,7 +46,7 @@ typedef enum {
 }
 
 - (void)downloadGamePackageSucceed {
-    self.gameManager = [[PhotoHuntManager alloc] initWithPackageName:_filePackageName delegate:self];
+    self.gameManager = [[PhotoHuntManager alloc] initWithGame:_game delegate:self];
     _gameManager.validNumOfChanges = 5;
     [self setupImageViews];
     //XXX-ML
