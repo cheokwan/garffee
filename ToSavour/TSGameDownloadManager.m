@@ -42,11 +42,14 @@ static TSGameDownloadManager *sharedInstance = nil;
             NSString *documentsDirectory = [paths objectAtIndex:0];
             NSData *data = responseObject;
             filePath = [NSString stringWithFormat:@"%@/%@.zip", documentsDirectory, packageName];
+            //XXX-ML
+            filePath = [NSString stringWithFormat:@"%@/abc.zip", documentsDirectory, packageName];
+            //XXX-ML
             [data writeToFile:filePath atomically:NO];
         }
         
         //XXX-ML
-        filePath = @"/Users/maximum168/Library/Application Support/iPhone Simulator/7.0/Applications/58D7AFB2-F0DC-400C-B3C3-356AF3A5E44E/Documents/nike.zip";
+        filePath = [NSString stringWithFormat:@"/Users/maximum168/Library/Application Support/iPhone Simulator/7.0/Applications/58D7AFB2-F0DC-400C-B3C3-356AF3A5E44E/Documents/%@.zip", packageName];
         //XXX-ML
         
         if (successCallback) successCallback(filePath);

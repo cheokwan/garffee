@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #import "CountDownButton.h"
+#import "PhotoHuntManager.h"
 #import "PhotoHuntViewController.h"
 
 #define COUNT_DOWN_INTERVAL     1.0f
@@ -18,7 +19,7 @@
 - (void)chooseGameViewControllerWillDismiss:(ChooseGameViewController *)chooseGameViewContoller;
 @end
 
-@interface ChooseGameViewController : UIViewController <PhotoHuntViewControllerDelagte, UIScrollViewDelegate>
+@interface ChooseGameViewController : UIViewController <PhotoHuntViewControllerDelagte, UIScrollViewDelegate, PhotoHuntManagerDelegate>
 
 @property (nonatomic, weak) id<ChooseGameViewControllerDelegate> delegate;
 @property (nonatomic, strong) IBOutlet UILabel *awardStrLabel, *awardDetailsLabel, *winLabel;

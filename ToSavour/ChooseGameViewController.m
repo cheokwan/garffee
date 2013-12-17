@@ -10,7 +10,6 @@
 
 #import <AFNetworking.h>
 #import <UIView+Helpers.h>
-#import "PhotoHuntManager.h"
 #import "TSGame.h"
 #import "TSGameDownloadManager.h"
 #import "TSNavigationController.h"
@@ -85,7 +84,7 @@
 - (void)downloadPackage:(TSGame *)game {
     _progressLabel.text = [NSString stringWithFormat:@"%@ %d%%", PROGRESS_LABEL_PREFIX, 0];
     [_progressView setProgress:0.0f animated:NO];
-    [[TSGameDownloadManager getInstance] downloadGamePackage:game.gamePackageURL packageName:@"abc" success:^(NSString *fileFullPath) {
+    [[TSGameDownloadManager getInstance] downloadGamePackage:game.gamePackageURL packageName:game.gamePackageName success:^(NSString *fileFullPath) {
         game.gamePackageFullPath = fileFullPath;
         [self downloadSucceed:game];
     }failure:^(NSString *fileFullPath) {
@@ -96,14 +95,17 @@
 }
 
 - (void)downloadSucceed:(TSGame *)game {
-    PhotoHuntManager *manager = [[PhotoHuntManager alloc] initWithGame:game delegate:nil];
-    [_progressPanel bringSubviewToFront:_countDownView];
-    _countDownView.frameOriginX = _countDownView.superview.frameRight;
-    [UIView animateWithDuration:0.5f animations:^{
-        _countDownView.frameOriginX = 0.0f;
-    } completion:^(BOOL finished){
-        [self startCountDown:manager];
-    }];
+    PhotoHuntManager *manager = [[PhotoHuntManager alloc] initWithGame:game delegate:self];
+    if (manager) {
+        // PhotoHuntManger init method will return nil if unzip game package failed
+        [_progressPanel bringSubviewToFront:_countDownView];
+        _countDownView.frameOriginX = _countDownView.superview.frameRight;
+        [UIView animateWithDuration:0.5f animations:^{
+            _countDownView.frameOriginX = 0.0f;
+        } completion:^(BOOL finished){
+            [self startCountDown:manager];
+        }];
+    }
 }
 
 - (void)downloadFailed:(TSGame *)game {
@@ -123,6 +125,19 @@
         [_progressView setProgress:newProgress animated:YES];
         _progressLabel.text = [NSString stringWithFormat:@"%@ %.0f%%", PROGRESS_LABEL_PREFIX, newProgress * 100];
     }
+}
+
+#pragma mark - PhotoHuntManagerDeleagte
+- (void)photoHuntManager:(PhotoHuntManager *)manager didFaiUnzipGame:(TSGame *)game {
+    [self hideProgressPanel];
+    UIAlertView *unzipPackageFailedAlertView = [[UIAlertView alloc] initWithTitle:LS_UNZIP_FAILED message:LS_UNZIP_FAILED_DETAILS delegate:nil cancelButtonTitle:LS_OK otherButtonTitles:nil];
+    [unzipPackageFailedAlertView show];
+}
+
+- (void)photoHuntManager:(PhotoHuntManager *)manager didFailVerifyGame:(TSGame *)game reason:(PackageVerifyFailedOption)failOption {
+    [self hideProgressPanel];
+    UIAlertView *unzipPackageFailedAlertView = [[UIAlertView alloc] initWithTitle:LS_UNZIP_FAILED message:LS_UNZIP_FAILED_DETAILS delegate:nil cancelButtonTitle:LS_OK otherButtonTitles:nil];
+    [unzipPackageFailedAlertView show];
 }
 
 #pragma mark - scroll view related
@@ -248,7 +263,7 @@
         } else {
             game.gameImageURL = @"http://www.cuhk.edu.hk/hkiaps/conference/event/CPU%20Insignia.jpg";
         }
-        game.gamePackageName = @"nike";
+        game.gamePackageName = i % 2 == 0 ? @"nike" : @"AinoKishi01";
         game.timeLimit = 50.0f;
         game.timePenalty = 3.0f;
         game.validNumberOfChanges = 5;

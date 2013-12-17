@@ -28,7 +28,20 @@
         self.delegate = delegate;
         self.game = game;
         self.foundChanges = [NSMutableArray array];
-        if (![self unzipGame:_game]) {DDLogError(@"unzip failed: %@", game.gamePackageName);}
+        if (![self unzipGame:_game]) {
+            DDLogError(@"unzip failed: %@", game.gamePackageName);
+            if ([_delegate respondsToSelector:@selector(photoHuntManager:didFaiUnzipGame:)]) {
+                [_delegate photoHuntManager:self didFaiUnzipGame:_game];
+            }
+            return nil;
+        }
+        PackageVerifyFailedOption failedOption = [self verifyPackage];
+        if (failedOption != PackageVerifyFailedOptionNone) {
+            if ([_delegate respondsToSelector:@selector(photoHuntManager:didFailVerifyGame:reason:)]) {
+                [_delegate photoHuntManager:self didFailVerifyGame:_game reason:failedOption];
+            }
+            return nil;
+        }
     }
     return self;
 }
@@ -44,6 +57,19 @@
     BOOL isUnzipSuccess = [SSZipArchive unzipFileAtPath:game.gamePackageFullPath toDestination:documentsDirectory unzippedPath:&unzippedPath overwrite:YES password:nil error:nil delegate:nil];
     game.gamePackageUnzippedFullPath = unzippedPath;
     return isUnzipSuccess;
+}
+
+- (PackageVerifyFailedOption)verifyPackage {
+    PackageVerifyFailedOption failedOption = PackageVerifyFailedOptionNone;
+    
+    //verification 1:
+    [self generateButtonChangeDict];
+    if (_changesDictionary.allKeys.count == 0) {
+        //no changes is found in the package
+        failedOption |= PackageVerifyFailedOptionNoChangesIsFound;
+    }
+    
+    return failedOption;
 }
 
 - (NSDictionary *)changesDictionary {

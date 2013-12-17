@@ -78,6 +78,7 @@ typedef enum {
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    [self positionViews];
     if (_gameState == GameStateNotStarted) {
         [self startGame];
     }
@@ -213,6 +214,11 @@ typedef enum {
 - (void)setupImageViews {
     [self setupImageView:_upperImageView];
     [self setupImageView:_lowerImageView];
+}
+
+- (void)positionViews {
+    _upperImageView.center = CGPointMake(_upperImageView.center.x, (_sliderContainerView.frameOriginY + 0.0f)/2);
+    _lowerImageView.center = CGPointMake(_lowerImageView.center.x, (self.view.frameSizeHeight + _sliderContainerView.frameBottom)/2);
 }
 
 - (void)setupImageView:(PhotoHuntImageView *)imageView {

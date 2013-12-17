@@ -18,9 +18,16 @@ typedef enum {
     PhotoHuntDidFinishOptionLose
 } PhotoHuntDidFinishOption;
 
+typedef enum {
+    PackageVerifyFailedOptionNone                   = 0,
+    PackageVerifyFailedOptionNoChangesIsFound       = 1 << 0
+} PackageVerifyFailedOption;
+
 @class PhotoHuntManager;
 @protocol PhotoHuntManagerDelegate <NSObject>
--(void)photoHuntManager:(PhotoHuntManager *)manager didFinishGameWithOption:(PhotoHuntDidFinishOption)option;
+- (void)photoHuntManager:(PhotoHuntManager *)manager didFinishGameWithOption:(PhotoHuntDidFinishOption)option;
+- (void)photoHuntManager:(PhotoHuntManager *)manager didFaiUnzipGame:(TSGame *)game;
+- (void)photoHuntManager:(PhotoHuntManager *)manager didFailVerifyGame:(TSGame *)game reason:(PackageVerifyFailedOption)failOption;
 @end
 
 @interface PhotoHuntManager : NSObject

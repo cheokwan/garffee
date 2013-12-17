@@ -28,5 +28,7 @@
 #define LS_DOWNLOADING          @"Downloading"
 #define LS_DOWNLOAD_FAILED      @"Download Failed"
 #define LS_DOWNLOAD_FAILED_DETAILS  @"Oops! Download Failed"
+#define LS_UNZIP_FAILED         @"The game is not ready"
+#define LS_UNZIP_FAILED_DETAILS @"Sorry, the game is not ready, please try again later"
 
 #endif
