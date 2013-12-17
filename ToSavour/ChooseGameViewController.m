@@ -10,6 +10,7 @@
 
 #import <AFNetworking.h>
 #import <UIView+Helpers.h>
+#import "PhotoHuntManager.h"
 #import "TSGame.h"
 #import "TSGameDownloadManager.h"
 #import "TSNavigationController.h"
@@ -19,6 +20,7 @@
 
 @interface ChooseGameViewController ()
 @property (nonatomic, strong) NSMutableDictionary *buttonDict;
+@property (nonatomic, strong) NSMutableArray *games;
 @end
 
 @implementation ChooseGameViewController
@@ -27,6 +29,10 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    self.games = [NSMutableArray array];
+    //XXX-ML
+    [self mockGames];
+    //XXX-ML
     [self initializeView];
 }
 
@@ -34,7 +40,7 @@
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonPressed:)];
     self.navigationItem.leftBarButtonItem = cancelButton;
     self.navigationItem.titleView = [TSTheming navigationTitleViewWithString:LS_DAILY_AWARD_GAME];
-    
+
     _awardStrLabel.text = LS_AWARDS;
     int awardNum = 1;
     _awardDetailsLabel.text = [NSString stringWithFormat:@"%@ X %d", LS_COFFEE, awardNum];
@@ -43,6 +49,8 @@
     [_challengeNowButton setTitleColor:[UIColor redColor] forState:UIControlStateDisabled];
     [_challengeNowButton addTarget:self action:@selector(challengeNowButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self initializeScrollView];
+    _pageControl.numberOfPages = [self numberOfGames];
+    [_pageControl addTarget:self action:@selector(pageControlValueDidChanged:) forControlEvents:UIControlEventValueChanged];
     [self initializeCountDownView];
 
     if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
@@ -70,17 +78,7 @@
     _progressPanel.hidden = NO;
     [self.view bringSubviewToFront:_progressPanel];
     [_progressPanel bringSubviewToFront:_progressContainerView];
-    
-    //XXX-ML
-    TSGame *game = [[TSGame alloc] init];
-    game.gameId = @"0001";
-    game.name = @"Game 1";
-    game.gamePackageURL = @"http://www.cse.ust.hk/esc/examples/proj_rome.zip";
-    game.gameImageURL = @"http://1.bp.blogspot.com/-rU0MAHswsms/URx10AfQXvI/AAAAAAAAAQM/_Tq6WUIrBS0/s1600/Free-HD-Logo-Nike-Wallpaper.jpg";
-    game.gamePackageName = @"nike";
-    //XXX-ML
-    
-    [self downloadPackage:game];
+    [self downloadPackage:[_games objectAtIndex:[self currentPage]]];
 }
 
 #pragma mark - download game package
@@ -98,8 +96,14 @@
 }
 
 - (void)downloadSucceed:(TSGame *)game {
+    PhotoHuntManager *manager = [[PhotoHuntManager alloc] initWithGame:game delegate:nil];
     [_progressPanel bringSubviewToFront:_countDownView];
-    [self startCountDown:game];
+    _countDownView.frameOriginX = _countDownView.superview.frameRight;
+    [UIView animateWithDuration:0.5f animations:^{
+        _countDownView.frameOriginX = 0.0f;
+    } completion:^(BOOL finished){
+        [self startCountDown:manager];
+    }];
 }
 
 - (void)downloadFailed:(TSGame *)game {
@@ -110,25 +114,25 @@
 
 - (void)updateDownloadProgress:(float)progress {
     float newProgress = progress;
-    if (newProgress > 1.0f) {
-        newProgress = 1.0f;
+    if (newProgress >= 1.0f) {
+        newProgress = 0.99f;
     } else if (newProgress < 0.0f) {
         newProgress = 0.0f;
     }
     if (newProgress > _progressView.progress) {
         [_progressView setProgress:newProgress animated:YES];
-        _progressLabel.text = [NSString stringWithFormat:@"%@ %d%%", PROGRESS_LABEL_PREFIX, (int)newProgress * 100];
+        _progressLabel.text = [NSString stringWithFormat:@"%@ %.0f%%", PROGRESS_LABEL_PREFIX, newProgress * 100];
     }
 }
 
 #pragma mark - scroll view related
 - (void)initializeScrollView {
-    _gamesScrollView.backgroundColor = [UIColor yellowColor];
     float width = 0.0f;
     for (int i=0; i<[self numberOfGames]; i++) {
         CGRect rect = CGRectMake(i*_gamesScrollView.frameSizeWidth, 0, _gamesScrollView.frameSizeWidth, _gamesScrollView.frameSizeHeight);
         UIImageView *anImageView = [[UIImageView alloc] initWithFrame:rect];
-        [anImageView setImageWithURL:[NSURL URLWithString:@"http://1.bp.blogspot.com/-rU0MAHswsms/URx10AfQXvI/AAAAAAAAAQM/_Tq6WUIrBS0/s1600/Free-HD-Logo-Nike-Wallpaper.jpg"]];
+        TSGame *game = [_games objectAtIndex:i];
+        [anImageView setImageWithURL:[NSURL URLWithString:game.gameImageURL]];
         [_gamesScrollView addSubview:anImageView];
         width += _gamesScrollView.frameSizeWidth;
     }
@@ -139,11 +143,21 @@
 }
 
 - (int)currentPage {
-    return (int)_gamesScrollView.contentOffset.x / self.view.frameSizeWidth;
+    return (int)_gamesScrollView.contentOffset.x / _gamesScrollView.frameSizeWidth;
+}
+
+- (CGPoint)contentOffsetOfPage:(int)page {
+    return CGPointMake(_gamesScrollView.frameSizeWidth * page, 0.0f);
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    _pageControl.currentPage = [self currentPage];
     [self gameUpdated];
+}
+
+- (void)pageControlValueDidChanged:(id)sender {
+    UIPageControl *pageControl = (UIPageControl *)sender;
+    _gamesScrollView.contentOffset = [self contentOffsetOfPage:pageControl.currentPage];
 }
 
 #pragma mark - count down view related
@@ -165,7 +179,7 @@
     _progressPanel.userInteractionEnabled = NO;
 }
 
-- (void)startCountDown:(TSGame *)game {
+- (void)startCountDown:(PhotoHuntManager *)gameManager {
     [self countDown:@(0)];
     float interval = 0.5f;
     [self performSelector:@selector(countDown:) withObject:@(3) afterDelay:interval];
@@ -174,7 +188,7 @@
     interval += COUNT_DOWN_INTERVAL;
     [self performSelector:@selector(countDown:) withObject:@(1) afterDelay:interval];
     interval += COUNT_DOWN_INTERVAL;
-    [self performSelector:@selector(proceedFromCountDown:) withObject:game afterDelay:interval];
+    [self performSelector:@selector(proceedFromCountDown:) withObject:gameManager afterDelay:interval];
 }
 
 - (void)countDown:(NSNumber *)countStr {
@@ -191,15 +205,13 @@
 }
 
 - (NSUInteger)numberOfGames {
-    return 3;
+    return _games.count;
 }
 
-- (void)proceedFromCountDown:(TSGame *)game {
+- (void)proceedFromCountDown:(PhotoHuntManager *)gameManager {
     [self hideProgressPanel];
     [self countDown:@(0)];
-    PhotoHuntViewController *photoHuntercontroller = [[PhotoHuntViewController alloc] initWithGame:game];
-    photoHuntercontroller.timeLimit = [self gameTimeLimit];
-    photoHuntercontroller.timePenalty = [self gamePenalty];
+    PhotoHuntViewController *photoHuntercontroller = [[PhotoHuntViewController alloc] initWithGameManager:gameManager];
     TSNavigationController *naviController = [[TSNavigationController alloc] initWithRootViewController:photoHuntercontroller];
     photoHuntercontroller.delegate = self;
     [self presentViewController:naviController animated:NO completion:nil];
@@ -216,12 +228,32 @@
     NSLog(@"finished game and come back!");
 }
 
-- (float)gameTimeLimit {
-    return 50.0f;
-}
 
-- (float)gamePenalty {
-    return 3.0f;
+
+#pragma mark - XXX-ML
+- (void)mockGames {
+    NSArray *logo = @[@"http://blogs.ubc.ca/xuyueting/files/2013/09/Nike-logo-dark-with-Nike-name-freehdlogos.jpg",
+                      @"http://www.littlegreenmoments.com/wp-content/uploads/2013/05/rainbow-diagram-roygbiv1.png",
+                      @"http://1.bp.blogspot.com/-rU0MAHswsms/URx10AfQXvI/AAAAAAAAAQM/_Tq6WUIrBS0/s1600/Free-HD-Logo-Nike-Wallpaper.jpg",
+                      @"http://www.a2zsavings.com/images/brands/adidas.jpg"
+                      ];
+    
+    for (int i=0; i<5; i++) {
+        TSGame *game = [[TSGame alloc] init];
+        game.gameId = @"0001";
+        game.name = @"Game 1";
+        game.gamePackageURL = @"http://www.cse.ust.hk/esc/examples/proj_rome.zip";
+        if (i < logo.count) {
+            game.gameImageURL = logo[i];
+        } else {
+            game.gameImageURL = @"http://www.cuhk.edu.hk/hkiaps/conference/event/CPU%20Insignia.jpg";
+        }
+        game.gamePackageName = @"nike";
+        game.timeLimit = 50.0f;
+        game.timePenalty = 3.0f;
+        game.validNumberOfChanges = 5;
+        [_games addObject:game];
+    }
 }
 
 @end

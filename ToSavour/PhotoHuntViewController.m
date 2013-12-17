@@ -18,6 +18,12 @@ typedef enum {
     ImageViewENumLowerImage
 } ImageViewENum;
 
+typedef enum {
+    GameStateNotStarted         = 0,
+    GameStateStarted,
+    GameStateEnded
+} GameState;
+
 @interface PhotoHuntViewController ()
 //views
 @property (nonatomic, strong) UIAlertView *userEndGameAlertView, *loseAlertView, *winAlertView;
@@ -28,51 +34,32 @@ typedef enum {
 @property (nonatomic) NSTimeInterval startTime;
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic) float accumulativePenalty;
+@property (nonatomic) GameState gameState;
 
 @end
 
 @implementation PhotoHuntViewController
-- (id)initWithGame:(TSGame *)game {
+- (id)initWithGameManager:(PhotoHuntManager *)gameManager {
     self = (PhotoHuntViewController *)[TSTheming viewControllerWithStoryboardIdentifier:@"PhotoHuntViewController" storyboard:@"DailyGameStoryboard"];
     if (self) {
-        self.game = game;
+        self.gameManager = gameManager;
+        _gameManager.delegate = self;
     }
     return self;
 }
 
-- (void)downloadGamePackage {
-    //download
-    [self downloadGamePackageSucceed];  //XXX-ML
-}
-
-- (void)downloadGamePackageSucceed {
-    self.gameManager = [[PhotoHuntManager alloc] initWithGame:_game delegate:self];
-    _gameManager.validNumOfChanges = 5;
-    [self setupImageViews];
-    //XXX-ML
-    [self updateGridButtons];
-    //XXX-ML
-    [self startGame];
-}
-
 - (void)initialize {
     _startTime = -1.0f;
-    _timeLimit = 50.0f;
     _accumulativePenalty = 0.0f;
+    _gameState = GameStateNotStarted;
 }
-
-//XXX-ML
-- (void)tempMethods {
-//    [self addGridLines];
-}
-//XXX-ML
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     [self initialize];
-    [self downloadGamePackage];
+    [self setupImageViews];
     
     UIBarButtonItem *endButton = [[UIBarButtonItem alloc] initWithTitle:LS_END style:UIBarButtonItemStylePlain target:self action:@selector(endButtonPressed:)];
     self.navigationItem.rightBarButtonItem = endButton;
@@ -85,9 +72,15 @@ typedef enum {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     
-    //XXX-ML
-    [self tempMethods];
-    //XXX-ML
+    [self setupImageViews];
+    [self updateGridButtons];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (_gameState == GameStateNotStarted) {
+        [self startGame];
+    }
 }
 
 - (void)dealloc {
@@ -106,19 +99,22 @@ typedef enum {
 
 #pragma mark - game logic
 - (void)startGame {
+    _gameState = GameStateStarted;
+    [self updateFoundChangesLabel];
     [self startTimer];
 }
 
 - (void)startTimer {
     _startTime = [NSDate timeIntervalSinceReferenceDate];
-    if (!_timer && _timeLimit > 0.0f) {
+    if (!_timer && _gameManager.game.timeLimit > 0) {
         self.timer = [NSTimer scheduledTimerWithTimeInterval:COUNT_DOWN_UPDATE_INTERVAL target:self selector:@selector(countDown:) userInfo:nil repeats:YES];
     }
 }
 
 - (void)countDown:(NSTimer *)timer {
     NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
-    float progress = (_timeLimit - (now - _startTime) - _accumulativePenalty) / _timeLimit;
+    float timeLimit = (float)_gameManager.game.timeLimit;
+    float progress = (timeLimit - (now - _startTime) - _accumulativePenalty) / timeLimit;
     if (progress <= 0.0f) {
         [_countDownSlider setValue:0.0f animated:YES];
         [self.timer invalidate];
@@ -136,16 +132,20 @@ typedef enum {
         self.userEndGameAlertView.delegate = nil;
         self.userEndGameAlertView = nil;
     }
-    self.loseAlertView = [[UIAlertView alloc] initWithTitle:LS_LOSE_GAME_TITLE message:LS_LOSE_GAME_DETAILS delegate:self cancelButtonTitle:LS_OK otherButtonTitles:nil];
-    [_loseAlertView show];
-    [self loseGame];
+    if (_gameState != GameStateEnded) {
+        self.loseAlertView = [[UIAlertView alloc] initWithTitle:LS_LOSE_GAME_TITLE message:LS_LOSE_GAME_DETAILS delegate:self cancelButtonTitle:LS_OK otherButtonTitles:nil];
+        [_loseAlertView show];
+        [self loseGame];
+    }
 }
 
 - (void)loseGame {
+    _gameState = GameStateEnded;
     //XXX-ML network call to server
 }
 
 - (void)winGame {
+    _gameState = GameStateEnded;
     [self.timer invalidate];
     self.timer = nil;
     self.winAlertView = [[UIAlertView alloc] initWithTitle:LS_CONGRATULATIONS message:LS_WIN_GAME_DETAILS delegate:self cancelButtonTitle:LS_OK otherButtonTitles:nil];
@@ -160,10 +160,21 @@ typedef enum {
     }
 }
 
+- (void)updateFoundChangesLabel {
+    _foundChangesLabel.text = [NSString stringWithFormat:@"%d/%d", [_gameManager numberOfChangesFound], [_gameManager totalNumberOfChanges]];
+}
+
+#pragma mark - PhotoHuntImageViewDelegate
+- (void)photoHuntImageViewDidPress:(PhotoHuntImageView *)imageView {
+    _accumulativePenalty += _gameManager.game.timePenalty;
+}
+
 #pragma mark - button pressed
 - (void)endButtonPressed:(id)sender {
-    self.userEndGameAlertView = [[UIAlertView alloc] initWithTitle:LS_END_GAME message:LS_END_GAME_DETAILS delegate:self cancelButtonTitle:LS_CANCEL otherButtonTitles:LS_END, nil];
-    [_userEndGameAlertView show];
+    if (_gameState != GameStateEnded) {
+        self.userEndGameAlertView = [[UIAlertView alloc] initWithTitle:LS_END_GAME message:LS_END_GAME_DETAILS delegate:self cancelButtonTitle:LS_CANCEL otherButtonTitles:LS_END, nil];
+        [_userEndGameAlertView show];
+    }
 }
 
 #pragma mark - UIAlertView related
@@ -200,54 +211,27 @@ typedef enum {
 
 #pragma mark - image related
 - (void)setupImageViews {
-    [self setupUppperImageView];
-    [self setupLowerImageView];
+    [self setupImageView:_upperImageView];
+    [self setupImageView:_lowerImageView];
 }
 
-- (void)setupUppperImageView {
-    _upperImageView.userInteractionEnabled = YES;
+- (void)setupImageView:(PhotoHuntImageView *)imageView {
+    imageView.userInteractionEnabled = YES;
+    imageView.delegate = self;
     NSString *imageFullPath = [_gameManager originalImageFullPath];
     NSData *imgData = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:imageFullPath]];
     UIImage *image = [[UIImage alloc] initWithData:imgData];
-    [_upperImageView setImage:image];
-}
-
-- (void)setupLowerImageView {
-    _lowerImageView.userInteractionEnabled = YES;
-    NSString *imageFullPath = [_gameManager originalImageFullPath];
-    NSData *imgData = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:imageFullPath]];
-    UIImage *image = [[UIImage alloc] initWithData:imgData];
-    [_lowerImageView setImage:image];
+    [imageView setImage:image];
 }
 
 #pragma mark - grid button related
 - (void)photoHuntGridButton:(PhotoHuntGridButton *)button didPressedWithChangeGroup:(NSString *)changeGroup {
     if ([changeGroup isEqualToString:CHANGE_GROUP_NONE]) {
-        _accumulativePenalty += _timePenalty;
+        _accumulativePenalty += _gameManager.game.timePenalty;
     } else {
         [_gameManager changeIsFound:changeGroup];
         [self updateGridButtons];
-    }
-}
-
-#pragma mark - need to remove
-- (void)addGridLines {
-    for (int i=0; i<=_upperImageView.frameSizeWidth; i+=GRID_WIDTH) {
-        UIView *verticalLine = [[UIView alloc] initWithFrame:CGRectMake(i, 0, 1, _upperImageView.frameSizeHeight)];
-        verticalLine.backgroundColor = [UIColor redColor];
-        [_upperImageView addSubview:verticalLine];
-        verticalLine = [[UIView alloc] initWithFrame:CGRectMake(i, 0, 1, _upperImageView.frameSizeHeight)];
-        verticalLine.backgroundColor = [UIColor redColor];
-        [_lowerImageView addSubview:verticalLine];
-    }
-    
-    for (int i=0; i<=_lowerImageView.frameSizeHeight; i+=GRID_HEIGHT) {
-        UIView *horizontalLine = [[UIView alloc] initWithFrame:CGRectMake(0, i, _upperImageView.frameSizeWidth, 1)];
-        horizontalLine.backgroundColor = [UIColor redColor];
-        [_upperImageView addSubview:horizontalLine];
-        horizontalLine = [[UIView alloc] initWithFrame:CGRectMake(0, i, _upperImageView.frameSizeWidth, 1)];
-        horizontalLine.backgroundColor = [UIColor redColor];
-        [_lowerImageView addSubview:horizontalLine];
+        [self updateFoundChangesLabel];
     }
 }
 
@@ -301,6 +285,7 @@ typedef enum {
     }
 }
 
+#pragma mark - PhotoHuntManagerDelegate
 - (void)photoHuntManager:(PhotoHuntManager *)manager didFinishGameWithOption:(PhotoHuntDidFinishOption)option {
     if (option == PhotoHuntDidFinishOptionWin) {
         [self winGame];

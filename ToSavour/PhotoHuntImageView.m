@@ -43,6 +43,9 @@
             }
         }
         if (tapTouch) {
+            if ([_delegate respondsToSelector:@selector(photoHuntImageViewDidPress:)]) {
+                [_delegate photoHuntImageViewDidPress:self];
+            }
             CGPoint touchedPosition = [tapTouch locationInView:self];
             float xPos = (floorf(touchedPosition.x/GRID_WIDTH)) * GRID_WIDTH;
             float yPos = (floorf(touchedPosition.y/GRID_HEIGHT)) * GRID_HEIGHT;

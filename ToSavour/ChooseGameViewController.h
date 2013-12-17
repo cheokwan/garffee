@@ -24,6 +24,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *awardStrLabel, *awardDetailsLabel, *winLabel;
 @property (nonatomic, strong) IBOutlet UIButton *challengeNowButton;
 @property (nonatomic, strong) IBOutlet UIScrollView *gamesScrollView;
+@property (nonatomic, strong) IBOutlet UIPageControl *pageControl;
 
 @property (nonatomic, strong) IBOutlet UIView *progressPanel;
 @property (nonatomic, strong) IBOutlet UIView *progressContainerView;

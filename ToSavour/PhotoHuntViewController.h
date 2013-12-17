@@ -23,17 +23,14 @@
 - (void)photoHuntViewControllerDidFinishGame:(PhotoHuntViewController *)controller;
 @end
 
-@interface PhotoHuntViewController : UIViewController <UIAlertViewDelegate, PhotoHuntGridButtonDelegate, PhotoHuntManagerDelegate>
+@interface PhotoHuntViewController : UIViewController <UIAlertViewDelegate, PhotoHuntGridButtonDelegate, PhotoHuntManagerDelegate, PhotoHuntImageViewDelegate>
 
-- (id)initWithGame:(TSGame *)game;
+- (id)initWithGameManager:(PhotoHuntManager *)gameManager;
 
 @property (nonatomic, weak) id<PhotoHuntViewControllerDelagte> delegate;
 @property (nonatomic, strong) IBOutlet UISlider *countDownSlider;
 @property (nonatomic, strong) IBOutlet UIView *sliderContainerView;
 @property (nonatomic, strong) IBOutlet PhotoHuntImageView *upperImageView, *lowerImageView;
-@property (nonatomic) float timeLimit;
-@property (nonatomic) float timePenalty;
-@property (nonatomic, strong) TSGame *game;
-//@property (nonatomic, strong) NSString *filePackageName;
+@property (nonatomic, strong) IBOutlet UILabel *foundChangesLabel;
 
 @end

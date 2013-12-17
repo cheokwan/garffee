@@ -25,7 +25,6 @@ typedef enum {
 
 @interface PhotoHuntManager : NSObject
 
-@property (nonatomic, assign) int validNumOfChanges;
 //@property (nonatomic, strong) NSString *packageName;
 //@property (nonatomic, strong) NSString *packageFullPath;
 @property (nonatomic, strong) TSGame *game;
@@ -39,7 +38,10 @@ typedef enum {
 - (NSString *)changeGroupOfButtonIndex:(int)buttonIndex;
 - (NSString *)gridButtonImageOfButtonIndex:(int)buttonIndex isOriginalImage:(BOOL)isOriginalImage;
 
+//UI
 - (void)changeIsFound:(NSString *)changeGroup;
 - (BOOL)isChangeFound:(NSString *)changeGroup;
+- (int)totalNumberOfChanges;
+- (int)numberOfChangesFound;
 
 @end
