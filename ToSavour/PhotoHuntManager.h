@@ -25,6 +25,7 @@ typedef enum {
 
 @class PhotoHuntManager;
 @protocol PhotoHuntManagerDelegate <NSObject>
+@optional
 - (void)photoHuntManager:(PhotoHuntManager *)manager didFinishGameWithOption:(PhotoHuntDidFinishOption)option;
 - (void)photoHuntManager:(PhotoHuntManager *)manager didFaiUnzipGame:(TSGame *)game;
 - (void)photoHuntManager:(PhotoHuntManager *)manager didFailVerifyGame:(TSGame *)game reason:(PackageVerifyFailedOption)failOption;

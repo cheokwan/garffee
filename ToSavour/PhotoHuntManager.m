@@ -8,7 +8,7 @@
 
 #import "PhotoHuntManager.h"
 
-#import <SSZipArchive.h>
+#import "TSZipArchive.h"
 #import "NSMutableArray+Shuffle.h"
 
 #define CHANGE_IMAGE_EXTENSION      @"jpg"
@@ -54,7 +54,7 @@
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *unzippedPath = nil;
-    BOOL isUnzipSuccess = [SSZipArchive unzipFileAtPath:game.gamePackageFullPath toDestination:documentsDirectory unzippedPath:&unzippedPath overwrite:YES password:nil error:nil delegate:nil];
+    BOOL isUnzipSuccess = [TSZipArchive unzipFileAtPath:game.gamePackageFullPath toDestination:documentsDirectory unzippedPath:&unzippedPath overwrite:YES password:nil error:nil delegate:nil];
     game.gamePackageUnzippedFullPath = unzippedPath;
     return isUnzipSuccess;
 }
