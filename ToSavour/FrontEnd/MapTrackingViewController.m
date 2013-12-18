@@ -96,7 +96,7 @@
     }
 }
 
-- (void)buttonPressed:(id)sender {
+- (void)buttonPressed:(id)sender {    
     if (sender == _buttonDropPin) {
         if (!_alertViewDropPin) {
             self.alertViewDropPin = [[UIAlertView alloc] initWithTitle:nil message:@"What do you want?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Drop Destination", @"Clear Everything", @"Drop Red Pin", nil];

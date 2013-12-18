@@ -35,13 +35,13 @@
 }
 
 - (void)slideLeft {
-    static BOOL slided = NO;
-    if (!slided) {
-        [[AppDelegate sharedAppDelegate].slidingViewController anchorTopViewToLeftAnimated:YES];
-    } else {
-        [[AppDelegate sharedAppDelegate].slidingViewController resetTopViewAnimated:YES];
-    }
-    slided = !slided;
+     static BOOL slided = NO;
+     if (!slided) {
+         [[AppDelegate sharedAppDelegate].slidingViewController anchorTopViewToLeftAnimated:YES];
+     } else {
+         [[AppDelegate sharedAppDelegate].slidingViewController resetTopViewAnimated:YES];
+     }
+     slided = !slided;
 }
 
 - (void)viewDidLoad

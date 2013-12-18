@@ -24,6 +24,19 @@
     return viewController;
 }
 
++ (UIViewController *)viewControllerWithStoryboardIdentifier:(NSString *)identifier storyboard:(NSString *)aStoryBoard {
+    UIStoryboard *storyBoard = nil;
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        storyBoard = [UIStoryboard storyboardWithName:aStoryBoard bundle:nil];
+    } else {
+        NSString *errorMessage = @"iPad is not supported currently";
+        DDLogError(@"%@", errorMessage);
+        NSAssert(NO, @"%s - %@", __FUNCTION__, errorMessage);
+    }
+    UIViewController *viewController = [storyBoard instantiateViewControllerWithIdentifier:identifier];
+    return viewController;
+}
+
 + (UIView *)viewWithNibName:(NSString *)identifier {
     return [self viewWithNibName:identifier owner:nil];
 }

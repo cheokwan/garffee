@@ -12,6 +12,11 @@
 #import "MFriendInfo.h"
 #import "AppDelegate.h"
 
+//XXX-ML
+#import "ChooseGameViewController.h"
+#import "TSNavigationController.h"
+//XXX-ML
+
 @interface TutorialLoginViewController ()
 
 @end
@@ -121,6 +126,10 @@
 }
 
 - (void)buttonPressed:(id)sender {
+    //XXX-ML
+//    ChooseGameViewController *controller = (ChooseGameViewController*)[TSTheming viewControllerWithStoryboardIdentifier:@"ChooseGameViewController" storyboard:@"DailyGameStoryboard"];
+//    TSNavigationController *naviController = [[TSNavigationController alloc] initWithRootViewController:controller];
+//    [self presentViewController:naviController animated:YES completion:nil];
     if (sender == _skipButton) {
         [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionTransitionCrossDissolve|UIViewAnimationOptionAllowAnimatedContent animations:^{
             // fade out

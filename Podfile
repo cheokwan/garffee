@@ -7,4 +7,6 @@ pod 'Facebook-iOS-SDK'
 pod 'SDWebImage'
 pod 'UIImage-Resize'
 pod 'ChatHeads'
-
+pod 'UIView+Helpers'
+pod 'SDWebImage'
+pod 'SSZipArchive'
