@@ -30,4 +30,5 @@
     #import "NSString+Helper.h"
     #import "NSManagedObject+Helper.h"
     #import "UIView+Helper.h"
+    #import "AppDelegate.h"
 #endif

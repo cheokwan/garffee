@@ -14,6 +14,7 @@ PODS:
   - Facebook-iOS-SDK (3.10.0)
   - ISO8601DateFormatterValueTransformer (0.5.0):
     - RKValueTransformers (~> 1.0.0)
+  - MBProgressHUD (0.8)
   - RestKit (0.22.0):
     - RestKit/Core
   - RestKit/Core (0.22.0):
@@ -49,6 +50,7 @@ DEPENDENCIES:
   - CocoaLumberjack
   - ECSlidingViewController
   - Facebook-iOS-SDK
+  - MBProgressHUD
   - RestKit
   - SDWebImage
   - SSZipArchive
@@ -64,6 +66,7 @@ SPEC CHECKSUMS:
   ECSlidingViewController: 097e5451e8628611f17ed27a6e0829fa705f7851
   Facebook-iOS-SDK: ef402579aeb30cf0c4a6370fb0a927e3dc3059e5
   ISO8601DateFormatterValueTransformer: d0af1f50a9df42db72d7418db31938b8473e0af8
+  MBProgressHUD: 2bbc6f470111daf7f3eaa4eb12b8cbf01c4c0622
   RestKit: dc107a0aa4f962575ad0385bac5b3c5e4f591f4e
   RKValueTransformers: 1562d458b9c9d59ce777bfc5982f2e1aef2e9182
   SDWebImage: a408b548a634b792372e07e753fc1079aff5032a

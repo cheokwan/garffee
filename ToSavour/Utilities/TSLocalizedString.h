@@ -40,5 +40,6 @@
 #define LS_DOWNLOAD_FAILED_DETAILS  NSLocalizedString(@"Oops! Download Failed", @"")
 #define LS_UNZIP_FAILED         NSLocalizedString(@"The game is not ready", @"")
 #define LS_UNZIP_FAILED_DETAILS NSLocalizedString(@"Sorry, the game is not ready, please try again later", @"")
+#define LS_LOADING              NSLocalizedString(@"Loading", @"")
 
 #endif

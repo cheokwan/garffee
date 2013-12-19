@@ -13,11 +13,11 @@
 
 @interface MUserInfo : NSManagedObject<RKMappableEntity>
 
-@property (nonatomic) int32_t fbAgeRangeMin;
+@property (nonatomic, retain) NSNumber * fbAgeRangeMin;
 @property (nonatomic, retain) NSString * fbBirthday;
 @property (nonatomic, retain) NSString * fbFirstName;
 @property (nonatomic, retain) NSString * fbGender;
-@property (nonatomic) int32_t fbID;
+@property (nonatomic, retain) NSString * fbID;
 @property (nonatomic, retain) NSString * fbLastName;
 @property (nonatomic, retain) NSString * fbLink;
 @property (nonatomic, retain) NSString * fbMiddleName;

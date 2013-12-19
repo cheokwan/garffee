@@ -12,25 +12,11 @@
 #import "MFriendInfo.h"
 #import "AppDelegate.h"
 
-//XXX-ML
-#import "ChooseGameViewController.h"
-#import "TSNavigationController.h"
-//XXX-ML
-
 @interface TutorialLoginViewController ()
 
 @end
 
 @implementation TutorialLoginViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)initializeView {
     _tutorialScrollView.delegate = self;
@@ -56,6 +42,8 @@
     [_skipButton setTitle:LS_SKIP forState:UIControlStateNormal];
     [_skipButton setTitleColor:[TSTheming defaultThemeColor] forState:UIControlStateNormal];
     [_skipButton addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    self.facebookLoginButton = [[FBLoginView alloc] initWithReadPermissions:@[@"basic_info", @"email", @"user_birthday", @"friends_birthday"]];
+    _facebookLoginButton.delegate = self;
     [self.view bringSubviewToFront:_tutorialPageControl];
     [self.view bringSubviewToFront:_skipButton];
 }
@@ -81,17 +69,15 @@
 - (void)layoutLoginView {
     [self.loginView removeAllSubviews];
     _loginView.frame = CGRectMake(0, 0, _tutorialScrollView.bounds.size.width, _tutorialScrollView.bounds.size.height);
-    FBLoginView *facebookLoginButton = [[FBLoginView alloc] initWithReadPermissions:@[@"basic_info", @"email", @"user_birthday", @"friends_birthday"]];
-    facebookLoginButton.delegate = self;
-    [facebookLoginButton sizeToFit];
-    facebookLoginButton.center = CGPointMake(_loginView.center.x, _loginView.bounds.size.height - 50.0);
-    [_loginView addSubview:facebookLoginButton];
+    [_facebookLoginButton sizeToFit];
+    _facebookLoginButton.center = CGPointMake(_loginView.center.x, _loginView.bounds.size.height - 50.0);
+    [_loginView addSubview:_facebookLoginButton];
     UILabel *descriptionText = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, _loginView.bounds.size.width, 20.0)];
     descriptionText.text = [NSString stringWithFormat:NSLocalizedString(@"Sign up or log in to your %@ account", @""), BRAND_NAME];
     descriptionText.font = [UIFont systemFontOfSize:12.0];
     descriptionText.tintColor = [UIColor blackColor];
     descriptionText.textAlignment = NSTextAlignmentCenter;
-    descriptionText.center = CGPointMake(facebookLoginButton.center.x, facebookLoginButton.center.y - 40.0);
+    descriptionText.center = CGPointMake(_facebookLoginButton.center.x, _facebookLoginButton.center.y - 40.0);
     [_loginView addSubview:descriptionText];
     // XXX-MOCK
     UIImageView *loginImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 200, 320)];
@@ -116,6 +102,9 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self layoutView];
+    if (_skipTutorial) {
+        _tutorialScrollView.contentOffset = CGPointMake(_tutorialScrollView.contentSize.width - _tutorialScrollView.bounds.size.width, 0);
+    }
 }
 
 - (UIView *)loginView {
@@ -126,10 +115,6 @@
 }
 
 - (void)buttonPressed:(id)sender {
-    //XXX-ML
-//    ChooseGameViewController *controller = (ChooseGameViewController*)[TSTheming viewControllerWithStoryboardIdentifier:@"ChooseGameViewController" storyboard:@"DailyGameStoryboard"];
-//    TSNavigationController *naviController = [[TSNavigationController alloc] initWithRootViewController:controller];
-//    [self presentViewController:naviController animated:YES completion:nil];
     if (sender == _skipButton) {
         [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionTransitionCrossDissolve|UIViewAnimationOptionAllowAnimatedContent animations:^{
             // fade out
@@ -143,6 +128,12 @@
             } completion:nil];
         }];
     }
+}
+
+- (void)dismissAfterLoggedIn {
+    _facebookLoginButton.delegate = nil;
+    self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -165,14 +156,27 @@
     }
 }
 
+#pragma mark - RestManagerResponseHandler
+
+- (void)restManagerService:(SEL)selector succeededWithOperation:(NSOperation *)operation userInfo:(NSDictionary *)userInfo {
+    
+    if (selector == @selector(fetchFacebookAppUserInfo:)) {
+        // successfully logged in and fetched user info, dismiss the login view now
+        [self dismissAfterLoggedIn];
+    }
+    if (selector == @selector(fetchFacebookFriendsInfo:)) {
+    }
+}
+
+- (void)restManagerService:(SEL)selector failedWithOperation:(NSOperation *)operation error:(NSError *)error userInfo:(NSDictionary *)userInfo {
+}
+
 #pragma mark - FBLoginViewDelegate
 
 - (void)loginViewShowingLoggedInUser:(FBLoginView *)loginView {
     DDLogInfo(@"user is logged into facebook");
-    // user just logged into facebook, temporarily hides the view before dismissal
-    // to give a better transition
-    self.view.hidden = YES;
-    // XXX-BUG  if user skips the permission request -> black screen
+    
+    // XXX-BUG what if user skips the permission request
 }
 
 - (void)loginViewShowingLoggedOutUser:(FBLoginView *)loginView {
@@ -182,39 +186,12 @@
 - (void)loginViewFetchedUserInfo:(FBLoginView *)loginView user:(id<FBGraphUser>)user {
     DDLogInfo(@"fetched user facebook info");
     
-    // XXX-TEST
-    NSString *token = [[[FBSession activeSession] accessTokenData] accessToken];
-    DDLogError(@"token: %@", token);
-    
-    if (![MUserInfo currentUserInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext]) {
-        // XXX-BUG this is not working correctly!!!
-        RKLogConfigureByName("RestKit/Network", RKLogLevelTrace);
-        // fetch user info
-        NSString *urlString = [NSString stringWithFormat:@"https://graph.facebook.com/me/?access_token=%@&fields=id,name,username,first_name,middle_name,last_name,gender,age_range,link,locale,birthday,picture.width(100),picture.height(100)", token];
-        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-        
-        request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:urlString] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:60];
-        RKResponseDescriptor *responseDescriptor = [MUserInfo defaultResponseDescriptor];
-        RKManagedObjectRequestOperation *managedObjectRequestOperation = [[RKManagedObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[responseDescriptor]];
-        managedObjectRequestOperation.managedObjectContext = [AppDelegate sharedAppDelegate].managedObjectContext;
-        [[NSOperationQueue currentQueue] addOperation:managedObjectRequestOperation];
-        
-        // fetch friends info
-        urlString = [NSString stringWithFormat:@"https://graph.facebook.com/me/friends?access_token=%@&fields=id,name,username,first_name,middle_name,last_name,gender,age_range,link,locale,birthday,picture.width(100),picture.height(100)", token];
-        
-        request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-        request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:urlString] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:60];
-        responseDescriptor = [MFriendInfo defaultResponseDescriptor];
-        managedObjectRequestOperation = [[RKManagedObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[responseDescriptor]];
-        managedObjectRequestOperation.managedObjectContext = [AppDelegate sharedAppDelegate].managedObjectContext;
-        [[NSOperationQueue currentQueue] addOperation:managedObjectRequestOperation];
-    }
-    
-    // successfully logged in and fetched user info, dismiss the login view now
-    loginView.delegate = nil;
-    self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    [self dismissViewControllerAnimated:YES completion:nil];
-    // XXX
+    // user just logged into facebook, start a spinner and do the initial fetch
+    self.spinner = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    _spinner.mode = MBProgressHUDModeAnnularDeterminate;
+    _spinner.labelText = LS_LOADING;
+    [[RestManager sharedInstance] fetchFacebookAppUserInfo:self];
+    [[RestManager sharedInstance] fetchFacebookFriendsInfo:self];
     
 //    // create a new user info after initial logged in
 //    MUserInfo *userInfo = [MUserInfo newUserInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext];

@@ -9,7 +9,8 @@
 #import "PhotoHuntViewController.h"
 
 #import <SDWebImage/UIImageView+WebCache.h>
-#import <UIView+Helpers.h>
+#import <UIView+Helpers/UIView+Helpers.h>
+#import "UIView+Helper.h"
 #import "TSTheming.h"
 
 typedef enum {

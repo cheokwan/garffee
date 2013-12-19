@@ -26,4 +26,12 @@
     return nil;
 }
 
+- (CGFloat)frameRight {
+    return self.frame.origin.x + self.frame.size.width;
+}
+
+- (CGFloat)frameBottom {
+    return self.frame.origin.y + self.frame.size.height;
+}
+
 @end

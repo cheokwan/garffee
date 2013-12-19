@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13A603" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13B42" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="MapTrackingAnnotation" representedClassName="MapTrackingAnnotation" syncable="YES">
         <attribute name="accuracy" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="annotationType" optional="YES" attributeType="Integer 32" syncable="YES"/>
@@ -67,7 +67,7 @@
         <attribute name="fbBirthday" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fbFirstName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fbGender" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="fbID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="fbID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fbLastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fbLink" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fbMiddleName" optional="YES" attributeType="String" syncable="YES"/>
@@ -76,14 +76,14 @@
         <attribute name="fbUsername" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="MapTrackingAnnotation" positionX="0" positionY="0" width="128" height="195"/>
-        <element name="MBranch" positionX="0" positionY="0" width="128" height="180"/>
-        <element name="MFriendInfo" positionX="0" positionY="0" width="128" height="60"/>
-        <element name="MUserInfo" positionX="0" positionY="0" width="128" height="210"/>
-        <element name="MProductInfo" positionX="160" positionY="192" width="128" height="133"/>
-        <element name="MProductConfigurableOption" positionX="160" positionY="192" width="128" height="133"/>
-        <element name="MProductOptionChoice" positionX="160" positionY="192" width="128" height="118"/>
-        <element name="MItemInfo" positionX="160" positionY="192" width="128" height="133"/>
-        <element name="MItemSelectedOption" positionX="160" positionY="192" width="128" height="88"/>
+        <element name="MapTrackingAnnotation" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBranch" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MFriendInfo" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MItemInfo" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MItemSelectedOption" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MProductConfigurableOption" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MProductInfo" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MProductOptionChoice" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MUserInfo" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

@@ -19,12 +19,12 @@
 #import "SlideMenuViewController.h"
 #import "TutorialLoginViewController.h"
 #import "TSModelIncludes.h"
+#import "RestManager.h"
 
 @implementation AppDelegate
 
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
-@synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
 + (AppDelegate *)sharedAppDelegate {
     return [UIApplication sharedApplication].delegate;
@@ -71,11 +71,18 @@
     [self.window makeKeyAndVisible];
     
     MUserInfo *currentUserInfo = [MUserInfo currentUserInfoInContext:self.managedObjectContext];
-    if (!currentUserInfo || ![[FBSession activeSession] isOpen]) {  // TODO: or facebook is not logged in
+    BOOL fbSessionOpened = [FBSession openActiveSessionWithAllowLoginUI:NO];
+    DDLogError(@"fb token: %@", [RestManager sharedInstance].facebookToken); // XXX-TEST
+    
+    if (!currentUserInfo || !fbSessionOpened) {
         // user info does not present, shows the tutorial and login screen
         // and delegate navigation flow to there
-        TutorialLoginViewController *tutorialViewController = (TutorialLoginViewController *)[TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(TutorialLoginViewController.class)];
-        [_slidingViewController.topViewController presentViewController:tutorialViewController animated:NO completion:nil];
+        TutorialLoginViewController *tutorialLoginViewController = (TutorialLoginViewController *)[TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(TutorialLoginViewController.class)];
+        if (currentUserInfo) {
+            // user has previously logged in, skip to login page directly
+            tutorialLoginViewController.skipTutorial = YES;
+        }
+        [_slidingViewController.topViewController presentViewController:tutorialLoginViewController animated:NO completion:nil];
     }
     
     return YES;
@@ -166,24 +173,23 @@
     if (managedObjectContext != nil) {
         if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
              // Replace this implementation with code to handle the error appropriately.
-             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            DDLogError(@"unresolved error saving context: %@ %@", error, error.userInfo);
             abort();
         }
     }
 }
 
-#pragma mark - Core Data stack
+#pragma mark - Core Data stack + RestKit
 
 - (void)generateSeedDatabase {
-    // XXX-TEST
     RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelInfo);
     RKLogConfigureByName("RestKit/CoreData", RKLogLevelTrace);
     
     NSError *error = nil;
     BOOL success = RKEnsureDirectoryExistsAtPath(RKApplicationDataDirectory(), &error);
-    if (! success) {
-        RKLogError(@"Failed to create Application Data Directory at path '%@': %@", RKApplicationDataDirectory(), error);
+    if (!success) {
+        DDLogError(@"failed to create Application Data Directory at path '%@': %@", RKApplicationDataDirectory(), error);
     }
     
     RKManagedObjectStore *managedObjectStore = [[RKManagedObjectStore alloc] initWithManagedObjectModel:self.managedObjectModel];
@@ -195,54 +201,50 @@
                               withMapping:[MProductInfo defaultEntityMapping]
                                   keyPath:nil
                                     error:&error];
-//    [importer importObjectsFromItemAtPath:[[NSBundle mainBundle] pathForResource:@"MProductConfigurableOption" ofType:@"json"]
-//                              withMapping:[MProductConfigurableOption defaultEntityMapping]
-//                                  keyPath:nil
-//                                    error:&error];
     success = [importer finishImporting:&error];
     if (success) {
         [importer logSeedingInfo];
     } else {
-        RKLogError(@"Failed to finish import and save seed database due to error: %@", error);
+        DDLogError(@"failed to finish import and save seed database due to error: %@", error);
     }
 }
 
-// Returns the managed object context for the application.
-// If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
 - (NSManagedObjectContext *)managedObjectContext
 {
     if (_managedObjectContext != nil) {
         return _managedObjectContext;
     }
     // Configure RestKit with CoreData
-    NSError *error = nil;
+    RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelInfo);
+    RKLogConfigureByName("RestKit/CoreData", RKLogLevelTrace);
+    
     RKManagedObjectStore *managedObjectStore = [[RKManagedObjectStore alloc] initWithManagedObjectModel:self.managedObjectModel];
-    // Initialize the Core Data stack
+    NSError *error = nil;
+    BOOL success = RKEnsureDirectoryExistsAtPath(RKApplicationDataDirectory(), &error);
+    if (!success) {
+        DDLogError(@"failed to create Application Data Directory at path '%@': %@", RKApplicationDataDirectory(), error);
+    }
+    
     [managedObjectStore createPersistentStoreCoordinator];
     NSString *storePath = [RKApplicationDataDirectory() stringByAppendingPathComponent:@"ToSavour.sqlite"];
     NSString *seedPath = [[NSBundle mainBundle] pathForResource:@"ToSavourSeed" ofType:@"sqlite"];
     
     NSPersistentStore __unused *persistentStore = [managedObjectStore addSQLitePersistentStoreAtPath:storePath fromSeedDatabaseAtPath:seedPath withConfiguration:nil options:nil error:&error];
     if (!persistentStore) {
-        DDLogError(@"Failed to add persistent store: %@", error);
+        DDLogError(@"failed to add persistent store: %@", error);
         _managedObjectContext = nil;
     } else {
         [managedObjectStore createManagedObjectContexts];
+        // Configure a managed object cache to ensure we do not create duplicate objects
+        managedObjectStore.managedObjectCache = [[RKInMemoryManagedObjectCache alloc] initWithManagedObjectContext:managedObjectStore.persistentStoreManagedObjectContext];
         // Set the default store shared instance
         [RKManagedObjectStore setDefaultStore:managedObjectStore];
         _managedObjectContext = managedObjectStore.mainQueueManagedObjectContext;
     }
     
-//    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
-//    if (coordinator != nil) {
-//        _managedObjectContext = [[NSManagedObjectContext alloc] init];
-//        [_managedObjectContext setPersistentStoreCoordinator:coordinator];
-//    }
     return _managedObjectContext;
 }
 
-// Returns the managed object model for the application.
-// If the model doesn't already exist, it is created from the application's model.
 - (NSManagedObjectModel *)managedObjectModel
 {
     if (_managedObjectModel != nil) {
@@ -250,50 +252,8 @@
     }
     NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"ToSavour" withExtension:@"momd"];
     _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+//    _managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
     return _managedObjectModel;
-}
-
-// Returns the persistent store coordinator for the application.
-// If the coordinator doesn't already exist, it is created and the application's store added to it.
-- (NSPersistentStoreCoordinator *)persistentStoreCoordinator
-{
-    if (_persistentStoreCoordinator != nil) {
-        return _persistentStoreCoordinator;
-    }
-    
-//    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"ToSavour.sqlite"];
-//    
-//    NSError *error = nil;
-//    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-//    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
-//        /*
-//         Replace this implementation with code to handle the error appropriately.
-//         
-//         abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-//         
-//         Typical reasons for an error here include:
-//         * The persistent store is not accessible;
-//         * The schema for the persistent store is incompatible with current managed object model.
-//         Check the error message to determine what the actual problem was.
-//         
-//         
-//         If the persistent store is not accessible, there is typically something wrong with the file path. Often, a file URL is pointing into the application's resources directory instead of a writeable directory.
-//         
-//         If you encounter schema incompatibility errors during development, you can reduce their frequency by:
-//         * Simply deleting the existing store:
-//         [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil]
-//         
-//         * Performing automatic lightweight migration by passing the following dictionary as the options parameter:
-//         @{NSMigratePersistentStoresAutomaticallyOption:@YES, NSInferMappingModelAutomaticallyOption:@YES}
-//         
-//         Lightweight migration will only work for a limited set of schema changes; consult "Core Data Model Versioning and Data Migration Programming Guide" for details.
-//         
-//         */
-//        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-//        abort();
-//    }    
-    
-    return _persistentStoreCoordinator;
 }
 
 #pragma mark - Application's Documents directory

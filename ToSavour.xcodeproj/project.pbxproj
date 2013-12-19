@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		C745B082CE144F8095231522 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C23BC4E3A4EF498CB2E1D08C /* libPods.a */; };
+		D214BE041862BE7F00812BA5 /* ToSavourSeed.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = D214BE031862BE7F00812BA5 /* ToSavourSeed.sqlite */; };
+		D214BE071862DAF000812BA5 /* RestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D214BE061862DAF000812BA5 /* RestManager.m */; };
 		D221964D1859BCC6007528EE /* FriendsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D221964C1859BCC6007528EE /* FriendsListViewController.m */; };
 		D22196501859C24C007528EE /* FriendsListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D221964F1859C24C007528EE /* FriendsListTableViewCell.m */; };
 		D2219653185AACD8007528EE /* NSManagedObject+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2219652185AACD8007528EE /* NSManagedObject+Helper.m */; };
@@ -68,7 +70,6 @@
 		D246684318603C800089D5DB /* CartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D246684218603C800089D5DB /* CartViewController.m */; };
 		D2466846186052450089D5DB /* CartItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D2466845186052450089D5DB /* CartItemTableViewCell.m */; };
 		D2466849186062DC0089D5DB /* NSString+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2466848186062DC0089D5DB /* NSString+Helper.m */; };
-		D246684B186154830089D5DB /* ToSavourSeed.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = D246684A186154830089D5DB /* ToSavourSeed.sqlite */; };
 		D293E4B2183DEDEB00B73795 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4B1183DEDEB00B73795 /* Foundation.framework */; };
 		D293E4B4183DEDEB00B73795 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4B3183DEDEB00B73795 /* CoreGraphics.framework */; };
 		D293E4B6183DEDEB00B73795 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4B5183DEDEB00B73795 /* UIKit.framework */; };
@@ -145,6 +146,9 @@
 /* Begin PBXFileReference section */
 		257842E4F2DE434C98166E63 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		C23BC4E3A4EF498CB2E1D08C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D214BE031862BE7F00812BA5 /* ToSavourSeed.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = ToSavourSeed.sqlite; path = Resource/ToSavourSeed.sqlite; sourceTree = "<group>"; };
+		D214BE051862DAF000812BA5 /* RestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RestManager.h; path = BackEnd/RestManager.h; sourceTree = "<group>"; };
+		D214BE061862DAF000812BA5 /* RestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RestManager.m; path = BackEnd/RestManager.m; sourceTree = "<group>"; };
 		D221964718598E0B007528EE /* RKMappableEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RKMappableEntity.h; path = BackEnd/RKMappableEntity.h; sourceTree = "<group>"; };
 		D221964B1859BCC6007528EE /* FriendsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FriendsListViewController.h; path = FrontEnd/FriendsListViewController.h; sourceTree = "<group>"; };
 		D221964C1859BCC6007528EE /* FriendsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FriendsListViewController.m; path = FrontEnd/FriendsListViewController.m; sourceTree = "<group>"; };
@@ -169,7 +173,6 @@
 		D2466845186052450089D5DB /* CartItemTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CartItemTableViewCell.m; path = FrontEnd/Views/CartItemTableViewCell.m; sourceTree = "<group>"; };
 		D2466847186062DC0089D5DB /* NSString+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Helper.h"; path = "Utilities/NSString+Helper.h"; sourceTree = "<group>"; };
 		D2466848186062DC0089D5DB /* NSString+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Helper.m"; path = "Utilities/NSString+Helper.m"; sourceTree = "<group>"; };
-		D246684A186154830089D5DB /* ToSavourSeed.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = ToSavourSeed.sqlite; sourceTree = "<group>"; };
 		D293E4AE183DEDEB00B73795 /* ToSavour.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToSavour.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D293E4B1183DEDEB00B73795 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D293E4B3183DEDEB00B73795 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -464,7 +467,6 @@
 		D293E4F3184356D300B73795 /* BackEnd */ = {
 			isa = PBXGroup;
 			children = (
-				D246684A186154830089D5DB /* ToSavourSeed.sqlite */,
 				DF852706185EDDAA0087E247 /* DailyAwardGame */,
 				D2A55702184DB5ED0039A5A0 /* Model */,
 				D293E4F4184357B400B73795 /* TimeTracker.h */,
@@ -472,6 +474,8 @@
 				DFE628AB1855AF2C00E1C8FE /* TSNetworkServiceCalls.h */,
 				DFE628AC1855AF2C00E1C8FE /* TSNetworkServiceCalls.m */,
 				D221964718598E0B007528EE /* RKMappableEntity.h */,
+				D214BE051862DAF000812BA5 /* RestManager.h */,
+				D214BE061862DAF000812BA5 /* RestManager.m */,
 			);
 			name = BackEnd;
 			sourceTree = "<group>";
@@ -521,6 +525,7 @@
 		D2C075B51851D23800620114 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				D214BE031862BE7F00812BA5 /* ToSavourSeed.sqlite */,
 				D293EB27185F04ED00A69034 /* MProductConfigurableOption.json */,
 				D293EB28185F04ED00A69034 /* MProductInfo.json */,
 				D293EB29185F04ED00A69034 /* MProductOptionChoice.json */,
@@ -704,10 +709,10 @@
 			files = (
 				D293E4D2183DEDEB00B73795 /* Images.xcassets in Resources */,
 				D293EB2A185F04ED00A69034 /* MProductConfigurableOption.json in Resources */,
+				D214BE041862BE7F00812BA5 /* ToSavourSeed.sqlite in Resources */,
 				D293EB2B185F04ED00A69034 /* MProductInfo.json in Resources */,
 				D293EB2C185F04ED00A69034 /* MProductOptionChoice.json in Resources */,
 				D293E4BE183DEDEB00B73795 /* InfoPlist.strings in Resources */,
-				D246684B186154830089D5DB /* ToSavourSeed.sqlite in Resources */,
 				DFE628A518558AD600E1C8FE /* DailyGameStoryboard.storyboard in Resources */,
 				D293E4C7183DEDEB00B73795 /* Main.storyboard in Resources */,
 				D2A67A91185C21C500889114 /* AccountHeaderView.xib in Resources */,
@@ -845,6 +850,7 @@
 				D2A67A9A185C48B100889114 /* TransactionHistoryTableViewCell.m in Sources */,
 				D2A67A94185C26E100889114 /* AccountHeaderView.m in Sources */,
 				D243757518488358000009D7 /* TSSettings.m in Sources */,
+				D214BE071862DAF000812BA5 /* RestManager.m in Sources */,
 				D2A67A88185B0EC000889114 /* AvatarView.m in Sources */,
 				D2C075D31858092800620114 /* MUserInfo.m in Sources */,
 				D2C91692185EECA600452891 /* MProductConfigurableOption.m in Sources */,

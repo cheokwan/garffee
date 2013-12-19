@@ -13,4 +13,7 @@
 - (void)removeAllSubviews;
 - (UIView *)subviewAtOrigin:(CGPoint)origin;
 
+- (CGFloat)frameRight;
+- (CGFloat)frameBottom;
+
 @end

@@ -9,7 +9,8 @@
 #import "ChooseGameViewController.h"
 
 #import <AFNetworking.h>
-#import <UIView+Helpers.h>
+#import <UIView+Helpers/UIView+Helpers.h>
+#import "UIView+Helper.h"
 #import "TSGame.h"
 #import "TSGameDownloadManager.h"
 #import "TSNavigationController.h"

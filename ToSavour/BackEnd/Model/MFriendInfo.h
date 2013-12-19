@@ -13,7 +13,7 @@
 
 @interface MFriendInfo : MUserInfo
 
-@property (nonatomic) BOOL canSendGift;
+@property (nonatomic, retain) NSNumber * canSendGift;
 
 + (id)newFriendInfoInContext:(NSManagedObjectContext *)context;
 

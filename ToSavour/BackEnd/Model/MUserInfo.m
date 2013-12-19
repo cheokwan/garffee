@@ -77,7 +77,7 @@
                                                   @"birthday": @"fbBirthday",
                                                   @"picture.data.url": @"fbProfilePicURL"
                                                   }];
-    mapping.identificationAttributes = @[@"fbID"];  // XXX-BUG this is not working for NSString!!!
+    mapping.identificationAttributes = @[@"fbID"];
     return mapping;
 }
 
@@ -89,14 +89,14 @@
     return [NSString stringWithFormat:
             @"fbBirthday:%@, "
             @"fbFirstName:%@, "
-            @"fbID:%d, "
+            @"fbID:%@, "
             @"fbLastName:%@, "
             @"fbLink:%@, "
             @"fbMiddleName:%@, "
             @"fbName:%@, "
             @"fbProfilePicURL:%@, "
             @"fbUsername:%@, "
-            @"fbAgeRangeMin:%d, "
+            @"fbAgeRangeMin:%@, "
             @"fbGender:%@, ",
             self.fbBirthday,
             self.fbFirstName,
