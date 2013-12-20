@@ -83,6 +83,9 @@
             tutorialLoginViewController.skipTutorial = YES;
         }
         [_slidingViewController.topViewController presentViewController:tutorialLoginViewController animated:NO completion:nil];
+    } else {
+        // re-fetch user info again for updated app token
+        [[RestManager sharedInstance] fetchAppUserInfo:nil];
     }
     
     return YES;

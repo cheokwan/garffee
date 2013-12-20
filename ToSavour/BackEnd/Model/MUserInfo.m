@@ -8,13 +8,17 @@
 
 #import "MUserInfo.h"
 #import "NSManagedObject+Helper.h"
+#import "RestManager.h"
 //#import <BlocksKit/BlocksKit.h>  XXX-BUG has build issues
 
 
 @implementation MUserInfo
 
+@dynamic fbAgeRangeMin;
 @dynamic fbBirthday;
+@dynamic fbEmail;
 @dynamic fbFirstName;
+@dynamic fbGender;
 @dynamic fbID;
 @dynamic fbLastName;
 @dynamic fbLink;
@@ -22,8 +26,18 @@
 @dynamic fbName;
 @dynamic fbProfilePicURL;
 @dynamic fbUsername;
-@dynamic fbAgeRangeMin;
-@dynamic fbGender;
+@dynamic tsFirstName;
+@dynamic tsLastName;
+@dynamic tsCreditBalance;
+@dynamic tsEmail;
+@dynamic tsGender;
+@dynamic tsBirthday;
+@dynamic tsPhoneNumber;
+@dynamic tsProfileImageURL;
+@dynamic tsID;
+@dynamic tsUserCreationDate;
+@dynamic tsUserLastUpdatedDate;
+@dynamic tsCoffeeIconID;
 
 + (id)newUserInfoInContext:(NSManagedObjectContext *)context {
     [self.class removeALlObjectsInContext:context];
@@ -64,32 +78,85 @@
 #pragma mark - RKMappableEntity
 
 + (RKEntityMapping *)defaultEntityMapping {
+    return [self.class appEntityMapping];
+}
+
++ (RKEntityMapping *)facebookEntityMapping {
     RKEntityMapping *mapping = [RKEntityMapping mappingForEntityForName:NSStringFromClass(self.class) inManagedObjectStore:[RKManagedObjectStore defaultStore]];
-    [mapping addAttributeMappingsFromDictionary:@{@"id": @"fbID",
-                                                  @"name": @"fbName",
-                                                  @"username": @"fbUsername",
-                                                  @"first_name": @"fbFirstName",
-                                                  @"middle_name": @"fbMiddleName",
-                                                  @"last_name": @"fbLastName",
-                                                  @"gender": @"fbGender",
-                                                  @"age_range.min": @"fbAgeRangeMin",
-                                                  @"link": @"fbLink",
-                                                  @"birthday": @"fbBirthday",
-                                                  @"picture.data.url": @"fbProfilePicURL"
+    [mapping addAttributeMappingsFromDictionary:@{@"id":                @"fbID",
+                                                  @"name":              @"fbName",
+                                                  @"username":          @"fbUsername",
+                                                  @"email":             @"fbEmail",
+                                                  @"first_name":        @"fbFirstName",
+                                                  @"middle_name":       @"fbMiddleName",
+                                                  @"last_name":         @"fbLastName",
+                                                  @"gender":            @"fbGender",
+                                                  @"age_range.min":     @"fbAgeRangeMin",
+                                                  @"link":              @"fbLink",
+                                                  @"birthday":          @"fbBirthday",
+                                                  @"picture.data.url":  @"fbProfilePicURL"
                                                   }];
     mapping.identificationAttributes = @[@"fbID"];
     return mapping;
 }
 
++ (RKEntityMapping *)appEntityMapping {
+    RKEntityMapping *mapping = [RKEntityMapping mappingForEntityForName:NSStringFromClass(self.class) inManagedObjectStore:[RKManagedObjectStore defaultStore]];
+    [mapping addAttributeMappingsFromDictionary:@{@"Id":                @"tsID",
+                                                  @"FacebookId":        @"fbID",
+                                                  @"FirstName":         @"tsFirstName",
+                                                  @"LastName":          @"tsLastName",
+                                                  @"CreditBalance":     @"tsCreditBalance",
+                                                  @"Email":             @"tsEmail",
+                                                  @"Sex":               @"tsGender",
+                                                  @"Birthday":          @"tsBirthday",
+                                                  @"Phone":             @"tsPhoneNumber",
+                                                  @"ProfileImageUrl":   @"tsProfileImageURL",
+                                                  @"CreatedDateTime":   @"tsUserCreationDate",
+                                                  @"LastUpdatedDateTime": @"tsUserLastUpdatedDate",
+                                                  @"CoffeeIconId":      @"tsCoffeeIconID"}];
+    mapping.identificationAttributes = @[@"tsID", @"fbID"];
+    mapping.valueTransformer = [[RestManager sharedInstance] defaultDotNetValueTransformer];
+    return mapping;
+}
+
++ (RKEntityMapping *)appUserCreationEntityMapping {
+    RKEntityMapping *mapping = [RKEntityMapping mappingForEntityForName:NSStringFromClass(self.class) inManagedObjectStore:[RKManagedObjectStore defaultStore]];
+    [mapping addAttributeMappingsFromDictionary:@{@"FacebookId": @"fbID",
+                                                  @"FirstName": @"fbFirstName",
+                                                  @"LastName": @"fbLastName",
+//                                                  @"CreditBalance": @"",
+                                                  @"Email": @"fbEmail",
+                                                  @"Sex": @"fbGender",
+                                                  @"Birthday": @"fbBirthday",
+//                                                  @"Phone": @"",
+                                                  @"ProfileImageUrl": @"fbProfilePicURL",
+//                                                  @"CreatedDateTime": @"",
+//                                                  @"LastUpdatedDateTime": @"",
+//                                                  @"CoffeeIconID": @"",
+                                                  }];
+    mapping.valueTransformer = [[RestManager sharedInstance] defaultDotNetValueTransformer];
+    return [mapping inverseMapping];
+}
+
 + (RKResponseDescriptor *)defaultResponseDescriptor {
-    return [RKResponseDescriptor responseDescriptorWithMapping:[self.class defaultEntityMapping] method:RKRequestMethodAny pathPattern:nil keyPath:nil statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+    return [self.class appResponseDescriptor];
+}
+
++ (RKResponseDescriptor *)facebookResponseDescriptor {
+    return [RKResponseDescriptor responseDescriptorWithMapping:[self.class facebookEntityMapping] method:RKRequestMethodAny pathPattern:nil keyPath:nil statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+}
+
++ (RKResponseDescriptor *)appResponseDescriptor {
+    return [RKResponseDescriptor responseDescriptorWithMapping:[self.class appEntityMapping] method:RKRequestMethodAny pathPattern:nil keyPath:nil statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
 }
 
 - (NSString *)description {
     return [NSString stringWithFormat:
+            @"fbID:%@, "
+            @"fbEmail:%@, "
             @"fbBirthday:%@, "
             @"fbFirstName:%@, "
-            @"fbID:%@, "
             @"fbLastName:%@, "
             @"fbLink:%@, "
             @"fbMiddleName:%@, "
@@ -97,10 +164,23 @@
             @"fbProfilePicURL:%@, "
             @"fbUsername:%@, "
             @"fbAgeRangeMin:%@, "
-            @"fbGender:%@, ",
+            @"fbGender:%@, "
+            @"tsFirstName:%@, "
+            @"tsLastName:%@, "
+            @"tsCreditBalance:%@, "
+            @"tsEmail:%@, "
+            @"tsGender:%@, "
+            @"tsBirthday:%@, "
+            @"tsPhoneNumber:%@, "
+            @"tsProfileImageURL:%@, "
+            @"tsID:%@, "
+            @"tsUserCreationDate:%@, "
+            @"tsUserLastUpdatedDate:%@, "
+            @"tsCoffeeIconID:%@, ",
+            self.fbID,
+            self.fbEmail,
             self.fbBirthday,
             self.fbFirstName,
-            self.fbID,
             self.fbLastName,
             self.fbLink,
             self.fbMiddleName,
@@ -108,7 +188,20 @@
             self.fbProfilePicURL,
             self.fbUsername,
             self.fbAgeRangeMin,
-            self.fbGender];
+            self.fbGender,
+            self.tsFirstName,
+            self.tsLastName,
+            self.tsCreditBalance,
+            self.tsEmail,
+            self.tsGender,
+            self.tsBirthday,
+            self.tsPhoneNumber,
+            self.tsProfileImageURL,
+            self.tsID,
+            self.tsUserCreationDate,
+            self.tsUserLastUpdatedDate,
+            self.tsCoffeeIconID
+            ];
 }
 
 @end

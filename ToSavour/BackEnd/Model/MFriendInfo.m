@@ -18,8 +18,8 @@
     return (MFriendInfo *)[self.class newObjectInContext:context];
 }
 
-+ (RKResponseDescriptor *)defaultResponseDescriptor {
-    return [RKResponseDescriptor responseDescriptorWithMapping:[self.class defaultEntityMapping] method:RKRequestMethodAny pathPattern:nil keyPath:@"data" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
++ (RKResponseDescriptor *)facebookResponseDescriptor {
+    return [RKResponseDescriptor responseDescriptorWithMapping:[self.class facebookEntityMapping] method:RKRequestMethodAny pathPattern:nil keyPath:@"data" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
 }
 
 @end

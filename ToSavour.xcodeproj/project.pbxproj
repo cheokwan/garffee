@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		C745B082CE144F8095231522 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C23BC4E3A4EF498CB2E1D08C /* libPods.a */; };
-		D214BE041862BE7F00812BA5 /* ToSavourSeed.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = D214BE031862BE7F00812BA5 /* ToSavourSeed.sqlite */; };
 		D214BE071862DAF000812BA5 /* RestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D214BE061862DAF000812BA5 /* RestManager.m */; };
 		D221964D1859BCC6007528EE /* FriendsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D221964C1859BCC6007528EE /* FriendsListViewController.m */; };
 		D22196501859C24C007528EE /* FriendsListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D221964F1859C24C007528EE /* FriendsListTableViewCell.m */; };
@@ -146,7 +145,6 @@
 /* Begin PBXFileReference section */
 		257842E4F2DE434C98166E63 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		C23BC4E3A4EF498CB2E1D08C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		D214BE031862BE7F00812BA5 /* ToSavourSeed.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = ToSavourSeed.sqlite; path = Resource/ToSavourSeed.sqlite; sourceTree = "<group>"; };
 		D214BE051862DAF000812BA5 /* RestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RestManager.h; path = BackEnd/RestManager.h; sourceTree = "<group>"; };
 		D214BE061862DAF000812BA5 /* RestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RestManager.m; path = BackEnd/RestManager.m; sourceTree = "<group>"; };
 		D221964718598E0B007528EE /* RKMappableEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RKMappableEntity.h; path = BackEnd/RKMappableEntity.h; sourceTree = "<group>"; };
@@ -525,7 +523,6 @@
 		D2C075B51851D23800620114 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				D214BE031862BE7F00812BA5 /* ToSavourSeed.sqlite */,
 				D293EB27185F04ED00A69034 /* MProductConfigurableOption.json */,
 				D293EB28185F04ED00A69034 /* MProductInfo.json */,
 				D293EB29185F04ED00A69034 /* MProductOptionChoice.json */,
@@ -709,7 +706,6 @@
 			files = (
 				D293E4D2183DEDEB00B73795 /* Images.xcassets in Resources */,
 				D293EB2A185F04ED00A69034 /* MProductConfigurableOption.json in Resources */,
-				D214BE041862BE7F00812BA5 /* ToSavourSeed.sqlite in Resources */,
 				D293EB2B185F04ED00A69034 /* MProductInfo.json in Resources */,
 				D293EB2C185F04ED00A69034 /* MProductOptionChoice.json in Resources */,
 				D293E4BE183DEDEB00B73795 /* InfoPlist.strings in Resources */,

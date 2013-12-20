@@ -132,6 +132,7 @@
 
 - (void)dismissAfterLoggedIn {
     _facebookLoginButton.delegate = nil;
+    [_spinner hide:NO];
     self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -161,21 +162,33 @@
 - (void)restManagerService:(SEL)selector succeededWithOperation:(NSOperation *)operation userInfo:(NSDictionary *)userInfo {
     
     if (selector == @selector(fetchFacebookAppUserInfo:)) {
-        // successfully logged in and fetched user info, dismiss the login view now
-        [self dismissAfterLoggedIn];
+        [[RestManager sharedInstance] fetchAppUserInfo:self];
     }
     if (selector == @selector(fetchFacebookFriendsInfo:)) {
+    }
+    if (selector == @selector(fetchAppUserInfo:)) {
+        // successfully logged in and registered user info, dismiss the login view now
+        [self dismissAfterLoggedIn];
     }
 }
 
 - (void)restManagerService:(SEL)selector failedWithOperation:(NSOperation *)operation error:(NSError *)error userInfo:(NSDictionary *)userInfo {
+    DDLogError(@"error in initial registration: %@, %@", NSStringFromSelector(selector), error);
+    // TODO: handle this error better
+    if (selector != @selector(fetchFacebookFriendsInfo:)) {
+        // force user to go through facebook login process again to retry
+        [[FBSession activeSession] closeAndClearTokenInformation];
+        [_spinner hide:NO];
+        self.view.hidden = NO;
+        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Registration Error", @"") message:NSLocalizedString(@"We cannout complete the registration process due to some unexpected error. Please try again later", @"") delegate:self cancelButtonTitle:LS_OK otherButtonTitles:nil] show];
+    }
 }
 
 #pragma mark - FBLoginViewDelegate
 
 - (void)loginViewShowingLoggedInUser:(FBLoginView *)loginView {
     DDLogInfo(@"user is logged into facebook");
-    
+    self.view.hidden = YES;
     // XXX-BUG what if user skips the permission request
 }
 
@@ -187,35 +200,11 @@
     DDLogInfo(@"fetched user facebook info");
     
     // user just logged into facebook, start a spinner and do the initial fetch
-    self.spinner = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    _spinner.mode = MBProgressHUDModeAnnularDeterminate;
+    self.spinner = [MBProgressHUD showHUDAddedTo:[AppDelegate sharedAppDelegate].window animated:YES];
+    _spinner.mode = MBProgressHUDModeIndeterminate;
     _spinner.labelText = LS_LOADING;
     [[RestManager sharedInstance] fetchFacebookAppUserInfo:self];
     [[RestManager sharedInstance] fetchFacebookFriendsInfo:self];
-    
-//    // create a new user info after initial logged in
-//    MUserInfo *userInfo = [MUserInfo newUserInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
-//    
-//    userInfo.fbID = user.id;
-//    userInfo.fbUsername = user.username;
-//    userInfo.fbName = user.name;
-//    userInfo.fbFirstName = user.first_name;
-//    userInfo.fbMiddleName = user.middle_name;
-//    userInfo.fbLastName = user.last_name;
-//    userInfo.fbBirthday = user.birthday;
-//    userInfo.fbLink = user.link;
-//    
-//    NSError *error = nil;
-//    [[AppDelegate sharedAppDelegate].managedObjectContext saveToPersistentStore:&error];
-//    if (error) {
-//        DDLogError(@"error in saving after creating new user info");
-//        // TODO: handle this error
-//    }
-//    
-//    // successfully logged in and fetched user info, dismiss the login view now
-//    loginView.delegate = nil;
-//    self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-//    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)loginView:(FBLoginView *)loginView handleError:(NSError *)error {

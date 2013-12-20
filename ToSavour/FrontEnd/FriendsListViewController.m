@@ -82,7 +82,9 @@
     FriendsListTableViewCell *friendCell = (FriendsListTableViewCell *)cell;
     MUserInfo *friendInfo = [self.fetchedResultsController objectAtIndexPath:indexPath];
     friendCell.title.text = friendInfo.fbName;
-    friendCell.subtitle.text = friendInfo.fbBirthday;
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+    friendCell.subtitle.text = [dateFormatter stringFromDate:friendInfo.fbBirthday];
     
     NSURL *profilePicURL = [NSURL URLWithString:friendInfo.fbProfilePicURL];
     [friendCell.avatarView removeFromSuperview];

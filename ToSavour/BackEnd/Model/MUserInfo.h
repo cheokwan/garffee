@@ -14,7 +14,8 @@
 @interface MUserInfo : NSManagedObject<RKMappableEntity>
 
 @property (nonatomic, retain) NSNumber * fbAgeRangeMin;
-@property (nonatomic, retain) NSString * fbBirthday;
+@property (nonatomic, retain) NSDate * fbBirthday;
+@property (nonatomic, retain) NSString * fbEmail;
 @property (nonatomic, retain) NSString * fbFirstName;
 @property (nonatomic, retain) NSString * fbGender;
 @property (nonatomic, retain) NSString * fbID;
@@ -24,8 +25,26 @@
 @property (nonatomic, retain) NSString * fbName;
 @property (nonatomic, retain) NSString * fbProfilePicURL;
 @property (nonatomic, retain) NSString * fbUsername;
+@property (nonatomic, retain) NSString * tsFirstName;
+@property (nonatomic, retain) NSString * tsLastName;
+@property (nonatomic, retain) NSNumber * tsCreditBalance;
+@property (nonatomic, retain) NSString * tsEmail;
+@property (nonatomic, retain) NSString * tsGender;
+@property (nonatomic, retain) NSDate * tsBirthday;
+@property (nonatomic, retain) NSString * tsPhoneNumber;
+@property (nonatomic, retain) NSString * tsProfileImageURL;
+@property (nonatomic, retain) NSNumber * tsID;
+@property (nonatomic, retain) NSDate * tsUserCreationDate;
+@property (nonatomic, retain) NSDate * tsUserLastUpdatedDate;
+@property (nonatomic, retain) NSNumber * tsCoffeeIconID;
 
 + (id)newUserInfoInContext:(NSManagedObjectContext *)context;
 + (id)currentUserInfoInContext:(NSManagedObjectContext *)context;
+
++ (RKEntityMapping *)facebookEntityMapping;
++ (RKEntityMapping *)appEntityMapping;
++ (RKEntityMapping *)appUserCreationEntityMapping;
++ (RKResponseDescriptor *)facebookResponseDescriptor;
++ (RKResponseDescriptor *)appResponseDescriptor;
 
 @end

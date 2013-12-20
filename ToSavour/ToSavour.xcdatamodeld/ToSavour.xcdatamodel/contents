@@ -64,7 +64,8 @@
     </entity>
     <entity name="MUserInfo" representedClassName="MUserInfo" syncable="YES">
         <attribute name="fbAgeRangeMin" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="fbBirthday" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fbBirthday" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="fbEmail" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fbFirstName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fbGender" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fbID" optional="YES" attributeType="String" syncable="YES"/>
@@ -74,6 +75,18 @@
         <attribute name="fbName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fbProfilePicURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fbUsername" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tsBirthday" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="tsCoffeeIconID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="tsCreditBalance" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="tsEmail" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tsFirstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tsGender" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tsID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="tsLastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tsPhoneNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tsProfileImageURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tsUserCreationDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="tsUserLastUpdatedDate" optional="YES" attributeType="Date" syncable="YES"/>
     </entity>
     <elements>
         <element name="MapTrackingAnnotation" positionX="0" positionY="0" width="0" height="0"/>
