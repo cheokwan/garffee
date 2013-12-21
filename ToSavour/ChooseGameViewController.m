@@ -18,9 +18,18 @@
 
 #define PROGRESS_LABEL_PREFIX   [NSString stringWithFormat:@"%@...", LS_DOWNLOADING]
 
+#define GAME_DICT_KEY_GAME_IMAGE_URL        @"GameImageUrl"
+#define GAME_DICT_KEY_GAME_PACKAGE_URL      @"GamePackageUrl"
+#define GAME_DICT_KEY_ID                    @"Id"
+#define GAME_DICT_KEY_NAME                  @"Name"
+#define GAME_DICT_KEY_SPONSOR_IMAGE_URL     @"SponsorImageUrl"
+#define GAME_DICT_KEY_SPONSOR_NAME          @"SponsorName"
+#define GAME_DICT_KEY_TIME_LIMIT            @"TimeLimit"
+
 @interface ChooseGameViewController ()
 @property (nonatomic, strong) NSMutableDictionary *buttonDict;
 @property (nonatomic, strong) NSMutableArray *games;
+@property (nonatomic, strong) NSString *configurationHost;
 @end
 
 @implementation ChooseGameViewController
@@ -31,8 +40,9 @@
 	// Do any additional setup after loading the view.
     self.games = [NSMutableArray array];
     //XXX-ML
-    [self mockGames];
+//    [self mockGames];
     //XXX-ML
+    [((TSGameServiceCalls *)[TSGameServiceCalls sharedInstance]) fetchConfiguration:self];
     [self initializeView];
 }
 
@@ -48,6 +58,7 @@
     [_challengeNowButton setTitle:LS_ALREADY_PLAYED forState:UIControlStateDisabled];
     [_challengeNowButton setTitleColor:[UIColor redColor] forState:UIControlStateDisabled];
     [_challengeNowButton addTarget:self action:@selector(challengeNowButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    _challengeNowButton.enabled = NO;
     [self initializeScrollView];
     _pageControl.numberOfPages = [self numberOfGames];
     [_pageControl addTarget:self action:@selector(pageControlValueDidChanged:) forControlEvents:UIControlEventValueChanged];
@@ -62,8 +73,24 @@
     self.delegate = nil;
 }
 
-- (void)gameUpdated {
-    
+- (void)gameChanged {
+    TSGame *game = _games[[self currentPage]];
+    _challengeNowButton.enabled = (game.result == GamePlayResultNone);
+}
+
+- (void)updateGameResultHistories {
+    for (int i=0; i<_games.count; i++) {
+        TSGame *game = _games[i];
+        game.result = (i % 2 == 0);
+    }
+}
+
+- (void)refetchGamesData {
+    if (_configurationHost) {
+        [((TSGameServiceCalls *)[TSGameServiceCalls sharedInstance]) fetchGameList:self];
+    } else {
+        [((TSGameServiceCalls *)[TSGameServiceCalls sharedInstance]) fetchConfiguration:self];
+    }
 }
 
 #pragma mark - button pressed
@@ -143,6 +170,9 @@
 
 #pragma mark - scroll view related
 - (void)initializeScrollView {
+    for (UIView *subview in _gamesScrollView.subviews) {
+        [subview removeFromSuperview];
+    }
     float width = 0.0f;
     for (int i=0; i<[self numberOfGames]; i++) {
         CGRect rect = CGRectMake(i*_gamesScrollView.frameSizeWidth, 0, _gamesScrollView.frameSizeWidth, _gamesScrollView.frameSizeHeight);
@@ -168,7 +198,7 @@
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     _pageControl.currentPage = [self currentPage];
-    [self gameUpdated];
+    [self gameChanged];
 }
 
 - (void)pageControlValueDidChanged:(id)sender {
@@ -240,36 +270,78 @@
 
 #pragma mark - PhotoHuntViewControllerDelegate / related
 - (void)photoHuntViewControllerDidFinishGame:(PhotoHuntViewController *)controller {
+    [self refetchGamesData];
     //XXX-ML
     NSLog(@"finished game and come back!");
 }
 
-
-
-#pragma mark - XXX-ML
-- (void)mockGames {
-    NSArray *logo = @[@"http://blogs.ubc.ca/xuyueting/files/2013/09/Nike-logo-dark-with-Nike-name-freehdlogos.jpg",
-                      @"http://www.littlegreenmoments.com/wp-content/uploads/2013/05/rainbow-diagram-roygbiv1.png",
-                      @"http://1.bp.blogspot.com/-rU0MAHswsms/URx10AfQXvI/AAAAAAAAAQM/_Tq6WUIrBS0/s1600/Free-HD-Logo-Nike-Wallpaper.jpg",
-                      @"http://www.a2zsavings.com/images/brands/adidas.jpg"
-                      ];
-    
-    for (int i=0; i<5; i++) {
-        TSGame *game = [[TSGame alloc] init];
-        game.gameId = @"0001";
-        game.name = @"Game 1";
-        game.gamePackageURL = @"http://www.cse.ust.hk/esc/examples/proj_rome.zip";
-        if (i < logo.count) {
-            game.gameImageURL = logo[i];
-        } else {
-            game.gameImageURL = @"http://www.cuhk.edu.hk/hkiaps/conference/event/CPU%20Insignia.jpg";
+#pragma TSGameServiceCallDelegate
+- (void)restManagerService:(SEL)selector succeededWithOperation:(NSOperation *)operation userInfo:(NSDictionary *)userInfo {
+    NSError *error = nil;
+    if (selector == @selector(fetchGameHistories:)) {
+        NSData *data = userInfo[@"responseObject"];
+        if (data) {
+            NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+            if (!jsonArray) {
+                NSLog(@"Error parsing JSON: %@", error);
+            } else {
+                NSLog(@"");
+                [self updateGameResultHistories];
+            }
         }
-        game.gamePackageName = i % 2 == 0 ? @"nike" : @"AinoKishi01";
-        game.timeLimit = 50.0f;
-        game.timePenalty = 3.0f;
-        game.validNumberOfChanges = 5;
-        [_games addObject:game];
+    } else if (selector == @selector(fetchGameList:)) {
+        NSData *data = userInfo[@"responseObject"];
+        if (data) {
+            NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+            
+            if (!jsonArray) {
+                NSLog(@"Error parsing JSON: %@", error);
+            } else {
+                for(NSDictionary *item in jsonArray) {
+                    NSLog(@"Item: %@", item);
+                    TSGame *game = [[TSGame alloc] init];
+                    game.gameId = item[GAME_DICT_KEY_ID];
+                    game.name = item[GAME_DICT_KEY_NAME];
+                    NSString *packageURL = item[GAME_DICT_KEY_GAME_PACKAGE_URL];
+                    packageURL = [packageURL stringByDeletingPathExtension];
+                    packageURL = [packageURL lastPathComponent];
+                    game.gamePackageName = packageURL;
+                    game.gameImageURL = [NSString stringWithFormat:@"%@%@", _configurationHost, item[GAME_DICT_KEY_GAME_IMAGE_URL]];
+                    game.gamePackageURL = [NSString stringWithFormat:@"%@%@", _configurationHost, item[GAME_DICT_KEY_GAME_PACKAGE_URL]];
+                    game.timeLimit = [item[GAME_DICT_KEY_TIME_LIMIT] intValue];
+                    game.validNumberOfChanges = 5;
+                    [_games addObject:game];
+                }
+            }
+            NSLog(@"");
+        }
+        [self initializeScrollView];
+        [[TSGameServiceCalls sharedInstance] fetchGameHistories:self];
+    } else if (selector == @selector(fetchConfiguration:)) {
+        NSData *data = userInfo[@"responseObject"];
+        if (data) {
+            NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+            
+            if (!jsonArray) {
+                NSLog(@"Error parsing JSON: %@", error);
+            } else {
+                for(NSDictionary *item in jsonArray) {
+                    if (item[@"Value"]) {
+                        self.configurationHost = item[@"Value"];
+                    }
+                }
+            }
+            if (_configurationHost) {
+                [((TSGameServiceCalls *)[TSGameServiceCalls sharedInstance]) fetchGameList:self];
+            } else {
+                DDLogCError(@"no configuration host is found");
+            }
+        }
     }
+}
+
+- (void)restManagerService:(SEL)selector failedWithOperation:(NSOperation *)operation error:(NSError *)error userInfo:(NSDictionary *)userInfo {
+    NSLog(@"");
 }
 
 @end

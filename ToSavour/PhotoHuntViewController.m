@@ -12,6 +12,7 @@
 #import <UIView+Helpers/UIView+Helpers.h>
 #import "UIView+Helper.h"
 #import "TSTheming.h"
+#import "TSGameServiceCalls.h"
 
 typedef enum {
     ImageViewENumNone           = 0,
@@ -36,6 +37,7 @@ typedef enum {
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic) float accumulativePenalty;
 @property (nonatomic) GameState gameState;
+@property (nonatomic, strong) TSGamePlayHistory *history;
 
 @end
 
@@ -101,6 +103,7 @@ typedef enum {
 
 #pragma mark - game logic
 - (void)startGame {
+    [[TSGameServiceCalls sharedInstance] postGameStart:self game:_gameManager.game];
     _gameState = GameStateStarted;
     [self updateFoundChangesLabel];
     [self startTimer];
@@ -296,6 +299,33 @@ typedef enum {
 - (void)photoHuntManager:(PhotoHuntManager *)manager didFinishGameWithOption:(PhotoHuntDidFinishOption)option {
     if (option == PhotoHuntDidFinishOptionWin) {
         [self winGame];
+    }
+}
+
+#pragma mark - TSGameServiceCallsDelegate
+- (void)restManagerService:(SEL)selector succeededWithOperation:(NSOperation *)operation userInfo:(NSDictionary *)userInfo {
+    NSError *error = nil;
+    if (selector == @selector(postGameStart:game:)) {
+//        NSData *data = userInfo[@"responseObject"];
+//        if (data) {
+//            NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+//            if (!jsonDict) {
+//                NSLog(@"Error parsing JSON: %@", error);
+//            } else {
+//                NSString *dailyGameId = nil;
+//                if ((dailyGameId = jsonDict[@"DailyGameId"]) && (dailyGameId == _gameManager.game.gameId)) {
+//                    self.history = [[TSGamePlayHistory alloc] init];
+//                    _history.gameId = jsonDict[@"DailyGameId"];
+//                    _history.
+//                }
+//            }
+//        }
+    }
+}
+
+- (void)restManagerService:(SEL)selector failedWithOperation:(NSOperation *)operation error:(NSError *)error userInfo:(NSDictionary *)userInfo {
+    if (selector == @selector(postGameStart:game:)) {
+        
     }
 }
 

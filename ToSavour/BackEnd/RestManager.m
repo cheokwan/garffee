@@ -18,8 +18,6 @@
 @end
 
 @implementation RestManager
-static const NSString *facebookAPIBaseURLString = @"https://graph.facebook.com";
-static const NSString *appAPIBaseURLString = @"http://f34e2b0b303842659d3e58ed6dc844a5.cloudapp.net:8080/RESTfulWCFUsersServiceEndPoint.svc";
 
 @synthesize appToken = _appToken;
 @synthesize defaultDotNetValueTransformer = _defaultDotNetValueTransformer;

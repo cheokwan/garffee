@@ -118,6 +118,9 @@
 		D2C9168C185EEC7500452891 /* MItemInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C9168B185EEC7500452891 /* MItemInfo.m */; };
 		D2C9168F185EEC9000452891 /* MItemSelectedOption.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C9168E185EEC9000452891 /* MItemSelectedOption.m */; };
 		D2C91695185EECBA00452891 /* MProductInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C91694185EECBA00452891 /* MProductInfo.m */; };
+		D2C91698185EECED00452891 /* MProductOptionChoice.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C91697185EECED00452891 /* MProductOptionChoice.m */; };
+		DF26BEB518653FC400598CA0 /* TSGamePlayHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = DF26BEB418653FC400598CA0 /* TSGamePlayHistory.m */; };
+
 		DF60E74D185B47BA00DB10DE /* PhotoHuntGridButton.m in Sources */ = {isa = PBXBuildFile; fileRef = DF60E74C185B47BA00DB10DE /* PhotoHuntGridButton.m */; };
 		DF60E750185C0D8000DB10DE /* PhotoHuntManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DF60E74F185C0D8000DB10DE /* PhotoHuntManager.m */; };
 		DF60E756185C455200DB10DE /* PhotoHuntImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = DF60E755185C455200DB10DE /* PhotoHuntImageView.m */; };
@@ -128,7 +131,7 @@
 		DFBDA14C1856111500BF3755 /* PhotoHuntViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFBDA14B1856111500BF3755 /* PhotoHuntViewController.m */; };
 		DFE628A518558AD600E1C8FE /* DailyGameStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DFE628A418558AD600E1C8FE /* DailyGameStoryboard.storyboard */; };
 		DFE628A81855992800E1C8FE /* ChooseGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFE628A71855992800E1C8FE /* ChooseGameViewController.m */; };
-		DFE628AD1855AF2C00E1C8FE /* TSNetworkServiceCalls.m in Sources */ = {isa = PBXBuildFile; fileRef = DFE628AC1855AF2C00E1C8FE /* TSNetworkServiceCalls.m */; };
+		DFE628AD1855AF2C00E1C8FE /* TSGameServiceCalls.m in Sources */ = {isa = PBXBuildFile; fileRef = DFE628AC1855AF2C00E1C8FE /* TSGameServiceCalls.m */; };
 		DFE628B11855FB7D00E1C8FE /* AreYouReadyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFE628B01855FB7D00E1C8FE /* AreYouReadyViewController.m */; };
 		DFE628B41855FE0D00E1C8FE /* CountDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = DFE628B31855FE0C00E1C8FE /* CountDownButton.m */; };
 /* End PBXBuildFile section */
@@ -255,6 +258,8 @@
 		D2C91693185EECB900452891 /* MProductInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MProductInfo.h; path = BackEnd/Model/MProductInfo.h; sourceTree = "<group>"; };
 		D2C91694185EECBA00452891 /* MProductInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MProductInfo.m; path = BackEnd/Model/MProductInfo.m; sourceTree = "<group>"; };
 		D2C916A3185F015800452891 /* TSModelIncludes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TSModelIncludes.h; path = BackEnd/Model/TSModelIncludes.h; sourceTree = "<group>"; };
+		DF26BEB318653FC400598CA0 /* TSGamePlayHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSGamePlayHistory.h; sourceTree = "<group>"; };
+		DF26BEB418653FC400598CA0 /* TSGamePlayHistory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSGamePlayHistory.m; sourceTree = "<group>"; };
 		DF60E74B185B47BA00DB10DE /* PhotoHuntGridButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoHuntGridButton.h; sourceTree = "<group>"; };
 		DF60E74C185B47BA00DB10DE /* PhotoHuntGridButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoHuntGridButton.m; sourceTree = "<group>"; };
 		DF60E74E185C0D8000DB10DE /* PhotoHuntManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoHuntManager.h; sourceTree = "<group>"; };
@@ -275,8 +280,8 @@
 		DFE628A418558AD600E1C8FE /* DailyGameStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DailyGameStoryboard.storyboard; sourceTree = "<group>"; };
 		DFE628A61855992800E1C8FE /* ChooseGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseGameViewController.h; sourceTree = "<group>"; };
 		DFE628A71855992800E1C8FE /* ChooseGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseGameViewController.m; sourceTree = "<group>"; };
-		DFE628AB1855AF2C00E1C8FE /* TSNetworkServiceCalls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSNetworkServiceCalls.h; sourceTree = "<group>"; };
-		DFE628AC1855AF2C00E1C8FE /* TSNetworkServiceCalls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSNetworkServiceCalls.m; sourceTree = "<group>"; };
+		DFE628AB1855AF2C00E1C8FE /* TSGameServiceCalls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSGameServiceCalls.h; sourceTree = "<group>"; };
+		DFE628AC1855AF2C00E1C8FE /* TSGameServiceCalls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSGameServiceCalls.m; sourceTree = "<group>"; };
 		DFE628AF1855FB7D00E1C8FE /* AreYouReadyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AreYouReadyViewController.h; sourceTree = "<group>"; };
 		DFE628B01855FB7D00E1C8FE /* AreYouReadyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AreYouReadyViewController.m; sourceTree = "<group>"; };
 		DFE628B21855FE0C00E1C8FE /* CountDownButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountDownButton.h; sourceTree = "<group>"; };
@@ -477,8 +482,8 @@
 				D2A55702184DB5ED0039A5A0 /* Model */,
 				D293E4F4184357B400B73795 /* TimeTracker.h */,
 				D293E4F5184357B400B73795 /* TimeTracker.m */,
-				DFE628AB1855AF2C00E1C8FE /* TSNetworkServiceCalls.h */,
-				DFE628AC1855AF2C00E1C8FE /* TSNetworkServiceCalls.m */,
+				DFE628AB1855AF2C00E1C8FE /* TSGameServiceCalls.h */,
+				DFE628AC1855AF2C00E1C8FE /* TSGameServiceCalls.m */,
 				D221964718598E0B007528EE /* RKMappableEntity.h */,
 				D214BE051862DAF000812BA5 /* RestManager.h */,
 				D214BE061862DAF000812BA5 /* RestManager.m */,
@@ -575,6 +580,8 @@
 				DF852708185EDDBC0087E247 /* TSGame.m */,
 				DF85270A185EDE450087E247 /* TSGameDownloadManager.h */,
 				DF85270B185EDE450087E247 /* TSGameDownloadManager.m */,
+				DF26BEB318653FC400598CA0 /* TSGamePlayHistory.h */,
+				DF26BEB418653FC400598CA0 /* TSGamePlayHistory.m */,
 			);
 			name = DailyAwardGame;
 			sourceTree = "<group>";
@@ -847,6 +854,7 @@
 			files = (
 				DF60E74D185B47BA00DB10DE /* PhotoHuntGridButton.m in Sources */,
 				D2C075CB1855C47200620114 /* TutorialLoginViewController.m in Sources */,
+				DF26BEB518653FC400598CA0 /* TSGamePlayHistory.m in Sources */,
 				D2A556FB184C37F60039A5A0 /* MapTrackingViewController.m in Sources */,
 				D2827DBB1867F9DC00E4A662 /* SecurityManager.m in Sources */,
 				DF9DB5401861D3DA00FD315E /* TSZipArchive.m in Sources */,
@@ -873,7 +881,7 @@
 				D2466846186052450089D5DB /* CartItemTableViewCell.m in Sources */,
 				D293E4F2183DF24000B73795 /* SlideMenuViewController.m in Sources */,
 				DF85270C185EDE450087E247 /* TSGameDownloadManager.m in Sources */,
-				DFE628AD1855AF2C00E1C8FE /* TSNetworkServiceCalls.m in Sources */,
+				DFE628AD1855AF2C00E1C8FE /* TSGameServiceCalls.m in Sources */,
 				D2C075BE1852CACB00620114 /* ItemPickerTableViewCell.m in Sources */,
 				DFE628B41855FE0D00E1C8FE /* CountDownButton.m in Sources */,
 				D2A55711184DBF4C0039A5A0 /* MapTrackingAnnotation.m in Sources */,

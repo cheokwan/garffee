@@ -12,6 +12,7 @@
 #import "PhotoHuntImageView.h"
 #import "PhotoHuntManager.h"
 #import "TSGame.h"
+#import "RestManager.h"
 
 #define GRID_WIDTH                  10.0f
 #define GRID_HEIGHT                 10.0f
@@ -23,7 +24,7 @@
 - (void)photoHuntViewControllerDidFinishGame:(PhotoHuntViewController *)controller;
 @end
 
-@interface PhotoHuntViewController : UIViewController <UIAlertViewDelegate, PhotoHuntGridButtonDelegate, PhotoHuntManagerDelegate, PhotoHuntImageViewDelegate>
+@interface PhotoHuntViewController : UIViewController <UIAlertViewDelegate, PhotoHuntGridButtonDelegate, PhotoHuntManagerDelegate, PhotoHuntImageViewDelegate, RestManagerResponseHandler>
 
 - (id)initWithGameManager:(PhotoHuntManager *)gameManager;
 
