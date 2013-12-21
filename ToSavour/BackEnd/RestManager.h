@@ -20,6 +20,7 @@
 @property (nonatomic, readonly) NSString *facebookToken;
 @property (nonatomic, strong, readonly) NSString *appToken;
 @property (nonatomic, strong, readonly) RKCompoundValueTransformer *defaultDotNetValueTransformer;
+@property (nonatomic, strong, readonly) RKDotNetDateFormatter *defaultDotNetDateFormatter;
 
 + (RestManager *)sharedInstance;
 - (void)fetchFacebookAppUserInfo:(__weak id<RestManagerResponseHandler>)handler;

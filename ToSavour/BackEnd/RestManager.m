@@ -22,6 +22,7 @@ static const NSString *appAPIBaseURLString = @"http://f34e2b0b303842659d3e58ed6d
 
 @synthesize appToken = _appToken;
 @synthesize defaultDotNetValueTransformer = _defaultDotNetValueTransformer;
+@synthesize defaultDotNetDateFormatter = _defaultDotNetDateFormatter;
 
 #pragma mark - Internal
 
@@ -69,13 +70,19 @@ static const NSString *appAPIBaseURLString = @"http://f34e2b0b303842659d3e58ed6d
 - (RKCompoundValueTransformer *)defaultDotNetValueTransformer {
     if (!_defaultDotNetValueTransformer) {
         _defaultDotNetValueTransformer = [[RKCompoundValueTransformer alloc] init];
-        RKDotNetDateFormatter *dotNetDateFormatter = [RKDotNetDateFormatter dotNetDateFormatterWithTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
-        [_defaultDotNetValueTransformer addValueTransformer:dotNetDateFormatter];
+        [_defaultDotNetValueTransformer addValueTransformer:self.defaultDotNetDateFormatter];
         for (RKValueTransformer *vt in [RKValueTransformer defaultValueTransformer]) {
             [_defaultDotNetValueTransformer addValueTransformer:vt];
         }
     }
     return _defaultDotNetValueTransformer;
+}
+
+- (RKDotNetDateFormatter *)defaultDotNetDateFormatter {
+    if (!_defaultDotNetDateFormatter) {
+        _defaultDotNetDateFormatter = [RKDotNetDateFormatter dotNetDateFormatterWithTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+    }
+    return _defaultDotNetDateFormatter;
 }
 
 
@@ -148,9 +155,8 @@ static const NSString *appAPIBaseURLString = @"http://f34e2b0b303842659d3e58ed6d
             RKRequestDescriptor *serialization = [RKRequestDescriptor requestDescriptorWithMapping:[MUserInfo appUserCreationEntityMapping] objectClass:MUserInfo.class rootKeyPath:nil method:RKRequestMethodPOST];
             NSError *error = nil;
             NSMutableDictionary *jsonDict = [[RKObjectParameterization parametersWithObject:appUser requestDescriptor:serialization error:&error] mutableCopy];
-            RKDotNetDateFormatter *dndf = [RKDotNetDateFormatter dotNetDateFormatterWithTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];  // XXXXX
-            jsonDict[@"CreatedDateTime"] = [dndf stringFromDate:[NSDate date]];
-            jsonDict[@"LastUpdatedDateTime"] = [dndf stringFromDate:[NSDate date]];
+            jsonDict[@"CreatedDateTime"] = [self.defaultDotNetDateFormatter stringFromDate:[NSDate date]];
+            jsonDict[@"LastUpdatedDateTime"] = [self.defaultDotNetDateFormatter stringFromDate:[NSDate date]];
             jsonDict[@"CreditBalance"] = @0;
             
             if (!error) {
