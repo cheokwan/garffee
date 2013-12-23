@@ -16,5 +16,6 @@
 #import "MProductOptionChoice.h"
 #import "MItemInfo.h"
 #import "MItemSelectedOption.h"
+#import "MGlobalConfiguration.h"
 
 #endif

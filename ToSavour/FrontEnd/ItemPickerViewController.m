@@ -12,18 +12,18 @@
 #import "AppDelegate.h"
 #import "NSManagedObject+Helper.h"
 #import "MProductInfo.h"
+#import "MProductConfigurableOption.h"
+#import "MProductOptionChoice.h"
 #import "TSFrontEndIncludes.h"
 
 typedef enum {
-    ItemPickerSectionCategory = 0,
-    ItemPickerSectionProductName,
+    ItemPickerSectionProductCategoryAndName = 0,
     ItemPickerSectionProductOptions,
     ItemPickerSectionTotal,
 } ItemPickerSection;
 
 @interface ItemPickerViewController ()
 @property (nonatomic, strong) ItemPickerTableViewCell *itemPickerPrototypeCell;
-@property (nonatomic, strong) NSArray *showingProducts;  // XXXX
 @property (nonatomic, assign) UITableViewRowAnimation animationStyle;  // XXXX
 
 @end
@@ -45,6 +45,8 @@ typedef enum {
     UIBarButtonItem *leftBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(buttonPressed:)];  // XXXX
     self.navigationItem.leftBarButtonItem = leftBarButton;
     self.navigationItem.rightBarButtonItem = self.dismissButton;
+    // XXXXX
+    self.selectedProduct = self.allProducts[1];
 }
 
 - (void)viewDidLoad
@@ -99,18 +101,6 @@ typedef enum {
     }
 }
 
-- (NSArray *)allProducts {
-    if (!_allProducts) {
-        NSFetchRequest *fetchRequest = [MProductInfo fetchRequestInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
-        NSError *error = nil;
-        self.allProducts = [[AppDelegate sharedAppDelegate].managedObjectContext executeFetchRequest:fetchRequest error:&error];
-        if (_allProducts.count == 0 || error) {
-            DDLogError(@"unable to fetch root products info: %@", error);
-        }
-    }
-    return _allProducts;
-}
-
 - (NSArray *)allCategories {
     if (!_allCategories && self.allProducts.count != 0) {
         NSMutableSet *categories = [NSMutableSet set];
@@ -120,6 +110,20 @@ typedef enum {
         self.allCategories = [categories allObjects];
     }
     return _allCategories;
+}
+
+- (NSArray *)allProducts {
+    if (!_allProducts) {
+        NSFetchRequest *fetchRequest = [MProductInfo fetchRequestInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"type = %@", M_PRODUCT_INFO_TYPE_REAL];
+        fetchRequest.predicate = predicate;
+        NSError *error = nil;
+        self.allProducts = [[AppDelegate sharedAppDelegate].managedObjectContext executeFetchRequest:fetchRequest error:&error];
+        if (_allProducts.count == 0 || error) {
+            DDLogError(@"unable to fetch root products info: %@", error);
+        }
+    }
+    return _allProducts;
 }
 
 - (NSArray *)productsUnderCategory:(NSString *)category {
@@ -162,12 +166,11 @@ typedef enum {
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
-        case ItemPickerSectionCategory:
-        case ItemPickerSectionProductName:
+        case ItemPickerSectionProductCategoryAndName:
             return 1;
             break;
         case ItemPickerSectionProductOptions:
-            return [self optionsUnderProduct:nil].count;  // XXXX
+            return self.selectedProduct.configurableOptions.count;
             break;
     }
     return 0;
@@ -194,49 +197,40 @@ typedef enum {
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     ItemPickerTableViewCell *itemPickerCell = (ItemPickerTableViewCell *)cell;
     NSMutableArray *itemViews = nil;
+    NSInteger defaultChoiceIndex = -1;
     switch (indexPath.section) {
-        case ItemPickerSectionCategory: {
+        case ItemPickerSectionProductCategoryAndName: {
             itemViews = [NSMutableArray array];
-            int i = 0;
-            for (NSString *category in self.allCategories) {
-                ItemView *itemView = [[ItemView alloc] initWithText:category imageURL:[NSURL URLWithString:[self categoryImages][i]]];
-                ++i;
-                [[NSNotificationCenter defaultCenter] addObserver:itemView selector:@selector(notificationReceived:) name:@"WakeUpBitch" object:nil];
-                [[NSNotificationCenter defaultCenter] addObserver:itemView selector:@selector(notificationReceived:) name:@"SleepLaBitch" object:nil];
-                [itemViews addObject:itemView];
-            }
-        }
-            break;
-        case ItemPickerSectionProductName: {
-            itemViews = [NSMutableArray array];
-            for (MProductInfo *product in self.showingProducts) {
-                ItemView *itemView = [[ItemView alloc] initWithText:product.name imageURL:[NSURL URLWithString:product.imageURL]];
-                [[NSNotificationCenter defaultCenter] addObserver:itemView selector:@selector(notificationReceived:) name:@"WakeUpBitch" object:nil];
-                [[NSNotificationCenter defaultCenter] addObserver:itemView selector:@selector(notificationReceived:) name:@"SleepLaBitch" object:nil];
+            for (MProductInfo *product in self.allProducts) {
+                ItemView *itemView = [[ItemView alloc] initWithText:product.name imageURL:[NSURL URLWithString:product.resolvedImageURL]];
                 [itemViews addObject:itemView];
             }
         }
             break;
         case ItemPickerSectionProductOptions: {
             itemViews = [NSMutableArray array];
-            // XXXX
-            int i = 0;
-            for (NSString *text in [self optionsUnderProduct:nil][indexPath.row]) {
-                ItemView *itemView = [[ItemView alloc] initWithText:text imageURL:[NSURL URLWithString:[self optionsImageUnderProduct:nil][indexPath.row][i]]];
-                ++i;
-                [[NSNotificationCenter defaultCenter] addObserver:itemView selector:@selector(notificationReceived:) name:@"WakeUpBitch" object:nil];
-                [[NSNotificationCenter defaultCenter] addObserver:itemView selector:@selector(notificationReceived:) name:@"SleepLaBitch" object:nil];
+            MProductConfigurableOption *configurableOption = self.selectedProduct.configurableOptions[indexPath.row];
+            for (MProductOptionChoice *choice in configurableOption.choices) {
+                ItemView *itemView = [[ItemView alloc] initWithText:choice.name imageURL:[NSURL URLWithString:choice.resolvedImageURL]];
                 [itemViews addObject:itemView];
             }
+            defaultChoiceIndex = [configurableOption.defaultChoice intValue];
         }
             break;
         default:
             break;
     }
     if (itemViews) {
+        for (UIView *itemView in itemViews) {
+            [[NSNotificationCenter defaultCenter] addObserver:itemView selector:@selector(notificationReceived:) name:@"WakeUpBitch" object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:itemView selector:@selector(notificationReceived:) name:@"SleepLaBitch" object:nil];
+        }
         [itemPickerCell.pickerScrollView addItemViews:itemViews];
         itemPickerCell.pickerScrollView.occupiedIndexPath = indexPath;
         itemPickerCell.pickerScrollView.pickerDelegate = self;
+        if (defaultChoiceIndex >= 0) {
+            [itemPickerCell.pickerScrollView selectItemAtIndex:defaultChoiceIndex animated:NO];
+        }
     }
     return;
 }
@@ -261,19 +255,10 @@ typedef enum {
 
 - (void)pickerAtIndexPath:(NSIndexPath *)indexPath didSelectItem:(UIView *)itemView atIndex:(NSInteger)index {
     switch (indexPath.section) {
-        case ItemPickerSectionCategory: {
-            NSString *selectedCategory = self.allCategories[index];
-            self.showingProducts = [self productsUnderCategory:selectedCategory];
-            DDLogError(@"selected category: %@", selectedCategory);  // XXXX
-            NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:(NSRange){1, 2}];  // XXXX
-            [_itemTable reloadSections:indexSet withRowAnimation:self.animationStyle];  // XXXX
-        }
-            break;
-        case ItemPickerSectionProductName: {
-            MProductInfo *selectedProduct = self.showingProducts[index];
-            DDLogError(@"selected product: %@", selectedProduct.name);  // XXXX
-            NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:2];  // XXXX
-            [_itemTable reloadSections:indexSet withRowAnimation:self.animationStyle];  // XXXX
+        case ItemPickerSectionProductCategoryAndName: {
+            self.selectedProduct = self.allProducts[index];
+            DDLogError(@"selected product: %@", self.selectedProduct.name);  // XXXX
+            [_itemTable reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:self.animationStyle];
         }
             break;
         case ItemPickerSectionProductOptions:

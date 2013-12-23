@@ -33,7 +33,7 @@
 @property (nonatomic, retain) NSDate * tsBirthday;
 @property (nonatomic, retain) NSString * tsPhoneNumber;
 @property (nonatomic, retain) NSString * tsProfileImageURL;
-@property (nonatomic, retain) NSNumber * tsID;
+@property (nonatomic, retain) NSString * tsID;
 @property (nonatomic, retain) NSDate * tsUserCreationDate;
 @property (nonatomic, retain) NSDate * tsUserLastUpdatedDate;
 @property (nonatomic, retain) NSNumber * tsCoffeeIconID;

@@ -2,7 +2,7 @@
 //  MProductOptionChoice.h
 //  ToSavour
 //
-//  Created by Jason Wan on 16/12/13.
+//  Created by Jason Wan on 23/12/13.
 //  Copyright (c) 2013 NBition. All rights reserved.
 //
 
@@ -14,10 +14,12 @@
 
 @interface MProductOptionChoice : NSManagedObject<RKMappableEntity>
 
-@property (nonatomic) int32_t id;
-@property (nonatomic, retain) NSString * name;
-@property (nonatomic) double price;
+@property (nonatomic, retain) NSNumber * id;
 @property (nonatomic, retain) NSString * imageURL;
+@property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSNumber * price;
 @property (nonatomic, retain) MProductConfigurableOption *productConfigurableOption;
+
+@property (nonatomic, readonly) NSString *resolvedImageURL;
 
 @end

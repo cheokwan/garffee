@@ -10,6 +10,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import <AFNetworking/AFNetworking.h>
 #import "TSModelIncludes.h"
+#import "SecurityManager.h"
 
 @interface RestManager()
 @property (nonatomic, strong)   RKObjectManager *facebookObjectManager;
@@ -57,13 +58,27 @@ static const NSString *appAPIBaseURLString = @"http://f34e2b0b303842659d3e58ed6d
 }
 
 - (void)setAppToken:(NSString *)appToken {
-    if (appToken) {
-        // TODO: persist to key chain
+    if (appToken && appToken.length > 0) {
         _appToken = appToken;
+        
+        // persist to key chain
+        NSData *tokenData = [SecurityManager searchKeychainCopyMatching:SECURITY_MANAGER_ID_APP_TOKEN];
+        if (tokenData) {
+            [SecurityManager updateKeychainValue:_appToken forIdentifier:SECURITY_MANAGER_ID_APP_TOKEN];
+        } else {
+            [SecurityManager createKeychainValue:_appToken forIdentifier:SECURITY_MANAGER_ID_APP_TOKEN];
+        }
     }
 }
 
 - (NSString *)appToken {
+    if (!_appToken || _appToken.length == 0) {
+        // first try to retrieve from key chain if there's any
+        NSData *tokenData = [SecurityManager searchKeychainCopyMatching:SECURITY_MANAGER_ID_APP_TOKEN];
+        if (tokenData) {
+            _appToken = [[NSString alloc] initWithData:tokenData encoding:NSUTF8StringEncoding];
+        }
+    }
     return _appToken;
 }
 
@@ -89,6 +104,8 @@ static const NSString *appAPIBaseURLString = @"http://f34e2b0b303842659d3e58ed6d
 #pragma mark - Services
 
 // TODO: support fetching outside of non-mainqueue contexts
+
+#pragma mark - Facebook Services
 
 - (void)fetchFacebookAppUserInfo:(__weak id<RestManagerResponseHandler>)handler {
     // fetch user info
@@ -136,6 +153,8 @@ static const NSString *appAPIBaseURLString = @"http://f34e2b0b303842659d3e58ed6d
     }];
     [self.facebookObjectManager enqueueObjectRequestOperation:operation];
 }
+
+#pragma mark - App Services
 
 - (void)fetchAppUserInfo:(__weak id<RestManagerResponseHandler>)handler {
     NSURL *serviceURL = [NSURL URLWithString:[appAPIBaseURLString stringByAppendingString:@"/users"]];
@@ -232,6 +251,37 @@ static const NSString *appAPIBaseURLString = @"http://f34e2b0b303842659d3e58ed6d
         }
     }];
     [operation start];
+}
+
+- (void)fetchAppManagedObjectsWithServiceURL:(NSURL *)serviceURL sourceSelector:(SEL)sourceSelector entityClass:(Class<RKMappableEntity>)entityClass handler:(__weak id<RestManagerResponseHandler>)handler {
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:serviceURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60];
+    [request setValue:self.appToken forHTTPHeaderField:@"Authorization"];
+    
+    RKManagedObjectRequestOperation *operation = [[RKManagedObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[[entityClass defaultResponseDescriptor]]];
+    operation.managedObjectContext = [AppDelegate sharedAppDelegate].managedObjectContext;
+    operation.managedObjectCache = [RKManagedObjectStore defaultStore].managedObjectCache;
+    
+    [operation setCompletionBlockWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        if ([handler respondsToSelector:@selector(restManagerService:succeededWithOperation:userInfo:)]) {
+            [handler restManagerService:sourceSelector succeededWithOperation:operation userInfo:@{@"mappingResult": mappingResult}];
+        }
+    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        DDLogError(@"REST operation failed: %@", error);
+        if ([handler respondsToSelector:@selector(restManagerService:failedWithOperation:error:userInfo:)]) {
+            [handler restManagerService:sourceSelector failedWithOperation:operation error:error userInfo:nil];
+        }
+    }];
+    [self.appObjectManager enqueueObjectRequestOperation:operation];
+}
+
+- (void)fetchAppProductInfo:(__weak id<RestManagerResponseHandler>)handler {
+    NSURL *serviceURL = [NSURL URLWithString:[appAPIBaseURLString stringByAppendingString:@"/products"]];
+    [self fetchAppManagedObjectsWithServiceURL:serviceURL sourceSelector:_cmd entityClass:MProductInfo.class handler:handler];
+}
+
+- (void)fetchAppConfigurations:(__weak id<RestManagerResponseHandler>)handler {
+    NSURL *serviceURL = [NSURL URLWithString:[appAPIBaseURLString stringByAppendingString:@"/configurations"]];
+    [self fetchAppManagedObjectsWithServiceURL:serviceURL sourceSelector:_cmd entityClass:MGlobalConfiguration.class handler:handler];
 }
 
 @end

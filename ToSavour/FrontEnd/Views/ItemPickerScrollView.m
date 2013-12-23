@@ -69,6 +69,19 @@
     [self updateScaleForItems];
 }
 
+- (void)selectItemAtIndex:(NSInteger)index animated:(BOOL)animated {
+    CGFloat offsetX = index * self.itemViewDimension;
+    if (offsetX < self.contentSize.width) {
+        [self setContentOffset:CGPointMake(offsetX, self.contentOffset.y) animated:animated];
+        
+        // don't call back the delegate for this method for now to simplify the control flow
+//        if ([_pickerDelegate respondsToSelector:@selector(pickerAtIndexPath:didSelectItem:atIndex:)]) {
+//            UIView *itemSubview = [self subviewAtOrigin:CGPointMake(offsetX + self.sideMargin, self.contentOffset.y)];
+//            [_pickerDelegate pickerAtIndexPath:self.occupiedIndexPath didSelectItem:itemSubview atIndex:index];
+//        }
+    }
+}
+
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {

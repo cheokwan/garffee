@@ -26,7 +26,6 @@
 		D2466803185F15F70089D5DB /* TSSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = D243757418488358000009D7 /* TSSettings.m */; };
 		D2466804185F15F70089D5DB /* AvatarView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A67A87185B0EC000889114 /* AvatarView.m */; };
 		D2466805185F15F70089D5DB /* MUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075D21858092800620114 /* MUserInfo.m */; };
-		D2466806185F15F70089D5DB /* MProductConfigurableOption.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C91691185EECA600452891 /* MProductConfigurableOption.m */; };
 		D2466807185F15F70089D5DB /* ItemPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075C01852E29500620114 /* ItemPickerViewController.m */; };
 		D2466808185F15F70089D5DB /* MItemInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C9168B185EEC7500452891 /* MItemInfo.m */; };
 		D2466809185F15F70089D5DB /* FriendsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D221964C1859BCC6007528EE /* FriendsListViewController.m */; };
@@ -41,7 +40,6 @@
 		D2466812185F15F70089D5DB /* TSTheming.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A36A85185046B2004D3D99 /* TSTheming.m */; };
 		D2466813185F15F70089D5DB /* MItemSelectedOption.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C9168E185EEC9000452891 /* MItemSelectedOption.m */; };
 		D2466814185F15F70089D5DB /* NSManagedObject+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2219652185AACD8007528EE /* NSManagedObject+Helper.m */; };
-		D2466815185F15F70089D5DB /* MProductOptionChoice.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C91697185EECED00452891 /* MProductOptionChoice.m */; };
 		D2466816185F15F70089D5DB /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A67A8D185B467400889114 /* AccountViewController.m */; };
 		D2466817185F15F70089D5DB /* TSNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A36A8D18504ADE004D3D99 /* TSNavigationController.m */; };
 		D2466818185F15F70089D5DB /* ToSavour.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D293E4C8183DEDEB00B73795 /* ToSavour.xcdatamodeld */; };
@@ -69,6 +67,11 @@
 		D246684318603C800089D5DB /* CartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D246684218603C800089D5DB /* CartViewController.m */; };
 		D2466846186052450089D5DB /* CartItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D2466845186052450089D5DB /* CartItemTableViewCell.m */; };
 		D2466849186062DC0089D5DB /* NSString+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2466848186062DC0089D5DB /* NSString+Helper.m */; };
+		D2827DAD1865540100E4A662 /* MGlobalConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DAC1865540100E4A662 /* MGlobalConfiguration.m */; };
+		D2827DB31867DB8800E4A662 /* MProductConfigurableOption.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DB21867DB8800E4A662 /* MProductConfigurableOption.m */; };
+		D2827DB61867E64000E4A662 /* MProductOptionChoice.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DB51867E64000E4A662 /* MProductOptionChoice.m */; };
+		D2827DB81867F92100E4A662 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2827DB71867F92100E4A662 /* Security.framework */; };
+		D2827DBB1867F9DC00E4A662 /* SecurityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DBA1867F9DC00E4A662 /* SecurityManager.m */; };
 		D293E4B2183DEDEB00B73795 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4B1183DEDEB00B73795 /* Foundation.framework */; };
 		D293E4B4183DEDEB00B73795 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4B3183DEDEB00B73795 /* CoreGraphics.framework */; };
 		D293E4B6183DEDEB00B73795 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4B5183DEDEB00B73795 /* UIKit.framework */; };
@@ -114,9 +117,7 @@
 		D2C075E11859694700620114 /* MFriendInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075E01859694700620114 /* MFriendInfo.m */; };
 		D2C9168C185EEC7500452891 /* MItemInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C9168B185EEC7500452891 /* MItemInfo.m */; };
 		D2C9168F185EEC9000452891 /* MItemSelectedOption.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C9168E185EEC9000452891 /* MItemSelectedOption.m */; };
-		D2C91692185EECA600452891 /* MProductConfigurableOption.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C91691185EECA600452891 /* MProductConfigurableOption.m */; };
 		D2C91695185EECBA00452891 /* MProductInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C91694185EECBA00452891 /* MProductInfo.m */; };
-		D2C91698185EECED00452891 /* MProductOptionChoice.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C91697185EECED00452891 /* MProductOptionChoice.m */; };
 		DF60E74D185B47BA00DB10DE /* PhotoHuntGridButton.m in Sources */ = {isa = PBXBuildFile; fileRef = DF60E74C185B47BA00DB10DE /* PhotoHuntGridButton.m */; };
 		DF60E750185C0D8000DB10DE /* PhotoHuntManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DF60E74F185C0D8000DB10DE /* PhotoHuntManager.m */; };
 		DF60E756185C455200DB10DE /* PhotoHuntImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = DF60E755185C455200DB10DE /* PhotoHuntImageView.m */; };
@@ -171,6 +172,15 @@
 		D2466845186052450089D5DB /* CartItemTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CartItemTableViewCell.m; path = FrontEnd/Views/CartItemTableViewCell.m; sourceTree = "<group>"; };
 		D2466847186062DC0089D5DB /* NSString+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Helper.h"; path = "Utilities/NSString+Helper.h"; sourceTree = "<group>"; };
 		D2466848186062DC0089D5DB /* NSString+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Helper.m"; path = "Utilities/NSString+Helper.m"; sourceTree = "<group>"; };
+		D2827DAB1865540100E4A662 /* MGlobalConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGlobalConfiguration.h; path = BackEnd/Model/MGlobalConfiguration.h; sourceTree = "<group>"; };
+		D2827DAC1865540100E4A662 /* MGlobalConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGlobalConfiguration.m; path = BackEnd/Model/MGlobalConfiguration.m; sourceTree = "<group>"; };
+		D2827DB11867DB8800E4A662 /* MProductConfigurableOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MProductConfigurableOption.h; path = BackEnd/Model/MProductConfigurableOption.h; sourceTree = "<group>"; };
+		D2827DB21867DB8800E4A662 /* MProductConfigurableOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MProductConfigurableOption.m; path = BackEnd/Model/MProductConfigurableOption.m; sourceTree = "<group>"; };
+		D2827DB41867E64000E4A662 /* MProductOptionChoice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MProductOptionChoice.h; path = BackEnd/Model/MProductOptionChoice.h; sourceTree = "<group>"; };
+		D2827DB51867E64000E4A662 /* MProductOptionChoice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MProductOptionChoice.m; path = BackEnd/Model/MProductOptionChoice.m; sourceTree = "<group>"; };
+		D2827DB71867F92100E4A662 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		D2827DB91867F9DC00E4A662 /* SecurityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SecurityManager.h; path = BackEnd/SecurityManager.h; sourceTree = "<group>"; };
+		D2827DBA1867F9DC00E4A662 /* SecurityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SecurityManager.m; path = BackEnd/SecurityManager.m; sourceTree = "<group>"; };
 		D293E4AE183DEDEB00B73795 /* ToSavour.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToSavour.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D293E4B1183DEDEB00B73795 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D293E4B3183DEDEB00B73795 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -242,12 +252,8 @@
 		D2C9168B185EEC7500452891 /* MItemInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MItemInfo.m; path = BackEnd/Model/MItemInfo.m; sourceTree = "<group>"; };
 		D2C9168D185EEC9000452891 /* MItemSelectedOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MItemSelectedOption.h; path = BackEnd/Model/MItemSelectedOption.h; sourceTree = "<group>"; };
 		D2C9168E185EEC9000452891 /* MItemSelectedOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MItemSelectedOption.m; path = BackEnd/Model/MItemSelectedOption.m; sourceTree = "<group>"; };
-		D2C91690185EECA600452891 /* MProductConfigurableOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MProductConfigurableOption.h; path = BackEnd/Model/MProductConfigurableOption.h; sourceTree = "<group>"; };
-		D2C91691185EECA600452891 /* MProductConfigurableOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MProductConfigurableOption.m; path = BackEnd/Model/MProductConfigurableOption.m; sourceTree = "<group>"; };
 		D2C91693185EECB900452891 /* MProductInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MProductInfo.h; path = BackEnd/Model/MProductInfo.h; sourceTree = "<group>"; };
 		D2C91694185EECBA00452891 /* MProductInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MProductInfo.m; path = BackEnd/Model/MProductInfo.m; sourceTree = "<group>"; };
-		D2C91696185EECED00452891 /* MProductOptionChoice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MProductOptionChoice.h; path = BackEnd/Model/MProductOptionChoice.h; sourceTree = "<group>"; };
-		D2C91697185EECED00452891 /* MProductOptionChoice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MProductOptionChoice.m; path = BackEnd/Model/MProductOptionChoice.m; sourceTree = "<group>"; };
 		D2C916A3185F015800452891 /* TSModelIncludes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TSModelIncludes.h; path = BackEnd/Model/TSModelIncludes.h; sourceTree = "<group>"; };
 		DF60E74B185B47BA00DB10DE /* PhotoHuntGridButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoHuntGridButton.h; sourceTree = "<group>"; };
 		DF60E74C185B47BA00DB10DE /* PhotoHuntGridButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoHuntGridButton.m; sourceTree = "<group>"; };
@@ -297,6 +303,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2827DB81867F92100E4A662 /* Security.framework in Frameworks */,
 				D2A67A82185ACA8A00889114 /* QuartzCore.framework in Frameworks */,
 				D2437577184C3498000009D7 /* MapKit.framework in Frameworks */,
 				D293E4F818435DC100B73795 /* CoreLocation.framework in Frameworks */,
@@ -373,6 +380,7 @@
 		D293E4B0183DEDEB00B73795 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D2827DB71867F92100E4A662 /* Security.framework */,
 				D2A67A81185ACA8A00889114 /* QuartzCore.framework */,
 				D2437576184C3497000009D7 /* MapKit.framework */,
 				D293E4F718435DC100B73795 /* CoreLocation.framework */,
@@ -474,6 +482,8 @@
 				D221964718598E0B007528EE /* RKMappableEntity.h */,
 				D214BE051862DAF000812BA5 /* RestManager.h */,
 				D214BE061862DAF000812BA5 /* RestManager.m */,
+				D2827DB91867F9DC00E4A662 /* SecurityManager.h */,
+				D2827DBA1867F9DC00E4A662 /* SecurityManager.m */,
 			);
 			name = BackEnd;
 			sourceTree = "<group>";
@@ -490,14 +500,16 @@
 		D2A55702184DB5ED0039A5A0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D2827DB41867E64000E4A662 /* MProductOptionChoice.h */,
+				D2827DB51867E64000E4A662 /* MProductOptionChoice.m */,
+				D2827DB11867DB8800E4A662 /* MProductConfigurableOption.h */,
+				D2827DB21867DB8800E4A662 /* MProductConfigurableOption.m */,
+				D2827DAB1865540100E4A662 /* MGlobalConfiguration.h */,
+				D2827DAC1865540100E4A662 /* MGlobalConfiguration.m */,
 				D2C9168A185EEC7500452891 /* MItemInfo.h */,
 				D2C9168B185EEC7500452891 /* MItemInfo.m */,
-				D2C91696185EECED00452891 /* MProductOptionChoice.h */,
-				D2C91697185EECED00452891 /* MProductOptionChoice.m */,
 				D2C91693185EECB900452891 /* MProductInfo.h */,
 				D2C91694185EECBA00452891 /* MProductInfo.m */,
-				D2C91690185EECA600452891 /* MProductConfigurableOption.h */,
-				D2C91691185EECA600452891 /* MProductConfigurableOption.m */,
 				D2C9168D185EEC9000452891 /* MItemSelectedOption.h */,
 				D2C9168E185EEC9000452891 /* MItemSelectedOption.m */,
 				D2C075DF1859694700620114 /* MFriendInfo.h */,
@@ -806,7 +818,6 @@
 				D2466803185F15F70089D5DB /* TSSettings.m in Sources */,
 				D2466804185F15F70089D5DB /* AvatarView.m in Sources */,
 				D2466805185F15F70089D5DB /* MUserInfo.m in Sources */,
-				D2466806185F15F70089D5DB /* MProductConfigurableOption.m in Sources */,
 				D2466807185F15F70089D5DB /* ItemPickerViewController.m in Sources */,
 				D2466808185F15F70089D5DB /* MItemInfo.m in Sources */,
 				D2466809185F15F70089D5DB /* FriendsListViewController.m in Sources */,
@@ -821,7 +832,6 @@
 				D2466812185F15F70089D5DB /* TSTheming.m in Sources */,
 				D2466813185F15F70089D5DB /* MItemSelectedOption.m in Sources */,
 				D2466814185F15F70089D5DB /* NSManagedObject+Helper.m in Sources */,
-				D2466815185F15F70089D5DB /* MProductOptionChoice.m in Sources */,
 				D2466816185F15F70089D5DB /* AccountViewController.m in Sources */,
 				D2466817185F15F70089D5DB /* TSNavigationController.m in Sources */,
 				D2466818185F15F70089D5DB /* ToSavour.xcdatamodeld in Sources */,
@@ -838,8 +848,10 @@
 				DF60E74D185B47BA00DB10DE /* PhotoHuntGridButton.m in Sources */,
 				D2C075CB1855C47200620114 /* TutorialLoginViewController.m in Sources */,
 				D2A556FB184C37F60039A5A0 /* MapTrackingViewController.m in Sources */,
+				D2827DBB1867F9DC00E4A662 /* SecurityManager.m in Sources */,
 				DF9DB5401861D3DA00FD315E /* TSZipArchive.m in Sources */,
 				D239770318474F230002D655 /* TSLogFormatter.m in Sources */,
+				D2827DB31867DB8800E4A662 /* MProductConfigurableOption.m in Sources */,
 				D2C91695185EECBA00452891 /* MProductInfo.m in Sources */,
 				D293E4F6184357B400B73795 /* TimeTracker.m in Sources */,
 				D293E4C4183DEDEB00B73795 /* AppDelegate.m in Sources */,
@@ -849,7 +861,6 @@
 				D214BE071862DAF000812BA5 /* RestManager.m in Sources */,
 				D2A67A88185B0EC000889114 /* AvatarView.m in Sources */,
 				D2C075D31858092800620114 /* MUserInfo.m in Sources */,
-				D2C91692185EECA600452891 /* MProductConfigurableOption.m in Sources */,
 				D2C075C11852E29500620114 /* ItemPickerViewController.m in Sources */,
 				D2C9168C185EEC7500452891 /* MItemInfo.m in Sources */,
 				D221964D1859BCC6007528EE /* FriendsListViewController.m in Sources */,
@@ -870,15 +881,16 @@
 				DFE628B11855FB7D00E1C8FE /* AreYouReadyViewController.m in Sources */,
 				DF60E759185C642F00DB10DE /* NSMutableArray+Shuffle.m in Sources */,
 				DF60E750185C0D8000DB10DE /* PhotoHuntManager.m in Sources */,
+				D2827DAD1865540100E4A662 /* MGlobalConfiguration.m in Sources */,
 				D2A36A911850684A004D3D99 /* MainTabBarController.m in Sources */,
 				D2A36A86185046B2004D3D99 /* TSTheming.m in Sources */,
 				D2C9168F185EEC9000452891 /* MItemSelectedOption.m in Sources */,
 				DF60E756185C455200DB10DE /* PhotoHuntImageView.m in Sources */,
 				D2219653185AACD8007528EE /* NSManagedObject+Helper.m in Sources */,
 				D246684318603C800089D5DB /* CartViewController.m in Sources */,
-				D2C91698185EECED00452891 /* MProductOptionChoice.m in Sources */,
 				D2A67A8E185B467400889114 /* AccountViewController.m in Sources */,
 				D2A36A8E18504ADE004D3D99 /* TSNavigationController.m in Sources */,
+				D2827DB61867E64000E4A662 /* MProductOptionChoice.m in Sources */,
 				D293E4CA183DEDEB00B73795 /* ToSavour.xcdatamodeld in Sources */,
 				DF852709185EDDBC0087E247 /* TSGame.m in Sources */,
 				D22196501859C24C007528EE /* FriendsListTableViewCell.m in Sources */,

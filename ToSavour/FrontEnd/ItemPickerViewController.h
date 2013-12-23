@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "ItemPickerTableViewCell.h"
+@class MProductInfo;
 
 @interface ItemPickerViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, ItemPickerScrollViewDelegate, /*XXXX*/UIAlertViewDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, strong)   IBOutlet UITableView *itemTable;
 @property (nonatomic, strong)   NSArray *allProducts;   // MProductInfo
 @property (nonatomic, strong)   NSArray *allCategories; // NSString
+@property (nonatomic, strong)   MProductInfo *selectedProduct;
 @property (nonatomic, strong)   UIBarButtonItem *dismissButton;
 
 @end

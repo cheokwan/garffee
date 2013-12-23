@@ -162,12 +162,25 @@
 - (void)restManagerService:(SEL)selector succeededWithOperation:(NSOperation *)operation userInfo:(NSDictionary *)userInfo {
     
     if (selector == @selector(fetchFacebookAppUserInfo:)) {
+        // fetched facebook info, now move onto fetching app user info with
+        // facebook credentials
         [[RestManager sharedInstance] fetchAppUserInfo:self];
     }
     if (selector == @selector(fetchFacebookFriendsInfo:)) {
+        // ignore for now
     }
     if (selector == @selector(fetchAppUserInfo:)) {
-        // successfully logged in and registered user info, dismiss the login view now
+        // successfully logged in and registered user info, now fetch app configs
+        [[RestManager sharedInstance] fetchAppConfigurations:self];
+        [[RestManager sharedInstance] fetchAppProductInfo:self];
+    }
+    // TODO: make following calls parallel
+    if (selector == @selector(fetchAppConfigurations:)) {
+        // successfully fetched app configs, now fetch products info
+        [[RestManager sharedInstance] fetchAppProductInfo:self];
+    }
+    if (selector == @selector(fetchAppProductInfo:)) {
+        // successfully fetched products info, now dismiss the login view
         [self dismissAfterLoggedIn];
     }
 }
@@ -180,7 +193,7 @@
         [[FBSession activeSession] closeAndClearTokenInformation];
         [_spinner hide:NO];
         self.view.hidden = NO;
-        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Registration Error", @"") message:NSLocalizedString(@"We cannout complete the registration process due to some unexpected error. Please try again later", @"") delegate:self cancelButtonTitle:LS_OK otherButtonTitles:nil] show];
+        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Registration Error", @"") message:NSLocalizedString(@"We cannot complete the registration process due to some unexpected error. Please try again later", @"") delegate:self cancelButtonTitle:LS_OK otherButtonTitles:nil] show];
     }
 }
 

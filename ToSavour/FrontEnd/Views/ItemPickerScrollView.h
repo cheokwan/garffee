@@ -21,5 +21,6 @@
 @property (nonatomic, weak)     id<ItemPickerScrollViewDelegate> pickerDelegate;
 
 - (void)addItemViews:(NSArray *)itemViews;
+- (void)selectItemAtIndex:(NSInteger)index animated:(BOOL)animated;
 
 @end

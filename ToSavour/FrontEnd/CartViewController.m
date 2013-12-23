@@ -64,6 +64,14 @@ typedef enum {
     return _addOrderButton;
 }
 
+#pragma mark - RestManagerResponseHandler
+
+- (void)restManagerService:(SEL)selector failedWithOperation:(NSOperation *)operation error:(NSError *)error userInfo:(NSDictionary *)userInfo {
+}
+
+- (void)restManagerService:(SEL)selector succeededWithOperation:(NSOperation *)operation userInfo:(NSDictionary *)userInfo {
+}
+
 - (void)buttonPressed:(id)sender {
     if (sender == _addOrderButton) {
         ItemPickerViewController *itemPicker = (ItemPickerViewController *)[TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(ItemPickerViewController.class)];

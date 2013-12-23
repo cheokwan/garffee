@@ -26,5 +26,7 @@
 - (void)fetchFacebookAppUserInfo:(__weak id<RestManagerResponseHandler>)handler;
 - (void)fetchFacebookFriendsInfo:(__weak id<RestManagerResponseHandler>)handler;
 - (void)fetchAppUserInfo:(__weak id<RestManagerResponseHandler>)handler;
+- (void)fetchAppProductInfo:(__weak id<RestManagerResponseHandler>)handler;
+- (void)fetchAppConfigurations:(__weak id<RestManagerResponseHandler>)handler;
 
 @end

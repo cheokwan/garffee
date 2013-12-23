@@ -10,23 +10,34 @@
 #import <CoreData/CoreData.h>
 #import "RKMappableEntity.h"
 
+#define M_PRODUCT_INFO_TYPE_REAL    @"Real"
+#define M_PRODUCT_INFO_TYPE_VIRTUAL @"Virtual"
+
 @class MProductConfigurableOption;
 
 @interface MProductInfo : NSManagedObject<RKMappableEntity>
 
-@property (nonatomic) int32_t id;
+@property (nonatomic, retain) NSNumber * id;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSString * type;
 @property (nonatomic, retain) NSString * category;
 @property (nonatomic, retain) NSString * imageURL;
-@property (nonatomic, retain) NSSet *configurableOptions;
+@property (nonatomic, retain) NSOrderedSet *configurableOptions;
+
+@property (nonatomic, readonly) NSString *resolvedImageURL;
 @end
 
 @interface MProductInfo (CoreDataGeneratedAccessors)
 
+- (void)insertObject:(MProductConfigurableOption *)value inConfigurableOptionsAtIndex:(NSUInteger)idx;
+- (void)removeObjectFromConfigurableOptionsAtIndex:(NSUInteger)idx;
+- (void)insertConfigurableOptions:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
+- (void)removeConfigurableOptionsAtIndexes:(NSIndexSet *)indexes;
+- (void)replaceObjectInConfigurableOptionsAtIndex:(NSUInteger)idx withObject:(MProductConfigurableOption *)value;
+- (void)replaceConfigurableOptionsAtIndexes:(NSIndexSet *)indexes withConfigurableOptions:(NSArray *)values;
 - (void)addConfigurableOptionsObject:(MProductConfigurableOption *)value;
 - (void)removeConfigurableOptionsObject:(MProductConfigurableOption *)value;
-- (void)addConfigurableOptions:(NSSet *)values;
-- (void)removeConfigurableOptions:(NSSet *)values;
+- (void)addConfigurableOptions:(NSOrderedSet *)values;
+- (void)removeConfigurableOptions:(NSOrderedSet *)values;
 
 @end

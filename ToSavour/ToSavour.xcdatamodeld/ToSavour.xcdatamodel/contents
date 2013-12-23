@@ -26,6 +26,12 @@
     <entity name="MFriendInfo" representedClassName="MFriendInfo" parentEntity="MUserInfo" syncable="YES">
         <attribute name="canSendGift" optional="YES" attributeType="Boolean" syncable="YES"/>
     </entity>
+    <entity name="MGlobalConfiguration" representedClassName="MGlobalConfiguration" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="key" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastUpdatedDateTime" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="value" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="MItemInfo" representedClassName="MItemInfo" syncable="YES">
         <attribute name="createdDateTime" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -40,11 +46,11 @@
         <relationship name="productOptionChoice" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MProductOptionChoice" syncable="YES"/>
     </entity>
     <entity name="MProductConfigurableOption" representedClassName="MProductConfigurableOption" syncable="YES">
+        <attribute name="defaultChoice" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sequence" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <relationship name="choices" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MProductOptionChoice" inverseName="productConfigurableOption" inverseEntity="MProductOptionChoice" syncable="YES"/>
-        <relationship name="defaultChoice" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MProductOptionChoice" syncable="YES"/>
+        <relationship name="choices" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="MProductOptionChoice" inverseName="productConfigurableOption" inverseEntity="MProductOptionChoice" syncable="YES"/>
         <relationship name="product" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MProductInfo" inverseName="configurableOptions" inverseEntity="MProductInfo" syncable="YES"/>
     </entity>
     <entity name="MProductInfo" representedClassName="MProductInfo" syncable="YES">
@@ -53,7 +59,7 @@
         <attribute name="imageURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="configurableOptions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MProductConfigurableOption" inverseName="product" inverseEntity="MProductConfigurableOption" syncable="YES"/>
+        <relationship name="configurableOptions" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="MProductConfigurableOption" inverseName="product" inverseEntity="MProductConfigurableOption" syncable="YES"/>
     </entity>
     <entity name="MProductOptionChoice" representedClassName="MProductOptionChoice" syncable="YES">
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -81,7 +87,7 @@
         <attribute name="tsEmail" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tsFirstName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tsGender" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="tsID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="tsID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tsLastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tsPhoneNumber" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tsProfileImageURL" optional="YES" attributeType="String" syncable="YES"/>
@@ -98,5 +104,6 @@
         <element name="MProductInfo" positionX="0" positionY="0" width="0" height="0"/>
         <element name="MProductOptionChoice" positionX="0" positionY="0" width="0" height="0"/>
         <element name="MUserInfo" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MGlobalConfiguration" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>
