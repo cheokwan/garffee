@@ -15,6 +15,9 @@
 #import "TSGameDownloadManager.h"
 #import "TSNavigationController.h"
 #import "TSTheming.h"
+#import "TSFrontEndIncludes.h"
+
+#define SCROLL_VIEW_IMAGE_INTERVAL  5.0f
 
 #define PROGRESS_LABEL_PREFIX   [NSString stringWithFormat:@"%@...", LS_DOWNLOADING]
 
@@ -59,11 +62,14 @@
     _awardStrLabel.text = LS_AWARDS;
     int awardNum = 1;
     _awardDetailsLabel.text = [NSString stringWithFormat:@"%@ X %d", LS_COFFEE, awardNum];
-    [_challengeNowButton setTitle:LS_CHALLENGE_NOW forState:UIControlStateNormal];
-    [_challengeNowButton setTitle:LS_ALREADY_PLAYED forState:UIControlStateDisabled];
-    [_challengeNowButton setTitleColor:[UIColor redColor] forState:UIControlStateDisabled];
+    [_challengeNowButton setTitle:LS_CHALLENGE forState:UIControlStateNormal];
+    [_challengeNowButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _challengeNowButton.backgroundColor = [TSTheming defaultThemeColor];
+    _challengeNowButton.tintColor = [TSTheming defaultAccentColor];
+    _challengeNowButton.layer.cornerRadius = 5.0;
     [_challengeNowButton addTarget:self action:@selector(challengeNowButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    _challengeNowButton.enabled = NO;
+    _didPlayedGameLabel.textColor = [UIColor redColor];
+    [self setChallengeNowButtonEnable:NO];
     [self initializeScrollView];
     _pageControl.numberOfPages = [self numberOfGames];
     [_pageControl addTarget:self action:@selector(pageControlValueDidChanged:) forControlEvents:UIControlEventValueChanged];
@@ -78,9 +84,24 @@
     self.delegate = nil;
 }
 
+- (void)setChallengeNowButtonEnable:(BOOL)enabled {
+    _challengeNowButton.enabled = enabled;
+    _challengeNowButton.hidden = !enabled;
+    _didPlayedGameLabel.hidden = enabled;
+    if ([self currentPage] < _games.count) {
+        if (((TSGame *)_games[[self currentPage]]).result == GamePlayResultWin) {
+            _didPlayedGameLabel.text = LS_ALREADY_WON;
+        } else {
+            _didPlayedGameLabel.text = LS_ALREADY_PLAYED;
+        }
+    } else {
+        _didPlayedGameLabel.text = LS_ALREADY_PLAYED;
+    }
+}
+
 - (void)gameChanged {
     TSGame *game = _games[[self currentPage]];
-    _challengeNowButton.enabled = (game.result == GamePlayResultNone);
+    [self setChallengeNowButtonEnable:(game.result == GamePlayResultNone)];
     [_promotionImageView setImageWithURL:[NSURL URLWithString:game.sponsorImageURL] placeholderImage:[UIImage imageNamed:IMAGE_NOT_FOUND]];
 }
 
@@ -206,10 +227,15 @@
     }
     float width = 0.0f;
     for (int i=0; i<[self numberOfGames]; i++) {
-        CGRect rect = CGRectMake(i*_gamesScrollView.frameSizeWidth, 0, _gamesScrollView.frameSizeWidth, _gamesScrollView.frameSizeHeight);
+        CGRect rect = CGRectMake(i*_gamesScrollView.frameSizeWidth + SCROLL_VIEW_IMAGE_INTERVAL, 0, _gamesScrollView.frameSizeWidth - 2 * SCROLL_VIEW_IMAGE_INTERVAL, _gamesScrollView.frameSizeHeight);
         UIImageView *anImageView = [[UIImageView alloc] initWithFrame:rect];
+        anImageView.contentMode = UIViewContentModeScaleAspectFit;
+        __weak UIImageView *weakImageView = anImageView;
         TSGame *game = [_games objectAtIndex:i];
-        [anImageView setImageWithURL:[NSURL URLWithString:game.gameImageURL] placeholderImage:[UIImage imageNamed:IMAGE_NOT_FOUND]];
+        [anImageView setImageWithURL:[NSURL URLWithString:game.gameImageURL] placeholderImage:[UIImage imageNamed:IMAGE_NOT_FOUND] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType){
+            UIImage *anImage = [image resizedImageToSize:weakImageView.frame.size];
+            weakImageView.image = anImage;
+        }];
         [_gamesScrollView addSubview:anImageView];
         width += _gamesScrollView.frameSizeWidth;
     }
@@ -323,7 +349,7 @@
         NSData *data = userInfo[@"responseObject"];
         if (data) {
             NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-            
+            self.games = [NSMutableArray array];
             if (!jsonArray) {
                 DDLogCDebug(@"Error parsing JSON: %@", error);
             } else {

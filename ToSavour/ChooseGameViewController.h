@@ -33,11 +33,14 @@ typedef enum {
 @interface ChooseGameViewController : UIViewController <PhotoHuntViewControllerDelagte, UIScrollViewDelegate, PhotoHuntManagerDelegate, RestManagerResponseHandler>
 
 @property (nonatomic, weak) id<ChooseGameViewControllerDelegate> delegate;
+@property (nonatomic, strong) IBOutlet UIView *awardContainerView;
 @property (nonatomic, strong) IBOutlet UILabel *awardStrLabel, *awardDetailsLabel, *winLabel;
 @property (nonatomic, strong) IBOutlet UIButton *challengeNowButton;
 @property (nonatomic, strong) IBOutlet UIScrollView *gamesScrollView;
 @property (nonatomic, strong) IBOutlet UIPageControl *pageControl;
 @property (nonatomic, strong) IBOutlet UIImageView *promotionImageView;
+@property (nonatomic, strong) IBOutlet UILabel *sponsorByLabel;
+@property (nonatomic, strong) IBOutlet UILabel *didPlayedGameLabel;
 
 @property (nonatomic, strong) IBOutlet UIView *progressPanel;
 @property (nonatomic, strong) IBOutlet UIView *progressContainerView;
