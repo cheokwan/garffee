@@ -32,6 +32,10 @@
                                     <outlet property="delegate" destination="ZI8-K7-vMs" id="UfV-1a-sTh"/>
                                 </connections>
                             </scrollView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Esu-fI-xia">
+                                <rect key="frame" x="20" y="165" width="280" height="161"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UH4-ek-FpS" userLabel="Label - Award">
                                 <rect key="frame" x="20" y="361" width="117" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -198,6 +202,7 @@
                         <outlet property="progressLabel" destination="f3i-51-vXG" id="DID-2q-A2l"/>
                         <outlet property="progressPanel" destination="Xub-QR-81G" id="jdV-lt-D3p"/>
                         <outlet property="progressView" destination="vd2-C3-S0c" id="CUc-A3-vuC"/>
+                        <outlet property="promotionImageView" destination="Esu-fI-xia" id="kh7-fS-n4d"/>
                         <segue destination="1Ha-2Z-W08" kind="push" identifier="AreYouReadyViewController" id="0YK-dq-5zl"/>
                     </connections>
                 </viewController>

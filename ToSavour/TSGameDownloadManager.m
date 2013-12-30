@@ -42,18 +42,8 @@ static TSGameDownloadManager *sharedInstance = nil;
             NSString *documentsDirectory = [paths objectAtIndex:0];
             NSData *data = responseObject;
             filePath = [NSString stringWithFormat:@"%@/%@.zip", documentsDirectory, packageName];
-//            //XXX-ML
-//            filePath = [NSString stringWithFormat:@"%@/abc.zip", documentsDirectory];
-//            //XXX-ML
             [data writeToFile:filePath atomically:NO];
         }
-        
-//        //XXX-ML
-//        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//        NSString *documentsDirectory = [paths objectAtIndex:0];
-//        filePath = [NSString stringWithFormat:@"%@/%@.zip", documentsDirectory, packageName];
-//        //XXX-ML
-        
         if (successCallback) successCallback(filePath);
     }failure:^(AFHTTPRequestOperation *operation, NSError *error){
         DDLogError(@"Download game package fail: %@", error);

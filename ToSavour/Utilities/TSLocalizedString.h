@@ -41,5 +41,7 @@
 #define LS_UNZIP_FAILED         NSLocalizedString(@"The game is not ready", @"")
 #define LS_UNZIP_FAILED_DETAILS NSLocalizedString(@"Sorry, the game is not ready, please try again later", @"")
 #define LS_LOADING              NSLocalizedString(@"Loading", @"")
+#define LS_OOPS                 NSLocalizedString(@"Oops", @"")
+#define LS_SERVICE_CALLS_FAILED_GENERAL     NSLocalizedString(@"We have encounter problem when we prepare the game, please try again later.", @"")
 
 #endif

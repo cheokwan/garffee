@@ -37,7 +37,6 @@ typedef enum {
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic) float accumulativePenalty;
 @property (nonatomic) GameState gameState;
-@property (nonatomic, strong) TSGamePlayHistory *history;
 
 @end
 
@@ -146,7 +145,9 @@ typedef enum {
 
 - (void)loseGame {
     _gameState = GameStateEnded;
-    //XXX-ML network call to server
+    TSGamePlayHistory *history = _gameManager.history;
+    history.result = @"lose";
+    [[TSGameServiceCalls sharedInstance] updateGameResult:self gameHistory:history];
 }
 
 - (void)winGame {
@@ -155,7 +156,9 @@ typedef enum {
     self.timer = nil;
     self.winAlertView = [[UIAlertView alloc] initWithTitle:LS_CONGRATULATIONS message:LS_WIN_GAME_DETAILS delegate:self cancelButtonTitle:LS_OK otherButtonTitles:nil];
     [_winAlertView show];
-    //XXX-ML network call to server
+    TSGamePlayHistory *history = _gameManager.history;
+    history.result = @"win";
+    [[TSGameServiceCalls sharedInstance] updateGameResult:self gameHistory:history];
 }
 
 - (void)dismissSelf {
@@ -304,22 +307,8 @@ typedef enum {
 
 #pragma mark - TSGameServiceCallsDelegate
 - (void)restManagerService:(SEL)selector succeededWithOperation:(NSOperation *)operation userInfo:(NSDictionary *)userInfo {
-    NSError *error = nil;
     if (selector == @selector(postGameStart:game:)) {
-//        NSData *data = userInfo[@"responseObject"];
-//        if (data) {
-//            NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-//            if (!jsonDict) {
-//                NSLog(@"Error parsing JSON: %@", error);
-//            } else {
-//                NSString *dailyGameId = nil;
-//                if ((dailyGameId = jsonDict[@"DailyGameId"]) && (dailyGameId == _gameManager.game.gameId)) {
-//                    self.history = [[TSGamePlayHistory alloc] init];
-//                    _history.gameId = jsonDict[@"DailyGameId"];
-//                    _history.
-//                }
-//            }
-//        }
+        _gameManager.history = userInfo[@"gameHistory"];
     }
 }
 

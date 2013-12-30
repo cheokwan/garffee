@@ -17,6 +17,7 @@ typedef enum {
 @interface TSGame : NSObject
 
 @property (nonatomic, strong) NSString *gameId, *name, *gameImageURL, *gamePackageURL, *gamePackageName, *gamePackageFullPath, *gamePackageUnzippedFullPath;
+@property (nonatomic, strong) NSString *sponsorImageURL, *sponsorName;
 @property (nonatomic) int timeLimit, timePenalty;
 @property (nonatomic) int validNumberOfChanges;
 @property (nonatomic) GamePlayResult result;

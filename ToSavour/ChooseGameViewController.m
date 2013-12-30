@@ -18,6 +18,8 @@
 
 #define PROGRESS_LABEL_PREFIX   [NSString stringWithFormat:@"%@...", LS_DOWNLOADING]
 
+#define IMAGE_NOT_FOUND         @"imageNotFound"
+
 #define GAME_DICT_KEY_GAME_IMAGE_URL        @"GameImageUrl"
 #define GAME_DICT_KEY_GAME_PACKAGE_URL      @"GamePackageUrl"
 #define GAME_DICT_KEY_ID                    @"Id"
@@ -30,6 +32,7 @@
 @property (nonatomic, strong) NSMutableDictionary *buttonDict;
 @property (nonatomic, strong) NSMutableArray *games;
 @property (nonatomic, strong) NSString *configurationHost;
+@property (nonatomic, strong) NSMutableArray *histories;
 @end
 
 @implementation ChooseGameViewController
@@ -39,10 +42,12 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     self.games = [NSMutableArray array];
-    //XXX-ML
-//    [self mockGames];
-    //XXX-ML
-    [((TSGameServiceCalls *)[TSGameServiceCalls sharedInstance]) fetchConfiguration:self];
+    self.serviceCallsStatus = GameServiceCallsStatusNone;
+    
+    self.spinner = [MBProgressHUD showHUDAddedTo:[AppDelegate sharedAppDelegate].window animated:YES];
+    _spinner.mode = MBProgressHUDModeIndeterminate;
+    _spinner.labelText = LS_LOADING;
+    [self refetchGamesData];
     [self initializeView];
 }
 
@@ -76,19 +81,45 @@
 - (void)gameChanged {
     TSGame *game = _games[[self currentPage]];
     _challengeNowButton.enabled = (game.result == GamePlayResultNone);
+    [_promotionImageView setImageWithURL:[NSURL URLWithString:game.sponsorImageURL] placeholderImage:[UIImage imageNamed:IMAGE_NOT_FOUND]];
 }
 
-- (void)updateGameResultHistories {
-    for (int i=0; i<_games.count; i++) {
-        TSGame *game = _games[i];
-        game.result = (i % 2 == 0);
+- (void)updateGameResultHistories:(NSArray *)histories {
+    RKObjectMapping *mapping = [TSGamePlayHistory gamePlayHistoryResponseMapping];
+    self.histories = [NSMutableArray array];
+    NSMutableDictionary *hashDict = [NSMutableDictionary dictionary];
+    for (NSDictionary *eachHistory in histories) {
+        TSGamePlayHistory *history = [[TSGamePlayHistory alloc] init];
+        RKMappingOperation *mappingOperation = [[RKMappingOperation alloc] initWithSourceObject:eachHistory destinationObject:history mapping:mapping];
+        NSError *error = nil;
+        [mappingOperation performMapping:&error];
+        [_histories addObject:history];
+        if (!hashDict[history.gameId]) {
+            hashDict[history.gameId] = history.result;
+        }
     }
+    for (TSGame *game in _games) {
+        if (hashDict[game.gameId]) {
+            NSString *resultString = hashDict[game.gameId];
+            if ([resultString isEqualToString:@"win"]) {
+                game.result = GamePlayResultWin;
+            } else if ([resultString isEqualToString:@"lose"]) {
+                game.result = GamePlayResultLose;
+            } else {
+                game.result = GamePlayResultLose;
+            }
+        }
+    }
+    [self gameChanged];
+    [_spinner hide:NO];
 }
 
 - (void)refetchGamesData {
     if (_configurationHost) {
+        self.serviceCallsStatus = GameServiceCallsStatusGameList;
         [((TSGameServiceCalls *)[TSGameServiceCalls sharedInstance]) fetchGameList:self];
     } else {
+        self.serviceCallsStatus = GameServiceCallsStatusConfiguration;
         [((TSGameServiceCalls *)[TSGameServiceCalls sharedInstance]) fetchConfiguration:self];
     }
 }
@@ -178,7 +209,7 @@
         CGRect rect = CGRectMake(i*_gamesScrollView.frameSizeWidth, 0, _gamesScrollView.frameSizeWidth, _gamesScrollView.frameSizeHeight);
         UIImageView *anImageView = [[UIImageView alloc] initWithFrame:rect];
         TSGame *game = [_games objectAtIndex:i];
-        [anImageView setImageWithURL:[NSURL URLWithString:game.gameImageURL]];
+        [anImageView setImageWithURL:[NSURL URLWithString:game.gameImageURL] placeholderImage:[UIImage imageNamed:IMAGE_NOT_FOUND]];
         [_gamesScrollView addSubview:anImageView];
         width += _gamesScrollView.frameSizeWidth;
     }
@@ -271,8 +302,7 @@
 #pragma mark - PhotoHuntViewControllerDelegate / related
 - (void)photoHuntViewControllerDidFinishGame:(PhotoHuntViewController *)controller {
     [self refetchGamesData];
-    //XXX-ML
-    NSLog(@"finished game and come back!");
+    DDLogCDebug(@"finished game and come back!");
 }
 
 #pragma TSGameServiceCallDelegate
@@ -283,10 +313,10 @@
         if (data) {
             NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
             if (!jsonArray) {
-                NSLog(@"Error parsing JSON: %@", error);
+                DDLogCDebug(@"Error parsing JSON: %@", error);
             } else {
-                NSLog(@"");
-                [self updateGameResultHistories];
+                DDLogCDebug(@"");
+                [self updateGameResultHistories:jsonArray];
             }
         }
     } else if (selector == @selector(fetchGameList:)) {
@@ -295,12 +325,12 @@
             NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
             
             if (!jsonArray) {
-                NSLog(@"Error parsing JSON: %@", error);
+                DDLogCDebug(@"Error parsing JSON: %@", error);
             } else {
                 for(NSDictionary *item in jsonArray) {
-                    NSLog(@"Item: %@", item);
+                    DDLogCDebug(@"Item: %@", item);
                     TSGame *game = [[TSGame alloc] init];
-                    game.gameId = item[GAME_DICT_KEY_ID];
+                    game.gameId = [item[GAME_DICT_KEY_ID] stringValue];
                     game.name = item[GAME_DICT_KEY_NAME];
                     NSString *packageURL = item[GAME_DICT_KEY_GAME_PACKAGE_URL];
                     packageURL = [packageURL stringByDeletingPathExtension];
@@ -309,13 +339,17 @@
                     game.gameImageURL = [NSString stringWithFormat:@"%@%@", _configurationHost, item[GAME_DICT_KEY_GAME_IMAGE_URL]];
                     game.gamePackageURL = [NSString stringWithFormat:@"%@%@", _configurationHost, item[GAME_DICT_KEY_GAME_PACKAGE_URL]];
                     game.timeLimit = [item[GAME_DICT_KEY_TIME_LIMIT] intValue];
+                    game.sponsorImageURL = [NSString stringWithFormat:@"%@%@", _configurationHost, item[GAME_DICT_KEY_SPONSOR_IMAGE_URL]];
+                    game.sponsorName = item[GAME_DICT_KEY_SPONSOR_NAME];
                     game.validNumberOfChanges = 5;
                     [_games addObject:game];
                 }
             }
-            NSLog(@"");
+            DDLogCDebug(@"");
         }
         [self initializeScrollView];
+        [self gameChanged];
+        self.serviceCallsStatus = GameServiceCallsStatusGameHistories;
         [[TSGameServiceCalls sharedInstance] fetchGameHistories:self];
     } else if (selector == @selector(fetchConfiguration:)) {
         NSData *data = userInfo[@"responseObject"];
@@ -323,7 +357,7 @@
             NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
             
             if (!jsonArray) {
-                NSLog(@"Error parsing JSON: %@", error);
+                DDLogCDebug(@"Error parsing JSON: %@", error);
             } else {
                 for(NSDictionary *item in jsonArray) {
                     if (item[@"Value"]) {
@@ -332,6 +366,7 @@
                 }
             }
             if (_configurationHost) {
+                self.serviceCallsStatus = GameServiceCallsStatusGameList;
                 [((TSGameServiceCalls *)[TSGameServiceCalls sharedInstance]) fetchGameList:self];
             } else {
                 DDLogCError(@"no configuration host is found");
@@ -341,7 +376,9 @@
 }
 
 - (void)restManagerService:(SEL)selector failedWithOperation:(NSOperation *)operation error:(NSError *)error userInfo:(NSDictionary *)userInfo {
-    NSLog(@"");
+    [_spinner hide:NO];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:LS_OOPS message:LS_SERVICE_CALLS_FAILED_GENERAL delegate:nil cancelButtonTitle:LS_OK otherButtonTitles:nil];
+    [alertView show];
 }
 
 @end

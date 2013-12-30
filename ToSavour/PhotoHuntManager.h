@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "TSGame.h"
+#import "TSGamePlayHistory.h"
 
 #define CHANGE_GROUP_NONE           @"<NONE>"
 
@@ -41,6 +42,7 @@ typedef enum {
 @property (nonatomic, strong) NSDictionary *buttonToChangeDict;
 @property (nonatomic, strong) NSDictionary *changeToButtonsDict;
 @property (nonatomic, assign) id<PhotoHuntManagerDelegate> delegate;
+@property (nonatomic, strong) TSGamePlayHistory *history;
 
 - (id)initWithGame:(TSGame *)game delegate:(id<PhotoHuntManagerDelegate>)delegate;
 - (NSString *)changeGroupOfButtonIndex:(int)buttonIndex;

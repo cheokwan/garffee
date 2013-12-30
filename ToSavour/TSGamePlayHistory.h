@@ -15,5 +15,7 @@
 
 +(RKObjectMapping *)gamePlayHistoryRequestMapping;
 +(RKObjectMapping *)gamePlayHistoryResponseMapping;
++ (RKResponseDescriptor *)gamePlayHistoryResponseDescriptor;
++(RKObjectMapping *)updateGamePlayHistoryRequestMapping;
 
 @end

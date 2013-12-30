@@ -59,15 +59,8 @@
     button.frame = CGRectMake(0, 0, _promotionScrollView.frameSizeWidth, _promotionScrollView.frameSizeHeight);
     button.backgroundColor = [UIColor greenColor];
     
-    [button addObserver:self forKeyPath:@"frame" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
-    
     [_promotionScrollView addSubview:button];
     _promotionScrollView.contentSize = CGSizeMake(button.frameSizeWidth, button.frameSizeHeight);
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    NSLog(@"change : %@", change);
-    NSLog(@"");
 }
 
 - (void)didReceiveMemoryWarning

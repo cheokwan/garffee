@@ -21,6 +21,8 @@
 - (void)dealloc {
     self.gameId = nil;
     self.name = nil;
+    self.sponsorName = nil;
+    self.sponsorImageURL = nil;
     self.gameImageURL = nil;
     self.gamePackageURL = nil;
     self.gamePackageName = nil;

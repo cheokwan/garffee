@@ -29,7 +29,6 @@
 }
 
 - (void)buttonPressed:(id)sender {
-    NSLog(@"button pressed");
     if ([_delegate respondsToSelector:@selector(photoHuntGridButton:didPressedWithChangeGroup:)]) {
         [_delegate photoHuntGridButton:self didPressedWithChangeGroup:_changeGroup];
     }

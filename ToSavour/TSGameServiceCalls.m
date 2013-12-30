@@ -118,6 +118,7 @@
     [request addValue:[RestManager sharedInstance].appToken forHTTPHeaderField:@"Authorization"];
     request.HTTPBody = [RKMIMETypeSerialization dataFromObject:jsonDict MIMEType:RKMIMETypeJSON error:&error];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject){
         DDLogCDebug(@"SUCCEED");
@@ -127,9 +128,13 @@
             if (!jsonDict) {
                 DDLogCDebug(@"Error parsing JSON: %@", error);
             } else {
-                NSMutableDictionary *mutableDict = [jsonDict mutableCopy];
-                mutableDict[@"Result"] = @"win";
-                [self updateGameResult:nil gameHistory:mutableDict game:game];
+                TSGamePlayHistory *history = [[TSGamePlayHistory alloc] init];
+                RKMappingOperation *mappingOperation = [[RKMappingOperation alloc] initWithSourceObject:jsonDict destinationObject:history mapping:[TSGamePlayHistory gamePlayHistoryResponseMapping]];
+                NSError *error = nil;
+                [mappingOperation performMapping:&error];
+                if ([handler respondsToSelector:@selector(restManagerService:succeededWithOperation:userInfo:)]) {
+                    [handler restManagerService:_cmd succeededWithOperation:operation userInfo:@{@"gameHistory": history}];
+                }
             }
         }
     }failure:^(AFHTTPRequestOperation *operation, NSError *error){
@@ -142,22 +147,29 @@
     [operation start];
 }
 
-- (void)updateGameResult:(__weak id<RestManagerResponseHandler>)handler gameHistory:(NSDictionary *)gameHistoryDict game:(TSGame *)game {
-    
-    NSString *servicePath = [NSString stringWithFormat:@"/gamehistories/%@", game.gameId];
+- (void)updateGameResult:(__weak id<RestManagerResponseHandler>)handler gameHistory:(TSGamePlayHistory *)gameHistory {
+    NSString *servicePath = [NSString stringWithFormat:@"/gamehistories/%@", gameHistory.gameId];
     NSURL *serviceURL = [NSURL URLWithString:[appAPIBaseURLString stringByAppendingPathComponent:servicePath]];
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:serviceURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60];
     request.HTTPMethod = @"PUT";
     [request addValue:[RestManager sharedInstance].appToken forHTTPHeaderField:@"Authorization"];
+    RKRequestDescriptor *serialization = [RKRequestDescriptor requestDescriptorWithMapping:[TSGamePlayHistory updateGamePlayHistoryRequestMapping] objectClass:[TSGamePlayHistory class] rootKeyPath:nil method:RKRequestMethodPOST];
     NSError *error = nil;
-    request.HTTPBody = [RKMIMETypeSerialization dataFromObject:gameHistoryDict MIMEType:RKMIMETypeJSON error:&error];
+    NSMutableDictionary *jsonDict = [[RKObjectParameterization parametersWithObject:gameHistory requestDescriptor:serialization error:&error] mutableCopy];
+    request.HTTPBody = [RKMIMETypeSerialization dataFromObject:jsonDict MIMEType:RKMIMETypeJSON error:&error];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject){
         DDLogCDebug(@"SUCCEED");
+        if ([handler respondsToSelector:@selector(restManagerService:succeededWithOperation:userInfo:)]) {
+            [handler restManagerService:_cmd succeededWithOperation:operation userInfo:@{@"responseObject": responseObject}];
+        }
     }failure:^(AFHTTPRequestOperation *operation, NSError *error){
         DDLogCDebug(@"failed: %@; ERROR: %@", [operation request], error);
+        if ([handler respondsToSelector:@selector(restManagerService:failedWithOperation:error:userInfo:)]) {
+            [handler restManagerService:_cmd failedWithOperation:operation error:error userInfo:nil];
+        }
     }];
     DDLogCDebug(@"%@", request);
     [operation start];
