@@ -14,17 +14,25 @@
 #import "MProductInfo.h"
 #import "MProductConfigurableOption.h"
 #import "MProductOptionChoice.h"
+#import "MItemInfo.h"
+#import "MGlobalConfiguration.h"
 #import "TSFrontEndIncludes.h"
+#import "ItemGridView.h"
 
 typedef enum {
     ItemPickerSectionProductCategoryAndName = 0,
     ItemPickerSectionProductOptions,
+    ItemPickerSectionSubmitButton,
     ItemPickerSectionTotal,
 } ItemPickerSection;
 
 @interface ItemPickerViewController ()
-@property (nonatomic, strong) ItemPickerTableViewCell *itemPickerPrototypeCell;
-@property (nonatomic, assign) UITableViewRowAnimation animationStyle;  // XXXX
+@property (nonatomic, strong)   ItemPickerTableViewCell *itemPickerPrototypeCell;
+@property (nonatomic, assign)   UITableViewRowAnimation animationStyle;  // XXX-TEST
+
+@property (nonatomic, strong)   ItemPickerTableViewCell *cachedProductCategoryAndNameCell;
+@property (nonatomic, strong)   ItemPickerTableViewCell *cachedSubmitButtonCell;
+@property (nonatomic, strong)   ItemGridView *addItemButton;
 
 @end
 
@@ -42,11 +50,12 @@ typedef enum {
 - (void)initializeView {
     _itemTable.dataSource = self;
     _itemTable.delegate = self;
-    UIBarButtonItem *leftBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(buttonPressed:)];  // XXXX
-    self.navigationItem.leftBarButtonItem = leftBarButton;
     self.navigationItem.rightBarButtonItem = self.dismissButton;
-    // XXXXX
-    self.selectedProduct = self.allProducts[1];
+    NSInteger defaultProductIndex = [self.allProducts indexOfObject:_defaultProduct];
+    if (defaultProductIndex == NSNotFound) {
+        defaultProductIndex = self.allProducts.count / 2;
+    }
+    self.selectedProduct = self.allProducts[defaultProductIndex];
 }
 
 - (void)viewDidLoad
@@ -70,7 +79,7 @@ typedef enum {
     }
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {  // XXXX
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     switch (buttonIndex) {
         case 1:
             self.animationStyle = UITableViewRowAnimationFade;
@@ -115,7 +124,7 @@ typedef enum {
 - (NSArray *)allProducts {
     if (!_allProducts) {
         NSFetchRequest *fetchRequest = [MProductInfo fetchRequestInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"type = %@", M_PRODUCT_INFO_TYPE_REAL];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"type = %@", MProductInfoTypeReal];
         fetchRequest.predicate = predicate;
         NSError *error = nil;
         self.allProducts = [[AppDelegate sharedAppDelegate].managedObjectContext executeFetchRequest:fetchRequest error:&error];
@@ -129,25 +138,6 @@ typedef enum {
 - (NSArray *)productsUnderCategory:(NSString *)category {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category = %@", category];
     return [self.allProducts filteredArrayUsingPredicate:predicate];
-}
-
-- (NSArray *)optionsUnderProduct:(MProductInfo *)product {  // XXX-TEST XXXX
-    return @[@[@"S1", @"S2", @"S3"],
-             @[@"M1", @"M2"],
-             @[@"B1", @"B2"]];
-}
-
-- (NSArray *)optionsImageUnderProduct:(MProductInfo *)product {  // XXX-TEST XXXX
-    return @[@[@"http://www.mcdonalds.com/content/dam/McDonalds/item/s-mcdonalds-Small-French-Fries.png", @"http://www.mcdonalds.com/content/dam/McDonalds/item/s-mcdonalds-Apple-Slices.png", @"http://www.mcdonalds.com/content/dam/McDonalds/item/s-mcdonalds-Side-Salad.png"],
-             @[@"http://www.mcdonalds.com/content/dam/McDonalds/item/s-mcdonalds-Fruit-n-Yogurt-Parfait-7-oz.png", @"http://www.mcdonalds.com/content/dam/McDonalds/item/s-mcdonalds-Mighty-Wings-3-piece.png"],
-             @[@"http://www.mcdonalds.com/content/dam/McDonalds/item/s-mcdonalds-Minute-Maid-Orange-Juice-Small.png", @"http://www.mcdonalds.com/content/dam/McDonalds/item/s-mcdonalds-Dasani-Water.png"]];
-}
-
-- (NSArray *)categoryImages {
-    return @[@"http://www.mcdonalds.com/content/dam/McDonalds/item/s-mcdonalds-Kiddie-Cone.png",
-             @"http://www.mcdonalds.com/content/dam/McDonalds/item/s-mcdonalds-Hot-Fudge-Sundae.png",
-             @"http://www.mcdonalds.com/content/dam/McDonalds/item/s-mcdonalds-McFlurry-with-OREO-Cookies-12-fl-oz-cup.png",
-             @"http://www.mcdonalds.com/content/dam/McDonalds/item/s-mcdonalds-Chocolate-McCafe-Shake-12-fl-oz-cup.png"];
 }
 
 - (UIBarButtonItem *)dismissButton {
@@ -172,6 +162,9 @@ typedef enum {
         case ItemPickerSectionProductOptions:
             return self.selectedProduct.configurableOptions.count;
             break;
+        case ItemPickerSectionSubmitButton:
+            return 1;
+            break;
     }
     return 0;
 }
@@ -189,8 +182,22 @@ typedef enum {
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = nil;
-    cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(ItemPickerTableViewCell.class) forIndexPath:indexPath];
-    [self configureCell:cell atIndexPath:indexPath];
+    
+    switch (indexPath.section) {
+        case ItemPickerSectionProductCategoryAndName:
+            cell = _cachedProductCategoryAndNameCell;
+            break;
+        case ItemPickerSectionProductOptions:
+            // since the options cell are dynamic, we don't do caching at this point
+            break;
+        case ItemPickerSectionSubmitButton:
+            cell = _cachedSubmitButtonCell;
+            break;
+    }
+    if (!cell) {
+        cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(ItemPickerTableViewCell.class) forIndexPath:indexPath];
+        [self configureCell:cell atIndexPath:indexPath];
+    }
     return cell;
 }
 
@@ -198,37 +205,47 @@ typedef enum {
     ItemPickerTableViewCell *itemPickerCell = (ItemPickerTableViewCell *)cell;
     NSMutableArray *itemViews = nil;
     NSInteger defaultChoiceIndex = -1;
+    CGRect itemViewFrame = CGRectMake(0, 0, itemPickerCell.pickerScrollView.itemViewDimension, itemPickerCell.pickerScrollView.itemViewDimension);
     switch (indexPath.section) {
         case ItemPickerSectionProductCategoryAndName: {
             itemViews = [NSMutableArray array];
             for (MProductInfo *product in self.allProducts) {
-                ItemView *itemView = [[ItemView alloc] initWithText:product.name imageURL:[NSURL URLWithString:product.resolvedImageURL]];
+                ItemGridView *itemView = [[ItemGridView alloc] initWithFrame:itemViewFrame text:product.name imageURL:[NSURL URLWithString:product.resolvedImageURL] interactable:YES shouldReceiveNotification:YES];
+                itemView.delegate = self;
                 [itemViews addObject:itemView];
             }
+            defaultChoiceIndex = [self.allProducts indexOfObject:self.selectedProduct];
+            self.cachedProductCategoryAndNameCell = itemPickerCell;
         }
             break;
         case ItemPickerSectionProductOptions: {
             itemViews = [NSMutableArray array];
             MProductConfigurableOption *configurableOption = self.selectedProduct.configurableOptions[indexPath.row];
             for (MProductOptionChoice *choice in configurableOption.choices) {
-                ItemView *itemView = [[ItemView alloc] initWithText:choice.name imageURL:[NSURL URLWithString:choice.resolvedImageURL]];
+                ItemGridView *itemView = [[ItemGridView alloc] initWithFrame:itemViewFrame text:choice.name imageURL:[NSURL URLWithString:choice.resolvedImageURL] interactable:YES shouldReceiveNotification:YES];
+                itemView.delegate = self;
                 [itemViews addObject:itemView];
             }
             defaultChoiceIndex = [configurableOption.defaultChoice intValue];
+        }
+            break;
+        case ItemPickerSectionSubmitButton: {
+            itemViews = [NSMutableArray array];
+            NSURL *imageURL = [NSURL URLWithString:[[MGlobalConfiguration cachedBlobHostName] stringByAppendingPathComponent:@"productimages/cup_1.png"]];  // TODO: should we get some other image?
+            self.addItemButton = [[ItemGridView alloc] initWithFrame:itemViewFrame text:LS_ADD_TO_CART imageURL:imageURL interactable:YES shouldReceiveNotification:YES];
+            _addItemButton.delegate = self;
+            [itemViews addObject:_addItemButton];
+            self.cachedSubmitButtonCell = itemPickerCell;
         }
             break;
         default:
             break;
     }
     if (itemViews) {
-        for (UIView *itemView in itemViews) {
-            [[NSNotificationCenter defaultCenter] addObserver:itemView selector:@selector(notificationReceived:) name:@"WakeUpBitch" object:nil];
-            [[NSNotificationCenter defaultCenter] addObserver:itemView selector:@selector(notificationReceived:) name:@"SleepLaBitch" object:nil];
-        }
         [itemPickerCell.pickerScrollView addItemViews:itemViews];
         itemPickerCell.pickerScrollView.occupiedIndexPath = indexPath;
         itemPickerCell.pickerScrollView.pickerDelegate = self;
-        if (defaultChoiceIndex >= 0) {
+        if (defaultChoiceIndex >= 0 && defaultChoiceIndex != NSNotFound) {
             [itemPickerCell.pickerScrollView selectItemAtIndex:defaultChoiceIndex animated:NO];
         }
     }
@@ -238,17 +255,17 @@ typedef enum {
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"WakeUpBitch" object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:ItemGridViewDragTransitionNotificationStart object:self];
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
 //    if (!decelerate) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"SleepLaBitch" object:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:ItemGridViewDragTransitionNotificationStop object:self];
 //    }
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-//    [[NSNotificationCenter defaultCenter] postNotificationName:@"SleepLaBitch" object:self];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:ItemGridViewDragTransitionNotificationStop object:self];
 }
 
 #pragma mark - ItemPickerScrollViewDelegate
@@ -257,8 +274,7 @@ typedef enum {
     switch (indexPath.section) {
         case ItemPickerSectionProductCategoryAndName: {
             self.selectedProduct = self.allProducts[index];
-            DDLogError(@"selected product: %@", self.selectedProduct.name);  // XXXX
-            [_itemTable reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:self.animationStyle];
+            [_itemTable reloadSections:[NSIndexSet indexSetWithIndex:ItemPickerSectionProductOptions] withRowAnimation:self.animationStyle];
         }
             break;
         case ItemPickerSectionProductOptions:
@@ -268,77 +284,34 @@ typedef enum {
     }
 }
 
-@end
+#pragma mark - ItemGridViewDelegate
 
-
-@implementation ItemView
-
-- (UILabel *)testLabelWithName:(NSString *)name {  // XXX-TEST  XXXX
-    UILabel *label = [[UILabel alloc] init];
-    label.contentMode = UIViewContentModeCenter;
-    label.userInteractionEnabled = YES;
-    label.frame = CGRectMake(10, 0, 60, 80);
-    label.lineBreakMode = NSLineBreakByWordWrapping;
-    label.numberOfLines = 10;
-    label.textAlignment = NSTextAlignmentCenter;
-    label.font = [UIFont systemFontOfSize:12.0];
-    label.text = name;
-    return label;
-}
-
-- (UIImageView *)testImageWithURL:(NSURL *)url {  // XXX-TEST XXXX
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 60, 60)];
-    imageView.contentMode = UIViewContentModeScaleAspectFit;
-    imageView.userInteractionEnabled = YES;
-    __weak UIImageView *weakImageView = imageView;
-    [imageView setImageWithURL:url placeholderImage:nil options:0 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-        if (image) {
-            CGSize scaleUpSize = CGSizeMake(weakImageView.frame.size.width * 1.5, weakImageView.frame.size.height * 1.5);
-            weakImageView.image = [image resizedImageToFitInSize:scaleUpSize scaleIfSmaller:YES];
-        } else {
-            DDLogWarn(@"cannot set image for item: %@ - error %@", _textLabel.text, error);
+- (void)itemGridViewButtonDidPressed:(ItemGridView *)itemGridView {
+    if (itemGridView == _addItemButton) {
+        // count all the selected option choices
+        NSMutableArray *selectedOptionChoices = [NSMutableArray array];
+        for (NSInteger row = 0; row < [self.itemTable numberOfRowsInSection:ItemPickerSectionProductOptions]; ++row) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:ItemPickerSectionProductOptions];
+            ItemPickerTableViewCell *itemPickerCell = (ItemPickerTableViewCell *)[self.itemTable cellForRowAtIndexPath:indexPath];
+            NSInteger choiceIndex = [itemPickerCell.pickerScrollView getCurrentSelectedItemIndex];
+            MProductConfigurableOption *configurableOption = self.selectedProduct.configurableOptions[row];
+            MProductOptionChoice *choice = configurableOption.choices[choiceIndex];
+            [selectedOptionChoices addObject:choice];
         }
-    }];
-    return imageView;
-}
-
-- (id)initWithText:(NSString *)text imageURL:(NSURL *)imageURL {
-    self = [super initWithFrame:CGRectMake(0, 0, 80, 80)];
-    self.userInteractionEnabled = YES;
-    self.contentMode = UIViewContentModeCenter;
-    
-    if (text) {
-        self.textLabel = [self testLabelWithName:text];
+        
+        // add item to cart
+        if ([_delegate respondsToSelector:@selector(itemPicker:didAddItem:)]) {
+            MItemInfo *newItem = [MItemInfo newItemInfoWithProduct:self.selectedProduct optionChoices:selectedOptionChoices inContext:[AppDelegate sharedAppDelegate].managedObjectContext];
+            [_delegate itemPicker:self didAddItem:newItem];
+        }
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        ItemPickerScrollView *pickerScrollView = nil;
+        if ([itemGridView.superview isKindOfClass:ItemPickerScrollView.class]) {
+            pickerScrollView = (ItemPickerScrollView *)itemGridView.superview;
+        }
+        [pickerScrollView selectItem:itemGridView animated:YES];
     }
-    if (imageURL) {
-        self.imageView = [self testImageWithURL:imageURL];
-    }
-    if (_textLabel) {
-        [self addSubview:_textLabel];
-    }
-    if (_imageView) {
-        [self addSubview:_imageView];
-        _textLabel.alpha = 0.0f;
-    }
-    return self;
-}
-
-- (void)notificationReceived:(NSNotification *)notification {
-    if ([notification.name isEqualToString:@"WakeUpBitch"]) {
-        [UIView animateWithDuration:0.5 animations:^{
-            _textLabel.alpha = 1.0;
-            _imageView.alpha = 0.0;
-        }];
-    } else if ([notification.name isEqualToString:@"SleepLaBitch"]) {
-        [UIView animateWithDuration:0.5 animations:^{
-            _imageView.alpha = 1.0;
-            _textLabel.alpha = 0.0;
-        }];
-    }
-}
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

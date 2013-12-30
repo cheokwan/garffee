@@ -44,5 +44,7 @@
 #define LS_LOADING              NSLocalizedString(@"Loading", @"")
 #define LS_OOPS                 NSLocalizedString(@"Oops", @"")
 #define LS_SERVICE_CALLS_FAILED_GENERAL     NSLocalizedString(@"We have encounter problem when we prepare the game, please try again later.", @"")
+#define LS_ADD_TO_CART          NSLocalizedString(@"Add to Cart", @"")
+#define LS_QUANTITY             NSLocalizedString(@"Quantity", @"")
 
 #endif

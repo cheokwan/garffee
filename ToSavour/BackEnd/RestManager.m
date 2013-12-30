@@ -18,7 +18,6 @@
 @end
 
 @implementation RestManager
-
 @synthesize appToken = _appToken;
 @synthesize defaultDotNetValueTransformer = _defaultDotNetValueTransformer;
 @synthesize defaultDotNetDateFormatter = _defaultDotNetDateFormatter;
@@ -103,53 +102,57 @@
 
 // TODO: support fetching outside of non-mainqueue contexts
 
+- (void)fetchManagedObjectsWithServiceHost:(RestManagerServiceHostType)serviceHost endPoint:(NSString *)endPoint sourceSelector:(SEL)sourceSelector entityClass:(Class<RKMappableEntity>)entityClass handler:(__weak id<RestManagerResponseHandler>)handler {
+    RKManagedObjectRequestOperation *operation = nil;
+    RKObjectManager *objectManager = nil;
+    switch (serviceHost) {
+        case RestManagerServiceHostApp: {
+            NSURL *serviceURL = [NSURL URLWithString:[appAPIBaseURLString stringByAppendingPathComponent:endPoint]];
+            NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:serviceURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60];
+            [request setValue:self.appToken forHTTPHeaderField:@"Authorization"];
+            operation = [[RKManagedObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[[entityClass defaultResponseDescriptor]]];
+            objectManager = self.appObjectManager;
+        }
+            break;
+        case RestManagerServiceHostFacebook: {
+            NSURL *serviceURL = [NSURL URLWithString:[facebookAPIBaseURLString stringByAppendingPathComponent:endPoint]];
+            NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:serviceURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60];
+            operation = [[RKManagedObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[[(Class<RKFacebookMappableEntity>)entityClass facebookResponseDescriptor]]];
+            objectManager = self.facebookObjectManager;
+        }
+            break;
+    }
+    
+    operation.managedObjectContext = [AppDelegate sharedAppDelegate].managedObjectContext;
+    operation.managedObjectCache = [RKManagedObjectStore defaultStore].managedObjectCache;
+    
+    [operation setCompletionBlockWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        if ([handler respondsToSelector:@selector(restManagerService:succeededWithOperation:userInfo:)]) {
+            NSDictionary *userInfo = mappingResult ? @{@"mappingResult": mappingResult} : nil;
+            [handler restManagerService:sourceSelector succeededWithOperation:operation userInfo:userInfo];
+        }
+    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        DDLogError(@"REST operation failed: %@", error);
+        if ([handler respondsToSelector:@selector(restManagerService:failedWithOperation:error:userInfo:)]) {
+            [handler restManagerService:sourceSelector failedWithOperation:operation error:error userInfo:nil];
+        }
+    }];
+    [objectManager enqueueObjectRequestOperation:operation];
+}
+
 #pragma mark - Facebook Services
 
 - (void)fetchFacebookAppUserInfo:(__weak id<RestManagerResponseHandler>)handler {
     // fetch user info
-    NSString *servicePath = [NSString stringWithFormat:@"/me/?access_token=%@&fields=id,name,username,email,first_name,middle_name,last_name,gender,age_range,link,locale,birthday,picture.width(120),picture.height(120)", self.facebookToken];
-    NSURL *serviceURL = [NSURL URLWithString:[facebookAPIBaseURLString stringByAppendingPathComponent:servicePath]];
-    
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:serviceURL cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:60];
-    RKManagedObjectRequestOperation *operation = [[RKManagedObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[[MUserInfo facebookResponseDescriptor]]];
-    
-    operation.managedObjectContext = [AppDelegate sharedAppDelegate].managedObjectContext;
-    operation.managedObjectCache = [RKManagedObjectStore defaultStore].managedObjectCache;
-    [operation setCompletionBlockWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-        if ([handler respondsToSelector:@selector(restManagerService:succeededWithOperation:userInfo:)]) {
-            [handler restManagerService:_cmd succeededWithOperation:operation userInfo:@{@"mappingResult": mappingResult}];
-        }
-    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-        DDLogWarn(@"REST operation failed: %@", error);
-        if ([handler respondsToSelector:@selector(restManagerService:failedWithOperation:error:userInfo:)]) {
-            [handler restManagerService:_cmd failedWithOperation:operation error:error userInfo:nil];
-        }
-    }];
-    [self.facebookObjectManager enqueueObjectRequestOperation:operation];
+    NSString *endPoint = [NSString stringWithFormat:@"/me/?access_token=%@&fields=id,name,username,email,first_name,middle_name,last_name,gender,age_range,link,locale,birthday,picture.width(120),picture.height(120)", self.facebookToken];
+    [self fetchManagedObjectsWithServiceHost:RestManagerServiceHostFacebook endPoint:endPoint sourceSelector:_cmd entityClass:MUserInfo.class handler:handler];
 }
 
 
 - (void)fetchFacebookFriendsInfo:(__weak id<RestManagerResponseHandler>)handler {
     // fetch friends info
-    NSString *servicePath = [NSString stringWithFormat:@"/me/friends?access_token=%@&fields=id,name,username,email,first_name,middle_name,last_name,gender,age_range,link,locale,birthday,picture.width(120),picture.height(120)", self.facebookToken];
-    NSURL *serviceURL = [NSURL URLWithString:[facebookAPIBaseURLString stringByAppendingPathComponent:servicePath]];
-    
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:serviceURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60];
-    RKManagedObjectRequestOperation *operation = [[RKManagedObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[[MFriendInfo facebookResponseDescriptor]]];
-    
-    operation.managedObjectContext = [AppDelegate sharedAppDelegate].managedObjectContext;
-    operation.managedObjectCache = [RKManagedObjectStore defaultStore].managedObjectCache;
-    [operation setCompletionBlockWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-        if ([handler respondsToSelector:@selector(restManagerService:succeededWithOperation:userInfo:)]) {
-            [handler restManagerService:_cmd succeededWithOperation:operation userInfo:@{@"mappingResult": mappingResult}];
-        }
-    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-        DDLogWarn(@"REST operation failed: %@", error);
-        if ([handler respondsToSelector:@selector(restManagerService:failedWithOperation:error:userInfo:)]) {
-            [handler restManagerService:_cmd failedWithOperation:operation error:error userInfo:nil];
-        }
-    }];
-    [self.facebookObjectManager enqueueObjectRequestOperation:operation];
+    NSString *endPoint = [NSString stringWithFormat:@"/me/friends?access_token=%@&fields=id,name,username,email,first_name,middle_name,last_name,gender,age_range,link,locale,birthday,picture.width(120),picture.height(120)", self.facebookToken];
+    [self fetchManagedObjectsWithServiceHost:RestManagerServiceHostFacebook endPoint:endPoint sourceSelector:_cmd entityClass:MFriendInfo.class handler:handler];
 }
 
 #pragma mark - App Services
@@ -185,11 +188,13 @@
                 [userPostRequest setValue:appUser.fbID forHTTPHeaderField:@"FacebookId"];
                 userPostRequest.HTTPBody = [RKMIMETypeSerialization dataFromObject:jsonDict MIMEType:RKMIMETypeJSON error:&error];
                 [userPostRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+                AFJSONRequestOperation *userPostOperation = nil;
                 if (error) {
                     DDLogError(@"JSON serialization problem during initial user creation: %@", error);
+                } else {
+                    userPostOperation = [[AFJSONRequestOperation alloc] initWithRequest:userPostRequest];
                 }
                 
-                AFJSONRequestOperation *userPostOperation = [[AFJSONRequestOperation alloc] initWithRequest:userPostRequest];
                 [userPostOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
                     // map the response to existing user managed object
                     self.appToken = operation.response.allHeaderFields[@"Authorization"];  // update the app token
@@ -251,35 +256,50 @@
     [operation start];
 }
 
-- (void)fetchAppManagedObjectsWithServiceURL:(NSURL *)serviceURL sourceSelector:(SEL)sourceSelector entityClass:(Class<RKMappableEntity>)entityClass handler:(__weak id<RestManagerResponseHandler>)handler {
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:serviceURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60];
-    [request setValue:self.appToken forHTTPHeaderField:@"Authorization"];
-    
-    RKManagedObjectRequestOperation *operation = [[RKManagedObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[[entityClass defaultResponseDescriptor]]];
-    operation.managedObjectContext = [AppDelegate sharedAppDelegate].managedObjectContext;
-    operation.managedObjectCache = [RKManagedObjectStore defaultStore].managedObjectCache;
-    
-    [operation setCompletionBlockWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-        if ([handler respondsToSelector:@selector(restManagerService:succeededWithOperation:userInfo:)]) {
-            [handler restManagerService:sourceSelector succeededWithOperation:operation userInfo:@{@"mappingResult": mappingResult}];
-        }
-    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-        DDLogError(@"REST operation failed: %@", error);
-        if ([handler respondsToSelector:@selector(restManagerService:failedWithOperation:error:userInfo:)]) {
-            [handler restManagerService:sourceSelector failedWithOperation:operation error:error userInfo:nil];
-        }
-    }];
-    [self.appObjectManager enqueueObjectRequestOperation:operation];
-}
-
 - (void)fetchAppProductInfo:(__weak id<RestManagerResponseHandler>)handler {
-    NSURL *serviceURL = [NSURL URLWithString:[appAPIBaseURLString stringByAppendingString:@"/products"]];
-    [self fetchAppManagedObjectsWithServiceURL:serviceURL sourceSelector:_cmd entityClass:MProductInfo.class handler:handler];
+    [self fetchManagedObjectsWithServiceHost:RestManagerServiceHostApp endPoint:@"/products" sourceSelector:_cmd entityClass:MProductInfo.class handler:handler];
 }
 
 - (void)fetchAppConfigurations:(__weak id<RestManagerResponseHandler>)handler {
-    NSURL *serviceURL = [NSURL URLWithString:[appAPIBaseURLString stringByAppendingString:@"/configurations"]];
-    [self fetchAppManagedObjectsWithServiceURL:serviceURL sourceSelector:_cmd entityClass:MGlobalConfiguration.class handler:handler];
+    [self fetchManagedObjectsWithServiceHost:RestManagerServiceHostApp endPoint:@"/configurations" sourceSelector:_cmd entityClass:MGlobalConfiguration.class handler:handler];
+}
+
+
+- (void)postOrder:(MOrderInfo *)order handler:(__weak id<RestManagerResponseHandler>)handler {
+    NSURL *serviceURL = [NSURL URLWithString:[appAPIBaseURLString stringByAppendingPathComponent:@"/orders"]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:serviceURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60];
+    request.HTTPMethod = @"POST";
+    [request setValue:self.appToken forHTTPHeaderField:@"Authorization"];
+    
+    RKRequestDescriptor *serialization = [RKRequestDescriptor requestDescriptorWithMapping:[[MOrderInfo defaultEntityMapping] inverseMapping] objectClass:MOrderInfo.class rootKeyPath:nil method:RKRequestMethodPOST];
+    NSError *error = nil;
+    NSMutableDictionary *jsonDict = [[RKObjectParameterization parametersWithObject:order requestDescriptor:serialization error:&error] mutableCopy];
+    
+    AFJSONRequestOperation *operation = nil;
+    if (error) {
+        DDLogError(@"JSON parameterization problem during posting order: %@", error);
+    } else {
+        request.HTTPBody = [RKMIMETypeSerialization dataFromObject:jsonDict MIMEType:RKMIMETypeJSON error:&error];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        if (error) {
+            DDLogError(@"JSON serialization problem during posting order: %@", error);
+        } else {
+            operation = [[AFJSONRequestOperation alloc] initWithRequest:request];
+        }
+    }
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if ([handler respondsToSelector:@selector(restManagerService:succeededWithOperation:userInfo:)]) {
+            NSDictionary *userInfo = responseObject ? @{@"responseObject": responseObject} : nil;
+            [handler restManagerService:_cmd succeededWithOperation:operation userInfo:userInfo];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        DDLogError(@"REST operation failed: %@", error);
+        if ([handler respondsToSelector:@selector(restManagerService:failedWithOperation:error:userInfo:)]) {
+            [handler restManagerService:_cmd failedWithOperation:operation error:error userInfo:nil];
+        }
+    }];
+    [operation start];
 }
 
 @end

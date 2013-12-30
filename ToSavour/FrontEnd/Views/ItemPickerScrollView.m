@@ -16,7 +16,7 @@
     self.showsVerticalScrollIndicator = NO;
     self.clipsToBounds = YES;
     self.pagingEnabled = NO;  // manual paging
-    self.decelerationRate = UIScrollViewDecelerationRateNormal / 2.0;
+    self.decelerationRate = UIScrollViewDecelerationRateFast;
     self.delegate = self;
 }
 
@@ -74,11 +74,20 @@
     if (offsetX < self.contentSize.width) {
         [self setContentOffset:CGPointMake(offsetX, self.contentOffset.y) animated:animated];
         
-        // don't call back the delegate for this method for now to simplify the control flow
-//        if ([_pickerDelegate respondsToSelector:@selector(pickerAtIndexPath:didSelectItem:atIndex:)]) {
-//            UIView *itemSubview = [self subviewAtOrigin:CGPointMake(offsetX + self.sideMargin, self.contentOffset.y)];
-//            [_pickerDelegate pickerAtIndexPath:self.occupiedIndexPath didSelectItem:itemSubview atIndex:index];
-//        }
+        // TODO: improve this:
+        // if not animated, we assume it's not user triggered, so don't call back the
+        // delegate for now to simplify the control flow
+        if (animated && [_pickerDelegate respondsToSelector:@selector(pickerAtIndexPath:didSelectItem:atIndex:)]) {
+            UIView *itemSubview = [self subviewAtOrigin:CGPointMake(offsetX + self.sideMargin, self.contentOffset.y)];
+            [_pickerDelegate pickerAtIndexPath:self.occupiedIndexPath didSelectItem:itemSubview atIndex:index];
+        }
+    }
+}
+
+- (void)selectItem:(UIView *)itemView animated:(BOOL)animated {
+    NSInteger itemIndex = [self.subviews indexOfObject:itemView];
+    if (itemIndex != NSNotFound) {
+        [self selectItemAtIndex:itemIndex animated:animated];
     }
 }
 
@@ -137,6 +146,7 @@
 
 - (void)snapToColumn {
     // snsp to the nearest whole item
+    // TODO: this might not be the smartest way to calcuate
     CGFloat offsetX = self.contentOffset.x;
     CGFloat offsetXFraction = offsetX - floor(offsetX);
     offsetX = (int)floor(offsetX) % (int)floor(self.itemViewDimension);
@@ -149,9 +159,11 @@
     [self setContentOffset:newPoint animated:YES];
     
     if ([_pickerDelegate respondsToSelector:@selector(pickerAtIndexPath:didSelectItem:atIndex:)]) {
-        CGFloat itemIndex = newPoint.x / self.itemViewDimension;
         // newPoint is relative to contentOffset which disregards the side margin
-        UIView *itemSubview = [self subviewAtOrigin:CGPointMake(newPoint.x + self.sideMargin, newPoint.y)];
+        CGFloat itemIndex = newPoint.x / self.itemViewDimension;
+        itemIndex = MIN(itemIndex, self.subviews.count - 1);
+        itemIndex = MAX(itemIndex, 0);
+        UIView *itemSubview = self.subviews[(NSInteger)itemIndex];
         [_pickerDelegate pickerAtIndexPath:self.occupiedIndexPath didSelectItem:itemSubview atIndex:itemIndex];
     }
 }

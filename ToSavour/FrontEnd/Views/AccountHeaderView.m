@@ -52,8 +52,7 @@
     _avatarView.avatarButton.imageView.layer.borderWidth = 2.0;  // XXX-TEST
     
     UIImage *testImage = [UIImage imageNamed:@"AvatarBackground"];
-    testImage = [testImage resizedImageToFitInSize:self.backgroundImageView.frame.size scaleIfSmaller:NO];
-    //    self.backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
+    testImage = [testImage resizedImageToSize:self.backgroundImageView.frame.size];
     _backgroundImageView.image = testImage;
     
     _nameLabel.textColor = [TSTheming defaultAccentColor];  // TODO: dynamically change based on background

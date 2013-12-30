@@ -12,4 +12,6 @@
 
 - (NSString *)trimmedWhiteSpaces;
 
++ (NSString *)stringWithPrice:(CGFloat)price;
+
 @end

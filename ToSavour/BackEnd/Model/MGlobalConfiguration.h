@@ -11,7 +11,7 @@
 #import "RKMappableEntity.h"
 
 
-#define M_GLOBAL_CONFIGURATION_BLOBHOSTNAME     @"BlobHostName"
+static NSString *MGlobalConfigurationKeyBlobHostName = @"BlobHostName";
 
 @interface MGlobalConfiguration : NSManagedObject<RKMappableEntity>
 

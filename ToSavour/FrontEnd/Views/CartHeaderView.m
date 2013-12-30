@@ -42,8 +42,7 @@
 }
 
 - (void)updateTotalPrice:(CGFloat)price {
-    static NSString *priceFormatString = @"HK: $%.1f";
-    _priceLabel.text = [NSString stringWithFormat:priceFormatString, price];
+    _priceLabel.text = [NSString stringWithPrice:price];
 }
 
 - (void)updateRecipient:(MUserInfo *)newRecipient {
@@ -64,6 +63,10 @@
     [_recipientAvatarView removeFromSuperview];
     self.recipientAvatarView = newAvatarView;
     [self.recipientBar addSubview:_recipientAvatarView];
+}
+
+- (BOOL)hasRecipient {
+    return [self.nameLabel.text trimmedWhiteSpaces].length != 0;
 }
 
 - (void)awakeFromNib {

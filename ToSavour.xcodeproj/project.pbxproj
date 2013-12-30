@@ -72,6 +72,10 @@
 		D2827DB61867E64000E4A662 /* MProductOptionChoice.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DB51867E64000E4A662 /* MProductOptionChoice.m */; };
 		D2827DB81867F92100E4A662 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2827DB71867F92100E4A662 /* Security.framework */; };
 		D2827DBB1867F9DC00E4A662 /* SecurityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DBA1867F9DC00E4A662 /* SecurityManager.m */; };
+		D2827DD318694E4C00E4A662 /* MOrderInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DD218694E4C00E4A662 /* MOrderInfo.m */; };
+		D2827DD418694E4C00E4A662 /* MOrderInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DD218694E4C00E4A662 /* MOrderInfo.m */; };
+		D2827DDB186D882D00E4A662 /* ItemGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DDA186D882D00E4A662 /* ItemGridView.m */; };
+		D2827DDC186D882D00E4A662 /* ItemGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DDA186D882D00E4A662 /* ItemGridView.m */; };
 		D293E4B2183DEDEB00B73795 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4B1183DEDEB00B73795 /* Foundation.framework */; };
 		D293E4B4183DEDEB00B73795 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4B3183DEDEB00B73795 /* CoreGraphics.framework */; };
 		D293E4B6183DEDEB00B73795 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4B5183DEDEB00B73795 /* UIKit.framework */; };
@@ -183,6 +187,10 @@
 		D2827DB71867F92100E4A662 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		D2827DB91867F9DC00E4A662 /* SecurityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SecurityManager.h; path = BackEnd/SecurityManager.h; sourceTree = "<group>"; };
 		D2827DBA1867F9DC00E4A662 /* SecurityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SecurityManager.m; path = BackEnd/SecurityManager.m; sourceTree = "<group>"; };
+		D2827DD118694E4C00E4A662 /* MOrderInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MOrderInfo.h; path = BackEnd/Model/MOrderInfo.h; sourceTree = "<group>"; };
+		D2827DD218694E4C00E4A662 /* MOrderInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MOrderInfo.m; path = BackEnd/Model/MOrderInfo.m; sourceTree = "<group>"; };
+		D2827DD9186D882D00E4A662 /* ItemGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ItemGridView.h; path = FrontEnd/ItemGridView.h; sourceTree = "<group>"; };
+		D2827DDA186D882D00E4A662 /* ItemGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ItemGridView.m; path = FrontEnd/ItemGridView.m; sourceTree = "<group>"; };
 		D293E4AE183DEDEB00B73795 /* ToSavour.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToSavour.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D293E4B1183DEDEB00B73795 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D293E4B3183DEDEB00B73795 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -505,6 +513,8 @@
 		D2A55702184DB5ED0039A5A0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D2827DD118694E4C00E4A662 /* MOrderInfo.h */,
+				D2827DD218694E4C00E4A662 /* MOrderInfo.m */,
 				D2827DB41867E64000E4A662 /* MProductOptionChoice.h */,
 				D2827DB51867E64000E4A662 /* MProductOptionChoice.m */,
 				D2827DB11867DB8800E4A662 /* MProductConfigurableOption.h */,
@@ -570,6 +580,8 @@
 				D246683F186036BB0089D5DB /* CartHeaderView.m */,
 				D2466844186052450089D5DB /* CartItemTableViewCell.h */,
 				D2466845186052450089D5DB /* CartItemTableViewCell.m */,
+				D2827DD9186D882D00E4A662 /* ItemGridView.h */,
+				D2827DDA186D882D00E4A662 /* ItemGridView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -826,6 +838,7 @@
 				D2466802185F15F70089D5DB /* AccountHeaderView.m in Sources */,
 				D2466803185F15F70089D5DB /* TSSettings.m in Sources */,
 				D2466804185F15F70089D5DB /* AvatarView.m in Sources */,
+				D2827DDC186D882D00E4A662 /* ItemGridView.m in Sources */,
 				D2466805185F15F70089D5DB /* MUserInfo.m in Sources */,
 				D2466807185F15F70089D5DB /* ItemPickerViewController.m in Sources */,
 				D2466808185F15F70089D5DB /* MItemInfo.m in Sources */,
@@ -844,6 +857,7 @@
 				D2466816185F15F70089D5DB /* AccountViewController.m in Sources */,
 				D2466817185F15F70089D5DB /* TSNavigationController.m in Sources */,
 				D2466818185F15F70089D5DB /* ToSavour.xcdatamodeld in Sources */,
+				D2827DD418694E4C00E4A662 /* MOrderInfo.m in Sources */,
 				D2466819185F15F70089D5DB /* FriendsListTableViewCell.m in Sources */,
 				D246681A185F15F70089D5DB /* UIView+Helper.m in Sources */,
 				D246681B185F15F70089D5DB /* MFriendInfo.m in Sources */,
@@ -854,6 +868,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2827DD318694E4C00E4A662 /* MOrderInfo.m in Sources */,
+				D2827DDB186D882D00E4A662 /* ItemGridView.m in Sources */,
 				DF60E74D185B47BA00DB10DE /* PhotoHuntGridButton.m in Sources */,
 				D2C075CB1855C47200620114 /* TutorialLoginViewController.m in Sources */,
 				DF26BEB518653FC400598CA0 /* TSGamePlayHistory.m in Sources */,

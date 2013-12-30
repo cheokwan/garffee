@@ -34,7 +34,7 @@
     static NSString *hostName = nil;
     if (!hostName) {
         NSAssert([NSThread currentThread] == [NSThread mainThread], @"must popuate the cache in main thread");
-        MGlobalConfiguration *config = [self configurationWithKey:M_GLOBAL_CONFIGURATION_BLOBHOSTNAME inContext:[AppDelegate sharedAppDelegate].managedObjectContext];
+        MGlobalConfiguration *config = [self configurationWithKey:MGlobalConfigurationKeyBlobHostName inContext:[AppDelegate sharedAppDelegate].managedObjectContext];
         hostName = config.value;
     }
     return hostName;

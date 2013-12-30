@@ -22,5 +22,7 @@
 
 - (void)addItemViews:(NSArray *)itemViews;
 - (void)selectItemAtIndex:(NSInteger)index animated:(BOOL)animated;
+- (void)selectItem:(UIView *)itemView animated:(BOOL)animated;
+- (NSInteger)getCurrentSelectedItemIndex;
 
 @end

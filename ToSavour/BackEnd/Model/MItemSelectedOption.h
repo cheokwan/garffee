@@ -2,7 +2,7 @@
 //  MItemSelectedOption.h
 //  ToSavour
 //
-//  Created by Jason Wan on 16/12/13.
+//  Created by Jason Wan on 24/12/13.
 //  Copyright (c) 2013 NBition. All rights reserved.
 //
 
@@ -10,12 +10,16 @@
 #import <CoreData/CoreData.h>
 #import "RKMappableEntity.h"
 
-@class MItemInfo;
+@class MItemInfo, MProductOptionChoice;
 
 @interface MItemSelectedOption : NSManagedObject<RKMappableEntity>
 
-@property (nonatomic) int32_t id;
+@property (nonatomic, retain) NSNumber * id;
+@property (nonatomic, retain) NSNumber * itemID;
+@property (nonatomic, retain) NSNumber * optionChoiceID;
 @property (nonatomic, retain) MItemInfo *item;
-@property (nonatomic, retain) NSManagedObject *productOptionChoice;
+@property (nonatomic, retain) MProductOptionChoice *productOptionChoice;
+
++ (id)newItemSelectedOptionWithOptionChoice:(MProductOptionChoice *)choice inContext:(NSManagedObjectContext *)context;
 
 @end

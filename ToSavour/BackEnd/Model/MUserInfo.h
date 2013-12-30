@@ -11,7 +11,7 @@
 #import "RKMappableEntity.h"
 
 
-@interface MUserInfo : NSManagedObject<RKMappableEntity>
+@interface MUserInfo : NSManagedObject<RKMappableEntity, RKFacebookMappableEntity>
 
 @property (nonatomic, retain) NSNumber * fbAgeRangeMin;
 @property (nonatomic, retain) NSDate * fbBirthday;

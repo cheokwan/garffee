@@ -7,10 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ItemPickerTableViewCell.h"
+#import "ItemPickerScrollView.h"
+#import "ItemGridView.h"
 @class MProductInfo;
+@class MItemInfo;
+@class ItemPickerViewController;
 
-@interface ItemPickerViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, ItemPickerScrollViewDelegate, /*XXXX*/UIAlertViewDelegate, UIScrollViewDelegate>
+@protocol ItemPickerViewControllerDelegate <NSObject>
+- (void)itemPicker:(ItemPickerViewController *)itemPicker didAddItem:(MItemInfo *)item;
+@end
+
+@interface ItemPickerViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, ItemPickerScrollViewDelegate, UIAlertViewDelegate, UIScrollViewDelegate, ItemGridViewDelegate>
 
 @property (nonatomic, strong)   IBOutlet UITableView *itemTable;
 @property (nonatomic, strong)   NSArray *allProducts;   // MProductInfo
@@ -18,13 +25,7 @@
 @property (nonatomic, strong)   MProductInfo *selectedProduct;
 @property (nonatomic, strong)   UIBarButtonItem *dismissButton;
 
-@end
+@property (nonatomic, weak)     id<ItemPickerViewControllerDelegate> delegate;
+@property (nonatomic, weak)     MProductInfo *defaultProduct;
 
-
-@interface ItemView : UIView
-@property (nonatomic, strong)   UILabel *textLabel;
-@property (nonatomic, strong)   UIImageView *imageView;
-
-- (id)initWithText:(NSString *)text imageURL:(NSURL *)imageURL;
-- (void)notificationReceived:(NSNotification *)notification;
 @end

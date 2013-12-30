@@ -23,5 +23,7 @@
 @property (nonatomic, strong)   IBOutlet UILabel *nameLabel;
 
 - (void)updateRecipient:(MUserInfo *)newRecipient;
+- (void)updateTotalPrice:(CGFloat)price;
+- (BOOL)hasRecipient;
 
 @end

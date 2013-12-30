@@ -33,17 +33,36 @@
         <attribute name="value" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="MItemInfo" representedClassName="MItemInfo" syncable="YES">
-        <attribute name="createdDateTime" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="couponID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="creationDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="orderID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="price" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="productID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="itemSelectedOptions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MItemSelectedOption" inverseName="item" inverseEntity="MItemSelectedOption" syncable="YES"/>
+        <relationship name="order" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MOrderInfo" inverseName="items" inverseEntity="MOrderInfo" syncable="YES"/>
         <relationship name="product" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MProductInfo" syncable="YES"/>
     </entity>
     <entity name="MItemSelectedOption" representedClassName="MItemSelectedOption" syncable="YES">
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="itemID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="optionChoiceID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="item" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MItemInfo" inverseName="itemSelectedOptions" inverseEntity="MItemInfo" syncable="YES"/>
         <relationship name="productOptionChoice" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MProductOptionChoice" syncable="YES"/>
+    </entity>
+    <entity name="MOrderInfo" representedClassName="MOrderInfo" syncable="YES">
+        <attribute name="expectedArrivalTime" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="orderedDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="pickupTime" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="price" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="priority" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="referenceNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="storeBranchID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="userID" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MItemInfo" inverseName="order" inverseEntity="MItemInfo" syncable="YES"/>
     </entity>
     <entity name="MProductConfigurableOption" representedClassName="MProductConfigurableOption" syncable="YES">
         <attribute name="defaultChoice" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -95,15 +114,16 @@
         <attribute name="tsUserLastUpdatedDate" optional="YES" attributeType="Date" syncable="YES"/>
     </entity>
     <elements>
-        <element name="MapTrackingAnnotation" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBranch" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MFriendInfo" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MItemInfo" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MItemSelectedOption" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MProductConfigurableOption" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MProductInfo" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MProductOptionChoice" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MUserInfo" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MGlobalConfiguration" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MapTrackingAnnotation" positionX="0" positionY="0" width="128" height="195"/>
+        <element name="MBranch" positionX="0" positionY="0" width="128" height="180"/>
+        <element name="MFriendInfo" positionX="0" positionY="0" width="128" height="60"/>
+        <element name="MItemInfo" positionX="0" positionY="0" width="128" height="195"/>
+        <element name="MItemSelectedOption" positionX="0" positionY="0" width="128" height="120"/>
+        <element name="MProductConfigurableOption" positionX="0" positionY="0" width="128" height="135"/>
+        <element name="MProductInfo" positionX="0" positionY="0" width="128" height="135"/>
+        <element name="MProductOptionChoice" positionX="0" positionY="0" width="128" height="120"/>
+        <element name="MUserInfo" positionX="0" positionY="0" width="128" height="405"/>
+        <element name="MGlobalConfiguration" positionX="160" positionY="192" width="128" height="105"/>
+        <element name="MOrderInfo" positionX="160" positionY="192" width="128" height="210"/>
     </elements>
 </model>

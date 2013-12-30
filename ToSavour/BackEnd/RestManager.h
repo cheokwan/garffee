@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MOrderInfo.h"
 
 static const NSString *facebookAPIBaseURLString = @"https://graph.facebook.com";
 //static const NSString *appAPIBaseURLString = @"http://192.168.0.101:8081/RESTfulWCFUsersServiceEndPoint.svc";
@@ -17,6 +18,14 @@ static const NSString *appAPIBaseURLString = @"http://f34e2b0b303842659d3e58ed6d
 - (void)restManagerService:(SEL)selector failedWithOperation:(NSOperation *)operation error:(NSError *)error userInfo:(NSDictionary *)userInfo;
 @end
 
+
+typedef enum {
+    RestManagerServiceHostApp = 0,
+    RestManagerServiceHostFacebook,
+} RestManagerServiceHostType;
+
+static const NSString *facebookAPIBaseURLString = @"https://graph.facebook.com";
+static const NSString *appAPIBaseURLString = @"http://f34e2b0b303842659d3e58ed6dc844a5.cloudapp.net:8080/RESTfulWCFUsersServiceEndPoint.svc";
 
 @interface RestManager : NSObject
 
@@ -31,5 +40,7 @@ static const NSString *appAPIBaseURLString = @"http://f34e2b0b303842659d3e58ed6d
 - (void)fetchAppUserInfo:(__weak id<RestManagerResponseHandler>)handler;
 - (void)fetchAppProductInfo:(__weak id<RestManagerResponseHandler>)handler;
 - (void)fetchAppConfigurations:(__weak id<RestManagerResponseHandler>)handler;
+
+- (void)postOrder:(MOrderInfo *)order handler:(__weak id<RestManagerResponseHandler>)handler;
 
 @end
