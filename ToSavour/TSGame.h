@@ -10,6 +10,7 @@
 
 typedef enum {
     GamePlayResultNone = 0,
+    GamePlayResultProgress,
     GamePlayResultWin,
     GamePlayResultLose
 } GamePlayResult;

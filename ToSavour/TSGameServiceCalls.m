@@ -175,4 +175,23 @@
     [operation start];
 }
 
+#pragma mark - DEBUG
+//XXX-ML Debug purpose
+- (void)removeAllGameHistories {
+    NSString *servicePath = @"";
+    NSURL *serviceURL = [NSURL URLWithString:[appAPIBaseURLString stringByAppendingPathComponent:servicePath]];
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:serviceURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60];
+    [request addValue:[RestManager sharedInstance].appToken forHTTPHeaderField:@"Authorization"];
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject){
+        DDLogCDebug(@"SUCCEED removed all game histories");
+    }failure:^(AFHTTPRequestOperation *operation, NSError *error){
+        DDLogCDebug(@"FAILED to remove all game histories: %@; ERROR: %@", [operation request], error);
+    }];
+    DDLogCDebug(@"%@", request);
+    [operation start];
+}
+//XXX-ML
+
 @end

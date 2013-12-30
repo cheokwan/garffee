@@ -22,4 +22,8 @@
 - (void)postGameStart:(__weak id<RestManagerResponseHandler>)handler game:(TSGame *)game;
 - (void)updateGameResult:(__weak id<RestManagerResponseHandler>)handler gameHistory:(TSGamePlayHistory *)gameHistory;
 
+//XXX-ML Debug
+- (void)removeAllGameHistories;
+//XXX-ML
+
 @end

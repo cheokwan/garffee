@@ -315,6 +315,7 @@
     [self hideProgressPanel];
     [self countDown:@(0)];
     PhotoHuntViewController *photoHuntercontroller = [[PhotoHuntViewController alloc] initWithGameManager:gameManager];
+    gameManager.game.result = GamePlayResultProgress;
     TSNavigationController *naviController = [[TSNavigationController alloc] initWithRootViewController:photoHuntercontroller];
     photoHuntercontroller.delegate = self;
     [self presentViewController:naviController animated:NO completion:nil];
@@ -327,6 +328,7 @@
 
 #pragma mark - PhotoHuntViewControllerDelegate / related
 - (void)photoHuntViewControllerDidFinishGame:(PhotoHuntViewController *)controller {
+    [self gameChanged];
     [self refetchGamesData];
     DDLogCDebug(@"finished game and come back!");
 }
