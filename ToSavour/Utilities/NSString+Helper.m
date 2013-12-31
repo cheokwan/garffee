@@ -14,6 +14,10 @@
     return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 
+- (BOOL)isEmpty {
+    return [self trimmedWhiteSpaces].length == 0;
+}
+
 + (NSString *)stringWithPrice:(CGFloat)price {
     static NSString *priceFormatString = @"HK: $%.1f";
     return [NSString stringWithFormat:priceFormatString, price];

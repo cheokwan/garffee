@@ -14,9 +14,3 @@
 + (RKResponseDescriptor *)defaultResponseDescriptor;
 
 @end
-
-@protocol RKFacebookMappableEntity <NSObject>
-+ (RKEntityMapping *)facebookEntityMapping;
-+ (RKResponseDescriptor *)facebookResponseDescriptor;
-
-@end

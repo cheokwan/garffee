@@ -8,12 +8,10 @@
 
 #import "FriendsListViewController.h"
 #import "FriendsListTableViewCell.h"
-#import "NSManagedObject+Helper.h"
-#import "MFriendInfo.h"
-#import "AppDelegate.h"
 #import "TSFrontEndIncludes.h"
 #import <FacebookSDK/FacebookSDK.h>  // XXX-TEST
-#import "AvatarView.h"  // XXX-TEST
+#import "AvatarView.h"
+#import "MUserInfo.h"
 
 
 @interface FriendsListViewController ()
@@ -81,12 +79,12 @@
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     FriendsListTableViewCell *friendCell = (FriendsListTableViewCell *)cell;
     MUserInfo *friendInfo = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    friendCell.title.text = friendInfo.fbName;
+    friendCell.title.text = friendInfo.name;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
-    friendCell.subtitle.text = [dateFormatter stringFromDate:friendInfo.fbBirthday];
+    friendCell.subtitle.text = [dateFormatter stringFromDate:friendInfo.birthday];
     
-    NSURL *profilePicURL = [NSURL URLWithString:friendInfo.fbProfilePicURL];
+    NSURL *profilePicURL = [NSURL URLWithString:friendInfo.profileImageURL];
     [friendCell.avatarView removeFromSuperview];
     friendCell.avatarView = [[AvatarView alloc] initWithFrame:friendCell.avatarView.frame avatarImageURL:profilePicURL accessoryImageURL:[NSURL URLWithString:@"http://files.softicons.com/download/social-media-icons/simple-icons-by-dan-leech/png/128x128/facebook.png"] interactable:NO];  // XXX-TEST
     [friendCell addSubview:friendCell.avatarView];
@@ -98,7 +96,8 @@
 - (NSFetchedResultsController *)fetchedResultsController {
     if (!_fetchedResultsController) {
         NSFetchRequest *fetchRequest = [MUserInfo fetchRequestInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
-        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"fbName" ascending:NO];
+        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"isAppUser = %@", @NO];
+        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"firstName" ascending:NO];
         fetchRequest.sortDescriptors = @[sortDescriptor];
         fetchRequest.fetchBatchSize = 20;
         self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[AppDelegate sharedAppDelegate].managedObjectContext sectionNameKeyPath:nil cacheName:@"Master"];  // XXX-FIX cache name

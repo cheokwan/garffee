@@ -11,6 +11,7 @@
 @interface NSManagedObject (Helper)
 
 + (NSManagedObject *)newObjectInContext:(NSManagedObjectContext *)context;
+- (void)deleteInContext:(NSManagedObjectContext *)context;
 + (NSFetchRequest *)fetchRequestInContext:(NSManagedObjectContext *)context;
 + (void)removeALlObjectsInContext:(NSManagedObjectContext *)context;
 

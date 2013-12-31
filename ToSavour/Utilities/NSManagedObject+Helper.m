@@ -14,6 +14,15 @@
     return [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass(self.class) inManagedObjectContext:context];
 }
 
+- (void)deleteInContext:(NSManagedObjectContext *)context {
+    if (!context) {
+        context = self.managedObjectContext;
+    }
+    NSManagedObjectID *objectID = self.objectID;
+    NSManagedObject *selfInContext = [context objectWithID:objectID];
+    [context deleteObject:selfInContext];
+}
+
 + (NSFetchRequest *)fetchRequestInContext:(NSManagedObjectContext *)context {
     return [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass(self.class)];
 }

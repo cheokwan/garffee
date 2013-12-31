@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#define SECURITY_MANAGER_ID_APP_TOKEN   @"AppToken"
+static NSString *SecurityManagerIdAppToken  = @"AppToken";
 
 @interface SecurityManager : NSObject
 

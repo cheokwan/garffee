@@ -43,20 +43,20 @@
 }
 
 - (void)initializeView {
-    MUserInfo *user = [MUserInfo currentUserInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
+    MUserInfo *user = [MUserInfo currentAppUserInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
     
-    NSURL *profilePicURL = [NSURL URLWithString:user.fbProfilePicURL];
+    NSURL *profilePicURL = [NSURL URLWithString:user.profileImageURL];
     [_avatarView removeFromSuperview];
     self.avatarView = [[AvatarView alloc] initWithFrame:self.avatarView.frame avatarImageURL:profilePicURL accessoryImageURL:[NSURL URLWithString:@"http://files.softicons.com/download/social-media-icons/simple-icons-by-dan-leech/png/128x128/facebook.png"] interactable:YES];  // XXX-TEST
     _avatarView.avatarButton.imageView.layer.borderColor = [UIColor whiteColor].CGColor;  // XXX-TEST
     _avatarView.avatarButton.imageView.layer.borderWidth = 2.0;  // XXX-TEST
     
     UIImage *testImage = [UIImage imageNamed:@"AvatarBackground"];
-    testImage = [testImage resizedImageToSize:self.backgroundImageView.frame.size];
+    testImage = [testImage resizedImageToFitInSize:self.backgroundImageView.frame.size scaleIfSmaller:YES];
     _backgroundImageView.image = testImage;
     
     _nameLabel.textColor = [TSTheming defaultAccentColor];  // TODO: dynamically change based on background
-    _nameLabel.text = user.fbName;
+    _nameLabel.text = user.name;
     
     _tableSwitcher.selectedSegmentIndex = 0;
     [_tableSwitcher setTintColor:[TSTheming defaultThemeColor]];

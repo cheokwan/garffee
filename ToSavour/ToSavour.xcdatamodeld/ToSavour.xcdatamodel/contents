@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3396" systemVersion="12E55" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13B42" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="MapTrackingAnnotation" representedClassName="MapTrackingAnnotation" syncable="YES">
         <attribute name="accuracy" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="annotationType" optional="YES" attributeType="Integer 32" syncable="YES"/>
@@ -23,9 +23,6 @@
         <attribute name="phoneNumber" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="region" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="MFriendInfo" representedClassName="MFriendInfo" parentEntity="MUserInfo" syncable="YES">
-        <attribute name="canSendGift" optional="YES" attributeType="Boolean" syncable="YES"/>
-    </entity>
     <entity name="MGlobalConfiguration" representedClassName="MGlobalConfiguration" syncable="YES">
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="key" optional="YES" attributeType="String" syncable="YES"/>
@@ -33,14 +30,14 @@
         <attribute name="value" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="MItemInfo" representedClassName="MItemInfo" syncable="YES">
-        <attribute name="couponID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="couponID" optional="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="creationDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="orderID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="price" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="productID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="itemSelectedOptions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MItemSelectedOption" inverseName="item" inverseEntity="MItemSelectedOption" syncable="YES"/>
+        <relationship name="itemSelectedOptions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MItemSelectedOption" inverseName="item" inverseEntity="MItemSelectedOption" syncable="YES"/>
         <relationship name="order" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MOrderInfo" inverseName="items" inverseEntity="MOrderInfo" syncable="YES"/>
         <relationship name="product" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MProductInfo" syncable="YES"/>
     </entity>
@@ -62,7 +59,7 @@
         <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="storeBranchID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="userID" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MItemInfo" inverseName="order" inverseEntity="MItemInfo" syncable="YES"/>
+        <relationship name="items" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MItemInfo" inverseName="order" inverseEntity="MItemInfo" syncable="YES"/>
     </entity>
     <entity name="MProductConfigurableOption" representedClassName="MProductConfigurableOption" syncable="YES">
         <attribute name="defaultChoice" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -87,7 +84,7 @@
         <attribute name="price" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <relationship name="productConfigurableOption" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MProductConfigurableOption" inverseName="choices" inverseEntity="MProductConfigurableOption" syncable="YES"/>
     </entity>
-    <entity name="MUserInfo" representedClassName="MUserInfo" syncable="YES">
+    <entity name="MUserFacebookInfo" representedClassName="MUserFacebookInfo" parentEntity="MUserInfo" syncable="YES">
         <attribute name="fbAgeRangeMin" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="fbBirthday" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="fbEmail" optional="YES" attributeType="String" syncable="YES"/>
@@ -100,30 +97,35 @@
         <attribute name="fbName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fbProfilePicURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fbUsername" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="tsBirthday" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="tsCoffeeIconID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="tsCreditBalance" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="tsEmail" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="tsFirstName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="tsGender" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="tsID" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="tsLastName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="tsPhoneNumber" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="tsProfileImageURL" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="tsUserCreationDate" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="tsUserLastUpdatedDate" optional="YES" attributeType="Date" syncable="YES"/>
+    </entity>
+    <entity name="MUserInfo" representedClassName="MUserInfo" syncable="YES">
+        <attribute name="appID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="birthday" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="coffeeIconID" optional="YES" attributeType="Integer 32" syncable="YES"/>
+        <attribute name="creditBalance" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="facebookID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gender" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isAppUser" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="isDirty" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phoneNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="profileImageURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userCreationDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="userLastUpdatedDate" optional="YES" attributeType="Date" syncable="YES"/>
     </entity>
     <elements>
-        <element name="MapTrackingAnnotation" positionX="0" positionY="0" width="128" height="195"/>
-        <element name="MBranch" positionX="0" positionY="0" width="128" height="180"/>
-        <element name="MFriendInfo" positionX="0" positionY="0" width="128" height="60"/>
-        <element name="MItemInfo" positionX="0" positionY="0" width="128" height="195"/>
-        <element name="MItemSelectedOption" positionX="0" positionY="0" width="128" height="120"/>
-        <element name="MProductConfigurableOption" positionX="0" positionY="0" width="128" height="135"/>
-        <element name="MProductInfo" positionX="0" positionY="0" width="128" height="135"/>
-        <element name="MProductOptionChoice" positionX="0" positionY="0" width="128" height="120"/>
-        <element name="MUserInfo" positionX="0" positionY="0" width="128" height="405"/>
-        <element name="MGlobalConfiguration" positionX="160" positionY="192" width="128" height="105"/>
-        <element name="MOrderInfo" positionX="160" positionY="192" width="128" height="210"/>
+        <element name="MapTrackingAnnotation" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBranch" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MGlobalConfiguration" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MItemInfo" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MItemSelectedOption" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MOrderInfo" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MProductConfigurableOption" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MProductInfo" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MProductOptionChoice" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MUserInfo" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MUserFacebookInfo" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

@@ -46,20 +46,20 @@
 }
 
 - (void)updateRecipient:(MUserInfo *)newRecipient {
-    MUserInfo *appUser = [MUserInfo currentUserInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
+    MUserInfo *appUser = [MUserInfo currentAppUserInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
     NSString *nameToShow = nil;
     if ([newRecipient isEqual:appUser]) {
         nameToShow = LS_ME;
-    } else if ([newRecipient.fbFirstName trimmedWhiteSpaces].length > 0) {
-        nameToShow = newRecipient.fbFirstName;
-    } else if ([newRecipient.fbName trimmedWhiteSpaces].length > 0) {
-        nameToShow = newRecipient.fbName;
+    } else if ([newRecipient.firstName trimmedWhiteSpaces].length > 0) {
+        nameToShow = newRecipient.firstName;
+    } else if ([newRecipient.name trimmedWhiteSpaces].length > 0) {
+        nameToShow = newRecipient.name;
     } else {
         nameToShow = @"";
     }
     self.nameLabel.text = nameToShow;
     
-    AvatarView *newAvatarView = [[AvatarView alloc] initWithFrame:self.recipientAvatarView.frame avatarImageURL:[NSURL URLWithString:newRecipient.fbProfilePicURL] accessoryImageURL:nil interactable:NO];
+    AvatarView *newAvatarView = [[AvatarView alloc] initWithFrame:self.recipientAvatarView.frame avatarImageURL:[NSURL URLWithString:newRecipient.profileImageURL] accessoryImageURL:nil interactable:NO];
     [_recipientAvatarView removeFromSuperview];
     self.recipientAvatarView = newAvatarView;
     [self.recipientBar addSubview:_recipientAvatarView];

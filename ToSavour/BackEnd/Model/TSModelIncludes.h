@@ -10,7 +10,8 @@
 #define ToSavour_TSModelIncludes_h
 
 #import "MUserInfo.h"
-#import "MFriendInfo.h"
+#import "MUserFacebookInfo.h"
+#import "MOrderInfo.h"
 #import "MProductInfo.h"
 #import "MProductConfigurableOption.h"
 #import "MProductOptionChoice.h"

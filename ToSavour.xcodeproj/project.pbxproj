@@ -45,7 +45,6 @@
 		D2466818185F15F70089D5DB /* ToSavour.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D293E4C8183DEDEB00B73795 /* ToSavour.xcdatamodeld */; };
 		D2466819185F15F70089D5DB /* FriendsListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D221964F1859C24C007528EE /* FriendsListTableViewCell.m */; };
 		D246681A185F15F70089D5DB /* UIView+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075CF1857245E00620114 /* UIView+Helper.m */; };
-		D246681B185F15F70089D5DB /* MFriendInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075E01859694700620114 /* MFriendInfo.m */; };
 		D246681D185F15F70089D5DB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2A67A81185ACA8A00889114 /* QuartzCore.framework */; };
 		D246681E185F15F70089D5DB /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2437576184C3497000009D7 /* MapKit.framework */; };
 		D246681F185F15F70089D5DB /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4F718435DC100B73795 /* CoreLocation.framework */; };
@@ -76,6 +75,7 @@
 		D2827DD418694E4C00E4A662 /* MOrderInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DD218694E4C00E4A662 /* MOrderInfo.m */; };
 		D2827DDB186D882D00E4A662 /* ItemGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DDA186D882D00E4A662 /* ItemGridView.m */; };
 		D2827DDC186D882D00E4A662 /* ItemGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DDA186D882D00E4A662 /* ItemGridView.m */; };
+		D2827DE9187288C700E4A662 /* MUserFacebookInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DE8187288C700E4A662 /* MUserFacebookInfo.m */; };
 		D293E4B2183DEDEB00B73795 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4B1183DEDEB00B73795 /* Foundation.framework */; };
 		D293E4B4183DEDEB00B73795 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4B3183DEDEB00B73795 /* CoreGraphics.framework */; };
 		D293E4B6183DEDEB00B73795 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4B5183DEDEB00B73795 /* UIKit.framework */; };
@@ -118,7 +118,6 @@
 		D2C075CB1855C47200620114 /* TutorialLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075CA1855C47200620114 /* TutorialLoginViewController.m */; };
 		D2C075D01857245E00620114 /* UIView+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075CF1857245E00620114 /* UIView+Helper.m */; };
 		D2C075D31858092800620114 /* MUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075D21858092800620114 /* MUserInfo.m */; };
-		D2C075E11859694700620114 /* MFriendInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075E01859694700620114 /* MFriendInfo.m */; };
 		D2C9168C185EEC7500452891 /* MItemInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C9168B185EEC7500452891 /* MItemInfo.m */; };
 		D2C9168F185EEC9000452891 /* MItemSelectedOption.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C9168E185EEC9000452891 /* MItemSelectedOption.m */; };
 		D2C91695185EECBA00452891 /* MProductInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C91694185EECBA00452891 /* MProductInfo.m */; };
@@ -191,6 +190,8 @@
 		D2827DD218694E4C00E4A662 /* MOrderInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MOrderInfo.m; path = BackEnd/Model/MOrderInfo.m; sourceTree = "<group>"; };
 		D2827DD9186D882D00E4A662 /* ItemGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ItemGridView.h; path = FrontEnd/ItemGridView.h; sourceTree = "<group>"; };
 		D2827DDA186D882D00E4A662 /* ItemGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ItemGridView.m; path = FrontEnd/ItemGridView.m; sourceTree = "<group>"; };
+		D2827DE7187288C700E4A662 /* MUserFacebookInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUserFacebookInfo.h; path = BackEnd/Model/MUserFacebookInfo.h; sourceTree = "<group>"; };
+		D2827DE8187288C700E4A662 /* MUserFacebookInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUserFacebookInfo.m; path = BackEnd/Model/MUserFacebookInfo.m; sourceTree = "<group>"; };
 		D293E4AE183DEDEB00B73795 /* ToSavour.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToSavour.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D293E4B1183DEDEB00B73795 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D293E4B3183DEDEB00B73795 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -256,8 +257,6 @@
 		D2C075CF1857245E00620114 /* UIView+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+Helper.m"; path = "Utilities/UIView+Helper.m"; sourceTree = "<group>"; };
 		D2C075D11858092800620114 /* MUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUserInfo.h; path = BackEnd/Model/MUserInfo.h; sourceTree = "<group>"; };
 		D2C075D21858092800620114 /* MUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUserInfo.m; path = BackEnd/Model/MUserInfo.m; sourceTree = "<group>"; };
-		D2C075DF1859694700620114 /* MFriendInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MFriendInfo.h; path = BackEnd/Model/MFriendInfo.h; sourceTree = "<group>"; };
-		D2C075E01859694700620114 /* MFriendInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MFriendInfo.m; path = BackEnd/Model/MFriendInfo.m; sourceTree = "<group>"; };
 		D2C9168A185EEC7500452891 /* MItemInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MItemInfo.h; path = BackEnd/Model/MItemInfo.h; sourceTree = "<group>"; };
 		D2C9168B185EEC7500452891 /* MItemInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MItemInfo.m; path = BackEnd/Model/MItemInfo.m; sourceTree = "<group>"; };
 		D2C9168D185EEC9000452891 /* MItemSelectedOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MItemSelectedOption.h; path = BackEnd/Model/MItemSelectedOption.h; sourceTree = "<group>"; };
@@ -513,6 +512,8 @@
 		D2A55702184DB5ED0039A5A0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D2827DE7187288C700E4A662 /* MUserFacebookInfo.h */,
+				D2827DE8187288C700E4A662 /* MUserFacebookInfo.m */,
 				D2827DD118694E4C00E4A662 /* MOrderInfo.h */,
 				D2827DD218694E4C00E4A662 /* MOrderInfo.m */,
 				D2827DB41867E64000E4A662 /* MProductOptionChoice.h */,
@@ -527,8 +528,6 @@
 				D2C91694185EECBA00452891 /* MProductInfo.m */,
 				D2C9168D185EEC9000452891 /* MItemSelectedOption.h */,
 				D2C9168E185EEC9000452891 /* MItemSelectedOption.m */,
-				D2C075DF1859694700620114 /* MFriendInfo.h */,
-				D2C075E01859694700620114 /* MFriendInfo.m */,
 				D2C075D11858092800620114 /* MUserInfo.h */,
 				D2C075D21858092800620114 /* MUserInfo.m */,
 				D2A5570F184DBF4C0039A5A0 /* MapTrackingAnnotation.h */,
@@ -860,7 +859,6 @@
 				D2827DD418694E4C00E4A662 /* MOrderInfo.m in Sources */,
 				D2466819185F15F70089D5DB /* FriendsListTableViewCell.m in Sources */,
 				D246681A185F15F70089D5DB /* UIView+Helper.m in Sources */,
-				D246681B185F15F70089D5DB /* MFriendInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -868,6 +866,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2827DE9187288C700E4A662 /* MUserFacebookInfo.m in Sources */,
 				D2827DD318694E4C00E4A662 /* MOrderInfo.m in Sources */,
 				D2827DDB186D882D00E4A662 /* ItemGridView.m in Sources */,
 				DF60E74D185B47BA00DB10DE /* PhotoHuntGridButton.m in Sources */,
@@ -922,7 +921,6 @@
 				D22196501859C24C007528EE /* FriendsListTableViewCell.m in Sources */,
 				D2466840186036BB0089D5DB /* CartHeaderView.m in Sources */,
 				D2C075D01857245E00620114 /* UIView+Helper.m in Sources */,
-				D2C075E11859694700620114 /* MFriendInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,7 +9,7 @@
 #import "TutorialLoginViewController.h"
 #import "TSFrontEndIncludes.h"
 #import "MUserInfo.h"
-#import "MFriendInfo.h"
+#import "MUserFacebookInfo.h"
 #import "AppDelegate.h"
 
 @interface TutorialLoginViewController ()
@@ -164,7 +164,14 @@
     if (selector == @selector(fetchFacebookAppUserInfo:)) {
         // fetched facebook info, now move onto fetching app user info with
         // facebook credentials
-        [[RestManager sharedInstance] fetchAppUserInfo:self];
+        MUserFacebookInfo *facebookAppUser = [[userInfo objectForKey:@"mappingResult"] firstObject];
+        if (facebookAppUser) {
+            facebookAppUser.isAppUser = @YES;
+            [[AppDelegate sharedAppDelegate] saveContext];
+            [[RestManager sharedInstance] fetchAppUserInfo:self];
+        } else {
+            DDLogError(@"unable to retrieve the mapped facebook user info");
+        }
     }
     if (selector == @selector(fetchFacebookFriendsInfo:)) {
         // ignore for now

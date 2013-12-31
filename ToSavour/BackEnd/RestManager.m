@@ -37,8 +37,6 @@
 - (RKObjectManager *)facebookObjectManager {
     if (!_facebookObjectManager) {
         self.facebookObjectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:(NSString *)facebookAPIBaseURLString]];
-//        [_facebookObjectManager addResponseDescriptorsFromArray:@[[MUserInfo defaultResponseDescriptor], [MFriendInfo defaultResponseDescriptor]]];
-//        _facebookObjectManager.operationQueue = [NSOperationQueue currentQueue];
     }
     return _facebookObjectManager;
 }
@@ -59,11 +57,11 @@
         _appToken = appToken;
         
         // persist to key chain
-        NSData *tokenData = [SecurityManager searchKeychainCopyMatching:SECURITY_MANAGER_ID_APP_TOKEN];
+        NSData *tokenData = [SecurityManager searchKeychainCopyMatching:SecurityManagerIdAppToken];
         if (tokenData) {
-            [SecurityManager updateKeychainValue:_appToken forIdentifier:SECURITY_MANAGER_ID_APP_TOKEN];
+            [SecurityManager updateKeychainValue:_appToken forIdentifier:SecurityManagerIdAppToken];
         } else {
-            [SecurityManager createKeychainValue:_appToken forIdentifier:SECURITY_MANAGER_ID_APP_TOKEN];
+            [SecurityManager createKeychainValue:_appToken forIdentifier:SecurityManagerIdAppToken];
         }
     }
 }
@@ -71,7 +69,7 @@
 - (NSString *)appToken {
     if (!_appToken || _appToken.length == 0) {
         // first try to retrieve from key chain if there's any
-        NSData *tokenData = [SecurityManager searchKeychainCopyMatching:SECURITY_MANAGER_ID_APP_TOKEN];
+        NSData *tokenData = [SecurityManager searchKeychainCopyMatching:SecurityManagerIdAppToken];
         if (tokenData) {
             _appToken = [[NSString alloc] initWithData:tokenData encoding:NSUTF8StringEncoding];
         }
@@ -102,27 +100,26 @@
 
 // TODO: support fetching outside of non-mainqueue contexts
 
-- (void)fetchManagedObjectsWithServiceHost:(RestManagerServiceHostType)serviceHost endPoint:(NSString *)endPoint sourceSelector:(SEL)sourceSelector entityClass:(Class<RKMappableEntity>)entityClass handler:(__weak id<RestManagerResponseHandler>)handler {
-    RKManagedObjectRequestOperation *operation = nil;
+- (void)fetchManagedObjectsWithServiceHost:(RestManagerServiceHostType)serviceHost endPoint:(NSString *)endPoint sourceSelector:(SEL)sourceSelector responseDescriptors:(NSArray *)responseDescriptors handler:(__weak id<RestManagerResponseHandler>)handler {
+    NSMutableURLRequest *request = nil;
     RKObjectManager *objectManager = nil;
     switch (serviceHost) {
         case RestManagerServiceHostApp: {
             NSURL *serviceURL = [NSURL URLWithString:[appAPIBaseURLString stringByAppendingPathComponent:endPoint]];
-            NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:serviceURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60];
+            request = [[NSMutableURLRequest alloc] initWithURL:serviceURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60];
             [request setValue:self.appToken forHTTPHeaderField:@"Authorization"];
-            operation = [[RKManagedObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[[entityClass defaultResponseDescriptor]]];
             objectManager = self.appObjectManager;
         }
             break;
         case RestManagerServiceHostFacebook: {
             NSURL *serviceURL = [NSURL URLWithString:[facebookAPIBaseURLString stringByAppendingPathComponent:endPoint]];
-            NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:serviceURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60];
-            operation = [[RKManagedObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[[(Class<RKFacebookMappableEntity>)entityClass facebookResponseDescriptor]]];
+            request = [[NSMutableURLRequest alloc] initWithURL:serviceURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60];
             objectManager = self.facebookObjectManager;
         }
             break;
     }
     
+    RKManagedObjectRequestOperation *operation = [[RKManagedObjectRequestOperation alloc] initWithRequest:request responseDescriptors:responseDescriptors];
     operation.managedObjectContext = [AppDelegate sharedAppDelegate].managedObjectContext;
     operation.managedObjectCache = [RKManagedObjectStore defaultStore].managedObjectCache;
     
@@ -145,22 +142,24 @@
 - (void)fetchFacebookAppUserInfo:(__weak id<RestManagerResponseHandler>)handler {
     // fetch user info
     NSString *endPoint = [NSString stringWithFormat:@"/me/?access_token=%@&fields=id,name,username,email,first_name,middle_name,last_name,gender,age_range,link,locale,birthday,picture.width(120),picture.height(120)", self.facebookToken];
-    [self fetchManagedObjectsWithServiceHost:RestManagerServiceHostFacebook endPoint:endPoint sourceSelector:_cmd entityClass:MUserInfo.class handler:handler];
+    [self fetchManagedObjectsWithServiceHost:RestManagerServiceHostFacebook endPoint:endPoint sourceSelector:_cmd responseDescriptors:@[[MUserFacebookInfo defaultResponseDescriptor]] handler:handler];
 }
 
 
 - (void)fetchFacebookFriendsInfo:(__weak id<RestManagerResponseHandler>)handler {
     // fetch friends info
     NSString *endPoint = [NSString stringWithFormat:@"/me/friends?access_token=%@&fields=id,name,username,email,first_name,middle_name,last_name,gender,age_range,link,locale,birthday,picture.width(120),picture.height(120)", self.facebookToken];
-    [self fetchManagedObjectsWithServiceHost:RestManagerServiceHostFacebook endPoint:endPoint sourceSelector:_cmd entityClass:MFriendInfo.class handler:handler];
+    [self fetchManagedObjectsWithServiceHost:RestManagerServiceHostFacebook endPoint:endPoint sourceSelector:_cmd responseDescriptors:@[[MUserFacebookInfo fetchFriendsResponseDescriptor]] handler:handler];
 }
 
 #pragma mark - App Services
 
+// TODO: handle the new login flow with native account support, currently this assumes
+// we always fetch the app user with facebook credentials
 - (void)fetchAppUserInfo:(__weak id<RestManagerResponseHandler>)handler {
     NSURL *serviceURL = [NSURL URLWithString:[appAPIBaseURLString stringByAppendingString:@"/users"]];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:serviceURL cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:60];
-    MUserInfo *appUser = [MUserInfo currentUserInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
+    MUserFacebookInfo *appUser = [MUserFacebookInfo currentAppUserInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
     [request setValue:self.facebookToken forHTTPHeaderField:@"Authorization"];
     [request setValue:appUser.fbID forHTTPHeaderField:@"FacebookId"];
     
@@ -172,7 +171,7 @@
             // user does not exist on server side, convert the facebook user to create a new one
             DDLogInfo(@"fetch app user info returns empty response, going to create a new app user");
             
-            RKRequestDescriptor *serialization = [RKRequestDescriptor requestDescriptorWithMapping:[MUserInfo appUserCreationEntityMapping] objectClass:MUserInfo.class rootKeyPath:nil method:RKRequestMethodPOST];
+            RKRequestDescriptor *serialization = [RKRequestDescriptor requestDescriptorWithMapping:[MUserFacebookInfo appUserCreationEntityMapping] objectClass:MUserFacebookInfo.class rootKeyPath:nil method:RKRequestMethodPOST];
             NSError *error = nil;
             NSMutableDictionary *jsonDict = [[RKObjectParameterization parametersWithObject:appUser requestDescriptor:serialization error:&error] mutableCopy];
             jsonDict[@"CreatedDateTime"] = [self.defaultDotNetDateFormatter stringFromDate:[NSDate date]];
@@ -200,7 +199,7 @@
                     self.appToken = operation.response.allHeaderFields[@"Authorization"];  // update the app token
                     
                     NSDictionary *responseDict = [responseObject isKindOfClass:NSArray.class] && ((NSArray *)responseObject).count > 0 ? responseObject[0] : responseObject;
-                    RKMappingOperation *mappingOperation = [[RKMappingOperation alloc] initWithSourceObject:responseDict destinationObject:appUser mapping:[MUserInfo appEntityMapping]];
+                    RKMappingOperation *mappingOperation = [[RKMappingOperation alloc] initWithSourceObject:responseDict destinationObject:appUser mapping:[MUserInfo defaultEntityMapping]];
                     NSError *error = nil;
                     [mappingOperation performMapping:&error];
                     if (!error) {
@@ -232,7 +231,7 @@
             self.appToken = operation.response.allHeaderFields[@"Authorization"];  // update the app token
             
             NSDictionary *responseDict = [responseObject isKindOfClass:NSArray.class] && ((NSArray *)responseObject).count > 0 ? responseObject[0] : responseObject;
-            RKMappingOperation *mappingOperation = [[RKMappingOperation alloc] initWithSourceObject:responseDict destinationObject:appUser mapping:[MUserInfo appEntityMapping]];
+            RKMappingOperation *mappingOperation = [[RKMappingOperation alloc] initWithSourceObject:responseDict destinationObject:appUser mapping:[MUserInfo defaultEntityMapping]];
             NSError *error = nil;
             [mappingOperation performMapping:&error];
             if (!error) {
@@ -257,11 +256,11 @@
 }
 
 - (void)fetchAppProductInfo:(__weak id<RestManagerResponseHandler>)handler {
-    [self fetchManagedObjectsWithServiceHost:RestManagerServiceHostApp endPoint:@"/products" sourceSelector:_cmd entityClass:MProductInfo.class handler:handler];
+    [self fetchManagedObjectsWithServiceHost:RestManagerServiceHostApp endPoint:@"/products" sourceSelector:_cmd responseDescriptors:@[[MProductInfo defaultResponseDescriptor]] handler:handler];
 }
 
 - (void)fetchAppConfigurations:(__weak id<RestManagerResponseHandler>)handler {
-    [self fetchManagedObjectsWithServiceHost:RestManagerServiceHostApp endPoint:@"/configurations" sourceSelector:_cmd entityClass:MGlobalConfiguration.class handler:handler];
+    [self fetchManagedObjectsWithServiceHost:RestManagerServiceHostApp endPoint:@"/configurations" sourceSelector:_cmd responseDescriptors:@[[MGlobalConfiguration defaultResponseDescriptor]] handler:handler];
 }
 
 
@@ -270,6 +269,7 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:serviceURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60];
     request.HTTPMethod = @"POST";
     [request setValue:self.appToken forHTTPHeaderField:@"Authorization"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
     RKRequestDescriptor *serialization = [RKRequestDescriptor requestDescriptorWithMapping:[[MOrderInfo defaultEntityMapping] inverseMapping] objectClass:MOrderInfo.class rootKeyPath:nil method:RKRequestMethodPOST];
     NSError *error = nil;

@@ -70,7 +70,7 @@
     _slidingViewController.anchorLeftRevealAmount = 250.0;  // XXX-FIX set correct amount
     [self.window makeKeyAndVisible];
     
-    MUserInfo *currentUserInfo = [MUserInfo currentUserInfoInContext:self.managedObjectContext];
+    MUserInfo *currentUserInfo = [MUserInfo currentAppUserInfoInContext:self.managedObjectContext];
     BOOL fbSessionOpened = [FBSession openActiveSessionWithAllowLoginUI:NO];
     DDLogError(@"fb token: %@", [RestManager sharedInstance].facebookToken); // XXX-TEST
     

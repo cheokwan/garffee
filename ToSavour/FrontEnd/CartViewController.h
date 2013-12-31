@@ -20,4 +20,7 @@
 @property (nonatomic, strong)   MOrderInfo *pendingOrder;
 @property (nonatomic, readonly) NSArray *inCartItems;
 
+@property (nonatomic, strong)   MUserInfo *recipient;
+@property (nonatomic, assign)   CGFloat cartPrice;
+
 @end

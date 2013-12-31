@@ -14,6 +14,7 @@
 + (UIViewController *)viewControllerWithStoryboardIdentifier:(NSString *)identifier storyboard:(NSString *)aStoryBoard;
 + (UIView *)viewWithNibName:(NSString *)identifier;
 + (UIView *)viewWithNibName:(NSString *)identifier owner:(id)owner;
++ (NSURL *)URLWithImageAssetName:(NSString *)assetName;
 + (UIView *)navigationBrandNameTitleView;
 + (UIView *)navigationTitleViewWithString:(NSString *)titleString;
 

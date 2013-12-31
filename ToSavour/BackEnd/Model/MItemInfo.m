@@ -36,7 +36,7 @@
     }
     
     item.creationDate = [NSDate date];
-    item.status = MOrderInfoStatusInCart;
+    item.status = MOrderInfoStatusPending;
     [item updatePrice];
     return item;
 }

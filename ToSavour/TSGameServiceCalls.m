@@ -94,12 +94,12 @@
 
 - (void)postGameStart:(__weak id<RestManagerResponseHandler>)handler game:(TSGame *)game {
     NSManagedObjectContext *mainContext = [AppDelegate sharedAppDelegate].managedObjectContext;
-    MUserInfo *currentUser = [MUserInfo currentUserInfoInContext:mainContext];
+    MUserInfo *currentUser = [MUserInfo currentAppUserInfoInContext:mainContext];
     
     TSGamePlayHistory *history = [[TSGamePlayHistory alloc] init];
     history.historyId = nil;
     history.gameId = game.gameId;
-    history.userId = currentUser.tsID;
+    history.userId = currentUser.appID;
     history.playedDate = [NSDate date];
     
     NSString *servicePath = [NSString stringWithFormat:@"/gamehistories/"];

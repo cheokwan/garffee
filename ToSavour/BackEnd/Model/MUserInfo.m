@@ -7,200 +7,124 @@
 //
 
 #import "MUserInfo.h"
-#import "NSManagedObject+Helper.h"
 #import "RestManager.h"
-//#import <BlocksKit/BlocksKit.h>  XXX-BUG has build issues
 
 
 @implementation MUserInfo
 
-@dynamic fbAgeRangeMin;
-@dynamic fbBirthday;
-@dynamic fbEmail;
-@dynamic fbFirstName;
-@dynamic fbGender;
-@dynamic fbID;
-@dynamic fbLastName;
-@dynamic fbLink;
-@dynamic fbMiddleName;
-@dynamic fbName;
-@dynamic fbProfilePicURL;
-@dynamic fbUsername;
-@dynamic tsFirstName;
-@dynamic tsLastName;
-@dynamic tsCreditBalance;
-@dynamic tsEmail;
-@dynamic tsGender;
-@dynamic tsBirthday;
-@dynamic tsPhoneNumber;
-@dynamic tsProfileImageURL;
-@dynamic tsID;
-@dynamic tsUserCreationDate;
-@dynamic tsUserLastUpdatedDate;
-@dynamic tsCoffeeIconID;
+@dynamic birthday;
+@dynamic coffeeIconID;
+@dynamic creditBalance;
+@dynamic email;
+@dynamic firstName;
+@dynamic gender;
+@dynamic appID;
+@dynamic lastName;
+@dynamic phoneNumber;
+@dynamic profileImageURL;
+@dynamic userCreationDate;
+@dynamic userLastUpdatedDate;
+@dynamic isDirty;
+@dynamic facebookID;
+@dynamic isAppUser;
 
-+ (id)newUserInfoInContext:(NSManagedObjectContext *)context {
-    [self.class removeALlObjectsInContext:context];
-    return (MUserInfo *)[self.class newObjectInContext:context];
+
++ (id)newAppUserInfoInContext:(NSManagedObjectContext *)context {
+    MUserInfo *currentUser = [self.class currentAppUserInfoInContext:context];
+    if (currentUser) {
+        [context deleteObject:currentUser];
+    }
+    currentUser = (MUserInfo *)[self.class newObjectInContext:context];
+    currentUser.isAppUser = @YES;
+    return currentUser;
 }
 
-+ (id)currentUserInfoInContext:(NSManagedObjectContext *)context {
-    NSFetchRequest *request = [self.class fetchRequestInContext:context];
-    request.includesPropertyValues = YES;
++ (id)currentAppUserInfoInContext:(NSManagedObjectContext *)context {
+    NSFetchRequest *fetchRequest = [MUserInfo fetchRequestInContext:context];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"isAppUser = %@", @YES];
     NSError *error = nil;
-    NSArray *allUserInfo = [context executeFetchRequest:request error:&error];
-//    allUserInfo = [allUserInfo bk_select:^BOOL(id obj) {
-//        return (((NSObject *)obj).class == self.class);
-//    }];  XXX-BUG has build issues
-    NSMutableArray *filteredAllUserInfo = [NSMutableArray array];
-    for (NSObject *obj in allUserInfo) {
-        if (obj.class == self.class) {
-            [filteredAllUserInfo addObject:obj];
-        }
-    }
-    allUserInfo = filteredAllUserInfo;
-    // XXX-FIX condense this
-    
+    NSArray *fetchResults = [context executeFetchRequest:fetchRequest error:&error];
     if (error) {
-        DDLogError(@"unable to fetch user info: %@", error);
+        DDLogError(@"unable to fetch app user info: %@", error);
         return nil;
     }
-    if (allUserInfo.count == 0) {
+    if (fetchResults.count == 0) {
         DDLogWarn(@"no user info exists, unexpected if the user has already signed in");
         return nil;
     }
-    if (allUserInfo.count > 1) {
-        DDLogWarn(@"more than one user info exists: %ud, unexpected", allUserInfo.count);
+    if (fetchResults.count > 1) {
+        DDLogWarn(@"more than one user info exists, unexpected, keeping only the first: %@", fetchResults);
+        for (NSManagedObject *userObject in fetchResults) {
+            if (userObject != [fetchResults firstObject]) {
+                [context deleteObject:userObject];
+            }
+        }
     }
-    return allUserInfo[0];
+    return fetchResults[0];
+}
+
+- (NSString *)name {
+    return [[NSString stringWithFormat:@"%@ %@", self.firstName, self.lastName] trimmedWhiteSpaces];
 }
 
 #pragma mark - RKMappableEntity
 
 + (RKEntityMapping *)defaultEntityMapping {
-    return [self.class appEntityMapping];
-}
-
-+ (RKEntityMapping *)facebookEntityMapping {
     RKEntityMapping *mapping = [RKEntityMapping mappingForEntityForName:NSStringFromClass(self.class) inManagedObjectStore:[RKManagedObjectStore defaultStore]];
-    [mapping addAttributeMappingsFromDictionary:@{@"id":                @"fbID",
-                                                  @"name":              @"fbName",
-                                                  @"username":          @"fbUsername",
-                                                  @"email":             @"fbEmail",
-                                                  @"first_name":        @"fbFirstName",
-                                                  @"middle_name":       @"fbMiddleName",
-                                                  @"last_name":         @"fbLastName",
-                                                  @"gender":            @"fbGender",
-                                                  @"age_range.min":     @"fbAgeRangeMin",
-                                                  @"link":              @"fbLink",
-                                                  @"birthday":          @"fbBirthday",
-                                                  @"picture.data.url":  @"fbProfilePicURL"
-                                                  }];
-    mapping.identificationAttributes = @[@"fbID"];
-    return mapping;
-}
-
-+ (RKEntityMapping *)appEntityMapping {
-    RKEntityMapping *mapping = [RKEntityMapping mappingForEntityForName:NSStringFromClass(self.class) inManagedObjectStore:[RKManagedObjectStore defaultStore]];
-    [mapping addAttributeMappingsFromDictionary:@{@"Id":                @"tsID",
-                                                  @"FacebookId":        @"fbID",
-                                                  @"FirstName":         @"tsFirstName",
-                                                  @"LastName":          @"tsLastName",
-                                                  @"CreditBalance":     @"tsCreditBalance",
-                                                  @"Email":             @"tsEmail",
-                                                  @"Sex":               @"tsGender",
-                                                  @"Birthday":          @"tsBirthday",
-                                                  @"Phone":             @"tsPhoneNumber",
-                                                  @"ProfileImageUrl":   @"tsProfileImageURL",
-                                                  @"CreatedDateTime":   @"tsUserCreationDate",
-                                                  @"LastUpdatedDateTime": @"tsUserLastUpdatedDate",
-                                                  @"CoffeeIconId":      @"tsCoffeeIconID"}];
-    mapping.identificationAttributes = @[@"tsID", @"fbID"];
+    [mapping addAttributeMappingsFromDictionary:@{@"Id":                @"appID",
+                                                  @"FacebookId":        @"facebookID",
+                                                  @"FirstName":         @"firstName",
+                                                  @"LastName":          @"lastName",
+                                                  @"CreditBalance":     @"creditBalance",
+                                                  @"Email":             @"email",
+                                                  @"Sex":               @"gender",
+                                                  @"Birthday":          @"birthday",
+                                                  @"Phone":             @"phoneNumber",
+                                                  @"ProfileImageUrl":   @"profileImageURL",
+                                                  @"CreatedDateTime":   @"userCreationDate",
+                                                  @"LastUpdatedDateTime": @"userLastUpdatedDate",
+                                                  @"CoffeeIconId":      @"coffeeIconID"}];
+    mapping.identificationAttributes = @[@"appID", @"facebookID"];
     mapping.valueTransformer = [[RestManager sharedInstance] defaultDotNetValueTransformer];
     return mapping;
-}
-
-+ (RKEntityMapping *)appUserCreationEntityMapping {
-    RKEntityMapping *mapping = [RKEntityMapping mappingForEntityForName:NSStringFromClass(self.class) inManagedObjectStore:[RKManagedObjectStore defaultStore]];
-    [mapping addAttributeMappingsFromDictionary:@{@"FacebookId": @"fbID",
-                                                  @"FirstName": @"fbFirstName",
-                                                  @"LastName": @"fbLastName",
-//                                                  @"CreditBalance": @"",
-                                                  @"Email": @"fbEmail",
-                                                  @"Sex": @"fbGender",
-                                                  @"Birthday": @"fbBirthday",
-//                                                  @"Phone": @"",
-                                                  @"ProfileImageUrl": @"fbProfilePicURL",
-//                                                  @"CreatedDateTime": @"",
-//                                                  @"LastUpdatedDateTime": @"",
-//                                                  @"CoffeeIconID": @"",
-                                                  }];
-    mapping.valueTransformer = [[RestManager sharedInstance] defaultDotNetValueTransformer];
-    return [mapping inverseMapping];
 }
 
 + (RKResponseDescriptor *)defaultResponseDescriptor {
-    return [self.class appResponseDescriptor];
-}
-
-+ (RKResponseDescriptor *)facebookResponseDescriptor {
-    return [RKResponseDescriptor responseDescriptorWithMapping:[self.class facebookEntityMapping] method:RKRequestMethodAny pathPattern:nil keyPath:nil statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
-}
-
-+ (RKResponseDescriptor *)appResponseDescriptor {
-    return [RKResponseDescriptor responseDescriptorWithMapping:[self.class appEntityMapping] method:RKRequestMethodAny pathPattern:nil keyPath:nil statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+    return [RKResponseDescriptor responseDescriptorWithMapping:[self.class defaultEntityMapping] method:RKRequestMethodAny pathPattern:nil keyPath:nil statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
 }
 
 - (NSString *)description {
     return [NSString stringWithFormat:
-            @"fbID:%@, "
-            @"fbEmail:%@, "
-            @"fbBirthday:%@, "
-            @"fbFirstName:%@, "
-            @"fbLastName:%@, "
-            @"fbLink:%@, "
-            @"fbMiddleName:%@, "
-            @"fbName:%@, "
-            @"fbProfilePicURL:%@, "
-            @"fbUsername:%@, "
-            @"fbAgeRangeMin:%@, "
-            @"fbGender:%@, "
-            @"tsFirstName:%@, "
-            @"tsLastName:%@, "
-            @"tsCreditBalance:%@, "
-            @"tsEmail:%@, "
-            @"tsGender:%@, "
-            @"tsBirthday:%@, "
-            @"tsPhoneNumber:%@, "
-            @"tsProfileImageURL:%@, "
-            @"tsID:%@, "
-            @"tsUserCreationDate:%@, "
-            @"tsUserLastUpdatedDate:%@, "
-            @"tsCoffeeIconID:%@, ",
-            self.fbID,
-            self.fbEmail,
-            self.fbBirthday,
-            self.fbFirstName,
-            self.fbLastName,
-            self.fbLink,
-            self.fbMiddleName,
-            self.fbName,
-            self.fbProfilePicURL,
-            self.fbUsername,
-            self.fbAgeRangeMin,
-            self.fbGender,
-            self.tsFirstName,
-            self.tsLastName,
-            self.tsCreditBalance,
-            self.tsEmail,
-            self.tsGender,
-            self.tsBirthday,
-            self.tsPhoneNumber,
-            self.tsProfileImageURL,
-            self.tsID,
-            self.tsUserCreationDate,
-            self.tsUserLastUpdatedDate,
-            self.tsCoffeeIconID
+            @"appID:%@, "
+            @"facebookID:%@, "
+            @"firstName:%@, "
+            @"lastName:%@, "
+            @"creditBalance:%@, "
+            @"email:%@, "
+            @"gender:%@, "
+            @"birthday:%@, "
+            @"phoneNumber:%@, "
+            @"profileImageURL:%@, "
+            @"userCreationDate:%@, "
+            @"userLastUpdatedDate:%@, "
+            @"coffeeIconID:%@, "
+            @"isAppUser:%@, "
+            @"isDirty:%@, ",
+            self.appID,
+            self.facebookID,
+            self.firstName,
+            self.lastName,
+            self.creditBalance,
+            self.email,
+            self.gender,
+            self.birthday,
+            self.phoneNumber,
+            self.profileImageURL,
+            self.userCreationDate,
+            self.userLastUpdatedDate,
+            self.coffeeIconID,
+            self.isAppUser,
+            self.isDirty
             ];
 }
 

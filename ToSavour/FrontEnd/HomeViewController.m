@@ -12,8 +12,6 @@
 #import "AppDelegate.h"
 #import "ChooseGameViewController.h"
 #import <FacebookSDK/FacebookSDK.h>  // XXX-TEST
-#import "MFriendInfo.h"  // XXX-TEST
-#import "NSManagedObject+Helper.h" // XXX-TEST
 #import "UIView+Helpers.h"
 @interface HomeViewController ()
 

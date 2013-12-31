@@ -53,6 +53,7 @@ typedef enum {
     CartHeaderView *cartHeader = (CartHeaderView *)[TSTheming viewWithNibName:NSStringFromClass(CartHeaderView.class) owner:self];
     cartHeader.frame = self.cartHeaderView.frame;
     self.cartHeaderView = cartHeader;
+    [_cartHeaderView.checkoutButton addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_cartHeaderView];
     self.navigationItem.titleView = [TSTheming navigationTitleViewWithString:LS_CART];
     self.navigationItem.leftBarButtonItem = self.addOrderButton;
@@ -88,27 +89,44 @@ typedef enum {
         itemPicker.delegate = self;
         TSNavigationController *naviController = [[TSNavigationController alloc] initWithRootViewController:itemPicker];
         [self presentViewController:naviController animated:YES completion:nil];
+    } else if (sender == _cartHeaderView.checkoutButton) {
+        self.pendingOrder.userID = self.recipient.appID;
+        self.pendingOrder.price = @(self.cartPrice);
+        self.pendingOrder.orderedDate = [NSDate date];
+        self.pendingOrder.status = MOrderInfoStatusPending;  // XXXXX
+        self.pendingOrder.expectedArrivalTime = [NSDate dateWithTimeIntervalSinceNow:300]; // XXXXX
+        self.pendingOrder.pickupTime = [NSDate dateWithTimeIntervalSinceNow:300];  // XXXXX
+        self.pendingOrder.storeBranchID = @1; // XXXX
+        [[RestManager sharedInstance] postOrder:self.pendingOrder handler:self];
     }
 }
 
 - (void)refreshCart {
     [_itemList reloadSections:[NSIndexSet indexSetWithIndex:CartSectionItems] withRowAnimation:UITableViewRowAnimationFade];
     if (![_cartHeaderView hasRecipient] && self.inCartItems.count > 0) {
-        [_cartHeaderView updateRecipient:[MUserInfo currentUserInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext]];
+        MUserInfo *appUser = [MUserInfo currentAppUserInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
+        [_cartHeaderView updateRecipient:appUser];
+        self.recipient = appUser;
     }
     CGFloat totalPrice = 0.0;
     for (MItemInfo *item in self.inCartItems) {
         totalPrice += [item.price floatValue];
     }
     [_cartHeaderView updateTotalPrice:totalPrice];
+    self.cartPrice = totalPrice;
+    _cartHeaderView.checkoutButton.enabled = self.inCartItems.count > 0;
 }
 
 #pragma mark - RestManagerResponseHandler
 
 - (void)restManagerService:(SEL)selector failedWithOperation:(NSOperation *)operation error:(NSError *)error userInfo:(NSDictionary *)userInfo {
+    DDLogError(@"error submitting order: %@", error);
 }
 
 - (void)restManagerService:(SEL)selector succeededWithOperation:(NSOperation *)operation userInfo:(NSDictionary *)userInfo {
+    [self.pendingOrder deleteInContext:self.pendingOrder.managedObjectContext];
+    self.pendingOrder = nil;
+    [self refreshCart];
 }
 
 #pragma mark - UITableViewDelegate, UITableViewDataSource

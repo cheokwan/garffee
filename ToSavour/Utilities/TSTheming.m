@@ -46,6 +46,11 @@
     return views.count > 0 ? views[0] : nil;
 }
 
++ (NSURL *)URLWithImageAssetName:(NSString *)assetName {
+    NSString *assetPath = [[NSBundle mainBundle] pathForResource:assetName ofType:@"png"];
+    return assetPath ? [NSURL URLWithString:assetPath] : nil;
+}
+
 + (UIColor *)defaultThemeColor {
     return [UIColor colorWithHexString:@"E74C3C"];  // alizarin red
 }

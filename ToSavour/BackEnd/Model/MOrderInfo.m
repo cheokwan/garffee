@@ -8,6 +8,7 @@
 
 #import "MOrderInfo.h"
 #import "MItemInfo.h"
+#import "MItemSelectedOption.h"
 #import "RestManager.h"
 
 
@@ -27,9 +28,28 @@
 
 + (MOrderInfo *)newOrderInfoInContext:(NSManagedObjectContext *)context {
     MOrderInfo *order = [MOrderInfo newObjectInContext:context];
-    order.status = MOrderInfoStatusInCart;
+    order.status = MOrderInfoStatusPending;
     [order updatePrice];
     return order;
+}
+
+- (void)deleteInContext:(NSManagedObjectContext *)context {
+    [super deleteInContext:context];
+    // assert object has been deleted  XXX-TEST
+    NSFetchRequest *fetchRequest;
+    NSArray *fetchResults;
+    fetchRequest = [MOrderInfo fetchRequestInContext:context];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"id = %@", @0];
+    fetchResults = [context executeFetchRequest:fetchRequest error:nil];
+    NSAssert(fetchResults.count == 0, @"zombie MOrderInfo found: %@", fetchResults);
+    fetchRequest = [MItemInfo fetchRequestInContext:context];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"id = %@", @0];
+    fetchResults = [context executeFetchRequest:fetchRequest error:nil];
+    NSAssert(fetchResults.count == 0, @"zombie MItemInfo found: %@", fetchResults);
+    fetchRequest = [MItemSelectedOption fetchRequestInContext:context];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"id = %@", @0];
+    fetchResults = [context executeFetchRequest:fetchRequest error:nil];
+    NSAssert(fetchResults.count == 0, @"zombie MItemSelectedOption found: %@", fetchResults);
 }
 
 - (void)updatePrice {
