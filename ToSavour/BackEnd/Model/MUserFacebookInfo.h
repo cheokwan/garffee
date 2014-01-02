@@ -22,7 +22,7 @@
 @property (nonatomic, retain) NSString * fbLink;
 @property (nonatomic, retain) NSString * fbMiddleName;
 @property (nonatomic, retain) NSString * fbName;
-@property (nonatomic, retain) NSString * fbProfilePicURL;
+@property (nonatomic, retain) NSString * fbProfileImageURL;
 @property (nonatomic, retain) NSString * fbUsername;
 
 + (RKEntityMapping *)appUserCreationEntityMapping;

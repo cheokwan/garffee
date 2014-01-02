@@ -84,6 +84,14 @@
         <attribute name="price" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <relationship name="productConfigurableOption" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MProductConfigurableOption" inverseName="choices" inverseEntity="MProductConfigurableOption" syncable="YES"/>
     </entity>
+    <entity name="MUserAddressBookInfo" representedClassName="MUserAddressBookInfo" parentEntity="MUserInfo" syncable="YES">
+        <attribute name="abBirthday" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="abEmail" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="abFirstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="abLastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="abPhoneNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="abProfileImageURL" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="MUserFacebookInfo" representedClassName="MUserFacebookInfo" parentEntity="MUserInfo" syncable="YES">
         <attribute name="fbAgeRangeMin" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="fbBirthday" optional="YES" attributeType="Date" syncable="YES"/>
@@ -95,7 +103,7 @@
         <attribute name="fbLink" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fbMiddleName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fbName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="fbProfilePicURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fbProfileImageURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fbUsername" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="MUserInfo" representedClassName="MUserInfo" syncable="YES">
@@ -127,5 +135,6 @@
         <element name="MProductOptionChoice" positionX="0" positionY="0" width="0" height="0"/>
         <element name="MUserInfo" positionX="0" positionY="0" width="0" height="0"/>
         <element name="MUserFacebookInfo" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MUserAddressBookInfo" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

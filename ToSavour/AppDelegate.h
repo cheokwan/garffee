@@ -21,5 +21,7 @@
 + (AppDelegate *)sharedAppDelegate;
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
+- (NSURL *)applicationCachesDirectory;
+- (NSURL *)addressBookUserImageCacheDirectory;
 
 @end

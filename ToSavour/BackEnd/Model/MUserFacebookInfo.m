@@ -22,7 +22,7 @@
 @dynamic fbLink;
 @dynamic fbMiddleName;
 @dynamic fbName;
-@dynamic fbProfilePicURL;
+@dynamic fbProfileImageURL;
 @dynamic fbUsername;
 
 
@@ -47,11 +47,19 @@
 }
 
 - (NSString *)profileImageURL {
-    return self.fbProfilePicURL; // XXXXX
+    return self.fbProfileImageURL; // XXXXX
 }
 
 - (NSString *)name {
     return self.fbName; // XXXXX
+}
+
+- (NSURL *)URLForProfileImage {
+    if (self.fbProfileImageURL) {
+        return [NSURL URLWithString:self.fbProfileImageURL];  // XXXXX
+    } else {
+        return nil;
+    }
 }
 
 #pragma mark - RKMappableEntity
@@ -69,7 +77,7 @@
                                                   @"age_range.min":     @"fbAgeRangeMin",
                                                   @"link":              @"fbLink",
                                                   @"birthday":          @"fbBirthday",
-                                                  @"picture.data.url":  @"fbProfilePicURL"
+                                                  @"picture.data.url":  @"fbProfileImageURL"
                                                   }];
     mapping.identificationAttributes = @[@"fbID"];
     return mapping;
@@ -85,7 +93,7 @@
                                                   @"Sex":               @"fbGender",
                                                   @"Birthday":          @"fbBirthday",
                                                   //@"Phone":             @"",
-                                                  @"ProfileImageUrl":   @"fbProfilePicURL",
+                                                  @"ProfileImageUrl":   @"fbProfileImageURL",
                                                   //@"CreatedDateTime":   @"",
                                                   //@"LastUpdatedDateTime": @"",
                                                   //@"CoffeeIconID":      @"",
@@ -110,7 +118,7 @@
                              @"fbBirthday:%@, "
                              @"fbGender:%@, "
                              @"fbAgeRangeMin:%@, "
-                             @"fbProfilePicURL:%@, "
+                             @"fbProfileImageURL:%@, "
                              @"fbLink:%@, ",
                              self.fbID,
                              self.fbUsername,
@@ -122,7 +130,7 @@
                              self.fbBirthday,
                              self.fbGender,
                              self.fbAgeRangeMin,
-                             self.fbProfilePicURL,
+                             self.fbProfileImageURL,
                              self.fbLink
                              ]];
 }

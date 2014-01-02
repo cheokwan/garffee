@@ -16,4 +16,6 @@
 
 + (NSString *)stringWithPrice:(CGFloat)price;
 
+- (NSArray *)decodeCommaSeparatedString;
+
 @end

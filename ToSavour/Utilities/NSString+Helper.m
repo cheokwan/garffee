@@ -23,4 +23,9 @@
     return [NSString stringWithFormat:priceFormatString, price];
 }
 
+- (NSArray *)decodeCommaSeparatedString {
+    static NSString *delimiter = @", ";
+    return [self componentsSeparatedByString:delimiter];
+}
+
 @end

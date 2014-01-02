@@ -267,4 +267,20 @@
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
+- (NSURL *)applicationCachesDirectory {
+    return [[[[NSFileManager defaultManager] URLsForDirectory:NSCachesDirectory inDomains:NSUserDomainMask] lastObject] URLByAppendingPathComponent:[NSBundle mainBundle].bundleIdentifier];
+}
+
+- (NSURL *)addressBookUserImageCacheDirectory {
+    NSURL *dirURL = [[self applicationCachesDirectory] URLByAppendingPathComponent:@"AddressBook"];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:[dirURL path]]) {
+        NSError *error = nil;
+        [[NSFileManager defaultManager] createDirectoryAtPath:[dirURL path] withIntermediateDirectories:YES attributes:nil error:&error];
+        if (error) {
+            DDLogError(@"error creating address book image cache directory: %@", error);
+        }
+    }
+    return dirURL;
+}
+
 @end

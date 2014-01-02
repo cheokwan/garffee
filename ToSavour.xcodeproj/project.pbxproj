@@ -76,6 +76,13 @@
 		D2827DDB186D882D00E4A662 /* ItemGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DDA186D882D00E4A662 /* ItemGridView.m */; };
 		D2827DDC186D882D00E4A662 /* ItemGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DDA186D882D00E4A662 /* ItemGridView.m */; };
 		D2827DE9187288C700E4A662 /* MUserFacebookInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DE8187288C700E4A662 /* MUserFacebookInfo.m */; };
+		D2827DF31875046B00E4A662 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2827DF21875046B00E4A662 /* AddressBook.framework */; };
+		D2827DF61875051F00E4A662 /* DataFetchManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DF51875051F00E4A662 /* DataFetchManager.m */; };
+		D2827DF71875051F00E4A662 /* DataFetchManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DF51875051F00E4A662 /* DataFetchManager.m */; };
+		D2827DFA187540BD00E4A662 /* NSArray+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DF9187540BD00E4A662 /* NSArray+Helper.m */; };
+		D2827DFB187540BD00E4A662 /* NSArray+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DF9187540BD00E4A662 /* NSArray+Helper.m */; };
+		D2827DFE18755B1400E4A662 /* MUserAddressBookInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DFD18755B1400E4A662 /* MUserAddressBookInfo.m */; };
+		D2827DFF18755B1400E4A662 /* MUserAddressBookInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DFD18755B1400E4A662 /* MUserAddressBookInfo.m */; };
 		D293E4B2183DEDEB00B73795 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4B1183DEDEB00B73795 /* Foundation.framework */; };
 		D293E4B4183DEDEB00B73795 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4B3183DEDEB00B73795 /* CoreGraphics.framework */; };
 		D293E4B6183DEDEB00B73795 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4B5183DEDEB00B73795 /* UIKit.framework */; };
@@ -192,6 +199,13 @@
 		D2827DDA186D882D00E4A662 /* ItemGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ItemGridView.m; path = FrontEnd/ItemGridView.m; sourceTree = "<group>"; };
 		D2827DE7187288C700E4A662 /* MUserFacebookInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUserFacebookInfo.h; path = BackEnd/Model/MUserFacebookInfo.h; sourceTree = "<group>"; };
 		D2827DE8187288C700E4A662 /* MUserFacebookInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUserFacebookInfo.m; path = BackEnd/Model/MUserFacebookInfo.m; sourceTree = "<group>"; };
+		D2827DF21875046B00E4A662 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		D2827DF41875051F00E4A662 /* DataFetchManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataFetchManager.h; path = BackEnd/DataFetchManager.h; sourceTree = "<group>"; };
+		D2827DF51875051F00E4A662 /* DataFetchManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataFetchManager.m; path = BackEnd/DataFetchManager.m; sourceTree = "<group>"; };
+		D2827DF8187540BD00E4A662 /* NSArray+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+Helper.h"; path = "Utilities/NSArray+Helper.h"; sourceTree = "<group>"; };
+		D2827DF9187540BD00E4A662 /* NSArray+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+Helper.m"; path = "Utilities/NSArray+Helper.m"; sourceTree = "<group>"; };
+		D2827DFC18755B1400E4A662 /* MUserAddressBookInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUserAddressBookInfo.h; path = BackEnd/Model/MUserAddressBookInfo.h; sourceTree = "<group>"; };
+		D2827DFD18755B1400E4A662 /* MUserAddressBookInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUserAddressBookInfo.m; path = BackEnd/Model/MUserAddressBookInfo.m; sourceTree = "<group>"; };
 		D293E4AE183DEDEB00B73795 /* ToSavour.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToSavour.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D293E4B1183DEDEB00B73795 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D293E4B3183DEDEB00B73795 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -315,6 +329,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2827DF31875046B00E4A662 /* AddressBook.framework in Frameworks */,
 				D2827DB81867F92100E4A662 /* Security.framework in Frameworks */,
 				D2A67A82185ACA8A00889114 /* QuartzCore.framework in Frameworks */,
 				D2437577184C3498000009D7 /* MapKit.framework in Frameworks */,
@@ -363,6 +378,8 @@
 				D2466848186062DC0089D5DB /* NSString+Helper.m */,
 				DF9DB53E1861D3DA00FD315E /* TSZipArchive.h */,
 				DF9DB53F1861D3DA00FD315E /* TSZipArchive.m */,
+				D2827DF8187540BD00E4A662 /* NSArray+Helper.h */,
+				D2827DF9187540BD00E4A662 /* NSArray+Helper.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -392,6 +409,7 @@
 		D293E4B0183DEDEB00B73795 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D2827DF21875046B00E4A662 /* AddressBook.framework */,
 				D2827DB71867F92100E4A662 /* Security.framework */,
 				D2A67A81185ACA8A00889114 /* QuartzCore.framework */,
 				D2437576184C3497000009D7 /* MapKit.framework */,
@@ -496,6 +514,8 @@
 				D214BE061862DAF000812BA5 /* RestManager.m */,
 				D2827DB91867F9DC00E4A662 /* SecurityManager.h */,
 				D2827DBA1867F9DC00E4A662 /* SecurityManager.m */,
+				D2827DF41875051F00E4A662 /* DataFetchManager.h */,
+				D2827DF51875051F00E4A662 /* DataFetchManager.m */,
 			);
 			name = BackEnd;
 			sourceTree = "<group>";
@@ -512,6 +532,8 @@
 		D2A55702184DB5ED0039A5A0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D2827DFC18755B1400E4A662 /* MUserAddressBookInfo.h */,
+				D2827DFD18755B1400E4A662 /* MUserAddressBookInfo.m */,
 				D2827DE7187288C700E4A662 /* MUserFacebookInfo.h */,
 				D2827DE8187288C700E4A662 /* MUserFacebookInfo.m */,
 				D2827DD118694E4C00E4A662 /* MOrderInfo.h */,
@@ -850,8 +872,10 @@
 				D246680F185F15F70089D5DB /* MapTrackingAnnotation.m in Sources */,
 				D2466810185F15F70089D5DB /* main.m in Sources */,
 				D2466811185F15F70089D5DB /* MainTabBarController.m in Sources */,
+				D2827DF71875051F00E4A662 /* DataFetchManager.m in Sources */,
 				D2466812185F15F70089D5DB /* TSTheming.m in Sources */,
 				D2466813185F15F70089D5DB /* MItemSelectedOption.m in Sources */,
+				D2827DFB187540BD00E4A662 /* NSArray+Helper.m in Sources */,
 				D2466814185F15F70089D5DB /* NSManagedObject+Helper.m in Sources */,
 				D2466816185F15F70089D5DB /* AccountViewController.m in Sources */,
 				D2466817185F15F70089D5DB /* TSNavigationController.m in Sources */,
@@ -859,6 +883,7 @@
 				D2827DD418694E4C00E4A662 /* MOrderInfo.m in Sources */,
 				D2466819185F15F70089D5DB /* FriendsListTableViewCell.m in Sources */,
 				D246681A185F15F70089D5DB /* UIView+Helper.m in Sources */,
+				D2827DFF18755B1400E4A662 /* MUserAddressBookInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -889,6 +914,7 @@
 				D2C075C11852E29500620114 /* ItemPickerViewController.m in Sources */,
 				D2C9168C185EEC7500452891 /* MItemInfo.m in Sources */,
 				D221964D1859BCC6007528EE /* FriendsListViewController.m in Sources */,
+				D2827DFA187540BD00E4A662 /* NSArray+Helper.m in Sources */,
 				D2466849186062DC0089D5DB /* NSString+Helper.m in Sources */,
 				D2C075C418533B6A00620114 /* ItemPickerScrollView.m in Sources */,
 				D2A36A941850AA6C004D3D99 /* HomeViewController.m in Sources */,
@@ -902,8 +928,10 @@
 				D2C075BE1852CACB00620114 /* ItemPickerTableViewCell.m in Sources */,
 				DFE628B41855FE0D00E1C8FE /* CountDownButton.m in Sources */,
 				D2A55711184DBF4C0039A5A0 /* MapTrackingAnnotation.m in Sources */,
+				D2827DF61875051F00E4A662 /* DataFetchManager.m in Sources */,
 				D293E4C0183DEDEB00B73795 /* main.m in Sources */,
 				DFE628B11855FB7D00E1C8FE /* AreYouReadyViewController.m in Sources */,
+				D2827DFE18755B1400E4A662 /* MUserAddressBookInfo.m in Sources */,
 				DF60E759185C642F00DB10DE /* NSMutableArray+Shuffle.m in Sources */,
 				DF60E750185C0D8000DB10DE /* PhotoHuntManager.m in Sources */,
 				D2827DAD1865540100E4A662 /* MGlobalConfiguration.m in Sources */,

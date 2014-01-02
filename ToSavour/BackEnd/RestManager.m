@@ -24,12 +24,12 @@
 
 #pragma mark - Internal
 
-+ (RestManager *)sharedInstance {
++ (instancetype)sharedInstance {
     static dispatch_once_t token = 0;
-    __strong static RestManager *instance = nil;
+    __strong static id instance = nil;
     dispatch_once(&token, ^{
         RKLogConfigureByName("RestKit/Network", RKLogLevelTrace);  // XXX-TEST
-        instance = [[RestManager alloc] init];
+        instance = [[self alloc] init];
     });
     return instance;
 }

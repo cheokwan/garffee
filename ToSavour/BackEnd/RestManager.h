@@ -30,7 +30,7 @@ static const NSString *appAPIBaseURLString = @"http://f34e2b0b303842659d3e58ed6d
 @property (nonatomic, strong, readonly) RKCompoundValueTransformer *defaultDotNetValueTransformer;
 @property (nonatomic, strong, readonly) RKDotNetDateFormatter *defaultDotNetDateFormatter;
 
-+ (RestManager *)sharedInstance;
++ (instancetype)sharedInstance;
 - (void)fetchFacebookAppUserInfo:(__weak id<RestManagerResponseHandler>)handler;
 - (void)fetchFacebookFriendsInfo:(__weak id<RestManagerResponseHandler>)handler;
 - (void)fetchAppUserInfo:(__weak id<RestManagerResponseHandler>)handler;

@@ -30,6 +30,7 @@
 @property (nonatomic, retain) NSNumber * isAppUser;
 
 @property (nonatomic, readonly) NSString * name;
+@property (nonatomic, readonly) NSURL *URLForProfileImage;
 
 
 + (id)newAppUserInfoInContext:(NSManagedObjectContext *)context;

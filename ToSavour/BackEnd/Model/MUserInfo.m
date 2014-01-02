@@ -67,6 +67,14 @@
     return [[NSString stringWithFormat:@"%@ %@", self.firstName, self.lastName] trimmedWhiteSpaces];
 }
 
+- (NSURL *)URLForProfileImage {
+    if (self.profileImageURL) {
+        return [NSURL URLWithString:self.profileImageURL];  // XXXXX
+    } else {
+        return nil;
+    }
+}
+
 #pragma mark - RKMappableEntity
 
 + (RKEntityMapping *)defaultEntityMapping {

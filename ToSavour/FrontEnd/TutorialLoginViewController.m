@@ -10,7 +10,7 @@
 #import "TSFrontEndIncludes.h"
 #import "MUserInfo.h"
 #import "MUserFacebookInfo.h"
-#import "AppDelegate.h"
+#import "DataFetchManager.h"
 
 @interface TutorialLoginViewController ()
 
@@ -169,6 +169,7 @@
             facebookAppUser.isAppUser = @YES;
             [[AppDelegate sharedAppDelegate] saveContext];
             [[RestManager sharedInstance] fetchAppUserInfo:self];
+            [[DataFetchManager sharedInstance] fetchAddressBookContactsInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
         } else {
             DDLogError(@"unable to retrieve the mapped facebook user info");
         }

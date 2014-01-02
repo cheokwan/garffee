@@ -84,9 +84,8 @@
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
     friendCell.subtitle.text = [dateFormatter stringFromDate:friendInfo.birthday];
     
-    NSURL *profilePicURL = [NSURL URLWithString:friendInfo.profileImageURL];
     [friendCell.avatarView removeFromSuperview];
-    friendCell.avatarView = [[AvatarView alloc] initWithFrame:friendCell.avatarView.frame avatarImageURL:profilePicURL accessoryImageURL:[NSURL URLWithString:@"http://files.softicons.com/download/social-media-icons/simple-icons-by-dan-leech/png/128x128/facebook.png"] interactable:NO];  // XXX-TEST
+    friendCell.avatarView = [[AvatarView alloc] initWithFrame:friendCell.avatarView.frame avatarImageURL:friendInfo.URLForProfileImage accessoryImageURL:[NSURL URLWithString:@"http://files.softicons.com/download/social-media-icons/simple-icons-by-dan-leech/png/128x128/facebook.png"] interactable:NO];  // XXX-TEST
     [friendCell addSubview:friendCell.avatarView];
     friendCell.selectionStyle = UITableViewCellSelectionStyleNone;
 }
