@@ -12,21 +12,23 @@
 
 @implementation MUserInfo
 
+@dynamic appID;
 @dynamic birthday;
 @dynamic coffeeIconID;
 @dynamic creditBalance;
 @dynamic email;
+@dynamic facebookID;
 @dynamic firstName;
 @dynamic gender;
-@dynamic appID;
+@dynamic isAppUser;
+@dynamic isDirty;
 @dynamic lastName;
 @dynamic phoneNumber;
 @dynamic profileImageURL;
 @dynamic userCreationDate;
 @dynamic userLastUpdatedDate;
-@dynamic isDirty;
-@dynamic facebookID;
-@dynamic isAppUser;
+@dynamic name;
+@dynamic userType;
 
 
 + (id)newAppUserInfoInContext:(NSManagedObjectContext *)context {
@@ -63,15 +65,41 @@
     return fetchResults[0];
 }
 
-- (NSString *)name {
-    return [[NSString stringWithFormat:@"%@ %@", self.firstName, self.lastName] trimmedWhiteSpaces];
-}
-
 - (NSURL *)URLForProfileImage {
     if (self.profileImageURL) {
-        return [NSURL URLWithString:self.profileImageURL];  // XXXXX
+        return [NSURL URLWithString:self.profileImageURL];
     } else {
         return nil;
+    }
+}
+
+- (void)awakeFromInsert {
+    [super awakeFromInsert];
+    self.userType = @(MUserInfoUserTypeAppNativeUser);
+}
+
+- (void)setAppID:(NSString *)appID {
+    [self changeValue:appID forKey:@"appID"];
+}
+
+- (void)setFirstName:(NSString *)firstName {
+    [self changeValue:firstName forKey:@"firstName"];
+}
+
+- (void)setLastName:(NSString *)lastName {
+    [self changeValue:lastName forKey:@"lastName"];
+}
+
+- (void)changeValue:(id)value forKey:(NSString *)key {
+    [self willChangeValueForKey:key];
+    [self setPrimitiveValue:value forKey:key];
+    [self didChangeValueForKey:key];
+    if ([key isEqualToString:@"appID"]) {
+        if ([self.appID trimmedWhiteSpaces].length > 0) {
+            self.userType = @(MUserInfoUserTypeAppNativeUser);
+        }
+    } else if ([key isEqualToString:@"firstName"] || [key isEqualToString:@"lastName"]) {
+        self.name = [[NSString stringWithFormat:@"%@ %@", self.firstName ? self.firstName : @"", self.lastName ? self.lastName : @""] trimmedWhiteSpaces];
     }
 }
 
@@ -103,8 +131,10 @@
 
 - (NSString *)description {
     return [NSString stringWithFormat:
+            @"userType:%@, "
             @"appID:%@, "
             @"facebookID:%@, "
+            @"name:%@, "
             @"firstName:%@, "
             @"lastName:%@, "
             @"creditBalance:%@, "
@@ -118,8 +148,10 @@
             @"coffeeIconID:%@, "
             @"isAppUser:%@, "
             @"isDirty:%@, ",
+            self.userType,
             self.appID,
             self.facebookID,
+            self.name,
             self.firstName,
             self.lastName,
             self.creditBalance,

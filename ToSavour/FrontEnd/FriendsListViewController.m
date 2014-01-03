@@ -13,6 +13,13 @@
 #import "AvatarView.h"
 #import "MUserInfo.h"
 
+typedef enum {
+    FriendsListSectionAppNativeFriends = 0,
+    FriendsListSectionFacebookFriends,
+    FriendsListSectionAddressBookFriends,
+    FriendsListSectionTotal,
+} FriendsListSection;
+
 
 @interface FriendsListViewController ()
 @property (nonatomic, strong)   FriendsListTableViewCell *friendsListPrototypeCell;
@@ -51,11 +58,15 @@
 #pragma mark - UITableViewDelegate, UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return self.fetchedResultsController.sections.count;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return [(id<NSFetchedResultsSectionInfo>)(self.fetchedResultsController.sections[section]) indexTitle];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.fetchedResultsController fetchedObjects].count;
+    return [(id<NSFetchedResultsSectionInfo>)(self.fetchedResultsController.sections[section]) numberOfObjects];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -96,10 +107,11 @@
     if (!_fetchedResultsController) {
         NSFetchRequest *fetchRequest = [MUserInfo fetchRequestInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"isAppUser = %@", @NO];
-        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"firstName" ascending:NO];
-        fetchRequest.sortDescriptors = @[sortDescriptor];
+        NSSortDescriptor *sdUserType = [[NSSortDescriptor alloc] initWithKey:@"userType" ascending:YES];
+        NSSortDescriptor *sdName = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+        fetchRequest.sortDescriptors = @[sdUserType, sdName];
         fetchRequest.fetchBatchSize = 20;
-        self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[AppDelegate sharedAppDelegate].managedObjectContext sectionNameKeyPath:nil cacheName:@"Master"];  // XXX-FIX cache name
+        self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[AppDelegate sharedAppDelegate].managedObjectContext sectionNameKeyPath:@"userType" cacheName:nil];  // XXX-FIX cache name
         _fetchedResultsController.delegate = self;
         
         NSError *error = nil;

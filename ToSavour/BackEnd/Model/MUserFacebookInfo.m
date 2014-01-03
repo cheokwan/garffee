@@ -25,40 +25,58 @@
 @dynamic fbProfileImageURL;
 @dynamic fbUsername;
 
-
-- (NSDate *)birthday {
-    return self.fbBirthday; // XXXXX
+- (void)awakeFromInsert {
+    [super awakeFromInsert];
+    self.userType = @(MUserInfoUserTypeFacebookUser);
 }
 
-- (NSString *)email {
-    return self.fbEmail; // XXXXX
+- (void)setFbFirstName:(NSString *)fbFirstName {
+    [self changeValue:fbFirstName forKey:@"fbFirstName"];
 }
 
-- (NSString *)firstName {
-    return self.fbFirstName; // XXXXX
+- (void)setFbLastName:(NSString *)fbLastName {
+    [self changeValue:fbLastName forKey:@"fbLastName"];
 }
 
-- (NSString *)lastName {
-    return self.fbLastName; // XXXXX
+- (void)setFbBirthday:(NSDate *)fbBirthday {
+    [self changeValue:fbBirthday forKey:@"fbBirthday"];
 }
 
-- (NSString *)gender {
-    return self.fbGender; // XXXXX
+- (void)setFbEmail:(NSString *)fbEmail {
+    [self changeValue:fbEmail forKey:@"fbEmail"];
 }
 
-- (NSString *)profileImageURL {
-    return self.fbProfileImageURL; // XXXXX
+- (void)setFbGender:(NSString *)fbGender {
+    [self changeValue:fbGender forKey:@"fbGender"];
 }
 
-- (NSString *)name {
-    return self.fbName; // XXXXX
+- (void)setFbName:(NSString *)fbName {
+    [self changeValue:fbName forKey:@"fbName"];
 }
 
-- (NSURL *)URLForProfileImage {
-    if (self.fbProfileImageURL) {
-        return [NSURL URLWithString:self.fbProfileImageURL];  // XXXXX
-    } else {
-        return nil;
+- (void)setFbProfileImageURL:(NSString *)fbProfileImageURL {
+    [self changeValue:fbProfileImageURL forKey:@"fbProfileImageURL"];
+}
+
+- (void)changeValue:(id)value forKey:(NSString *)key {
+    [super changeValue:value forKey:key];
+    if ([self.appID trimmedWhiteSpaces].length > 0) {
+        return;
+    }
+    if ([key isEqualToString:@"fbFirstName"]) {
+        self.firstName = self.fbFirstName;
+    } else if ([key isEqualToString:@"fbLastName"]) {
+        self.lastName = self.fbLastName;
+    } else if ([key isEqualToString:@"fbBirthday"]) {
+        self.birthday = self.fbBirthday;
+    } else if ([key isEqualToString:@"fbEmail"]) {
+        self.email = self.fbEmail;
+    } else if ([key isEqualToString:@"fbGender"]) {
+        self.gender = self.fbGender;
+    } else if ([key isEqualToString:@"fbName"]) {
+        self.name = self.fbName;
+    } else if ([key isEqualToString:@"fbProfileImageURL"]) {
+        self.profileImageURL = self.fbProfileImageURL;
     }
 }
 

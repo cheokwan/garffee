@@ -118,10 +118,12 @@
         <attribute name="isAppUser" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="isDirty" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="phoneNumber" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="profileImageURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="userCreationDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="userLastUpdatedDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="userType" optional="YES" attributeType="Integer 32" syncable="YES"/>
     </entity>
     <elements>
         <element name="MapTrackingAnnotation" positionX="0" positionY="0" width="0" height="0"/>
@@ -133,8 +135,8 @@
         <element name="MProductConfigurableOption" positionX="0" positionY="0" width="0" height="0"/>
         <element name="MProductInfo" positionX="0" positionY="0" width="0" height="0"/>
         <element name="MProductOptionChoice" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MUserInfo" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MUserFacebookInfo" positionX="0" positionY="0" width="0" height="0"/>
         <element name="MUserAddressBookInfo" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MUserFacebookInfo" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MUserInfo" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

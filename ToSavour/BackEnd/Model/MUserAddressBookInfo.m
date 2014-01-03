@@ -18,35 +18,61 @@
 @dynamic abEmail;
 @dynamic abProfileImageURL;
 
-- (NSString *)firstName {
-    return self.abFirstName;  // XXXXX
-}
-
-- (NSString *)lastName {
-    return self.abLastName;  // XXXXX
-}
-
-- (NSDate *)birthday {
-    return self.abBirthday;  // XXXXX
-}
-
-- (NSString *)phoneNumber {
-    return self.abPhoneNumber;  // XXXXX
-}
-
-- (NSString *)email {
-    return self.abEmail;  // XXXXX
-}
-
-- (NSString *)profileImageURL {
-    return self.abProfileImageURL;  // XXXXX
-}
 
 - (NSURL *)URLForProfileImage {
     if (self.abProfileImageURL) {
-        return [NSURL fileURLWithPath:self.abProfileImageURL isDirectory:NO];  // XXXXX
+        return [NSURL fileURLWithPath:self.abProfileImageURL isDirectory:NO];
     } else {
         return nil;
+    }
+}
+
+- (void)awakeFromInsert {
+    [super awakeFromInsert];
+    self.userType = @(MUserInfoUserTypeAddressBookUser);
+}
+
+- (void)setAbFirstName:(NSString *)abFirstName {
+    [self changeValue:abFirstName forKey:@"abFirstName"];
+}
+
+- (void)setAbLastName:(NSString *)abLastName {
+    [self changeValue:abLastName forKey:@"abLastName"];
+}
+
+- (void)setAbBirthday:(NSDate *)abBirthday {
+    [self changeValue:abBirthday forKey:@"abBirthday"];
+}
+
+- (void)setAbEmail:(NSString *)abEmail {
+    [self changeValue:abEmail forKey:@"abEmail"];
+}
+
+- (void)setAbPhoneNumber:(NSString *)abPhoneNumber {
+    [self changeValue:abPhoneNumber forKey:@"abPhoneNumber"];
+}
+
+- (void)setAbProfileImageURL:(NSString *)abProfileImageURL {
+    [self changeValue:abProfileImageURL forKey:@"abProfileImageURL"];
+}
+
+- (void)changeValue:(id)value forKey:(NSString *)key {
+    [super changeValue:value forKey:key];
+    if ([self.appID trimmedWhiteSpaces].length > 0) {
+        return;
+    }
+    if ([key isEqualToString:@"abFirstName"]) {
+        self.firstName = self.abFirstName;
+    } else if ([key isEqualToString:@"abLastName"]) {
+        self.lastName = self.abLastName;
+    } else if ([key isEqualToString:@"abBirthday"]) {
+        self.birthday = self.abBirthday;
+    } else if ([key isEqualToString:@"abEmail"]) {
+        self.email = self.abEmail;
+    } else if ([key isEqualToString:@"abPhoneNumber"]) {
+        self.phoneNumber = self.abPhoneNumber;
+    } else if ([key isEqualToString:@"abProfileImageURL"]) {
+        self.profileImageURL = self.abProfileImageURL;
     }
 }
 
