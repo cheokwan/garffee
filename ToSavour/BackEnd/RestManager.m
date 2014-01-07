@@ -11,6 +11,7 @@
 #import <AFNetworking/AFNetworking.h>
 #import "TSModelIncludes.h"
 #import "SecurityManager.h"
+#import "MBranch.h"
 
 @interface RestManager()
 @property (nonatomic, strong)   RKObjectManager *facebookObjectManager;
@@ -261,6 +262,10 @@
 
 - (void)fetchAppConfigurations:(__weak id<RestManagerResponseHandler>)handler {
     [self fetchManagedObjectsWithServiceHost:RestManagerServiceHostApp endPoint:@"/configurations" sourceSelector:_cmd responseDescriptors:@[[MGlobalConfiguration defaultResponseDescriptor]] handler:handler];
+}
+
+- (void)fetchBranches:(__weak id<RestManagerResponseHandler>)handler {
+    [self fetchManagedObjectsWithServiceHost:RestManagerServiceHostApp endPoint:@"/storebranches" sourceSelector:_cmd responseDescriptors:@[[MBranch defaultResponseDescriptor]] handler:handler];
 }
 
 

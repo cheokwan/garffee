@@ -43,8 +43,11 @@
     [context deleteObject:selfInContext];
 }
 
+//Maximal: why do you need context in this method?
 + (NSFetchRequest *)fetchRequestInContext:(NSManagedObjectContext *)context {
-    return [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass(self.class)];
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass(self.class)];
+    fetchRequest.sortDescriptors = @[]; // a NSFetchRequest must have sortDescriptors, default empty array
+    return fetchRequest;
 }
 
 + (void)removeALlObjectsInContext:(NSManagedObjectContext *)context {

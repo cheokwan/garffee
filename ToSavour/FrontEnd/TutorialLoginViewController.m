@@ -11,6 +11,7 @@
 #import "MUserInfo.h"
 #import "MUserFacebookInfo.h"
 #import "DataFetchManager.h"
+#import "MBranch.h"
 
 @interface TutorialLoginViewController ()
 
@@ -186,10 +187,19 @@
     if (selector == @selector(fetchAppConfigurations:)) {
         // successfully fetched app configs, now fetch products info
         [[RestManager sharedInstance] fetchAppProductInfo:self];
+        [[RestManager sharedInstance] fetchBranches:self];
     }
     if (selector == @selector(fetchAppProductInfo:)) {
         // successfully fetched products info, now dismiss the login view
         [self dismissAfterLoggedIn];
+    }
+    if (selector == @selector(fetchBranches:)) {
+//        NSLog(@"");
+//        NSManagedObjectContext *context = [AppDelegate sharedAppDelegate].managedObjectContext;
+//        NSFetchRequest *request = [MBranch fetchRequestInContext:context];
+//        NSFetchedResultsController *frc = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:context sectionNameKeyPath:nil cacheName:nil];
+//        [frc performFetch:nil];
+//        NSLog(@"");
     }
 }
 

@@ -21,6 +21,11 @@
 #import "TSModelIncludes.h"
 #import "RestManager.h"
 
+//XXX-ML
+#import "MockData.h"
+#import "MBranch.h"
+//XXX-ML
+
 @implementation AppDelegate
 
 @synthesize managedObjectContext = _managedObjectContext;
@@ -87,6 +92,9 @@
         // re-fetch user info again for updated app token
         [[RestManager sharedInstance] fetchAppUserInfo:nil];
     }
+    
+//    [MockData removeAllBranches];
+//    [MockData mockBranches];
     
     return YES;
 }

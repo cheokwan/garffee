@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="OgU-EM-CIj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="OgU-EM-CIj">
     <dependencies>
         <deployment defaultVersion="1552" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller - Home!-->
@@ -96,6 +96,197 @@
             </objects>
             <point key="canvasLocation" x="1222" y="3680"/>
         </scene>
+        <!--Pick Up Location View Controller-->
+        <scene sceneID="xOt-qu-BnM">
+            <objects>
+                <viewController storyboardIdentifier="PickUpLocationViewController" id="2aX-JZ-I5p" customClass="PickUpLocationViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="vfI-wh-XMl"/>
+                        <viewControllerLayoutGuide type="bottom" id="nrr-Q5-mmD"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="s1o-Qs-PIY" userLabel="Master View">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lDv-P2-bcG">
+                                <rect key="frame" x="0.0" y="64" width="320" height="0.0"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" id="gf5-Ax-9Kd"/>
+                                    <constraint firstAttribute="width" constant="320" id="mHI-YX-1sE"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="fdo-NJ-h0f">
+                                <rect key="frame" x="0.0" y="64" width="320" height="411"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PickUpLocationTableViewCell" rowHeight="90" id="qWZ-R8-zzE" customClass="PickUpLocationTableViewCell">
+                                        <rect key="frame" x="0.0" y="22" width="320" height="90"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qWZ-R8-zzE" id="3Pr-WO-i5V">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="89"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="v3G-jH-4ew" userLabel="Thunbnail">
+                                                    <rect key="frame" x="13" y="10" width="70" height="70"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="70" id="gPX-ez-Qth"/>
+                                                        <constraint firstAttribute="height" constant="70" id="pbv-ah-HgX"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iia-uN-gaa" userLabel="Branch name">
+                                                    <rect key="frame" x="102" y="13" width="40" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="XdD-Up-1Qp"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gMc-Li-upe" userLabel="Opening Hours">
+                                                    <rect key="frame" x="131" y="34" width="38" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="qYk-wt-hHy"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fze-LV-n1u" userLabel="Telephone Num">
+                                                    <rect key="frame" x="131" y="56" width="38" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico_phone" translatesAutoresizingMaskIntoConstraints="NO" id="z6p-Ho-jNE" userLabel="Telephone Image">
+                                                    <rect key="frame" x="102" y="56" width="21" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="21" id="r3K-Gg-oW6"/>
+                                                        <constraint firstAttribute="height" constant="21" id="xLv-bP-liX"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico_time" translatesAutoresizingMaskIntoConstraints="NO" id="Rlq-h9-zZM" userLabel="Opening Hour Image">
+                                                    <rect key="frame" x="102" y="34" width="21" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="8O4-7D-Tsn"/>
+                                                        <constraint firstAttribute="width" constant="21" id="UuC-H6-jcN"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="v3G-jH-4ew" firstAttribute="leading" secondItem="3Pr-WO-i5V" secondAttribute="leading" constant="13" id="5TR-7y-HtL"/>
+                                                <constraint firstAttribute="centerY" secondItem="Rlq-h9-zZM" secondAttribute="centerY" id="F4b-nA-SKV"/>
+                                                <constraint firstItem="fze-LV-n1u" firstAttribute="top" secondItem="gMc-Li-upe" secondAttribute="bottom" constant="1" id="Fec-H5-zlW"/>
+                                                <constraint firstItem="fze-LV-n1u" firstAttribute="leading" secondItem="z6p-Ho-jNE" secondAttribute="trailing" constant="8" id="JKr-er-lvP"/>
+                                                <constraint firstAttribute="centerY" secondItem="v3G-jH-4ew" secondAttribute="centerY" constant="-0.5" id="Pod-xL-RZ9"/>
+                                                <constraint firstItem="gMc-Li-upe" firstAttribute="leading" secondItem="Rlq-h9-zZM" secondAttribute="trailing" constant="8" id="UpB-yK-M57"/>
+                                                <constraint firstAttribute="centerY" secondItem="gMc-Li-upe" secondAttribute="centerY" id="X1f-eA-rlM"/>
+                                                <constraint firstItem="Rlq-h9-zZM" firstAttribute="leading" secondItem="v3G-jH-4ew" secondAttribute="trailing" constant="19" id="ffF-wG-8Xa"/>
+                                                <constraint firstItem="fze-LV-n1u" firstAttribute="width" secondItem="gMc-Li-upe" secondAttribute="width" id="hoz-iW-Kui"/>
+                                                <constraint firstItem="z6p-Ho-jNE" firstAttribute="top" secondItem="Rlq-h9-zZM" secondAttribute="bottom" constant="1" id="qGV-bW-HHa"/>
+                                                <constraint firstItem="z6p-Ho-jNE" firstAttribute="leading" secondItem="Rlq-h9-zZM" secondAttribute="leading" id="sy7-PF-TXF"/>
+                                                <constraint firstItem="gMc-Li-upe" firstAttribute="top" secondItem="iia-uN-gaa" secondAttribute="bottom" id="wHf-rY-2zI"/>
+                                                <constraint firstItem="iia-uN-gaa" firstAttribute="leading" secondItem="v3G-jH-4ew" secondAttribute="trailing" constant="19" id="yZV-3P-Qrl"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="branchNameLabel" destination="iia-uN-gaa" id="gnG-SP-C4t"/>
+                                            <outlet property="openingHourImageView" destination="Rlq-h9-zZM" id="1eT-iV-f7q"/>
+                                            <outlet property="openingHourLabel" destination="gMc-Li-upe" id="0eN-WC-o29"/>
+                                            <outlet property="telephoneNumberImageView" destination="z6p-Ho-jNE" id="fMs-5S-ZtE"/>
+                                            <outlet property="telephoneNumberLabel" destination="fze-LV-n1u" id="5Qf-HQ-28T"/>
+                                            <outlet property="thumbnailImageView" destination="v3G-jH-4ew" id="TTo-hb-rwJ"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="2aX-JZ-I5p" id="bhV-7a-rUd"/>
+                                    <outlet property="delegate" destination="2aX-JZ-I5p" id="32Y-NE-wSq"/>
+                                </connections>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XEY-DN-8aq" userLabel="Recommend Time View">
+                                <rect key="frame" x="0.0" y="475" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Recommend Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IcA-cC-9i2" userLabel="Recommend Time">
+                                        <rect key="frame" x="10" y="12" width="130" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vhe-Yz-FhT" userLabel="Minus Time Button">
+                                        <rect key="frame" x="145" y="7" width="30" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <state key="normal" image="btn_time_del">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="buttonPressed:" destination="2aX-JZ-I5p" eventType="touchUpInside" id="j8V-VM-hge"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9G4-Qv-g0D" userLabel="Time">
+                                        <rect key="frame" x="180" y="12" width="95" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="omg-nY-z64" userLabel="Add Time Button">
+                                        <rect key="frame" x="280" y="7" width="30" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="btn_time_add">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="buttonPressed:" destination="2aX-JZ-I5p" eventType="touchUpInside" id="s6d-dx-gBe"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="fjM-lT-5sD"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="lDv-P2-bcG" secondAttribute="centerX" id="3Vu-nC-zYc"/>
+                            <constraint firstAttribute="centerX" secondItem="XEY-DN-8aq" secondAttribute="centerX" id="5Fq-xn-bIP"/>
+                            <constraint firstItem="lDv-P2-bcG" firstAttribute="top" secondItem="vfI-wh-XMl" secondAttribute="bottom" id="7W5-xP-UCA"/>
+                            <constraint firstItem="XEY-DN-8aq" firstAttribute="top" secondItem="fdo-NJ-h0f" secondAttribute="bottom" id="ARr-Ri-H8A"/>
+                            <constraint firstItem="fdo-NJ-h0f" firstAttribute="leading" secondItem="s1o-Qs-PIY" secondAttribute="leading" id="C4i-0B-H44"/>
+                            <constraint firstAttribute="trailing" secondItem="XEY-DN-8aq" secondAttribute="trailing" id="dWS-9b-jPn"/>
+                            <constraint firstItem="fdo-NJ-h0f" firstAttribute="top" secondItem="lDv-P2-bcG" secondAttribute="bottom" id="nKt-yK-pHT"/>
+                            <constraint firstItem="nrr-Q5-mmD" firstAttribute="top" secondItem="XEY-DN-8aq" secondAttribute="bottom" id="t4L-iu-wGE"/>
+                            <constraint firstItem="XEY-DN-8aq" firstAttribute="leading" secondItem="s1o-Qs-PIY" secondAttribute="leading" id="tSw-fU-9na"/>
+                            <constraint firstAttribute="trailing" secondItem="fdo-NJ-h0f" secondAttribute="trailing" id="xaj-Jz-nwa"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="E0W-Ax-Kdy"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="addTimeButton" destination="omg-nY-z64" id="neF-ax-Lmf"/>
+                        <outlet property="minusTimeButton" destination="Vhe-Yz-FhT" id="i7a-or-gUJ"/>
+                        <outlet property="recommendedTimeView" destination="XEY-DN-8aq" id="Vqi-ao-Gxd"/>
+                        <outlet property="recommenedTimeConstantLabel" destination="IcA-cC-9i2" id="MJn-f7-Zl1"/>
+                        <outlet property="tableView" destination="fdo-NJ-h0f" id="J0l-eG-HUX"/>
+                        <outlet property="timeLabel" destination="9G4-Qv-g0D" id="J0B-It-OFx"/>
+                        <outlet property="view" destination="s1o-Qs-PIY" id="se1-8A-sGa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Yjy-eh-sg6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2242" y="3680"/>
+        </scene>
         <!--Cart View Controller-->
         <scene sceneID="pqP-bE-Hzv">
             <objects>
@@ -185,6 +376,7 @@
                     <connections>
                         <outlet property="cartHeaderView" destination="3gm-uT-ucq" id="g11-IG-dw9"/>
                         <outlet property="itemList" destination="M3B-Hq-9gH" id="9oO-UP-aug"/>
+                        <segue destination="2aX-JZ-I5p" kind="push" id="hUs-bL-abV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QzX-0v-m54" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -638,6 +830,10 @@
     <resources>
         <image name="PlayIcon" width="26" height="26"/>
         <image name="StopIcon" width="26" height="26"/>
+        <image name="btn_time_add" width="30" height="30"/>
+        <image name="btn_time_del" width="30" height="30"/>
+        <image name="ico_phone" width="20" height="20"/>
+        <image name="ico_time" width="20" height="20"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

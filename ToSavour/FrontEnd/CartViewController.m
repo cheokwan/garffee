@@ -14,6 +14,7 @@
 #import "MProductInfo.h"
 #import "MItemInfo.h"
 #import "MOrderInfo.h"
+#import "PickUpLocationViewController.h"
 
 typedef enum {
     CartSectionItems = 0,
@@ -98,6 +99,12 @@ typedef enum {
         self.pendingOrder.pickupTime = [NSDate dateWithTimeIntervalSinceNow:300];  // XXXXX
         self.pendingOrder.storeBranchID = @1; // XXXX
         [[RestManager sharedInstance] postOrder:self.pendingOrder handler:self];
+        
+        //XXX-ML
+        PickUpLocationViewController *pickUpLocationViewController = (PickUpLocationViewController*)[TSTheming viewControllerWithStoryboardIdentifier:@"PickUpLocationViewController" storyboard:@"Main"];
+        [pickUpLocationViewController initialize];
+        pickUpLocationViewController.order = _pendingOrder;
+        [self.navigationController pushViewController:pickUpLocationViewController animated:YES];
     }
 }
 
@@ -114,7 +121,8 @@ typedef enum {
     }
     [_cartHeaderView updateTotalPrice:totalPrice];
     self.cartPrice = totalPrice;
-    _cartHeaderView.checkoutButton.enabled = self.inCartItems.count > 0;
+    //XXX-ML temp change
+//    _cartHeaderView.checkoutButton.enabled = self.inCartItems.count > 0;
 }
 
 #pragma mark - RestManagerResponseHandler

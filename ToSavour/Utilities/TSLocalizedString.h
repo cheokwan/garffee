@@ -51,5 +51,10 @@
 #define LS_LAST_ORDER           NSLocalizedString(@"Last Order", @"")
 #define LS_ORDER_NOW            NSLocalizedString(@"Order Now", @"")
 #define LS_BALANCE              NSLocalizedString(@"Balance", @"")
+#define LS_PICK_UP_LOCATION     NSLocalizedString(@"Pick Up Location", @"")
+#define LS_FINISH               NSLocalizedString(@"Finish", @"")
+#define LS_CONFIRM_ORDER_TITLE  NSLocalizedString(@"Confirm Order", @"")
+#define LS_CONFIRM_ORDER_DETAILS    NSLocalizedString(@"Are you sure?", @"")
+#define LS_CONFIRM              NSLocalizedString(@"Confirm", @"")
 
 #endif
