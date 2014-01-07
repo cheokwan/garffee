@@ -63,6 +63,12 @@
     for (int i = 0; i < CFArrayGetCount(self.allABContacts); ++i) {
         ABRecordRef recordRef = CFArrayGetValueAtIndex(_allABContacts, i);
         
+        ABRecordID recordID = ABRecordGetRecordID(recordRef);
+        if (recordID == kABRecordInvalidID) {
+            // skip this contact
+            continue;
+        }
+        
         NSString *firstName = CFBridgingRelease(ABRecordCopyValue(recordRef, kABPersonFirstNameProperty));
         NSString *lastName = CFBridgingRelease(ABRecordCopyValue(recordRef, kABPersonLastNameProperty));
         NSDate *birthday = CFBridgingRelease(ABRecordCopyValue(recordRef, kABPersonBirthdayProperty));
@@ -77,7 +83,9 @@
         CFRelease(phonesRef);
         NSString *phone = [phones commaSeparatedString];
         
-        MUserAddressBookInfo *abUser = [MUserAddressBookInfo newObjectInContext:context];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"abContactID = %@", @(recordID)];
+        MUserAddressBookInfo *abUser = (MUserAddressBookInfo *)[MUserAddressBookInfo existingOrNewObjectInContext:context withPredicate:predicate];
+        abUser.abContactID = @(recordID);
         abUser.abFirstName = firstName;
         abUser.abLastName = lastName;
         abUser.abBirthday = birthday;
@@ -86,12 +94,22 @@
         
         NSData *imageData = (NSData *)CFBridgingRelease(ABPersonCopyImageData(recordRef));
         if (imageData) {
-            NSMutableString *fileName = [[[firstName lowercaseString] stringByAppendingString:[lastName lowercaseString]] mutableCopy];
+            if (abUser.URLForProfileImage) {
+                NSError *error = nil;
+                [[NSFileManager defaultManager] removeItemAtURL:abUser.URLForProfileImage error:&error];
+                if (error) {
+                    DDLogError(@"error removing old cached contact image %@: %@", abUser.URLForProfileImage, error);
+                }
+            }
+            
+            NSMutableString *fileName = [[abUser.name lowercaseString] mutableCopy];
             [fileName appendString:[@([[NSDate date] timeIntervalSinceReferenceDate]) stringValue]];
             [fileName replaceOccurrencesOfString:@" " withString:@"_" options:0 range:NSMakeRange(0, fileName.length)];
-            NSString *filePath = [[[[AppDelegate sharedAppDelegate] addressBookUserImageCacheDirectory] path] stringByAppendingPathComponent:fileName];
-            [imageData writeToFile:filePath atomically:NO];
-            abUser.abProfileImageURL = filePath;
+            if (fileName.length > 0) {
+                NSString *filePath = [[[[AppDelegate sharedAppDelegate] addressBookUserImageCacheDirectory] path] stringByAppendingPathComponent:fileName];
+                [imageData writeToFile:filePath atomically:NO];
+                abUser.abProfileImageURL = filePath;
+            }
         }
     }
     NSError *error = nil;

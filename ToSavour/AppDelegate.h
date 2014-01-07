@@ -16,6 +16,7 @@
 @property (strong, nonatomic) UIWindow *window;
 
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (readonly, nonatomic)         NSManagedObjectContext *persistentStoreManagedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 
 + (AppDelegate *)sharedAppDelegate;

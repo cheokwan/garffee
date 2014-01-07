@@ -11,12 +11,13 @@
 
 @implementation MUserAddressBookInfo
 
+@dynamic abBirthday;
+@dynamic abEmail;
 @dynamic abFirstName;
 @dynamic abLastName;
-@dynamic abBirthday;
 @dynamic abPhoneNumber;
-@dynamic abEmail;
 @dynamic abProfileImageURL;
+@dynamic abContactID;
 
 
 - (NSURL *)URLForProfileImage {
@@ -74,6 +75,26 @@
     } else if ([key isEqualToString:@"abProfileImageURL"]) {
         self.profileImageURL = self.abProfileImageURL;
     }
+}
+
+#pragma mark - RKMappableEntity
+
++ (RKEntityMapping *)defaultEntityMapping {
+    RKEntityMapping *mapping = [RKEntityMapping mappingForEntityForName:NSStringFromClass(self.class) inManagedObjectStore:[RKManagedObjectStore defaultStore]];
+    [mapping addAttributeMappingsFromArray:@[@"abBirthday",
+                                             @"abEmail",
+                                             @"abFirstName",
+                                             @"abLastName",
+                                             @"abPhoneNumber",
+                                             @"abProfileImageURL",
+                                             @"abContactID",
+                                             ]];
+    mapping.identificationAttributes = @[@"abContactID"];
+    return mapping;
+}
+
++ (RKResponseDescriptor *)defaultResponseDescriptor {
+    return [RKResponseDescriptor responseDescriptorWithMapping:[self.class defaultEntityMapping] method:RKRequestMethodAny pathPattern:nil keyPath:nil statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
 }
 
 - (NSString *)description {

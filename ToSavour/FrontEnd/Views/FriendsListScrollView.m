@@ -9,6 +9,7 @@
 #import "FriendsListScrollView.h"
 #import "AvatarView.h"
 #import "MUserInfo.h"
+#import "TSFrontEndIncludes.h"
 
 @implementation FriendsListScrollView
 
@@ -38,27 +39,46 @@
 }
 
 - (void)awakeFromNib {
-    NSFetchRequest *fetchRequest = [MUserInfo fetchRequestInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"isAppUser = %@", @NO];
-    NSSortDescriptor *sdUserType = [[NSSortDescriptor alloc] initWithKey:@"userType" ascending:YES];
-    NSSortDescriptor *sdName = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
-//    fetchRequest.fetchLimit = 50;
-    fetchRequest.sortDescriptors = @[sdUserType, sdName];
-    NSError *error = nil;
-    NSArray *friends = [[AppDelegate sharedAppDelegate].managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if (error) {
-        DDLogError(@"error fetching friends in home screen: %@", error);
-    }
-    
-    CGFloat frameWidth = self.frame.size.height * 2.5 / 3.0;
-    CGFloat offsetX = 0.0;
-    for (MUserInfo *friend in friends) {
-        CGRect cellFrame = CGRectMake(offsetX, 0, frameWidth, self.frame.size.height);
-        FriendsListScrollViewCell *cell = [[FriendsListScrollViewCell alloc] initWithFrame:cellFrame user:friend];
-        [self addSubview:cell];
-        offsetX += frameWidth;
-    }
-    self.contentSize = CGSizeMake(offsetX, self.frame.size.height);
+    [self updateView];
+}
+
+- (void)updateView {
+    // fetch friends in background
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSManagedObjectContext *context = [AppDelegate sharedAppDelegate].persistentStoreManagedObjectContext;
+        NSFetchRequest *fetchRequest = [MUserInfo fetchRequestInContext:context];
+        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"isAppUser = %@", @NO];
+        NSSortDescriptor *sdUserType = [[NSSortDescriptor alloc] initWithKey:@"userType" ascending:YES];
+        NSSortDescriptor *sdName = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+        fetchRequest.sortDescriptors = @[sdUserType, sdName];
+        //fetchRequest.includesPropertyValues = NO;
+        NSError *error = nil;
+        NSArray *friends = [context executeFetchRequest:fetchRequest error:&error];
+        if (friends.count == 0) {
+            // TODO: better handle this
+            double delayInSeconds = 3.0;
+            DDLogWarn(@"fetched 0 friends, going to retry in %f seconds", delayInSeconds);
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                [self updateView];
+            });
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self removeAllSubviews];
+                CGFloat frameWidth = self.frame.size.height * 2.5 / 3.0;
+                CGFloat offsetX = 0.0;
+                NSManagedObjectContext *mainContext = [AppDelegate sharedAppDelegate].managedObjectContext;
+                for (MUserInfo *friendWithID in friends) {
+                    MUserInfo *friend = (MUserInfo *)[mainContext objectWithID:friendWithID.objectID];
+                    CGRect cellFrame = CGRectMake(offsetX, 0, frameWidth, self.frame.size.height);
+                    FriendsListScrollViewCell *cell = [[FriendsListScrollViewCell alloc] initWithFrame:cellFrame user:friend];
+                    [self addSubview:cell];
+                    offsetX += frameWidth;
+                }
+                self.contentSize = CGSizeMake(offsetX, self.frame.size.height);
+            });
+        }
+    });
 }
 
 /*

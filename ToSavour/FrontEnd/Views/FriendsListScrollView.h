@@ -13,6 +13,8 @@
 
 @interface FriendsListScrollView : UIScrollView<UIScrollViewDelegate>
 
+- (void)updateView;
+
 @end
 
 

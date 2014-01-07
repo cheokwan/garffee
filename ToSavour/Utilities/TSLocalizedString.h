@@ -16,6 +16,8 @@
 #define LS_CHECK_OUT        NSLocalizedString(@"Check Out", @"")
 #define LS_TOTAL            NSLocalizedString(@"Total", @"")
 #define LS_TO               NSLocalizedString(@"To", @"")
+#define LS_HOME                 NSLocalizedString(@"Home", @"")
+#define LS_STORE                NSLocalizedString(@"Store", @"")
 #define LS_CART             NSLocalizedString(@"Cart", @"")
 #define LS_ME               NSLocalizedString(@"Me", @"")
 #define LS_FRIENDS          NSLocalizedString(@"Friends", @"")

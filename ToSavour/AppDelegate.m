@@ -248,6 +248,10 @@
     return _managedObjectContext;
 }
 
+- (NSManagedObjectContext *)persistentStoreManagedObjectContext {
+    return [RKManagedObjectStore defaultStore].persistentStoreManagedObjectContext;
+}
+
 - (NSManagedObjectModel *)managedObjectModel
 {
     if (_managedObjectModel != nil) {

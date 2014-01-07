@@ -14,6 +14,26 @@
     return [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass(self.class) inManagedObjectContext:context];
 }
 
++ (NSManagedObject *)existingOrNewObjectInContext:(NSManagedObjectContext *)context withPredicate:(NSPredicate *)predicate {
+    NSFetchRequest *fetchRequest = [self.class fetchRequestInContext:context];
+    fetchRequest.predicate = predicate;
+    NSError *error = nil;
+    NSArray *fetchResults = [context executeFetchRequest:fetchRequest error:&error];
+    if (!error) {
+        if (fetchResults.count > 0) {
+            if (fetchResults.count > 1) {
+                DDLogWarn(@"found duplicates when fetching existing managed object: %@", fetchResults);
+            }
+            return fetchResults[0];
+        } else {
+            return [self.class newObjectInContext:context];
+        }
+    } else {
+        DDLogError(@"error fetching existing managed object: %@", error);
+    }
+    return nil;
+}
+
 - (void)deleteInContext:(NSManagedObjectContext *)context {
     if (!context) {
         context = self.managedObjectContext;
@@ -40,7 +60,7 @@
     for (NSManagedObject *object in allObjects) {
         [context deleteObject:object];
     }
-    [context saveToPersistentStore:&error];
+    [context save:&error];
     if (error) {
         DDLogError(@"error in saving changes after removing all objects for entity: %@", self.class);
     }

@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum {
+    MainTabBarControllerTabHome = 0,
+    MainTabBarControllerTabStore,
+    MainTabBarControllerTabCart,
+    MainTabBarControllerTabFriends,
+    MainTabBarControllerTabAccount,
+} MainTabBarControllerTab;
+
 @interface MainTabBarController : UITabBarController
 
 @end

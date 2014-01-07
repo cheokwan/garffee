@@ -12,6 +12,7 @@
 #import "AppDelegate.h"
 #import "ChooseGameViewController.h"
 #import "UIView+Helpers.h"
+#import "FriendsListScrollView.h"
 #import "MUserInfo.h"
 
 

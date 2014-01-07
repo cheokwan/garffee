@@ -192,7 +192,7 @@
     
     noti.applicationIconBadgeNumber = _showCount;
     noti.soundName = nil;
-    [[UIApplication sharedApplication] scheduleLocalNotification:noti];
+//    [[UIApplication sharedApplication] scheduleLocalNotification:noti];
     
     [self dropPin:MapTrackingAnnotationTypeActivity title:[NSString stringWithFormat:@"Background Event %@", code]];
     _showCount++;

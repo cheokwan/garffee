@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+@class FriendsListScrollView;
 
 @interface HomeControlView : UIView
 
@@ -16,7 +17,7 @@
 @property (nonatomic, strong)   IBOutlet UILabel *friendsLabel;
 @property (nonatomic, strong)   IBOutlet UIButton *orderNowButton;
 @property (nonatomic, strong)   IBOutlet UIImageView *lastOrderImage;
-@property (nonatomic, strong)   IBOutlet UIScrollView *friendsScrollView;
+@property (nonatomic, strong)   IBOutlet FriendsListScrollView *friendsScrollView;
 
 - (void)updateView;
 

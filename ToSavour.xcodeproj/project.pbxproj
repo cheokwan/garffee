@@ -73,6 +73,7 @@
 		D2466846186052450089D5DB /* CartItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D2466845186052450089D5DB /* CartItemTableViewCell.m */; };
 		D2466849186062DC0089D5DB /* NSString+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2466848186062DC0089D5DB /* NSString+Helper.m */; };
 		D272168D187BA7F000958E3B /* PromotionScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = D272168C187BA7F000958E3B /* PromotionScrollView.m */; };
+		D2721690187BC99D00958E3B /* LineView.m in Sources */ = {isa = PBXBuildFile; fileRef = D272168F187BC99D00958E3B /* LineView.m */; };
 		D2827DAD1865540100E4A662 /* MGlobalConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DAC1865540100E4A662 /* MGlobalConfiguration.m */; };
 		D2827DB31867DB8800E4A662 /* MProductConfigurableOption.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DB21867DB8800E4A662 /* MProductConfigurableOption.m */; };
 		D2827DB61867E64000E4A662 /* MProductOptionChoice.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DB51867E64000E4A662 /* MProductOptionChoice.m */; };
@@ -198,6 +199,8 @@
 		D2466848186062DC0089D5DB /* NSString+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Helper.m"; path = "Utilities/NSString+Helper.m"; sourceTree = "<group>"; };
 		D272168B187BA7F000958E3B /* PromotionScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PromotionScrollView.h; path = FrontEnd/Views/PromotionScrollView.h; sourceTree = "<group>"; };
 		D272168C187BA7F000958E3B /* PromotionScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PromotionScrollView.m; path = FrontEnd/Views/PromotionScrollView.m; sourceTree = "<group>"; };
+		D272168E187BC99D00958E3B /* LineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LineView.h; path = FrontEnd/Views/LineView.h; sourceTree = "<group>"; };
+		D272168F187BC99D00958E3B /* LineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LineView.m; path = FrontEnd/Views/LineView.m; sourceTree = "<group>"; };
 		D2827DAB1865540100E4A662 /* MGlobalConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGlobalConfiguration.h; path = BackEnd/Model/MGlobalConfiguration.h; sourceTree = "<group>"; };
 		D2827DAC1865540100E4A662 /* MGlobalConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGlobalConfiguration.m; path = BackEnd/Model/MGlobalConfiguration.m; sourceTree = "<group>"; };
 		D2827DB11867DB8800E4A662 /* MProductConfigurableOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MProductConfigurableOption.h; path = BackEnd/Model/MProductConfigurableOption.h; sourceTree = "<group>"; };
@@ -624,6 +627,8 @@
 				D21DCE7A187AC5B7008CF011 /* FriendsListScrollView.m */,
 				D272168B187BA7F000958E3B /* PromotionScrollView.h */,
 				D272168C187BA7F000958E3B /* PromotionScrollView.m */,
+				D272168E187BC99D00958E3B /* LineView.h */,
+				D272168F187BC99D00958E3B /* LineView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -944,6 +949,7 @@
 				D2C075C418533B6A00620114 /* ItemPickerScrollView.m in Sources */,
 				D2A36A941850AA6C004D3D99 /* HomeViewController.m in Sources */,
 				DFE628A81855992800E1C8FE /* ChooseGameViewController.m in Sources */,
+				D2721690187BC99D00958E3B /* LineView.m in Sources */,
 				DFBDA14C1856111500BF3755 /* PhotoHuntViewController.m in Sources */,
 				D2A67A97185C487A00889114 /* AccountInfoTableViewCell.m in Sources */,
 				D2466846186052450089D5DB /* CartItemTableViewCell.m in Sources */,

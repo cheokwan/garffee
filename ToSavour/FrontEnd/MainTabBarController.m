@@ -38,4 +38,37 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)awakeFromNib {
+    for (int tabIndex = 0; tabIndex < self.tabBar.items.count; ++tabIndex) {
+        UITabBarItem *item = self.tabBar.items[tabIndex];
+        switch (tabIndex) {
+            case MainTabBarControllerTabHome: {
+                item.title = LS_HOME;
+            }
+                break;
+            case MainTabBarControllerTabStore: {
+                item.title = LS_STORE;
+            }
+                break;
+            case MainTabBarControllerTabCart: {
+                item.title = LS_CART;
+            }
+                break;
+            case MainTabBarControllerTabFriends: {
+                item.title = LS_FRIENDS;
+            }
+                break;
+            case MainTabBarControllerTabAccount: {
+                item.title = LS_ACCOUNT;
+            }
+                break;
+            default: {
+                NSAssert(NO, @"unexpected main tab bar index %d", tabIndex);
+                DDLogError(@"unexpected main tab bar index %d", tabIndex);
+            }
+                break;
+        }
+    }
+}
+
 @end
