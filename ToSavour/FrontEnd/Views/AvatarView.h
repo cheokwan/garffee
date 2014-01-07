@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class AvatarView;
+@class MUserInfo;
 
 @protocol AvatarViewDelegate <NSObject>
 - (void)avatarButtonPressedInAvatarView:(AvatarView *)avatarView;
@@ -21,8 +22,11 @@
 @property (nonatomic, strong)   NSURL *avatarImageURL;
 @property (nonatomic, strong)   NSURL *accessoryImageURL;
 @property (nonatomic, assign)   BOOL isInteractable;
+@property (nonatomic, strong)   MUserInfo *user;
 @property (nonatomic, weak)     id<AvatarViewDelegate> delegate;
 
 - (id)initWithFrame:(CGRect)frame avatarImageURL:(NSURL *)avatarImageURL accessoryImageURL:(NSURL *)accessoryImageURL interactable:(BOOL)interactable;
+
+- (id)initWithFrame:(CGRect)frame user:(MUserInfo *)user showAccessoryImage:(BOOL)showAccessoryImage interactable:(BOOL)interactable;
 
 @end

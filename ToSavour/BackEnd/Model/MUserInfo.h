@@ -18,6 +18,10 @@ typedef enum {
     MUserInfoUserTypeAddressBookUser    = 1 << 2
 } MUserInfoUserType;
 
+static NSString *MUserInfoGenderMale = @"Male";
+static NSString *MUserInfoGenderFemale = @"Female";
+
+
 @interface MUserInfo : NSManagedObject<RKMappableEntity>
 
 @property (nonatomic, retain) NSString * appID;

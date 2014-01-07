@@ -96,7 +96,7 @@
     [self didChangeValueForKey:key];
     if ([key isEqualToString:@"appID"]) {
         if ([self.appID trimmedWhiteSpaces].length > 0) {
-            self.userType = @(MUserInfoUserTypeAppNativeUser);
+            self.userType = @([self.userType intValue] | MUserInfoUserTypeAppNativeUser);
         }
     } else if ([key isEqualToString:@"firstName"] || [key isEqualToString:@"lastName"]) {
         self.name = [[NSString stringWithFormat:@"%@ %@", self.firstName ? self.firstName : @"", self.lastName ? self.lastName : @""] trimmedWhiteSpaces];

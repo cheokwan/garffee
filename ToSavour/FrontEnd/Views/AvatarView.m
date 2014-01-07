@@ -8,6 +8,7 @@
 
 #import "AvatarView.h"
 #import "TSFrontEndIncludes.h"
+#import "MUserInfo.h"
 #import <QuartzCore/QuartzCore.h>
 
 @implementation AvatarView
@@ -60,6 +61,29 @@
     return self;
 }
 
+- (id)initWithFrame:(CGRect)frame user:(MUserInfo *)user showAccessoryImage:(BOOL)showAccessoryImage interactable:(BOOL)interactable {
+    self = [self initWithFrame:frame];
+    if (self) {
+        self.user = user;
+        self.avatarImageURL = [user URLForProfileImage];
+        if (!showAccessoryImage) {
+            self.accessoryImageURL = nil;
+        } else if (([user.userType intValue] ^ MUserInfoUserTypeFacebookUser) == 0) {
+            // if exclusively a facebook user
+            self.accessoryImageURL = [TSTheming URLWithImageAssetNamed:@"ico_fb@2x"];
+        } else if (([user.userType intValue] ^ MUserInfoUserTypeAddressBookUser) == 0) {
+            // if exclusively an address book user
+            self.accessoryImageURL = [TSTheming URLWithImageAssetNamed:@"ico_profile_phone@2x"];  // XXX-TEST
+        } else if ([user.userType intValue] & MUserInfoUserTypeAppNativeUser) {
+            // if app native user
+            self.accessoryImageURL = [TSTheming URLWithImageAssetNamed:@"kim"];  // XXX-TEST
+        }
+        self.isInteractable = interactable;
+        [self initializeView];
+    }
+    return self;
+}
+
 - (void)setIsInteractable:(BOOL)isInteractable {
     _isInteractable = isInteractable;
 //    _avatarButton.enabled = _isInteractable;
@@ -95,9 +119,17 @@
     _avatarButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     _avatarButton.contentVerticalAlignment = UIControlContentHorizontalAlignmentCenter;
     
+    if (!_user && !_avatarImageURL) {
+        return;
+    }
+    UIImage *avatarPlaceholder = [UIImage imageNamed:[_user.gender isCaseInsensitiveEqual:MUserInfoGenderFemale] ? @"fb_profile_female" : @"fb_profile_male"];
+    [avatarPlaceholder resizedImageToSize:_avatarButton.frame.size];
+    // manually set the placeholder first, otherwise it won't work
+    [_avatarButton setImage:avatarPlaceholder forState:UIControlStateNormal];
+    
     __weak UIButton *weakAvatarButton = _avatarButton;
     __weak NSURL *weakAvatarImageURL = _avatarImageURL;
-    [_avatarButton.imageView setImageWithURL:_avatarImageURL placeholderImage:nil options:SDWebImageRefreshCached completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+    [_avatarButton.imageView setImageWithURL:_avatarImageURL placeholderImage:avatarPlaceholder options:SDWebImageRefreshCached completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
         if (image) {
             UIImage *resizedImage = [image resizedImageToSize:weakAvatarButton.frame.size];
             [weakAvatarButton setImage:resizedImage forState:UIControlStateNormal];

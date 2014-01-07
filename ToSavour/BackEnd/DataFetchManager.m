@@ -46,6 +46,8 @@
 }
 
 - (void)fetchAddressBookContactsInContext:(NSManagedObjectContext *)context {
+    // TODO: check if user has previously disallowed address book access, only retry a limited
+    // number of times
     if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusNotDetermined ||
         ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusDenied) {
         ABAddressBookRequestAccessWithCompletion(self.addressBook, ^(bool granted, CFErrorRef error) {

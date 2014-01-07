@@ -141,14 +141,14 @@
 
 - (void)fetchFacebookAppUserInfo:(__weak id<RestManagerResponseHandler>)handler {
     // fetch user info
-    NSString *endPoint = [NSString stringWithFormat:@"/me/?access_token=%@&fields=id,name,username,email,first_name,middle_name,last_name,gender,age_range,link,locale,birthday,picture.width(120),picture.height(120)", self.facebookToken];
+    NSString *endPoint = [NSString stringWithFormat:@"/me/?access_token=%@&fields=id,name,username,email,first_name,middle_name,last_name,gender,age_range,link,locale,birthday,picture.width(200),picture.height(200)", self.facebookToken];
     [self fetchManagedObjectsWithServiceHost:RestManagerServiceHostFacebook endPoint:endPoint sourceSelector:_cmd responseDescriptors:@[[MUserFacebookInfo defaultResponseDescriptor]] handler:handler];
 }
 
 
 - (void)fetchFacebookFriendsInfo:(__weak id<RestManagerResponseHandler>)handler {
     // fetch friends info
-    NSString *endPoint = [NSString stringWithFormat:@"/me/friends?access_token=%@&fields=id,name,username,email,first_name,middle_name,last_name,gender,age_range,link,locale,birthday,picture.width(120),picture.height(120)", self.facebookToken];
+    NSString *endPoint = [NSString stringWithFormat:@"/me/friends?access_token=%@&fields=id,name,username,email,first_name,middle_name,last_name,gender,age_range,link,locale,birthday,picture.width(200),picture.height(200)", self.facebookToken];
     [self fetchManagedObjectsWithServiceHost:RestManagerServiceHostFacebook endPoint:endPoint sourceSelector:_cmd responseDescriptors:@[[MUserFacebookInfo fetchFriendsResponseDescriptor]] handler:handler];
 }
 

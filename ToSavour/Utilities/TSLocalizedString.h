@@ -46,5 +46,8 @@
 #define LS_SERVICE_CALLS_FAILED_GENERAL     NSLocalizedString(@"We have encounter problem when we prepare the game, please try again later.", @"")
 #define LS_ADD_TO_CART          NSLocalizedString(@"Add to Cart", @"")
 #define LS_QUANTITY             NSLocalizedString(@"Quantity", @"")
+#define LS_LAST_ORDER           NSLocalizedString(@"Last Order", @"")
+#define LS_ORDER_NOW            NSLocalizedString(@"Order Now", @"")
+#define LS_BALANCE              NSLocalizedString(@"Balance", @"")
 
 #endif

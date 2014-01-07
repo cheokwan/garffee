@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HomeControlView.h"
+#import "PromotionScrollView.h"
 
-@interface HomeViewController : UIViewController
+@interface HomeViewController : UIViewController<PromotionScrollViewDelegate>
 
-@property (nonatomic, strong) IBOutlet UIScrollView *promotionScrollView;
+@property (nonatomic, strong)   IBOutlet PromotionScrollView *promotionScrollView;
+@property (nonatomic, strong)   IBOutlet HomeControlView *homeControlView;
 
 @end

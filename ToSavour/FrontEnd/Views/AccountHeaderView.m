@@ -46,7 +46,7 @@
     MUserInfo *user = [MUserInfo currentAppUserInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
     
     [_avatarView removeFromSuperview];
-    self.avatarView = [[AvatarView alloc] initWithFrame:self.avatarView.frame avatarImageURL:user.URLForProfileImage accessoryImageURL:[NSURL URLWithString:@"http://files.softicons.com/download/social-media-icons/simple-icons-by-dan-leech/png/128x128/facebook.png"] interactable:YES];  // XXX-TEST
+    self.avatarView = [[AvatarView alloc] initWithFrame:self.avatarView.frame user:user showAccessoryImage:YES interactable:YES];
     _avatarView.avatarButton.imageView.layer.borderColor = [UIColor whiteColor].CGColor;  // XXX-TEST
     _avatarView.avatarButton.imageView.layer.borderWidth = 2.0;  // XXX-TEST
     

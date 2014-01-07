@@ -18,4 +18,6 @@
 
 - (NSArray *)decodeCommaSeparatedString;
 
+- (BOOL)isCaseInsensitiveEqual:(NSString *)other;
+
 @end

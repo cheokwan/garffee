@@ -59,7 +59,7 @@
     }
     self.nameLabel.text = nameToShow;
     
-    AvatarView *newAvatarView = [[AvatarView alloc] initWithFrame:self.recipientAvatarView.frame avatarImageURL:newRecipient.URLForProfileImage accessoryImageURL:nil interactable:NO];
+    AvatarView *newAvatarView = [[AvatarView alloc] initWithFrame:self.recipientAvatarView.frame user:newRecipient showAccessoryImage:NO interactable:NO];
     [_recipientAvatarView removeFromSuperview];
     self.recipientAvatarView = newAvatarView;
     [self.recipientBar addSubview:_recipientAvatarView];

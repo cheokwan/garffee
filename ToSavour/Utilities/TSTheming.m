@@ -46,9 +46,9 @@
     return views.count > 0 ? views[0] : nil;
 }
 
-+ (NSURL *)URLWithImageAssetName:(NSString *)assetName {
++ (NSURL *)URLWithImageAssetNamed:(NSString *)assetName {
     NSString *assetPath = [[NSBundle mainBundle] pathForResource:assetName ofType:@"png"];
-    return assetPath ? [NSURL URLWithString:assetPath] : nil;
+    return assetPath ? [NSURL fileURLWithPath:assetPath] : nil;
 }
 
 + (UIColor *)defaultThemeColor {

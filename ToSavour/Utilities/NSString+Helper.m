@@ -28,4 +28,8 @@
     return [self componentsSeparatedByString:delimiter];
 }
 
+- (BOOL)isCaseInsensitiveEqual:(NSString *)other {
+    return [[[self lowercaseString] trimmedWhiteSpaces] isEqualToString:[[other lowercaseString] trimmedWhiteSpaces]];
+}
+
 @end

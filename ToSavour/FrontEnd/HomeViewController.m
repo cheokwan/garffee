@@ -11,11 +11,9 @@
 #import "TSFrontEndIncludes.h"
 #import "AppDelegate.h"
 #import "ChooseGameViewController.h"
-#import <FacebookSDK/FacebookSDK.h>  // XXX-TEST
 #import "UIView+Helpers.h"
-@interface HomeViewController ()
+#import "MUserInfo.h"
 
-@end
 
 @implementation HomeViewController
 
@@ -32,6 +30,14 @@
     UIBarButtonItem *rightSlideButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"MenuIcon"] style:UIBarButtonItemStylePlain target:self action:@selector(slideLeft)];
     self.navigationItem.rightBarButtonItem = rightSlideButton;
     self.navigationItem.titleView = [TSTheming navigationBrandNameTitleView];
+    
+    HomeControlView *controlView = (HomeControlView *)[TSTheming viewWithNibName:NSStringFromClass(HomeControlView.class) owner:self];
+    controlView.frame = self.homeControlView.frame;
+    self.homeControlView = controlView;
+    [self.view addSubview:_homeControlView];
+    [_homeControlView updateView];
+    
+    self.promotionScrollView.delegate = self;
 }
 
 - (void)slideLeft {
@@ -48,17 +54,10 @@
 {
     [super viewDidLoad];
     [self initializeView];
-    [self addPromotionButtons];
 }
 
-- (void)addPromotionButtons {
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    button.frame = CGRectMake(0, 0, _promotionScrollView.frameSizeWidth, _promotionScrollView.frameSizeHeight);
-    button.backgroundColor = [UIColor greenColor];
-    
-    [_promotionScrollView addSubview:button];
-    _promotionScrollView.contentSize = CGSizeMake(button.frameSizeWidth, button.frameSizeHeight);
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
 }
 
 - (void)didReceiveMemoryWarning
@@ -67,9 +66,9 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - buttonPressed
-- (void)buttonPressed:(id)sender {
-    //XXX-ML
+#pragma mark - PromotionScrollViewDelegate
+
+- (void)promotionScrollView:(PromotionScrollView *)scrollView didSelectPromotionAtIndex:(NSInteger)index {
     ChooseGameViewController *controller = (ChooseGameViewController*)[TSTheming viewControllerWithStoryboardIdentifier:@"ChooseGameViewController" storyboard:@"DailyGameStoryboard"];
     TSNavigationController *naviController = [[TSNavigationController alloc] initWithRootViewController:controller];
     [self presentViewController:naviController animated:YES completion:nil];

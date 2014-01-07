@@ -33,23 +33,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iwQ-lq-zfn">
-                                <rect key="frame" x="0.0" y="64" width="320" height="200"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            </scrollView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8fH-hF-dry" userLabel="HomeControlView" customClass="HomeControlView">
+                                <rect key="frame" x="0.0" y="249" width="320" height="270"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="270" id="LR2-B4-NL4"/>
+                                    <constraint firstAttribute="width" constant="320" id="of6-M2-aJa"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qRe-el-KiA" customClass="PromotionScrollView">
+                                <rect key="frame" x="0.0" y="64" width="320" height="185"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="iwQ-lq-zfn" firstAttribute="leading" secondItem="Lk9-CK-vOd" secondAttribute="leading" id="84E-IO-yVh"/>
-                            <constraint firstItem="dIw-HY-r1i" firstAttribute="top" secondItem="iwQ-lq-zfn" secondAttribute="bottom" constant="255" id="BME-k9-bIS"/>
-                            <constraint firstAttribute="trailing" secondItem="iwQ-lq-zfn" secondAttribute="trailing" id="p4K-hd-oS0"/>
-                            <constraint firstItem="iwQ-lq-zfn" firstAttribute="top" secondItem="RJO-C7-3vk" secondAttribute="bottom" id="ygu-gk-beW"/>
+                            <constraint firstItem="dIw-HY-r1i" firstAttribute="top" secondItem="8fH-hF-dry" secondAttribute="bottom" id="Y80-Xp-LF8"/>
+                            <constraint firstItem="8fH-hF-dry" firstAttribute="leading" secondItem="Lk9-CK-vOd" secondAttribute="leading" id="tLb-Y0-w14"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="0LV-x4-NJH"/>
                     <connections>
-                        <outlet property="promotionScrollView" destination="iwQ-lq-zfn" id="aG8-WT-Y4X"/>
+                        <outlet property="homeControlView" destination="8fH-hF-dry" id="Ajx-mG-bIH"/>
+                        <outlet property="promotionScrollView" destination="qRe-el-KiA" id="G8a-fL-Paq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mkZ-gc-ar6" userLabel="First Responder" sceneMemberID="firstResponder"/>
