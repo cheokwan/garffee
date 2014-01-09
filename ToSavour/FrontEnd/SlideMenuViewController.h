@@ -6,6 +6,10 @@
 //  Copyright (c) 2013 NBition. All rights reserved.
 //
 
-@interface SlideMenuViewController : UITableViewController
+#include "RestManager.h"
+
+@interface SlideMenuViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, UIBarPositioningDelegate, NSFetchedResultsControllerDelegate, RestManagerResponseHandler>
+
+@property (nonatomic, strong)   IBOutlet UITableView *tableView;
 
 @end

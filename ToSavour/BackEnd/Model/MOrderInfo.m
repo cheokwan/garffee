@@ -9,6 +9,7 @@
 #import "MOrderInfo.h"
 #import "MItemInfo.h"
 #import "MItemSelectedOption.h"
+#import "MProductInfo.h"
 #import "RestManager.h"
 
 
@@ -33,6 +34,13 @@
     return order;
 }
 
++ (MOrderInfo *)existingOrNewOrderInfoInContext:(NSManagedObjectContext *)context {
+    MOrderInfo *order = (MOrderInfo *)[MOrderInfo existingOrNewObjectInContext:context withPredicate:[NSPredicate predicateWithFormat:@"status = %@", MOrderInfoStatusPending]];  // XXX-TEST
+    order.status = MOrderInfoStatusPending;
+    [order updatePrice];
+    return order;
+}
+
 - (void)deleteInContext:(NSManagedObjectContext *)context {
     [super deleteInContext:context];
     // assert object has been deleted  XXX-TEST
@@ -50,6 +58,22 @@
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"id = %@", @0];
     fetchResults = [context executeFetchRequest:fetchRequest error:nil];
     NSAssert(fetchResults.count == 0, @"zombie MItemSelectedOption found: %@", fetchResults);
+}
+
+- (NSString *)storeBranchName {
+    // TODO: fetch branch name
+    return @"Causeway Bay";
+}
+
+- (NSURL *)URLForImageRepresentation {
+    if (self.items.count > 0) {
+        MItemInfo *item = [self.items allObjects][0];
+        NSString *urlString = [item.product resolvedImageURL];
+        if (urlString.length > 0) {
+            return [NSURL URLWithString:urlString];
+        }
+    }
+    return nil;
 }
 
 - (void)updatePrice {

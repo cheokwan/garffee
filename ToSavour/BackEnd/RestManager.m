@@ -268,6 +268,10 @@
     [self fetchManagedObjectsWithServiceHost:RestManagerServiceHostApp endPoint:@"/storebranches" sourceSelector:_cmd responseDescriptors:@[[MBranch defaultResponseDescriptor]] handler:handler];
 }
 
+- (void)fetchAppCouponInfo:(__weak id<RestManagerResponseHandler>)handler {
+    [self fetchManagedObjectsWithServiceHost:RestManagerServiceHostApp endPoint:@"/coupons" sourceSelector:_cmd responseDescriptors:@[[MCouponInfo defaultResponseDescriptor]] handler:handler];
+}
+
 
 - (void)postOrder:(MOrderInfo *)order handler:(__weak id<RestManagerResponseHandler>)handler {
     NSURL *serviceURL = [NSURL URLWithString:[appAPIBaseURLString stringByAppendingPathComponent:@"/orders"]];

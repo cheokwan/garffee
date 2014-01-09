@@ -71,8 +71,7 @@
     self.slidingViewController = (ECSlidingViewController *)self.window.rootViewController;
     _slidingViewController.topViewController = [TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(MainTabBarController.class)];
     _slidingViewController.underRightViewController = [TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(SlideMenuViewController.class)];
-    _slidingViewController.anchorRightPeekAmount  = 100.0;
-    _slidingViewController.anchorLeftRevealAmount = 250.0;  // XXX-FIX set correct amount
+    _slidingViewController.anchorLeftRevealAmount = 280.0;
     [self.window makeKeyAndVisible];
     
     MUserInfo *currentUserInfo = [MUserInfo currentAppUserInfoInContext:self.managedObjectContext];

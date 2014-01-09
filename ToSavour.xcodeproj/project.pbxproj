@@ -67,11 +67,15 @@
 		D246682B185F15F70089D5DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D293E4C5183DEDEB00B73795 /* Main.storyboard */; };
 		D246682C185F15F70089D5DB /* AccountHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2A67A90185C21C500889114 /* AccountHeaderView.xib */; };
 		D246682D185F15F70089D5DB /* MBranch.json in Resources */ = {isa = PBXBuildFile; fileRef = D2C075B61851D33F00620114 /* MBranch.json */; };
-		D246683D186032BC0089D5DB /* CartHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D246683C186032BC0089D5DB /* CartHeaderView.xib */; };
 		D2466840186036BB0089D5DB /* CartHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D246683F186036BB0089D5DB /* CartHeaderView.m */; };
 		D246684318603C800089D5DB /* CartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D246684218603C800089D5DB /* CartViewController.m */; };
 		D2466846186052450089D5DB /* CartItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D2466845186052450089D5DB /* CartItemTableViewCell.m */; };
 		D2466849186062DC0089D5DB /* NSString+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2466848186062DC0089D5DB /* NSString+Helper.m */; };
+		D251EF14187D0A130012536E /* OngoingOrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D251EF13187D0A130012536E /* OngoingOrderTableViewCell.m */; };
+		D251EF16187D0B0A0012536E /* CartHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D251EF15187D0B0A0012536E /* CartHeaderView.xib */; };
+		D251EF19187D0BBE0012536E /* GiftTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D251EF18187D0BBE0012536E /* GiftTableViewCell.m */; };
+		D251EF1E187D11C80012536E /* OrderProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = D251EF1D187D11C80012536E /* OrderProgressView.m */; };
+		D251EF21187D364E0012536E /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D251EF20187D364E0012536E /* NSDate+Helper.m */; };
 		D272168D187BA7F000958E3B /* PromotionScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = D272168C187BA7F000958E3B /* PromotionScrollView.m */; };
 		D2721690187BC99D00958E3B /* LineView.m in Sources */ = {isa = PBXBuildFile; fileRef = D272168F187BC99D00958E3B /* LineView.m */; };
 		D2827DAD1865540100E4A662 /* MGlobalConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DAC1865540100E4A662 /* MGlobalConfiguration.m */; };
@@ -126,6 +130,8 @@
 		D2A67A94185C26E100889114 /* AccountHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A67A93185C26E100889114 /* AccountHeaderView.m */; };
 		D2A67A97185C487A00889114 /* AccountInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A67A96185C487A00889114 /* AccountInfoTableViewCell.m */; };
 		D2A67A9A185C48B100889114 /* TransactionHistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A67A99185C48B100889114 /* TransactionHistoryTableViewCell.m */; };
+		D2AC13C4187C3B9B00D81CA6 /* MCouponInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2AC13C3187C3B9B00D81CA6 /* MCouponInfo.m */; };
+		D2AC13C5187C3B9B00D81CA6 /* MCouponInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2AC13C3187C3B9B00D81CA6 /* MCouponInfo.m */; };
 		D2C075B71851D33F00620114 /* MBranch.json in Resources */ = {isa = PBXBuildFile; fileRef = D2C075B61851D33F00620114 /* MBranch.json */; };
 		D2C075BE1852CACB00620114 /* ItemPickerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075BD1852CACB00620114 /* ItemPickerTableViewCell.m */; };
 		D2C075C11852E29500620114 /* ItemPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075C01852E29500620114 /* ItemPickerViewController.m */; };
@@ -193,7 +199,6 @@
 		D2437576184C3497000009D7 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D2466832185F15F70089D5DB /* ToSavour copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ToSavour copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2466833185F15F90089D5DB /* ToSavour copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "ToSavour copy-Info.plist"; path = "/Users/jasonwan/workspace/git/tosavour_ios/ToSavour-iOS/ToSavour copy-Info.plist"; sourceTree = "<absolute>"; };
-		D246683C186032BC0089D5DB /* CartHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CartHeaderView.xib; path = FrontEnd/Views/CartHeaderView.xib; sourceTree = "<group>"; };
 		D246683E186036BB0089D5DB /* CartHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CartHeaderView.h; path = FrontEnd/Views/CartHeaderView.h; sourceTree = "<group>"; };
 		D246683F186036BB0089D5DB /* CartHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CartHeaderView.m; path = FrontEnd/Views/CartHeaderView.m; sourceTree = "<group>"; };
 		D246684118603C800089D5DB /* CartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CartViewController.h; path = FrontEnd/CartViewController.h; sourceTree = "<group>"; };
@@ -202,6 +207,15 @@
 		D2466845186052450089D5DB /* CartItemTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CartItemTableViewCell.m; path = FrontEnd/Views/CartItemTableViewCell.m; sourceTree = "<group>"; };
 		D2466847186062DC0089D5DB /* NSString+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Helper.h"; path = "Utilities/NSString+Helper.h"; sourceTree = "<group>"; };
 		D2466848186062DC0089D5DB /* NSString+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Helper.m"; path = "Utilities/NSString+Helper.m"; sourceTree = "<group>"; };
+		D251EF12187D0A130012536E /* OngoingOrderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OngoingOrderTableViewCell.h; path = FrontEnd/Views/OngoingOrderTableViewCell.h; sourceTree = "<group>"; };
+		D251EF13187D0A130012536E /* OngoingOrderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OngoingOrderTableViewCell.m; path = FrontEnd/Views/OngoingOrderTableViewCell.m; sourceTree = "<group>"; };
+		D251EF15187D0B0A0012536E /* CartHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CartHeaderView.xib; path = FrontEnd/XIBs/CartHeaderView.xib; sourceTree = "<group>"; };
+		D251EF17187D0BBE0012536E /* GiftTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GiftTableViewCell.h; path = FrontEnd/Views/GiftTableViewCell.h; sourceTree = "<group>"; };
+		D251EF18187D0BBE0012536E /* GiftTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GiftTableViewCell.m; path = FrontEnd/Views/GiftTableViewCell.m; sourceTree = "<group>"; };
+		D251EF1C187D11C80012536E /* OrderProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrderProgressView.h; path = FrontEnd/Views/OrderProgressView.h; sourceTree = "<group>"; };
+		D251EF1D187D11C80012536E /* OrderProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrderProgressView.m; path = FrontEnd/Views/OrderProgressView.m; sourceTree = "<group>"; };
+		D251EF1F187D364E0012536E /* NSDate+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+Helper.h"; path = "Utilities/NSDate+Helper.h"; sourceTree = "<group>"; };
+		D251EF20187D364E0012536E /* NSDate+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+Helper.m"; path = "Utilities/NSDate+Helper.m"; sourceTree = "<group>"; };
 		D272168B187BA7F000958E3B /* PromotionScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PromotionScrollView.h; path = FrontEnd/Views/PromotionScrollView.h; sourceTree = "<group>"; };
 		D272168C187BA7F000958E3B /* PromotionScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PromotionScrollView.m; path = FrontEnd/Views/PromotionScrollView.m; sourceTree = "<group>"; };
 		D272168E187BC99D00958E3B /* LineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LineView.h; path = FrontEnd/Views/LineView.h; sourceTree = "<group>"; };
@@ -280,6 +294,8 @@
 		D2A67A96185C487A00889114 /* AccountInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AccountInfoTableViewCell.m; path = FrontEnd/Views/AccountInfoTableViewCell.m; sourceTree = "<group>"; };
 		D2A67A98185C48B100889114 /* TransactionHistoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TransactionHistoryTableViewCell.h; path = FrontEnd/Views/TransactionHistoryTableViewCell.h; sourceTree = "<group>"; };
 		D2A67A99185C48B100889114 /* TransactionHistoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TransactionHistoryTableViewCell.m; path = FrontEnd/Views/TransactionHistoryTableViewCell.m; sourceTree = "<group>"; };
+		D2AC13C2187C3B9B00D81CA6 /* MCouponInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MCouponInfo.h; path = BackEnd/Model/MCouponInfo.h; sourceTree = "<group>"; };
+		D2AC13C3187C3B9B00D81CA6 /* MCouponInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MCouponInfo.m; path = BackEnd/Model/MCouponInfo.m; sourceTree = "<group>"; };
 		D2C075B61851D33F00620114 /* MBranch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = MBranch.json; path = Resource/MBranch.json; sourceTree = "<group>"; };
 		D2C075BC1852CACB00620114 /* ItemPickerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ItemPickerTableViewCell.h; path = FrontEnd/Views/ItemPickerTableViewCell.h; sourceTree = "<group>"; };
 		D2C075BD1852CACB00620114 /* ItemPickerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ItemPickerTableViewCell.m; path = FrontEnd/Views/ItemPickerTableViewCell.m; sourceTree = "<group>"; };
@@ -412,6 +428,8 @@
 				DF9DB53F1861D3DA00FD315E /* TSZipArchive.m */,
 				D2827DF8187540BD00E4A662 /* NSArray+Helper.h */,
 				D2827DF9187540BD00E4A662 /* NSArray+Helper.m */,
+				D251EF1F187D364E0012536E /* NSDate+Helper.h */,
+				D251EF20187D364E0012536E /* NSDate+Helper.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -570,6 +588,8 @@
 		D2A55702184DB5ED0039A5A0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D2AC13C2187C3B9B00D81CA6 /* MCouponInfo.h */,
+				D2AC13C3187C3B9B00D81CA6 /* MCouponInfo.m */,
 				D2827DFC18755B1400E4A662 /* MUserAddressBookInfo.h */,
 				D2827DFD18755B1400E4A662 /* MUserAddressBookInfo.m */,
 				DFB856FF187C355F00B08559 /* MBranch.h */,
@@ -602,8 +622,8 @@
 		D2A67A8F185C218300889114 /* XIBs */ = {
 			isa = PBXGroup;
 			children = (
+				D251EF15187D0B0A0012536E /* CartHeaderView.xib */,
 				D2A67A90185C21C500889114 /* AccountHeaderView.xib */,
-				D246683C186032BC0089D5DB /* CartHeaderView.xib */,
 				D21DCE72187A7A6E008CF011 /* HomeControlView.xib */,
 			);
 			name = XIBs;
@@ -654,6 +674,12 @@
 				D272168F187BC99D00958E3B /* LineView.m */,
 				DF1C88D31875A82800400283 /* PickUpLocationTableViewCell.h */,
 				DF1C88D41875A82800400283 /* PickUpLocationTableViewCell.m */,
+				D251EF12187D0A130012536E /* OngoingOrderTableViewCell.h */,
+				D251EF13187D0A130012536E /* OngoingOrderTableViewCell.m */,
+				D251EF17187D0BBE0012536E /* GiftTableViewCell.h */,
+				D251EF18187D0BBE0012536E /* GiftTableViewCell.m */,
+				D251EF1C187D11C80012536E /* OrderProgressView.h */,
+				D251EF1D187D11C80012536E /* OrderProgressView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -810,6 +836,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D293E4D2183DEDEB00B73795 /* Images.xcassets in Resources */,
+				D251EF16187D0B0A0012536E /* CartHeaderView.xib in Resources */,
 				D293EB2A185F04ED00A69034 /* MProductConfigurableOption.json in Resources */,
 				D293EB2B185F04ED00A69034 /* MProductInfo.json in Resources */,
 				D293EB2C185F04ED00A69034 /* MProductOptionChoice.json in Resources */,
@@ -819,7 +846,6 @@
 				D293E4C7183DEDEB00B73795 /* Main.storyboard in Resources */,
 				D2A67A91185C21C500889114 /* AccountHeaderView.xib in Resources */,
 				D2C075B71851D33F00620114 /* MBranch.json in Resources */,
-				D246683D186032BC0089D5DB /* CartHeaderView.xib in Resources */,
 				DF3075C8186D6224002D40AF /* imageNotFound.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -921,6 +947,7 @@
 				D2466809185F15F70089D5DB /* FriendsListViewController.m in Sources */,
 				D246680A185F15F70089D5DB /* ItemPickerScrollView.m in Sources */,
 				D246680B185F15F70089D5DB /* HomeViewController.m in Sources */,
+				D2AC13C5187C3B9B00D81CA6 /* MCouponInfo.m in Sources */,
 				D246680C185F15F70089D5DB /* AccountInfoTableViewCell.m in Sources */,
 				D246680D185F15F70089D5DB /* SlideMenuViewController.m in Sources */,
 				D246680E185F15F70089D5DB /* ItemPickerTableViewCell.m in Sources */,
@@ -953,17 +980,20 @@
 				DF1C88D21875967800400283 /* PickUpLocationViewController.m in Sources */,
 				D2C075CB1855C47200620114 /* TutorialLoginViewController.m in Sources */,
 				DF26BEB518653FC400598CA0 /* TSGamePlayHistory.m in Sources */,
+				D251EF14187D0A130012536E /* OngoingOrderTableViewCell.m in Sources */,
 				D2A556FB184C37F60039A5A0 /* MapTrackingViewController.m in Sources */,
 				DF1C88D51875A82800400283 /* PickUpLocationTableViewCell.m in Sources */,
 				D2827DBB1867F9DC00E4A662 /* SecurityManager.m in Sources */,
 				DF9DB5401861D3DA00FD315E /* TSZipArchive.m in Sources */,
 				D239770318474F230002D655 /* TSLogFormatter.m in Sources */,
+				D2AC13C4187C3B9B00D81CA6 /* MCouponInfo.m in Sources */,
 				D2827DB31867DB8800E4A662 /* MProductConfigurableOption.m in Sources */,
 				D2C91695185EECBA00452891 /* MProductInfo.m in Sources */,
 				D293E4F6184357B400B73795 /* TimeTracker.m in Sources */,
 				D293E4C4183DEDEB00B73795 /* AppDelegate.m in Sources */,
 				D2A67A9A185C48B100889114 /* TransactionHistoryTableViewCell.m in Sources */,
 				D2A67A94185C26E100889114 /* AccountHeaderView.m in Sources */,
+				D251EF21187D364E0012536E /* NSDate+Helper.m in Sources */,
 				D243757518488358000009D7 /* TSSettings.m in Sources */,
 				D214BE071862DAF000812BA5 /* RestManager.m in Sources */,
 				D2A67A88185B0EC000889114 /* AvatarView.m in Sources */,
@@ -976,6 +1006,7 @@
 				D2C075C418533B6A00620114 /* ItemPickerScrollView.m in Sources */,
 				D2A36A941850AA6C004D3D99 /* HomeViewController.m in Sources */,
 				DFE628A81855992800E1C8FE /* ChooseGameViewController.m in Sources */,
+				D251EF1E187D11C80012536E /* OrderProgressView.m in Sources */,
 				D2721690187BC99D00958E3B /* LineView.m in Sources */,
 				DFBDA14C1856111500BF3755 /* PhotoHuntViewController.m in Sources */,
 				D2A67A97185C487A00889114 /* AccountInfoTableViewCell.m in Sources */,
@@ -1008,6 +1039,7 @@
 				D2A67A8E185B467400889114 /* AccountViewController.m in Sources */,
 				D2A36A8E18504ADE004D3D99 /* TSNavigationController.m in Sources */,
 				D2827DB61867E64000E4A662 /* MProductOptionChoice.m in Sources */,
+				D251EF19187D0BBE0012536E /* GiftTableViewCell.m in Sources */,
 				D293E4CA183DEDEB00B73795 /* ToSavour.xcdatamodeld in Sources */,
 				DF852709185EDDBC0087E247 /* TSGame.m in Sources */,
 				D22196501859C24C007528EE /* FriendsListTableViewCell.m in Sources */,

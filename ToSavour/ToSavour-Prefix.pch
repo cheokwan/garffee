@@ -31,5 +31,6 @@
     #import "NSManagedObject+Helper.h"
     #import "NSArray+Helper.h"
     #import "UIView+Helper.h"
+    #import "NSDate+Helper.h"
     #import "AppDelegate.h"
 #endif

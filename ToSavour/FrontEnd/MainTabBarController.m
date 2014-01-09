@@ -8,6 +8,7 @@
 
 #import "MainTabBarController.h"
 #import "TSFrontEndIncludes.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface MainTabBarController ()
 
@@ -24,6 +25,11 @@
         [self.tabBar setTintColor:[TSTheming defaultContrastColor]];
         [[UITabBar appearance] setSelectedImageTintColor:[TSTheming defaultAccentColor]];
     }
+    
+    self.view.layer.shadowOpacity = 0.75f;
+    self.view.layer.shadowRadius = 5.0f;
+    self.view.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.view.bounds].CGPath;
+    self.view.layer.shadowColor = [UIColor blackColor].CGColor;
 }
 
 - (void)viewDidLoad

@@ -1,17 +1,14 @@
 //
-//  FriendsListTableViewCell.m
+//  GiftTableViewCell.m
 //  ToSavour
 //
-//  Created by Jason Wan on 12/12/13.
-//  Copyright (c) 2013 NBition. All rights reserved.
+//  Created by Jason Wan on 8/1/14.
+//  Copyright (c) 2014 NBition. All rights reserved.
 //
 
-#import "FriendsListTableViewCell.h"
+#import "GiftTableViewCell.h"
 
-@implementation FriendsListTableViewCell
-
-- (void)initialize {
-}
+@implementation GiftTableViewCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -29,10 +26,12 @@
     // Configure the view for the selected state
 }
 
-//- (void)layoutSubviews {
-//    [super layoutSubviews];
-//    // work around for the bloody frame shift
-//    self.avatarView.frame = CGRectMake(10, 10, 60, 60);
-//}
+- (void)initializeView {
+    self.itemImageView.layer.cornerRadius = 2.0;
+}
+
+- (void)awakeFromNib {
+    [self initializeView];
+}
 
 @end

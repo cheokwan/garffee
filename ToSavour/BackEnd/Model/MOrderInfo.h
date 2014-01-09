@@ -15,7 +15,7 @@
 static NSString *MOrderInfoStatusInCart     = @"InCart";
 static NSString *MOrderInfoStatusSubmitted  = @"Submitted";
 static NSString *MOrderInfoStatusPending    = @"Pending";
-static NSString *MOrderInfoStatusInProgress = @"Inprogress";
+static NSString *MOrderInfoStatusInProgress = @"InProgress";
 static NSString *MOrderInfoStatusFinished   = @"Finished";
 static NSString *MOrderInfoStatusPickedUp   = @"Pickedup";
 
@@ -35,6 +35,9 @@ static NSString *MOrderInfoStatusPickedUp   = @"Pickedup";
 @property (nonatomic, retain) NSSet *items;
 
 + (MOrderInfo *)newOrderInfoInContext:(NSManagedObjectContext *)context;
++ (MOrderInfo *)existingOrNewOrderInfoInContext:(NSManagedObjectContext *)context;
+- (NSString *)storeBranchName;
+- (NSURL *)URLForImageRepresentation;
 - (void)updatePrice;
 @end
 

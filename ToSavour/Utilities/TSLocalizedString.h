@@ -56,5 +56,13 @@
 #define LS_CONFIRM_ORDER_TITLE  NSLocalizedString(@"Confirm Order", @"")
 #define LS_CONFIRM_ORDER_DETAILS    NSLocalizedString(@"Are you sure?", @"")
 #define LS_CONFIRM              NSLocalizedString(@"Confirm", @"")
+#define LS_PENDING              NSLocalizedString(@"Pending", @"")
+#define LS_IN_PROGRESS          NSLocalizedString(@"In Progress", @"")
+#define LS_FINISHED             NSLocalizedString(@"Finished", @"")
+#define LS_ORDER_NO             NSLocalizedString(@"Order No.", @"")
+#define LS_REF_NO               NSLocalizedString(@"Ref No.", @"")
+#define LS_GIFT_FROM            NSLocalizedString(@"Gift from", @"")
+#define LS_MY_ORDER             NSLocalizedString(@"My Order", @"")
+#define LS_GIFT                 NSLocalizedString(@"Gift", @"")
 
 #endif

@@ -91,9 +91,7 @@ typedef enum {
     FriendsListTableViewCell *friendCell = (FriendsListTableViewCell *)cell;
     MUserInfo *friendInfo = [self.fetchedResultsController objectAtIndexPath:indexPath];
     friendCell.title.text = friendInfo.name;
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
-    friendCell.subtitle.text = [dateFormatter stringFromDate:friendInfo.birthday];
+    friendCell.subtitle.text = [friendInfo.birthday defaultStringRepresentation];  // XXX-TEST
     
     [friendCell.avatarView removeFromSuperview];
     friendCell.avatarView = [[AvatarView alloc] initWithFrame:friendCell.avatarView.frame user:friendInfo showAccessoryImage:YES interactable:NO];

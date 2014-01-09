@@ -62,12 +62,12 @@ typedef enum {
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self refreshCart];
+    [self refreshCart:NO];
 }
 
 - (MOrderInfo *)pendingOrder {
     if (!_pendingOrder) {
-        self.pendingOrder = [MOrderInfo newOrderInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
+        self.pendingOrder = [MOrderInfo existingOrNewOrderInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
     }
     return _pendingOrder;
 }
@@ -108,8 +108,8 @@ typedef enum {
     }
 }
 
-- (void)refreshCart {
-    [_itemList reloadSections:[NSIndexSet indexSetWithIndex:CartSectionItems] withRowAnimation:UITableViewRowAnimationFade];
+- (void)refreshCart:(BOOL)animated {
+    [_itemList reloadSections:[NSIndexSet indexSetWithIndex:CartSectionItems] withRowAnimation: animated ? UITableViewRowAnimationFade : UITableViewRowAnimationNone];
     if (![_cartHeaderView hasRecipient] && self.inCartItems.count > 0) {
         MUserInfo *appUser = [MUserInfo currentAppUserInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
         [_cartHeaderView updateRecipient:appUser];
@@ -134,7 +134,7 @@ typedef enum {
 - (void)restManagerService:(SEL)selector succeededWithOperation:(NSOperation *)operation userInfo:(NSDictionary *)userInfo {
     [self.pendingOrder deleteInContext:self.pendingOrder.managedObjectContext];
     self.pendingOrder = nil;
-    [self refreshCart];
+    [self refreshCart:YES];
 }
 
 #pragma mark - UITableViewDelegate, UITableViewDataSource
@@ -204,7 +204,8 @@ typedef enum {
 
 - (void)itemPicker:(ItemPickerViewController *)itemPicker didAddItem:(MItemInfo *)item {
     [self.pendingOrder addItemsObject:item];
-    [self refreshCart];
+    [self.pendingOrder updatePrice];
+    [self refreshCart:YES];
 }
 
 @end

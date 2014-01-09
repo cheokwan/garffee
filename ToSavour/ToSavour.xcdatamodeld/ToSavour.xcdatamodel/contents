@@ -25,6 +25,19 @@
         <attribute name="region" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="thumbnailURL" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="MCouponInfo" representedClassName="MCouponInfo" syncable="YES">
+        <attribute name="creationDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="price" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="receiverUserID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="redeemedDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="referenceCode" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="senderUserID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sponsorName" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="items" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MItemInfo" syncable="YES"/>
+        <relationship name="receiver" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MUserInfo" syncable="YES"/>
+        <relationship name="sender" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MUserInfo" syncable="YES"/>
+    </entity>
     <entity name="MGlobalConfiguration" representedClassName="MGlobalConfiguration" syncable="YES">
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="key" optional="YES" attributeType="String" syncable="YES"/>
@@ -131,6 +144,7 @@
     <elements>
         <element name="MapTrackingAnnotation" positionX="0" positionY="0" width="0" height="0"/>
         <element name="MBranch" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MCouponInfo" positionX="0" positionY="0" width="0" height="0"/>
         <element name="MGlobalConfiguration" positionX="0" positionY="0" width="0" height="0"/>
         <element name="MItemInfo" positionX="0" positionY="0" width="0" height="0"/>
         <element name="MItemSelectedOption" positionX="0" positionY="0" width="0" height="0"/>

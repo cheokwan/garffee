@@ -18,6 +18,7 @@
 #import "MItemInfo.h"
 #import "MItemSelectedOption.h"
 #import "MProductInfo.h"
+#import "MCouponInfo.h"
 #import "MGlobalConfiguration.h"
 
 #endif
