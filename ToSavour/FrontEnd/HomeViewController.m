@@ -14,9 +14,13 @@
 #import "UIView+Helpers.h"
 #import "FriendsListScrollView.h"
 #import "MUserInfo.h"
+#import "MOrderInfo.h"
+#import "MCouponInfo.h"
 
 
 @implementation HomeViewController
+@synthesize itemBagButton = _itemBagButton;
+@synthesize itemBadgeView = _itemBadgeView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,8 +32,7 @@
 }
 
 - (void)initializeView {
-    UIBarButtonItem *rightSlideButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"MenuIcon"] style:UIBarButtonItemStylePlain target:self action:@selector(slideLeft)];
-    self.navigationItem.rightBarButtonItem = rightSlideButton;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.itemBagButton];
     self.navigationItem.titleView = [TSTheming navigationBrandNameTitleView];
     
     HomeControlView *controlView = (HomeControlView *)[TSTheming viewWithNibName:NSStringFromClass(HomeControlView.class) owner:self];
@@ -41,14 +44,66 @@
     self.promotionScrollView.delegate = self;
 }
 
-- (void)slideLeft {
-     static BOOL slided = NO;
-     if (!slided) {
-         [[AppDelegate sharedAppDelegate].slidingViewController anchorTopViewToLeftAnimated:YES];
-     } else {
-         [[AppDelegate sharedAppDelegate].slidingViewController resetTopViewAnimated:YES];
-     }
-     slided = !slided;
+- (UIButton *)itemBagButton {
+    if (!_itemBagButton) {
+        _itemBagButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+        [_itemBagButton setImage:[UIImage imageNamed:@"ico_mybox"] forState:UIControlStateNormal];
+        [_itemBagButton setTintColor:[TSTheming defaultAccentColor]];
+        [_itemBagButton addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        
+        self.itemBadgeView.badgeText = @"";
+        [_itemBagButton addSubview:self.itemBadgeView];
+    }
+    return _itemBagButton;
+}
+
+- (TSBadgeView *)itemBadgeView {
+    if (!_itemBadgeView) {
+        _itemBadgeView = [[TSBadgeView alloc] init];
+        _itemBadgeView.badgeAlignment = JSBadgeViewAlignmentTopRight;
+        _itemBadgeView.badgeTextColor = [TSTheming defaultAccentColor];
+        _itemBadgeView.badgeBackgroundColor = [TSTheming defaultThemeColor];
+        _itemBadgeView.badgeStrokeColor = [TSTheming defaultThemeColor];
+        _itemBadgeView.badgeStrokeWidth = 4.0;
+        _itemBadgeView.badgePositionAdjustment = CGPointMake(-5.0, 8.0);
+        _itemBadgeView.userInteractionEnabled = NO;
+    }
+    return _itemBadgeView;
+}
+
+- (void)updateItemBadgeCount {
+    NSFetchRequest *frOngoingOrders = [MOrderInfo fetchRequest];
+    frOngoingOrders.predicate = [NSPredicate predicateWithFormat:@"status IN[c] %@", @[MOrderInfoStatusPending, MOrderInfoStatusInProgress, MOrderInfoStatusFinished]];
+    NSError *error = nil;
+    NSUInteger countOngoingOrders = [[AppDelegate sharedAppDelegate].managedObjectContext countForFetchRequest:frOngoingOrders error:&error];
+    if (error) {
+        DDLogError(@"error counting ongoing orders: %@", error);
+    }
+    
+    NSFetchRequest *frUnredeemedGifts = [MCouponInfo fetchRequest];
+    MUserInfo *appUser = [MUserInfo currentAppUserInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
+    frUnredeemedGifts.predicate = [NSPredicate predicateWithFormat:@"receiverUserID = %@ AND (redeemedDate = %@ OR redeemedDate > %@)", appUser.appID, nil, [NSDate date]];
+    error = nil;
+    NSUInteger countUnredeemedGifts = [[AppDelegate sharedAppDelegate].managedObjectContext countForFetchRequest:frUnredeemedGifts error:&error];
+    if (error) {
+        DDLogError(@"error counting unredeemed gifts: %@", error);
+    }
+    
+    NSString *countString = countOngoingOrders + countUnredeemedGifts > 0 ? [@(countOngoingOrders + countUnredeemedGifts) stringValue] : @"";
+    self.itemBadgeView.badgeText = countString;
+}
+
+- (void)buttonPressed:(id)sender {
+    if (sender == _itemBagButton) {
+        static BOOL slided = NO;
+        if (!slided) {
+            [[AppDelegate sharedAppDelegate].slidingViewController anchorTopViewToLeftAnimated:YES];
+        } else {
+            [self updateItemBadgeCount];
+            [[AppDelegate sharedAppDelegate].slidingViewController resetTopViewAnimated:YES];
+        }
+        slided = !slided;
+    }
 }
 
 - (void)viewDidLoad
@@ -59,6 +114,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self updateItemBadgeCount];
 }
 
 - (void)didReceiveMemoryWarning

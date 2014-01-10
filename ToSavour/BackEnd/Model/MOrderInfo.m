@@ -29,14 +29,14 @@
 
 + (MOrderInfo *)newOrderInfoInContext:(NSManagedObjectContext *)context {
     MOrderInfo *order = [MOrderInfo newObjectInContext:context];
-    order.status = MOrderInfoStatusPending;
+    order.status = MOrderInfoStatusInCart;
     [order updatePrice];
     return order;
 }
 
 + (MOrderInfo *)existingOrNewOrderInfoInContext:(NSManagedObjectContext *)context {
-    MOrderInfo *order = (MOrderInfo *)[MOrderInfo existingOrNewObjectInContext:context withPredicate:[NSPredicate predicateWithFormat:@"status = %@", MOrderInfoStatusPending]];  // XXX-TEST
-    order.status = MOrderInfoStatusPending;
+    MOrderInfo *order = (MOrderInfo *)[MOrderInfo existingOrNewObjectInContext:context withPredicate:[NSPredicate predicateWithFormat:@"status = %@", MOrderInfoStatusInCart]];  // XXX-TEST
+    order.status = MOrderInfoStatusInCart;
     [order updatePrice];
     return order;
 }
@@ -46,15 +46,15 @@
     // assert object has been deleted  XXX-TEST
     NSFetchRequest *fetchRequest;
     NSArray *fetchResults;
-    fetchRequest = [MOrderInfo fetchRequestInContext:context];
+    fetchRequest = [MOrderInfo fetchRequest];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"id = %@", @0];
     fetchResults = [context executeFetchRequest:fetchRequest error:nil];
     NSAssert(fetchResults.count == 0, @"zombie MOrderInfo found: %@", fetchResults);
-    fetchRequest = [MItemInfo fetchRequestInContext:context];
+    fetchRequest = [MItemInfo fetchRequest];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"id = %@", @0];
     fetchResults = [context executeFetchRequest:fetchRequest error:nil];
     NSAssert(fetchResults.count == 0, @"zombie MItemInfo found: %@", fetchResults);
-    fetchRequest = [MItemSelectedOption fetchRequestInContext:context];
+    fetchRequest = [MItemSelectedOption fetchRequest];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"id = %@", @0];
     fetchResults = [context executeFetchRequest:fetchRequest error:nil];
     NSAssert(fetchResults.count == 0, @"zombie MItemSelectedOption found: %@", fetchResults);

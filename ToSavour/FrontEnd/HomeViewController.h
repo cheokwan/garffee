@@ -9,10 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "HomeControlView.h"
 #import "PromotionScrollView.h"
+#import "TSBadgeView.h"
 
 @interface HomeViewController : UIViewController<PromotionScrollViewDelegate>
 
 @property (nonatomic, strong)   IBOutlet PromotionScrollView *promotionScrollView;
 @property (nonatomic, strong)   IBOutlet HomeControlView *homeControlView;
+@property (nonatomic, strong, readonly) UIButton *itemBagButton;
+@property (nonatomic, strong, readonly) TSBadgeView *itemBadgeView;
+
+- (void)updateItemBadgeCount;
 
 @end

@@ -18,7 +18,7 @@
 @dynamic value;
 
 + (MGlobalConfiguration *)configurationWithKey:(NSString *)key inContext:(NSManagedObjectContext *)context {
-    NSFetchRequest *fetchRequest = [self fetchRequestInContext:context];
+    NSFetchRequest *fetchRequest = [self fetchRequest];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"key = %@", key];
     fetchRequest.predicate = predicate;
     

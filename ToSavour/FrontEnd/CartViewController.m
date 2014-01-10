@@ -14,7 +14,6 @@
 #import "MProductInfo.h"
 #import "MItemInfo.h"
 #import "MOrderInfo.h"
-#import "PickUpLocationViewController.h"
 
 typedef enum {
     CartSectionItems = 0,
@@ -94,15 +93,12 @@ typedef enum {
         self.pendingOrder.userID = self.recipient.appID;
         self.pendingOrder.price = @(self.cartPrice);
         self.pendingOrder.orderedDate = [NSDate date];
-        self.pendingOrder.status = MOrderInfoStatusPending;  // XXXXX
         self.pendingOrder.expectedArrivalTime = [NSDate dateWithTimeIntervalSinceNow:300]; // XXXXX
         self.pendingOrder.pickupTime = [NSDate dateWithTimeIntervalSinceNow:300];  // XXXXX
-        self.pendingOrder.storeBranchID = @1; // XXXX
-        [[RestManager sharedInstance] postOrder:self.pendingOrder handler:self];
         
-        //XXX-ML
-        PickUpLocationViewController *pickUpLocationViewController = (PickUpLocationViewController*)[TSTheming viewControllerWithStoryboardIdentifier:@"PickUpLocationViewController" storyboard:@"Main"];
-        [pickUpLocationViewController initialize];
+        // TODO: cache this
+        PickUpLocationViewController *pickUpLocationViewController = (PickUpLocationViewController*)[TSTheming viewControllerWithStoryboardIdentifier:@"PickUpLocationViewController"];
+        pickUpLocationViewController.delegate = self;
         pickUpLocationViewController.order = _pendingOrder;
         [self.navigationController pushViewController:pickUpLocationViewController animated:YES];
     }
@@ -121,21 +117,9 @@ typedef enum {
     }
     [_cartHeaderView updateTotalPrice:totalPrice];
     self.cartPrice = totalPrice;
-    //XXX-ML temp change
-//    _cartHeaderView.checkoutButton.enabled = self.inCartItems.count > 0;
+    _cartHeaderView.checkoutButton.enabled = self.inCartItems.count > 0;
 }
 
-#pragma mark - RestManagerResponseHandler
-
-- (void)restManagerService:(SEL)selector failedWithOperation:(NSOperation *)operation error:(NSError *)error userInfo:(NSDictionary *)userInfo {
-    DDLogError(@"error submitting order: %@", error);
-}
-
-- (void)restManagerService:(SEL)selector succeededWithOperation:(NSOperation *)operation userInfo:(NSDictionary *)userInfo {
-    [self.pendingOrder deleteInContext:self.pendingOrder.managedObjectContext];
-    self.pendingOrder = nil;
-    [self refreshCart:YES];
-}
 
 #pragma mark - UITableViewDelegate, UITableViewDataSource
 
@@ -206,6 +190,20 @@ typedef enum {
     [self.pendingOrder addItemsObject:item];
     [self.pendingOrder updatePrice];
     [self refreshCart:YES];
+}
+
+#pragma makr - PickUpLocationViewControllerDelegate
+
+- (void)pickUpLocationViewControllerDidSubmitOrderSuccessfully:(PickUpLocationViewController *)viewController {
+    [_pendingOrder deleteInContext:_pendingOrder.managedObjectContext];
+    self.pendingOrder = nil;
+    [[AppDelegate sharedAppDelegate].managedObjectContext save];
+    [self refreshCart:YES];
+}
+
+- (void)pickUpLocationViewControllerDidFailToSubmitOrder:(PickUpLocationViewController *)viewController {
+    _pendingOrder.status = MOrderInfoStatusInCart;  // revert status back to InCart
+    [[AppDelegate sharedAppDelegate].managedObjectContext save];
 }
 
 @end

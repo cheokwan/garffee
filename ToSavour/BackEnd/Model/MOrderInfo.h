@@ -12,12 +12,12 @@
 
 @class MItemInfo;
 
-static NSString *MOrderInfoStatusInCart     = @"InCart";
-static NSString *MOrderInfoStatusSubmitted  = @"Submitted";
-static NSString *MOrderInfoStatusPending    = @"Pending";
-static NSString *MOrderInfoStatusInProgress = @"InProgress";
-static NSString *MOrderInfoStatusFinished   = @"Finished";
-static NSString *MOrderInfoStatusPickedUp   = @"Pickedup";
+static NSString *MOrderInfoStatusInCart     = @"incart";
+//static NSString *MOrderInfoStatusSubmitted  = @"submitted";   // TODO: probably don't need this state
+static NSString *MOrderInfoStatusPending    = @"pending";
+static NSString *MOrderInfoStatusInProgress = @"inprogress";
+static NSString *MOrderInfoStatusFinished   = @"finished";
+static NSString *MOrderInfoStatusPickedUp   = @"pickedup";
 
 
 @interface MOrderInfo : NSManagedObject<RKMappableEntity>

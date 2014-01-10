@@ -15,7 +15,7 @@
 }
 
 + (NSManagedObject *)existingOrNewObjectInContext:(NSManagedObjectContext *)context withPredicate:(NSPredicate *)predicate {
-    NSFetchRequest *fetchRequest = [self.class fetchRequestInContext:context];
+    NSFetchRequest *fetchRequest = [self.class fetchRequest];
     fetchRequest.predicate = predicate;
     NSError *error = nil;
     NSArray *fetchResults = [context executeFetchRequest:fetchRequest error:&error];
@@ -43,15 +43,14 @@
     [context deleteObject:selfInContext];
 }
 
-//Maximal: why do you need context in this method?
-+ (NSFetchRequest *)fetchRequestInContext:(NSManagedObjectContext *)context {
++ (NSFetchRequest *)fetchRequest {
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass(self.class)];
     fetchRequest.sortDescriptors = @[]; // a NSFetchRequest must have sortDescriptors, default empty array
     return fetchRequest;
 }
 
 + (void)removeALlObjectsInContext:(NSManagedObjectContext *)context {
-    NSFetchRequest *fetchRequest = [self.class fetchRequestInContext:context];
+    NSFetchRequest *fetchRequest = [self.class fetchRequest];
     fetchRequest.includesPropertyValues = NO;  // only fetch the managedObjectID
     fetchRequest.includesPendingChanges = YES;
     NSError *error = nil;

@@ -63,6 +63,7 @@
                                                   @"Price":             @"price",
                                                   }];
     mapping.identificationAttributes = @[@"id"];
+    [mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"Items" toKeyPath:@"items" withMapping:[MItemInfo defaultEntityMapping]]];
     mapping.valueTransformer = [[RestManager sharedInstance] defaultDotNetValueTransformer];
     return mapping;
 }

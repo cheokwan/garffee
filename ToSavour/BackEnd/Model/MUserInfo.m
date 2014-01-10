@@ -42,7 +42,7 @@
 }
 
 + (id)currentAppUserInfoInContext:(NSManagedObjectContext *)context {
-    NSFetchRequest *fetchRequest = [MUserInfo fetchRequestInContext:context];
+    NSFetchRequest *fetchRequest = [MUserInfo fetchRequest];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"isAppUser = %@", @YES];
     NSError *error = nil;
     NSArray *fetchResults = [context executeFetchRequest:fetchRequest error:&error];

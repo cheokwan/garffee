@@ -12,6 +12,14 @@
 #import "MOrderInfo.h"
 #import "TSBranchServiceCalls.h"
 
+@class PickUpLocationViewController;
+
+@protocol PickUpLocationViewControllerDelegate <NSObject>
+- (void)pickUpLocationViewControllerDidSubmitOrderSuccessfully:(PickUpLocationViewController *)viewController;
+- (void)pickUpLocationViewControllerDidFailToSubmitOrder:(PickUpLocationViewController *)viewController;
+@end
+
+
 @interface PickUpLocationViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, PickUpLocationTableViewCellDelegate, RestManagerResponseHandler, UIAlertViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
@@ -28,6 +36,8 @@
 
 @property (nonatomic, strong) NSArray *branches;
 @property (nonatomic, strong) MOrderInfo *order;
+
+@property (nonatomic, weak) id<PickUpLocationViewControllerDelegate> delegate;
 
 - (IBAction)buttonPressed:(id)sender;
 

@@ -81,7 +81,7 @@ typedef enum {
 - (NSFetchedResultsController *)couponFetchedResultsController {
     if (!_couponFetchedResultsController) {
         NSManagedObjectContext *context = [AppDelegate sharedAppDelegate].managedObjectContext;
-        NSFetchRequest *fetchRequest = [MCouponInfo fetchRequestInContext:context];
+        NSFetchRequest *fetchRequest = [MCouponInfo fetchRequest];
         MUserInfo *appUser = [MUserInfo currentAppUserInfoInContext:context];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"receiverUserID = %@ AND (redeemedDate = %@ OR redeemedDate > %@)", appUser.appID, nil, [NSDate date]];
         NSSortDescriptor *sdCreationDate = [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO];
@@ -100,8 +100,8 @@ typedef enum {
 - (NSFetchedResultsController *)ongoingOrderFetchedResultsController {
     if (!_ongoingOrderFetchedResultsController) {
         NSManagedObjectContext *context = [AppDelegate sharedAppDelegate].managedObjectContext;
-        NSFetchRequest *fetchRequest = [MOrderInfo fetchRequestInContext:context];
-        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"status IN %@", @[MOrderInfoStatusPending, MOrderInfoStatusInProgress, MOrderInfoStatusFinished]];
+        NSFetchRequest *fetchRequest = [MOrderInfo fetchRequest];
+        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"status IN[c] %@", @[MOrderInfoStatusPending, MOrderInfoStatusInProgress, MOrderInfoStatusFinished]];
         NSSortDescriptor *sdOrderedDate = [NSSortDescriptor sortDescriptorWithKey:@"orderedDate" ascending:NO];
         fetchRequest.sortDescriptors = @[sdOrderedDate];
         self.ongoingOrderFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:nil];

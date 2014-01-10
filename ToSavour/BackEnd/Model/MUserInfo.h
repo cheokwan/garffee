@@ -18,8 +18,8 @@ typedef enum {
     MUserInfoUserTypeAddressBookUser    = 1 << 2
 } MUserInfoUserType;
 
-static NSString *MUserInfoGenderMale = @"Male";
-static NSString *MUserInfoGenderFemale = @"Female";
+static NSString *MUserInfoGenderMale = @"male";
+static NSString *MUserInfoGenderFemale = @"female";
 
 
 @interface MUserInfo : NSManagedObject<RKMappableEntity>

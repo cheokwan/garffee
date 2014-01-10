@@ -103,7 +103,7 @@ typedef enum {
 
 - (NSFetchedResultsController *)fetchedResultsController {
     if (!_fetchedResultsController) {
-        NSFetchRequest *fetchRequest = [MUserInfo fetchRequestInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
+        NSFetchRequest *fetchRequest = [MUserInfo fetchRequest];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"isAppUser = %@", @NO];
         NSSortDescriptor *sdUserType = [[NSSortDescriptor alloc] initWithKey:@"userType" ascending:YES];
         NSSortDescriptor *sdName = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];

@@ -32,7 +32,7 @@
 
 + (void)removeAllBranches {
     NSManagedObjectContext *context = [AppDelegate sharedAppDelegate].managedObjectContext;
-    NSFetchRequest *fetchRequest = [MBranch fetchRequestInContext:context];
+    NSFetchRequest *fetchRequest = [MBranch fetchRequest];
     fetchRequest.sortDescriptors = @[];
     NSFetchedResultsController *frc = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:nil];
     NSError *error = nil;

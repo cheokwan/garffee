@@ -14,6 +14,8 @@
 #import "MBranch.h"
 #import "TSLocalizedString.h"
 #import <UIView+Helpers/UIView+Helpers.h>
+#import <MBProgressHUD/MBProgressHUD.h>
+#import <UIAlertView-Blocks/UIAlertView+Blocks.h>
 
 #define DEFAULT_ESTIMATED_TIME      5
 
@@ -22,6 +24,7 @@
 @property (nonatomic, strong) UIBarButtonItem *finishButton;
 @property (nonatomic, strong) UIAlertView *confirmOrderAlertView;
 @property (nonatomic, strong) PickUpLocationTableViewCell *prototypeCell;
+@property (nonatomic, strong) MBProgressHUD *spinner;
 
 //logic
 @property (nonatomic, strong) NSFetchedResultsController *branchFRC;
@@ -35,7 +38,15 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        [self initialize];
+    }
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self initialize];
     }
     return self;
 }
@@ -49,6 +60,7 @@
     _finishButton.tintColor = [TSTheming defaultAccentColor];
     [self.navigationItem setRightBarButtonItem:_finishButton];
     [self updateFinishButton];
+    [self.navigationItem.leftBarButtonItem setTintColor:[TSTheming defaultAccentColor]];
     [self.view bringSubviewToFront:_recommendedTimeView];
     [self updateTimeLabel:DEFAULT_ESTIMATED_TIME];
 }
@@ -146,7 +158,7 @@
 
 - (NSFetchedResultsController *)generateBranchFRC {
     NSManagedObjectContext *context = [AppDelegate sharedAppDelegate].managedObjectContext;
-    NSFetchRequest *fetchRequest = [MBranch fetchRequestInContext:context];
+    NSFetchRequest *fetchRequest = [MBranch fetchRequest];
     NSFetchedResultsController *resultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:nil];
     return resultsController;
 }
@@ -181,11 +193,37 @@
             self.userEstimateTime = _estimatedTimeFromWeb;
             [self updateTimeLabel:_userEstimateTime];
         }
+    } else if (selector == @selector(postOrder:handler:)) {
+        DDLogInfo(@"successfully submitted order to server");
+        
+        RIButtonItem *dismissButton = [RIButtonItem itemWithLabel:LS_OK];
+        [dismissButton setAction:^{
+            if ([_delegate respondsToSelector:@selector(pickUpLocationViewControllerDidSubmitOrderSuccessfully:)]) {
+                [_delegate pickUpLocationViewControllerDidSubmitOrderSuccessfully:self];
+            }
+            [_spinner hide:NO];
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+        
+        [[[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"Order has been submitted, thank you!", @"") cancelButtonItem:dismissButton otherButtonItems:nil, nil] show];
     }
 }
 
 - (void)restManagerService:(SEL)selector failedWithOperation:(NSOperation *)operation error:(NSError *)error userInfo:(NSDictionary *)userInfo {
-    
+    if (selector == @selector(postOrder:handler:)) {
+        DDLogWarn(@"error in submitting order to server: %@", error);
+        
+        RIButtonItem *dismissButton = [RIButtonItem itemWithLabel:LS_OK];
+        [dismissButton setAction:^{
+            if ([_delegate respondsToSelector:@selector(pickUpLocationViewControllerDidFailToSubmitOrder:)]) {
+                [_delegate pickUpLocationViewControllerDidFailToSubmitOrder:self];
+            }
+            [_spinner hide:NO];
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+        
+        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Order Submit Error", @"") message:NSLocalizedString(@"Order submission failed, please try again later", @"") cancelButtonItem:dismissButton otherButtonItems:nil, nil] show];
+    }
 }
 
 #pragma mark - UIAlertViewDelegate
@@ -194,9 +232,14 @@
         self.confirmOrderAlertView.delegate = nil;
         self.confirmOrderAlertView = nil;
         if (buttonIndex != alertView.cancelButtonIndex) {
+            self.order.status = MOrderInfoStatusPending;
             self.order.storeBranchID = _selectedBranch.branchId;
-            //XXX-ML proceed
-            [[RestManager sharedInstance] postOrder:_order handler:nil];
+            
+            self.spinner = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            _spinner.mode = MBProgressHUDModeIndeterminate;
+            _spinner.labelText = LS_SUBMITTING;
+            
+            [[RestManager sharedInstance] postOrder:_order handler:self];
         }
     }
 }

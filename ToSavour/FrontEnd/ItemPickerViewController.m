@@ -123,7 +123,7 @@ typedef enum {
 
 - (NSArray *)allProducts {
     if (!_allProducts) {
-        NSFetchRequest *fetchRequest = [MProductInfo fetchRequestInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
+        NSFetchRequest *fetchRequest = [MProductInfo fetchRequest];
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"type = %@", MProductInfoTypeReal];
         fetchRequest.predicate = predicate;
         NSError *error = nil;

@@ -168,7 +168,7 @@
         MUserFacebookInfo *facebookAppUser = [[userInfo objectForKey:@"mappingResult"] firstObject];
         if (facebookAppUser) {
             facebookAppUser.isAppUser = @YES;
-            [[AppDelegate sharedAppDelegate] saveContext];
+            [[AppDelegate sharedAppDelegate].managedObjectContext save];
             [[RestManager sharedInstance] fetchAppUserInfo:self];
             [[DataFetchManager sharedInstance] fetchAddressBookContactsInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
         } else {
@@ -196,7 +196,7 @@
     if (selector == @selector(fetchBranches:)) {
 //        NSLog(@"");
 //        NSManagedObjectContext *context = [AppDelegate sharedAppDelegate].managedObjectContext;
-//        NSFetchRequest *request = [MBranch fetchRequestInContext:context];
+//        NSFetchRequest *request = [MBranch fetchRequest];
 //        NSFetchedResultsController *frc = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:context sectionNameKeyPath:nil cacheName:nil];
 //        [frc performFetch:nil];
 //        NSLog(@"");

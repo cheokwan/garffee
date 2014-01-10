@@ -298,9 +298,32 @@
     }
     
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if ([handler respondsToSelector:@selector(restManagerService:succeededWithOperation:userInfo:)]) {
-            NSDictionary *userInfo = responseObject ? @{@"responseObject": responseObject} : nil;
-            [handler restManagerService:_cmd succeededWithOperation:operation userInfo:userInfo];
+        if (responseObject) {
+            NSManagedObjectContext *context = [AppDelegate sharedAppDelegate].managedObjectContext;
+            MOrderInfo *takenOrder = [MOrderInfo newOrderInfoInContext:context];
+            NSDictionary *responseDict = [responseObject isKindOfClass:NSArray.class] && ((NSArray *)responseObject).count > 0 ? responseObject[0] : responseObject;
+            RKMappingOperation *mappingOperation = [[RKMappingOperation alloc] initWithSourceObject:responseDict destinationObject:takenOrder mapping:[MOrderInfo defaultEntityMapping]];
+            RKManagedObjectMappingOperationDataSource *dataSource = [[RKManagedObjectMappingOperationDataSource alloc] initWithManagedObjectContext:context cache:[RKManagedObjectStore defaultStore].managedObjectCache];
+            mappingOperation.dataSource = dataSource;
+            NSError *error = nil;
+            [mappingOperation performMapping:&error];
+            if (!error) {
+                DDLogInfo(@"successfully received and deserialized taken order: %@", takenOrder.id);
+                if ([handler respondsToSelector:@selector(restManagerService:succeededWithOperation:userInfo:)]) {
+                    NSDictionary *userInfo = responseObject ? @{@"responseObject": responseObject} : nil;
+                    [handler restManagerService:_cmd succeededWithOperation:operation userInfo:userInfo];
+                }
+            } else {
+                DDLogError(@"error in deserializaing taken order: %@", error);
+                if ([handler respondsToSelector:@selector(restManagerService:failedWithOperation:error:userInfo:)]) {
+                    [handler restManagerService:_cmd failedWithOperation:operation error:error userInfo:nil];
+                }
+            }
+        } else {
+            DDLogError(@"empty response from posted order");
+            if ([handler respondsToSelector:@selector(restManagerService:failedWithOperation:error:userInfo:)]) {
+                [handler restManagerService:_cmd failedWithOperation:operation error:error userInfo:nil];
+            }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         DDLogError(@"REST operation failed: %@", error);

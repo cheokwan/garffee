@@ -46,7 +46,7 @@
     // fetch friends in background
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSManagedObjectContext *context = [AppDelegate sharedAppDelegate].persistentStoreManagedObjectContext;
-        NSFetchRequest *fetchRequest = [MUserInfo fetchRequestInContext:context];
+        NSFetchRequest *fetchRequest = [MUserInfo fetchRequest];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"isAppUser = %@", @NO];
         NSSortDescriptor *sdUserType = [[NSSortDescriptor alloc] initWithKey:@"userType" ascending:YES];
         NSSortDescriptor *sdName = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];

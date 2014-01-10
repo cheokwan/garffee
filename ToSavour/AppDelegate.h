@@ -20,7 +20,6 @@
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 
 + (AppDelegate *)sharedAppDelegate;
-- (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
 - (NSURL *)applicationCachesDirectory;
 - (NSURL *)addressBookUserImageCacheDirectory;
