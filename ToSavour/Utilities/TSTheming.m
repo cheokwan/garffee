@@ -52,7 +52,8 @@
 }
 
 + (UIColor *)defaultThemeColor {
-    return [UIColor colorWithHexString:@"E74C3C"];  // alizarin red
+//    return [UIColor colorWithHexString:@"E74C3C"];  // alizarin red
+    return [UIColor colorWithHexString:@"D41325"];
 }
 
 + (UIColor *)defaultAccentColor {

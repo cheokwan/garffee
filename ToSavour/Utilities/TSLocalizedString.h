@@ -65,5 +65,9 @@
 #define LS_MY_ORDER             NSLocalizedString(@"My Order", @"")
 #define LS_GIFT                 NSLocalizedString(@"Gift", @"")
 #define LS_SUBMITTING           NSLocalizedString(@"Submitting", @"")
+#define LS_ORDER                NSLocalizedString(@"Order", @"")
+#define LS_FREE                 NSLocalizedString(@"Free", @"")
+#define LS_REDEEM               NSLocalizedString(@"Redeem", @"")
+#define LS_REDEEM_GIFT          NSLocalizedString(@"Redeem Gift", @"")
 
 #endif

@@ -13,6 +13,8 @@
 #import "OngoingOrderTableViewCell.h"
 #import "GiftTableViewCell.h"
 #import "TSFrontEndIncludes.h"
+#import "TSNavigationController.h"
+#import "CouponDetailsViewController.h"
 
 typedef enum {
     SlideMenuSectionMyOrder = 0,
@@ -60,6 +62,12 @@ typedef enum {
 - (void)initializeView {
     _tableView.delegate = self;
     _tableView.dataSource = self;
+    
+    self.navigationController.navigationBarHidden = YES;
+    UIView *statusBarPatch = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 20)];
+    statusBarPatch.backgroundColor = [TSTheming defaultContrastColor];  // for setting the status bar background
+    [self.navigationController.view addSubview:statusBarPatch];
+    [self setNeedsStatusBarAppearanceUpdate];
 }
 
 #pragma mark - RestManagerResponseHandler
@@ -227,7 +235,7 @@ typedef enum {
     switch (section) {
         case SlideMenuSectionMyOrder: {
             if (!ongoingOrderSectionHeader) {
-                ongoingOrderSectionHeader = [self sectionHeaderViewWithTitle:LS_MY_ORDER height:64.0];
+                ongoingOrderSectionHeader = [self sectionHeaderViewWithTitle:LS_MY_ORDER height:44.0];
             }
             return ongoingOrderSectionHeader;
         }
@@ -307,9 +315,28 @@ typedef enum {
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    switch (indexPath.section) {
+        case SlideMenuSectionMyOrder: {
+        }
+            break;
+        case SlideMenuSectionGift: {
+            CouponDetailsViewController *couponDetailsViewController = (CouponDetailsViewController *)[TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(CouponDetailsViewController.class)];
+            couponDetailsViewController.coupon = self.couponFetchedResultsController.fetchedObjects[indexPath.row];
+            TSNavigationController *naviController = [[TSNavigationController alloc] initWithRootViewController:couponDetailsViewController];
+            [self presentViewController:naviController animated:YES completion:nil];
+        }
+            break;
+    }
 }
 
 #pragma mark - UIBarPositioningDelegate
+
+- (UIBarPosition)positionForBar:(id<UIBarPositioning>)bar {
+    if (bar == self.navigationController.navigationBar) {
+        return UIBarPositionTop;
+    }
+    return UIBarPositionAny;
+}
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;

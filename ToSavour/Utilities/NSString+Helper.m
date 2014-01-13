@@ -20,7 +20,7 @@
 
 + (NSString *)stringWithPrice:(CGFloat)price {
     static NSString *priceFormatString = @"HK: $%.1f";
-    return [NSString stringWithFormat:priceFormatString, price];
+    return price == 0.0 ? LS_FREE : [NSString stringWithFormat:priceFormatString, price];
 }
 
 - (NSArray *)decodeCommaSeparatedString {

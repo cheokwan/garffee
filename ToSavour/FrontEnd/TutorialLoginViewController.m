@@ -117,13 +117,13 @@
 
 - (void)buttonPressed:(id)sender {
     if (sender == _skipButton) {
-        [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionTransitionCrossDissolve|UIViewAnimationOptionAllowAnimatedContent animations:^{
+        [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionTransitionCrossDissolve|UIViewAnimationOptionAllowAnimatedContent animations:^{
             // fade out
-            _tutorialScrollView.alpha = 0;
+            _tutorialScrollView.alpha = 0.0;
         } completion:^(BOOL finished) {
             // silently move to last page
             _tutorialScrollView.contentOffset = CGPointMake(_tutorialScrollView.contentSize.width - _tutorialScrollView.bounds.size.width, 0);
-            [UIView animateWithDuration:0.5 delay:0.2 options:UIViewAnimationOptionTransitionCrossDissolve|UIViewAnimationOptionAllowAnimatedContent animations:^{
+            [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionTransitionCrossDissolve|UIViewAnimationOptionAllowAnimatedContent animations:^{
                 // lastly, fade back in
                 _tutorialScrollView.alpha = 1;
             } completion:nil];

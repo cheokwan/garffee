@@ -80,6 +80,68 @@
             </objects>
             <point key="canvasLocation" x="1222" y="2926"/>
         </scene>
+        <!--Coupon Details View Controller-->
+        <scene sceneID="Gqh-QZ-2Yo">
+            <objects>
+                <viewController storyboardIdentifier="CouponDetailsViewController" id="7eP-Az-19e" customClass="CouponDetailsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9qL-q3-og3"/>
+                        <viewControllerLayoutGuide type="bottom" id="t1t-Kf-3BI"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="l6Y-s7-Uhb">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lbf-Ah-KLV" customClass="CouponDetailsHeaderView">
+                                <rect key="frame" x="0.0" y="64" width="320" height="80"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="YtQ-k8-2j1"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3bA-jw-XFT">
+                                <rect key="frame" x="0.0" y="518" width="320" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="wmZ-4E-FyB"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <state key="normal" title="Redeem!">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="81" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="KHN-eI-dWg">
+                                <rect key="frame" x="0.0" y="144" width="320" height="374"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="lbf-Ah-KLV" secondAttribute="trailing" id="3hz-2g-zwW"/>
+                            <constraint firstAttribute="trailing" secondItem="KHN-eI-dWg" secondAttribute="trailing" id="9bA-uf-Ymb"/>
+                            <constraint firstItem="3bA-jw-XFT" firstAttribute="leading" secondItem="l6Y-s7-Uhb" secondAttribute="leading" id="9n1-oZ-oyA"/>
+                            <constraint firstItem="lbf-Ah-KLV" firstAttribute="top" secondItem="9qL-q3-og3" secondAttribute="bottom" id="AuH-8l-JM2"/>
+                            <constraint firstAttribute="trailing" secondItem="3bA-jw-XFT" secondAttribute="trailing" id="Dqx-Rf-iy3"/>
+                            <constraint firstItem="t1t-Kf-3BI" firstAttribute="top" secondItem="KHN-eI-dWg" secondAttribute="bottom" constant="50" id="I3J-eF-Job"/>
+                            <constraint firstItem="KHN-eI-dWg" firstAttribute="leading" secondItem="l6Y-s7-Uhb" secondAttribute="leading" id="NzZ-3c-YiH"/>
+                            <constraint firstItem="KHN-eI-dWg" firstAttribute="top" secondItem="9qL-q3-og3" secondAttribute="bottom" constant="80" id="Sve-Cs-y12"/>
+                            <constraint firstItem="lbf-Ah-KLV" firstAttribute="leading" secondItem="l6Y-s7-Uhb" secondAttribute="leading" id="yf6-e0-sOm"/>
+                            <constraint firstItem="t1t-Kf-3BI" firstAttribute="top" secondItem="3bA-jw-XFT" secondAttribute="bottom" id="z80-hg-R2g"/>
+                        </constraints>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="couponItemsList" destination="KHN-eI-dWg" id="0QI-wY-dhu"/>
+                        <outlet property="headerView" destination="lbf-Ah-KLV" id="7m4-29-xzr"/>
+                        <outlet property="redeemButton" destination="3bA-jw-XFT" id="r9Y-Lb-Bz2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GFN-6g-ZrH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="505" y="3642"/>
+        </scene>
         <!--Navigation Controller - Cart!-->
         <scene sceneID="Jt3-Zt-3yV">
             <objects>

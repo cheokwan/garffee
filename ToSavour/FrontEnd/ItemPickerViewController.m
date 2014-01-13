@@ -47,9 +47,42 @@ typedef enum {
     return self;
 }
 
+- (UIView *)lineView {
+    static UIView *line = nil;
+    if (!line) {
+        line = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _itemTable.bounds.size.width, 1)];
+        line.backgroundColor = [TSTheming defaultThemeColor];
+    }
+    return line;
+}
+
+- (UIView *)boxView {
+    static UIView *box = nil;
+    if (!box) {
+        CGRect boxFrame = CGRectMake(0.0, 65.0, self.itemPickerPrototypeCell.pickerScrollView.itemViewDimension, self.view.bounds.size.height - 65.0);
+        box = [[UIView alloc] initWithFrame:boxFrame];
+        box.center = CGPointMake(self.view.bounds.size.width / 2.0, box.center.y);
+        box.backgroundColor = [UIColor clearColor];
+        box.layer.borderColor = [[TSTheming defaultAccentColor] CGColor];
+        box.layer.borderWidth = 1.0;
+        box.userInteractionEnabled = NO;
+    }
+    return box;
+}
+
 - (void)initializeView {
     _itemTable.dataSource = self;
     _itemTable.delegate = self;
+    _itemTable.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    _itemTable.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    _itemTable.separatorColor = [TSTheming defaultAccentColor];
+    _itemTable.backgroundColor = [TSTheming defaultContrastColor];
+    
+    [_itemTable addSubview:self.lineView];
+    [self.view addSubview:self.boxView];
+    [self.view bringSubviewToFront:self.boxView];
+    
+    self.navigationItem.titleView = [TSTheming navigationTitleViewWithString:LS_ORDER];
     self.navigationItem.rightBarButtonItem = self.dismissButton;
     NSInteger defaultProductIndex = [self.allProducts indexOfObject:_defaultProduct];
     if (defaultProductIndex == NSNotFound) {
@@ -142,7 +175,7 @@ typedef enum {
 
 - (UIBarButtonItem *)dismissButton {
     if (!_dismissButton) {
-        self.dismissButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(buttonPressed:)];
+        self.dismissButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ico_close"] style:UIBarButtonItemStylePlain target:self action:@selector(buttonPressed:)];
         _dismissButton.tintColor = [TSTheming defaultAccentColor];
     }
     return _dismissButton;

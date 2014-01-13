@@ -17,6 +17,7 @@
     self.clipsToBounds = YES;
     self.pagingEnabled = NO;  // manual paging
     self.decelerationRate = UIScrollViewDecelerationRateFast;
+    self.backgroundColor = [UIColor clearColor];
     self.delegate = self;
 }
 

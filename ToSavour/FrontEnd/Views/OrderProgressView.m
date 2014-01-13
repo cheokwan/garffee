@@ -45,7 +45,7 @@
     [self addSubview:_inProgressLabel];
     [self addSubview:_finishedLabel];
     
-    self.backgroundColor = [UIColor colorWithHexString:@"EEEEEE"];
+    self.backgroundColor = [UIColor colorWithHexString:@"EEEEEE"];  // TODO: why is the gray background disappear when tapped on
     self.layer.cornerRadius = 3.5;
 }
 

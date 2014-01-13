@@ -18,6 +18,7 @@
 #import "MainTabBarController.h"
 #import "SlideMenuViewController.h"
 #import "TutorialLoginViewController.h"
+#import "TSNavigationController.h"
 #import "TSModelIncludes.h"
 #import "RestManager.h"
 
@@ -70,7 +71,12 @@
     // Populate views
     self.slidingViewController = (ECSlidingViewController *)self.window.rootViewController;
     _slidingViewController.topViewController = [TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(MainTabBarController.class)];
-    _slidingViewController.underRightViewController = [TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(SlideMenuViewController.class)];
+    
+    SlideMenuViewController *slideMenu = (SlideMenuViewController *)[TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(SlideMenuViewController.class)];
+    TSNavigationController *slideMenuNaviController = [[TSNavigationController alloc] initWithRootViewController:slideMenu];
+    slideMenuNaviController.navigationBarHidden = YES;
+    _slidingViewController.underRightViewController = slideMenuNaviController;
+    
     _slidingViewController.anchorLeftRevealAmount = 280.0;
     [self.window makeKeyAndVisible];
     
@@ -174,6 +180,11 @@
     DDLogDebug(@"");
     // Saves changes in the application's managed object context before the application terminates.
     [self.managedObjectContext save];
+    NSError *error = nil;
+    [self.managedObjectContext saveToPersistentStore:&error];
+    if (!error) {
+        DDLogError(@"error saving context to persistent store: %@", error);
+    }
 }
 
 #pragma mark - Core Data stack + RestKit

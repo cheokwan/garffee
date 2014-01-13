@@ -11,6 +11,7 @@
 @implementation ItemPickerTableViewCell
 
 - (void)initialize {
+    self.backgroundColor = [UIColor clearColor];
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier

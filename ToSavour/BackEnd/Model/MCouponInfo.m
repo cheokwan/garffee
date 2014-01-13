@@ -29,12 +29,27 @@
 
 - (NSString *)issuerName {
     NSString *name = @"";
-    if ([self.senderUserID trimmedWhiteSpaces].length > 0) {
-        name = self.senderUserID;  // TODO: find real sender name through remote or local fetch
+    if ([self issuer]) {
+        name = [self issuer].name;  // TODO: do remote fetch if user does not exist locally
     } else if ([self.sponsorName trimmedWhiteSpaces].length > 0) {
         name = self.sponsorName;
     }
     return name;
+}
+
+- (MUserInfo *)issuer {
+    if (self.sender) {
+        return self.sender;
+    } else if (self.senderUserID) {
+        NSFetchRequest *fetchRequest = [MUserInfo fetchRequest];
+        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"appID = %@", self.senderUserID];
+        NSError *error = nil;
+        NSArray *users = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+        if (users.count > 0) {
+            return users[0];
+        }
+    }
+    return nil;
 }
 
 - (NSURL *)URLForImageRepresentation {

@@ -24,6 +24,7 @@
     self = [super initWithFrame:frame];
     self.userInteractionEnabled = YES;
     self.contentMode = UIViewContentModeCenter;
+    self.backgroundColor = [UIColor clearColor];
     
     if (text) {
         self.textLabel = [self gridLabelWithText:text];
@@ -59,6 +60,7 @@
     label.lineBreakMode = NSLineBreakByWordWrapping;
     label.numberOfLines = 3;
     label.font = [UIFont systemFontOfSize:10.0];
+    label.textColor = [TSTheming defaultAccentColor];
     label.text = text;
     return label;
 }
@@ -102,7 +104,7 @@
     if ([notification.name isEqualToString:ItemGridViewDragTransitionNotificationStart]) {
         [UIView animateWithDuration:0.5 animations:^{
             _textLabel.alpha = 1.0;
-            _imageView.alpha = 0.0;
+            _imageView.alpha = 0.3;
         }];
     } else if ([notification.name isEqualToString:ItemGridViewDragTransitionNotificationStop]) {
         [UIView animateWithDuration:0.5 animations:^{

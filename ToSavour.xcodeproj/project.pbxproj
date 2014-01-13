@@ -16,6 +16,9 @@
 		D21DCE7B187AC5B7008CF011 /* FriendsListScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = D21DCE7A187AC5B7008CF011 /* FriendsListScrollView.m */; };
 		D21DCE7C187AC5B7008CF011 /* FriendsListScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = D21DCE7A187AC5B7008CF011 /* FriendsListScrollView.m */; };
 		D2209F36187FAE4F00282DAE /* NSManagedObjectContext+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2209F35187FAE4F00282DAE /* NSManagedObjectContext+Helper.m */; };
+		D2209F391880172800282DAE /* CouponDetailsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2209F381880172800282DAE /* CouponDetailsHeaderView.m */; };
+		D2209F3C18801D9800282DAE /* CouponDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2209F3B18801D9800282DAE /* CouponDetailsViewController.m */; };
+		D2209F401883EE9900282DAE /* CouponDetailsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2209F3F1883EE9900282DAE /* CouponDetailsHeaderView.xib */; };
 		D221964D1859BCC6007528EE /* FriendsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D221964C1859BCC6007528EE /* FriendsListViewController.m */; };
 		D22196501859C24C007528EE /* FriendsListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D221964F1859C24C007528EE /* FriendsListTableViewCell.m */; };
 		D2219653185AACD8007528EE /* NSManagedObject+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2219652185AACD8007528EE /* NSManagedObject+Helper.m */; };
@@ -188,6 +191,11 @@
 		D21DCE7A187AC5B7008CF011 /* FriendsListScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FriendsListScrollView.m; path = FrontEnd/Views/FriendsListScrollView.m; sourceTree = "<group>"; };
 		D2209F34187FAE4F00282DAE /* NSManagedObjectContext+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSManagedObjectContext+Helper.h"; path = "Utilities/NSManagedObjectContext+Helper.h"; sourceTree = "<group>"; };
 		D2209F35187FAE4F00282DAE /* NSManagedObjectContext+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObjectContext+Helper.m"; path = "Utilities/NSManagedObjectContext+Helper.m"; sourceTree = "<group>"; };
+		D2209F371880172800282DAE /* CouponDetailsHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CouponDetailsHeaderView.h; path = FrontEnd/Views/CouponDetailsHeaderView.h; sourceTree = "<group>"; };
+		D2209F381880172800282DAE /* CouponDetailsHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CouponDetailsHeaderView.m; path = FrontEnd/Views/CouponDetailsHeaderView.m; sourceTree = "<group>"; };
+		D2209F3A18801D9800282DAE /* CouponDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CouponDetailsViewController.h; path = FrontEnd/CouponDetailsViewController.h; sourceTree = "<group>"; };
+		D2209F3B18801D9800282DAE /* CouponDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CouponDetailsViewController.m; path = FrontEnd/CouponDetailsViewController.m; sourceTree = "<group>"; };
+		D2209F3F1883EE9900282DAE /* CouponDetailsHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CouponDetailsHeaderView.xib; path = FrontEnd/XIBs/CouponDetailsHeaderView.xib; sourceTree = "<group>"; };
 		D221964718598E0B007528EE /* RKMappableEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RKMappableEntity.h; path = BackEnd/RKMappableEntity.h; sourceTree = "<group>"; };
 		D221964B1859BCC6007528EE /* FriendsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FriendsListViewController.h; path = FrontEnd/FriendsListViewController.h; sourceTree = "<group>"; };
 		D221964C1859BCC6007528EE /* FriendsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FriendsListViewController.m; path = FrontEnd/FriendsListViewController.m; sourceTree = "<group>"; };
@@ -556,6 +564,8 @@
 				D246684218603C800089D5DB /* CartViewController.m */,
 				DF1C88D01875967800400283 /* PickUpLocationViewController.h */,
 				DF1C88D11875967800400283 /* PickUpLocationViewController.m */,
+				D2209F3A18801D9800282DAE /* CouponDetailsViewController.h */,
+				D2209F3B18801D9800282DAE /* CouponDetailsViewController.m */,
 			);
 			name = FrontEnd;
 			sourceTree = "<group>";
@@ -631,6 +641,7 @@
 			isa = PBXGroup;
 			children = (
 				D251EF15187D0B0A0012536E /* CartHeaderView.xib */,
+				D2209F3F1883EE9900282DAE /* CouponDetailsHeaderView.xib */,
 				D2A67A90185C21C500889114 /* AccountHeaderView.xib */,
 				D21DCE72187A7A6E008CF011 /* HomeControlView.xib */,
 			);
@@ -690,6 +701,8 @@
 				D251EF1D187D11C80012536E /* OrderProgressView.m */,
 				D2FF84CB187E91FA00D3A21C /* TSBadgeView.h */,
 				D2FF84CC187E91FA00D3A21C /* TSBadgeView.m */,
+				D2209F371880172800282DAE /* CouponDetailsHeaderView.h */,
+				D2209F381880172800282DAE /* CouponDetailsHeaderView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -848,6 +861,7 @@
 				D293E4D2183DEDEB00B73795 /* Images.xcassets in Resources */,
 				D251EF16187D0B0A0012536E /* CartHeaderView.xib in Resources */,
 				D293EB2A185F04ED00A69034 /* MProductConfigurableOption.json in Resources */,
+				D2209F401883EE9900282DAE /* CouponDetailsHeaderView.xib in Resources */,
 				D293EB2B185F04ED00A69034 /* MProductInfo.json in Resources */,
 				D293EB2C185F04ED00A69034 /* MProductOptionChoice.json in Resources */,
 				D293E4BE183DEDEB00B73795 /* InfoPlist.strings in Resources */,
@@ -1002,6 +1016,7 @@
 				D293E4F6184357B400B73795 /* TimeTracker.m in Sources */,
 				D293E4C4183DEDEB00B73795 /* AppDelegate.m in Sources */,
 				D2A67A9A185C48B100889114 /* TransactionHistoryTableViewCell.m in Sources */,
+				D2209F391880172800282DAE /* CouponDetailsHeaderView.m in Sources */,
 				D2A67A94185C26E100889114 /* AccountHeaderView.m in Sources */,
 				D251EF21187D364E0012536E /* NSDate+Helper.m in Sources */,
 				D243757518488358000009D7 /* TSSettings.m in Sources */,
@@ -1015,6 +1030,7 @@
 				D2827DFA187540BD00E4A662 /* NSArray+Helper.m in Sources */,
 				D2466849186062DC0089D5DB /* NSString+Helper.m in Sources */,
 				D2C075C418533B6A00620114 /* ItemPickerScrollView.m in Sources */,
+				D2209F3C18801D9800282DAE /* CouponDetailsViewController.m in Sources */,
 				D2A36A941850AA6C004D3D99 /* HomeViewController.m in Sources */,
 				DFE628A81855992800E1C8FE /* ChooseGameViewController.m in Sources */,
 				D251EF1E187D11C80012536E /* OrderProgressView.m in Sources */,
