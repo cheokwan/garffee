@@ -19,7 +19,6 @@
 - (void)pickUpLocationViewControllerDidFailToSubmitOrder:(PickUpLocationViewController *)viewController;
 @end
 
-
 @interface PickUpLocationViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, PickUpLocationTableViewCellDelegate, RestManagerResponseHandler, UIAlertViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
@@ -33,6 +32,9 @@
 //logic
 @property (nonatomic) int estimatedTimeFromWeb;
 @property (nonatomic) int userEstimateTime;
+
+@property (nonatomic, strong) NSFetchedResultsController *branchFRC;
+@property (nonatomic, strong) NSDateFormatter *dateFormatter;
 
 @property (nonatomic, strong) NSArray *branches;
 @property (nonatomic, strong) MOrderInfo *order;

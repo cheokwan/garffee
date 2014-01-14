@@ -73,5 +73,6 @@
 #define LS_ORDER_DETAILS        NSLocalizedString(@"Order Details", @"")
 #define LS_PICK_UP_LOCATION     NSLocalizedString(@"Pick Up Location", @"")
 #define LS_ORDER_ITEMS          NSLocalizedString(@"Order Items", @"")
+#define LS_LOCATION             NSLocalizedString(@"Location", @"Location")
 
 #endif

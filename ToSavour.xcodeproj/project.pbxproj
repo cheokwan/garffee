@@ -164,6 +164,9 @@
 		DF8F19B8187ADF1500BC9557 /* MockData.m in Sources */ = {isa = PBXBuildFile; fileRef = DF8F19B7187ADF1500BC9557 /* MockData.m */; };
 		DF9DB5401861D3DA00FD315E /* TSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = DF9DB53F1861D3DA00FD315E /* TSZipArchive.m */; };
 		DFB3C1E1187D84C4004E5454 /* TSBranchServiceCalls.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB3C1E0187D84C4004E5454 /* TSBranchServiceCalls.m */; };
+		DFB3C1E418814A97004E5454 /* BranchListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB3C1E318814A97004E5454 /* BranchListViewController.m */; };
+		DFB3C1E718842FE2004E5454 /* BranchLocationMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB3C1E618842FE2004E5454 /* BranchLocationMapViewController.m */; };
+		DFB3C1EA188436FC004E5454 /* MapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB3C1E9188436FC004E5454 /* MapAnnotation.m */; };
 		DFB85701187C355F00B08559 /* MBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB85700187C355F00B08559 /* MBranch.m */; };
 		DFBDA14C1856111500BF3755 /* PhotoHuntViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFBDA14B1856111500BF3755 /* PhotoHuntViewController.m */; };
 		DFE628A518558AD600E1C8FE /* DailyGameStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DFE628A418558AD600E1C8FE /* DailyGameStoryboard.storyboard */; };
@@ -366,6 +369,12 @@
 		DF9DB53F1861D3DA00FD315E /* TSZipArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSZipArchive.m; path = Utilities/TSZipArchive.m; sourceTree = "<group>"; };
 		DFB3C1DF187D84C4004E5454 /* TSBranchServiceCalls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSBranchServiceCalls.h; path = BackEnd/TSBranchServiceCalls.h; sourceTree = "<group>"; };
 		DFB3C1E0187D84C4004E5454 /* TSBranchServiceCalls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSBranchServiceCalls.m; path = BackEnd/TSBranchServiceCalls.m; sourceTree = "<group>"; };
+		DFB3C1E218814A97004E5454 /* BranchListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BranchListViewController.h; sourceTree = "<group>"; };
+		DFB3C1E318814A97004E5454 /* BranchListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BranchListViewController.m; sourceTree = "<group>"; };
+		DFB3C1E518842FE2004E5454 /* BranchLocationMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BranchLocationMapViewController.h; path = FrontEnd/BranchLocationMapViewController.h; sourceTree = "<group>"; };
+		DFB3C1E618842FE2004E5454 /* BranchLocationMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BranchLocationMapViewController.m; path = FrontEnd/BranchLocationMapViewController.m; sourceTree = "<group>"; };
+		DFB3C1E8188436FC004E5454 /* MapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapAnnotation.h; path = BackEnd/MapAnnotation.h; sourceTree = "<group>"; };
+		DFB3C1E9188436FC004E5454 /* MapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapAnnotation.m; path = BackEnd/MapAnnotation.m; sourceTree = "<group>"; };
 		DFB856FF187C355F00B08559 /* MBranch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBranch.h; path = BackEnd/Model/MBranch.h; sourceTree = "<group>"; };
 		DFB85700187C355F00B08559 /* MBranch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBranch.m; path = BackEnd/Model/MBranch.m; sourceTree = "<group>"; };
 		DFBDA14A1856111500BF3755 /* PhotoHuntViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoHuntViewController.h; sourceTree = "<group>"; };
@@ -578,6 +587,8 @@
 				D2209F3B18801D9800282DAE /* CouponDetailsViewController.m */,
 				D2209F461884EFD400282DAE /* OrderDetailsViewController.h */,
 				D2209F471884EFD400282DAE /* OrderDetailsViewController.m */,
+				DFB3C1E518842FE2004E5454 /* BranchLocationMapViewController.h */,
+				DFB3C1E618842FE2004E5454 /* BranchLocationMapViewController.m */,
 			);
 			name = FrontEnd;
 			sourceTree = "<group>";
@@ -602,6 +613,8 @@
 				DF8F19B7187ADF1500BC9557 /* MockData.m */,
 				DFB3C1DF187D84C4004E5454 /* TSBranchServiceCalls.h */,
 				DFB3C1E0187D84C4004E5454 /* TSBranchServiceCalls.m */,
+				DFB3C1E8188436FC004E5454 /* MapAnnotation.h */,
+				DFB3C1E9188436FC004E5454 /* MapAnnotation.m */,
 			);
 			name = BackEnd;
 			sourceTree = "<group>";
@@ -719,6 +732,8 @@
 				D2209F381880172800282DAE /* CouponDetailsHeaderView.m */,
 				D2209F431884EAF500282DAE /* OrderDetailsHeaderView.h */,
 				D2209F441884EAF500282DAE /* OrderDetailsHeaderView.m */,
+				DFB3C1E218814A97004E5454 /* BranchListViewController.h */,
+				DFB3C1E318814A97004E5454 /* BranchListViewController.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1018,6 +1033,7 @@
 				D2827DE9187288C700E4A662 /* MUserFacebookInfo.m in Sources */,
 				D2209F451884EAF500282DAE /* OrderDetailsHeaderView.m in Sources */,
 				D2827DD318694E4C00E4A662 /* MOrderInfo.m in Sources */,
+				DFB3C1E418814A97004E5454 /* BranchListViewController.m in Sources */,
 				D2827DDB186D882D00E4A662 /* ItemGridView.m in Sources */,
 				DF60E74D185B47BA00DB10DE /* PhotoHuntGridButton.m in Sources */,
 				DF1C88D21875967800400283 /* PickUpLocationViewController.m in Sources */,
@@ -1067,7 +1083,9 @@
 				D2FF84CD187E91FA00D3A21C /* TSBadgeView.m in Sources */,
 				DFB3C1E1187D84C4004E5454 /* TSBranchServiceCalls.m in Sources */,
 				D2A55711184DBF4C0039A5A0 /* MapTrackingAnnotation.m in Sources */,
+				DFB3C1E718842FE2004E5454 /* BranchLocationMapViewController.m in Sources */,
 				D2827DF61875051F00E4A662 /* DataFetchManager.m in Sources */,
+				DFB3C1EA188436FC004E5454 /* MapAnnotation.m in Sources */,
 				D293E4C0183DEDEB00B73795 /* main.m in Sources */,
 				DF8F19B8187ADF1500BC9557 /* MockData.m in Sources */,
 				DFB85701187C355F00B08559 /* MBranch.m in Sources */,

@@ -27,9 +27,7 @@
 @property (nonatomic, strong) MBProgressHUD *spinner;
 
 //logic
-@property (nonatomic, strong) NSFetchedResultsController *branchFRC;
 @property (nonatomic, strong) MBranch *selectedBranch;
-@property (nonatomic, strong) NSDateFormatter *dateFormatter;
 @end
 
 @implementation PickUpLocationViewController
@@ -43,17 +41,10 @@
     return self;
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
-    self = [super initWithCoder:aDecoder];
-    if (self) {
-        [self initialize];
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self initialize];
 	// Do any additional setup after loading the view.
     self.navigationItem.titleView = [TSTheming navigationTitleViewWithString:LS_PICK_UP_LOCATION];
     self.finishButton = [[UIBarButtonItem alloc] initWithTitle:LS_FINISH style:UIBarButtonItemStylePlain target:self action:@selector(buttonPressed:)];
@@ -138,8 +129,9 @@
         accessoryImage = [UIImage imageNamed:@"ico_unselect"];
     }
     UIImageView *imageView = [[UIImageView alloc] initWithImage:accessoryImage];
-    imageView.frame = CGRectMake(0, 0, 15, 15);
+    imageView.frame = CGRectMake(0, 0, 30, 30);
     cell.accessoryView = imageView;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -234,6 +226,10 @@
         if (buttonIndex != alertView.cancelButtonIndex) {
             self.order.status = MOrderInfoStatusPending;
             self.order.storeBranchID = _selectedBranch.branchId;
+            self.order.orderedDate = [NSDate date];
+            int userExpectedTimeInSecond = _userEstimateTime * 60;
+            self.order.expectedArrivalTime = [self.order.orderedDate dateByAddingTimeInterval:userExpectedTimeInSecond];
+            self.order.pickupTime = [self.order.expectedArrivalTime copy];
             
             self.spinner = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             _spinner.mode = MBProgressHUDModeIndeterminate;

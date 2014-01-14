@@ -32,6 +32,7 @@
     self.branch = branch;
     
     //thumbnail
+    _thumbnailImageView.backgroundColor = [UIColor clearColor];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:_branch.thumbnailURL]];
     __weak UIImageView *imageView = _thumbnailImageView;
     [_thumbnailImageView setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image){
