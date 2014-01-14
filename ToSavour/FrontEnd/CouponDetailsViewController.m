@@ -8,12 +8,11 @@
 
 #import "CouponDetailsViewController.h"
 #import "TSFrontEndIncludes.h"
-#import "CartItemTableViewCell.h"
+#import "OrderItemTableViewCell.h"
 #import "MItemInfo.h"
-#import "MProductInfo.h"
 
 @interface CouponDetailsViewController ()
-@property (nonatomic, strong)   CartItemTableViewCell *couponItemPrototypeCell;
+@property (nonatomic, strong)   OrderItemTableViewCell *couponItemPrototypeCell;
 @property (nonatomic, readonly) NSArray *couponItems;
 @end
 
@@ -31,7 +30,7 @@
     self.navigationItem.titleView = [TSTheming navigationTitleViewWithString:LS_REDEEM_GIFT];
     self.navigationItem.rightBarButtonItem = self.dismissButton;
     
-    CouponDetailsHeaderView *couponDetailsHeader = (CouponDetailsHeaderView *)[TSTheming viewWithNibName:NSStringFromClass(CouponDetailsHeaderView.class) owner:nil];
+    CouponDetailsHeaderView *couponDetailsHeader = (CouponDetailsHeaderView *)[TSTheming viewWithNibName:NSStringFromClass(CouponDetailsHeaderView.class)];
     couponDetailsHeader.frame = self.headerView.frame;
     self.headerView = couponDetailsHeader;
     [self.view addSubview:_headerView];
@@ -44,6 +43,8 @@
     
     _couponItemsList.dataSource = self;
     _couponItemsList.delegate = self;
+    UINib *nib = [UINib nibWithNibName:NSStringFromClass(OrderItemTableViewCell.class) bundle:[NSBundle mainBundle]];
+    [_couponItemsList registerNib:nib forCellReuseIdentifier:NSStringFromClass(OrderItemTableViewCell.class)];
 }
 
 - (void)viewDidLoad
@@ -88,9 +89,9 @@
 
 #pragma mark - UITableViewDataSource, UITableViewDelegate
 
-- (CartItemTableViewCell *)couponItemPrototypeCell {
+- (OrderItemTableViewCell *)couponItemPrototypeCell {
     if (!_couponItemPrototypeCell) {
-        self.couponItemPrototypeCell = [_couponItemsList dequeueReusableCellWithIdentifier:NSStringFromClass(CartItemTableViewCell.class)];
+        self.couponItemPrototypeCell = [_couponItemsList dequeueReusableCellWithIdentifier:NSStringFromClass(OrderItemTableViewCell.class)];
     }
     return _couponItemPrototypeCell;
 }
@@ -109,28 +110,15 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = nil;
-    cell = [_couponItemsList dequeueReusableCellWithIdentifier:NSStringFromClass(CartItemTableViewCell.class) forIndexPath:indexPath];
+    cell = [_couponItemsList dequeueReusableCellWithIdentifier:NSStringFromClass(OrderItemTableViewCell.class) forIndexPath:indexPath];
     [self configureCell:cell atIndexPath:indexPath];
     return cell;
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    CartItemTableViewCell *couponItemCell = (CartItemTableViewCell *)cell;
+    OrderItemTableViewCell *couponItemCell = (OrderItemTableViewCell *)cell;
     MItemInfo *itemInfo = self.couponItems[indexPath.row];
-    
-    __weak CartItemTableViewCell *weakCouponItemCell = couponItemCell;
-    [couponItemCell.itemImageView setImageWithURL:[NSURL URLWithString:itemInfo.product.resolvedImageURL] placeholderImage:nil options:0 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-        if (image) {
-            weakCouponItemCell.itemImageView.image = [image resizedImageToSize:weakCouponItemCell.itemImageView.frame.size];
-        } else {
-            DDLogWarn(@"cannot set image for coupon item: %@ - error %@", weakCouponItemCell.itemNameLabel.text, error);
-        }
-    }];
-    
-    couponItemCell.itemNameLabel.text = itemInfo.product.name;
-    couponItemCell.itemDetailsLabel.text = itemInfo.description;  // TODO: fill in this detail
-    couponItemCell.priceLabel.text = [NSString stringWithPrice:[itemInfo.price floatValue]];
-    couponItemCell.quantityLabel.text = [NSString stringWithFormat:@"%@: %d", LS_QUANTITY, 1];  // TODO: handle quantity
+    [couponItemCell configureWithItem:itemInfo];
 }
 
 - (void)didReceiveMemoryWarning

@@ -8,7 +8,7 @@
 
 #import "CartViewController.h"
 #import "TSFrontEndIncludes.h"
-#import "CartItemTableViewCell.h"
+#import "OrderItemTableViewCell.h"
 #import "AppDelegate.h"
 #import "TSNavigationController.h"
 #import "MProductInfo.h"
@@ -22,7 +22,7 @@ typedef enum {
 } CartSection;
 
 @interface CartViewController ()
-@property (nonatomic, strong)   CartItemTableViewCell *cartItemPrototypeCell;
+@property (nonatomic, strong)   OrderItemTableViewCell *cartItemPrototypeCell;
 @end
 
 @implementation CartViewController
@@ -50,6 +50,9 @@ typedef enum {
 - (void)initializeView {
     _itemList.delegate = self;
     _itemList.dataSource = self;
+    UINib *nib = [UINib nibWithNibName:NSStringFromClass(OrderItemTableViewCell.class) bundle:[NSBundle mainBundle]];
+    [_itemList registerNib:nib forCellReuseIdentifier:NSStringFromClass(OrderItemTableViewCell.class)];
+    
     CartHeaderView *cartHeader = (CartHeaderView *)[TSTheming viewWithNibName:NSStringFromClass(CartHeaderView.class) owner:self];
     cartHeader.frame = self.cartHeaderView.frame;
     self.cartHeaderView = cartHeader;
@@ -139,9 +142,9 @@ typedef enum {
     return 0;
 }
 
-- (CartItemTableViewCell *)cartItemPrototypeCell {
+- (OrderItemTableViewCell *)cartItemPrototypeCell {
     if (!_cartItemPrototypeCell) {
-        self.cartItemPrototypeCell = [_itemList dequeueReusableCellWithIdentifier:NSStringFromClass(CartItemTableViewCell.class)];
+        self.cartItemPrototypeCell = [_itemList dequeueReusableCellWithIdentifier:NSStringFromClass(OrderItemTableViewCell.class)];
     }
     return _cartItemPrototypeCell;
 }
@@ -152,7 +155,7 @@ typedef enum {
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = nil;
-    cell = [_itemList dequeueReusableCellWithIdentifier:NSStringFromClass(CartItemTableViewCell.class) forIndexPath:indexPath];
+    cell = [_itemList dequeueReusableCellWithIdentifier:NSStringFromClass(OrderItemTableViewCell.class) forIndexPath:indexPath];
     [self configureCell:cell atIndexPath:indexPath];
     return cell;
 }
@@ -160,22 +163,9 @@ typedef enum {
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
         case CartSectionItems: {
-            CartItemTableViewCell *cartItemCell = (CartItemTableViewCell *)cell;
+            OrderItemTableViewCell *cartItemCell = (OrderItemTableViewCell *)cell;
             MItemInfo *itemInfo = self.inCartItems[indexPath.row];
-            
-            __weak CartItemTableViewCell *weakCartItemCell = cartItemCell;
-            [cartItemCell.itemImageView setImageWithURL:[NSURL URLWithString:itemInfo.product.resolvedImageURL] placeholderImage:nil options:0 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-                if (image) {
-                    weakCartItemCell.itemImageView.image = [image resizedImageToSize:weakCartItemCell.itemImageView.frame.size];
-                } else {
-                    DDLogWarn(@"cannot set image for cart item: %@ - error %@", weakCartItemCell.itemNameLabel.text, error);
-                }
-            }];
-            
-            cartItemCell.itemNameLabel.text = itemInfo.product.name;
-            cartItemCell.itemDetailsLabel.text = itemInfo.description;  // TODO: fill in this detail
-            cartItemCell.priceLabel.text = [NSString stringWithPrice:[itemInfo.price floatValue]];
-            cartItemCell.quantityLabel.text = [NSString stringWithFormat:@"%@: %d", LS_QUANTITY, 1];  // TODO: handle quantity
+            [cartItemCell configureWithItem:itemInfo];
         }
             break;
         case CartSectionPromotion: {

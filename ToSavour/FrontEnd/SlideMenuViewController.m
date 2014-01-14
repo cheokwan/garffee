@@ -15,6 +15,7 @@
 #import "TSFrontEndIncludes.h"
 #import "TSNavigationController.h"
 #import "CouponDetailsViewController.h"
+#import "OrderDetailsViewController.h"
 
 typedef enum {
     SlideMenuSectionMyOrder = 0,
@@ -317,6 +318,10 @@ typedef enum {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     switch (indexPath.section) {
         case SlideMenuSectionMyOrder: {
+            OrderDetailsViewController *orderDetailsViewController = (OrderDetailsViewController *)[TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(OrderDetailsViewController.class)];
+            orderDetailsViewController.order = self.ongoingOrderFetchedResultsController.fetchedObjects[indexPath.row];
+            TSNavigationController *naviController = [[TSNavigationController alloc] initWithRootViewController:orderDetailsViewController];
+            [self presentViewController:naviController animated:YES completion:nil];
         }
             break;
         case SlideMenuSectionGift: {

@@ -76,7 +76,7 @@
             self.accessoryImageURL = [TSTheming URLWithImageAssetNamed:@"ico_profile_phone@2x"];  // XXX-TEST
         } else if ([user.userType intValue] & MUserInfoUserTypeAppNativeUser) {
             // if app native user
-            self.accessoryImageURL = [TSTheming URLWithImageAssetNamed:@"ico_profile_name@2x"];  // XXX-TEST
+            self.accessoryImageURL = [TSTheming URLWithImageAssetNamed:@"ico_garffee@2x"];  // XXX-TEST
         }
         self.isInteractable = interactable;
         [self initializeView];

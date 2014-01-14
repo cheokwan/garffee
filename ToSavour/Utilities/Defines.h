@@ -9,6 +9,6 @@
 #ifndef ToSavour_Defines_h
 #define ToSavour_Defines_h
 
-#define BRAND_NAME  @"ToSavour"
+#define BRAND_NAME  @"Garffee"
 
 #endif

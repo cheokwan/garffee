@@ -68,4 +68,11 @@
     }
 }
 
+- (id)getPrimitiveValueForKey:(NSString *)key {
+    [self willAccessValueForKey:key];
+    id value = [self primitiveValueForKey:key];
+    [self didAccessValueForKey:key];
+    return value;
+}
+
 @end

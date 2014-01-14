@@ -10,8 +10,8 @@
 #import <CoreData/CoreData.h>
 #import "RKMappableEntity.h"
 
-static NSString *MProductInfoTypeReal = @"Real";
-static NSString *MProductInfoTypeVirtual = @"Virtual";
+static NSString *MProductInfoTypeReal = @"real";
+static NSString *MProductInfoTypeVirtual = @"virtual";
 
 @class MProductConfigurableOption;
 

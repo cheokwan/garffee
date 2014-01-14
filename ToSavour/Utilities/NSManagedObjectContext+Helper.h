@@ -11,5 +11,6 @@
 @interface NSManagedObjectContext (Helper)
 
 - (void)save;
+- (NSManagedObject *)fetchUniqueObject:(NSFetchRequest *)fetchRequest;
 
 @end

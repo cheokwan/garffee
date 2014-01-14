@@ -35,7 +35,7 @@
 }
 
 + (MOrderInfo *)existingOrNewOrderInfoInContext:(NSManagedObjectContext *)context {
-    MOrderInfo *order = (MOrderInfo *)[MOrderInfo existingOrNewObjectInContext:context withPredicate:[NSPredicate predicateWithFormat:@"status = %@", MOrderInfoStatusInCart]];  // XXX-TEST
+    MOrderInfo *order = (MOrderInfo *)[MOrderInfo existingOrNewObjectInContext:context withPredicate:[NSPredicate predicateWithFormat:@"status =[c] %@", MOrderInfoStatusInCart]];  // XXX-TEST
     order.status = MOrderInfoStatusInCart;
     [order updatePrice];
     return order;

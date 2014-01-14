@@ -16,4 +16,6 @@
 + (NSFetchRequest *)fetchRequest;
 + (void)removeALlObjectsInContext:(NSManagedObjectContext *)context;
 
+- (id)getPrimitiveValueForKey:(NSString *)key;
+
 @end

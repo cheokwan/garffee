@@ -19,6 +19,11 @@
 		D2209F391880172800282DAE /* CouponDetailsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2209F381880172800282DAE /* CouponDetailsHeaderView.m */; };
 		D2209F3C18801D9800282DAE /* CouponDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2209F3B18801D9800282DAE /* CouponDetailsViewController.m */; };
 		D2209F401883EE9900282DAE /* CouponDetailsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2209F3F1883EE9900282DAE /* CouponDetailsHeaderView.xib */; };
+		D2209F421884E7D700282DAE /* OrderDetailsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2209F411884E7D700282DAE /* OrderDetailsHeaderView.xib */; };
+		D2209F451884EAF500282DAE /* OrderDetailsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2209F441884EAF500282DAE /* OrderDetailsHeaderView.m */; };
+		D2209F481884EFD400282DAE /* OrderDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2209F471884EFD400282DAE /* OrderDetailsViewController.m */; };
+		D2209F4A18851FA500282DAE /* OrderItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2209F4918851FA500282DAE /* OrderItemTableViewCell.xib */; };
+		D2209F4D1885212600282DAE /* OrderItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D2209F4C1885212600282DAE /* OrderItemTableViewCell.m */; };
 		D221964D1859BCC6007528EE /* FriendsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D221964C1859BCC6007528EE /* FriendsListViewController.m */; };
 		D22196501859C24C007528EE /* FriendsListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D221964F1859C24C007528EE /* FriendsListTableViewCell.m */; };
 		D2219653185AACD8007528EE /* NSManagedObject+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2219652185AACD8007528EE /* NSManagedObject+Helper.m */; };
@@ -73,7 +78,6 @@
 		D246682D185F15F70089D5DB /* MBranch.json in Resources */ = {isa = PBXBuildFile; fileRef = D2C075B61851D33F00620114 /* MBranch.json */; };
 		D2466840186036BB0089D5DB /* CartHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D246683F186036BB0089D5DB /* CartHeaderView.m */; };
 		D246684318603C800089D5DB /* CartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D246684218603C800089D5DB /* CartViewController.m */; };
-		D2466846186052450089D5DB /* CartItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D2466845186052450089D5DB /* CartItemTableViewCell.m */; };
 		D2466849186062DC0089D5DB /* NSString+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2466848186062DC0089D5DB /* NSString+Helper.m */; };
 		D251EF14187D0A130012536E /* OngoingOrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D251EF13187D0A130012536E /* OngoingOrderTableViewCell.m */; };
 		D251EF16187D0B0A0012536E /* CartHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D251EF15187D0B0A0012536E /* CartHeaderView.xib */; };
@@ -196,6 +200,14 @@
 		D2209F3A18801D9800282DAE /* CouponDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CouponDetailsViewController.h; path = FrontEnd/CouponDetailsViewController.h; sourceTree = "<group>"; };
 		D2209F3B18801D9800282DAE /* CouponDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CouponDetailsViewController.m; path = FrontEnd/CouponDetailsViewController.m; sourceTree = "<group>"; };
 		D2209F3F1883EE9900282DAE /* CouponDetailsHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CouponDetailsHeaderView.xib; path = FrontEnd/XIBs/CouponDetailsHeaderView.xib; sourceTree = "<group>"; };
+		D2209F411884E7D700282DAE /* OrderDetailsHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = OrderDetailsHeaderView.xib; path = FrontEnd/XIBs/OrderDetailsHeaderView.xib; sourceTree = "<group>"; };
+		D2209F431884EAF500282DAE /* OrderDetailsHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrderDetailsHeaderView.h; path = FrontEnd/Views/OrderDetailsHeaderView.h; sourceTree = "<group>"; };
+		D2209F441884EAF500282DAE /* OrderDetailsHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrderDetailsHeaderView.m; path = FrontEnd/Views/OrderDetailsHeaderView.m; sourceTree = "<group>"; };
+		D2209F461884EFD400282DAE /* OrderDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrderDetailsViewController.h; path = FrontEnd/OrderDetailsViewController.h; sourceTree = "<group>"; };
+		D2209F471884EFD400282DAE /* OrderDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrderDetailsViewController.m; path = FrontEnd/OrderDetailsViewController.m; sourceTree = "<group>"; };
+		D2209F4918851FA500282DAE /* OrderItemTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = OrderItemTableViewCell.xib; path = FrontEnd/XIBs/OrderItemTableViewCell.xib; sourceTree = "<group>"; };
+		D2209F4B1885212600282DAE /* OrderItemTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrderItemTableViewCell.h; path = FrontEnd/Views/OrderItemTableViewCell.h; sourceTree = "<group>"; };
+		D2209F4C1885212600282DAE /* OrderItemTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrderItemTableViewCell.m; path = FrontEnd/Views/OrderItemTableViewCell.m; sourceTree = "<group>"; };
 		D221964718598E0B007528EE /* RKMappableEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RKMappableEntity.h; path = BackEnd/RKMappableEntity.h; sourceTree = "<group>"; };
 		D221964B1859BCC6007528EE /* FriendsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FriendsListViewController.h; path = FrontEnd/FriendsListViewController.h; sourceTree = "<group>"; };
 		D221964C1859BCC6007528EE /* FriendsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FriendsListViewController.m; path = FrontEnd/FriendsListViewController.m; sourceTree = "<group>"; };
@@ -209,14 +221,12 @@
 		D243757318488358000009D7 /* TSSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSSettings.h; path = Utilities/TSSettings.h; sourceTree = "<group>"; };
 		D243757418488358000009D7 /* TSSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSSettings.m; path = Utilities/TSSettings.m; sourceTree = "<group>"; };
 		D2437576184C3497000009D7 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		D2466832185F15F70089D5DB /* ToSavour copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ToSavour copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2466832185F15F70089D5DB /* Garffee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Garffee.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2466833185F15F90089D5DB /* ToSavour copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "ToSavour copy-Info.plist"; path = "/Users/jasonwan/workspace/git/tosavour_ios/ToSavour-iOS/ToSavour copy-Info.plist"; sourceTree = "<absolute>"; };
 		D246683E186036BB0089D5DB /* CartHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CartHeaderView.h; path = FrontEnd/Views/CartHeaderView.h; sourceTree = "<group>"; };
 		D246683F186036BB0089D5DB /* CartHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CartHeaderView.m; path = FrontEnd/Views/CartHeaderView.m; sourceTree = "<group>"; };
 		D246684118603C800089D5DB /* CartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CartViewController.h; path = FrontEnd/CartViewController.h; sourceTree = "<group>"; };
 		D246684218603C800089D5DB /* CartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CartViewController.m; path = FrontEnd/CartViewController.m; sourceTree = "<group>"; };
-		D2466844186052450089D5DB /* CartItemTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CartItemTableViewCell.h; path = FrontEnd/Views/CartItemTableViewCell.h; sourceTree = "<group>"; };
-		D2466845186052450089D5DB /* CartItemTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CartItemTableViewCell.m; path = FrontEnd/Views/CartItemTableViewCell.m; sourceTree = "<group>"; };
 		D2466847186062DC0089D5DB /* NSString+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Helper.h"; path = "Utilities/NSString+Helper.h"; sourceTree = "<group>"; };
 		D2466848186062DC0089D5DB /* NSString+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Helper.m"; path = "Utilities/NSString+Helper.m"; sourceTree = "<group>"; };
 		D251EF12187D0A130012536E /* OngoingOrderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OngoingOrderTableViewCell.h; path = FrontEnd/Views/OngoingOrderTableViewCell.h; sourceTree = "<group>"; };
@@ -254,7 +264,7 @@
 		D2827DF9187540BD00E4A662 /* NSArray+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+Helper.m"; path = "Utilities/NSArray+Helper.m"; sourceTree = "<group>"; };
 		D2827DFC18755B1400E4A662 /* MUserAddressBookInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUserAddressBookInfo.h; path = BackEnd/Model/MUserAddressBookInfo.h; sourceTree = "<group>"; };
 		D2827DFD18755B1400E4A662 /* MUserAddressBookInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUserAddressBookInfo.m; path = BackEnd/Model/MUserAddressBookInfo.m; sourceTree = "<group>"; };
-		D293E4AE183DEDEB00B73795 /* ToSavour.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToSavour.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D293E4AE183DEDEB00B73795 /* Garffee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Garffee.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D293E4B1183DEDEB00B73795 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D293E4B3183DEDEB00B73795 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		D293E4B5183DEDEB00B73795 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -465,9 +475,9 @@
 		D293E4AF183DEDEB00B73795 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D293E4AE183DEDEB00B73795 /* ToSavour.app */,
+				D293E4AE183DEDEB00B73795 /* Garffee.app */,
 				D293E4D7183DEDEB00B73795 /* ToSavourTests.xctest */,
-				D2466832185F15F70089D5DB /* ToSavour copy.app */,
+				D2466832185F15F70089D5DB /* Garffee.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -566,6 +576,8 @@
 				DF1C88D11875967800400283 /* PickUpLocationViewController.m */,
 				D2209F3A18801D9800282DAE /* CouponDetailsViewController.h */,
 				D2209F3B18801D9800282DAE /* CouponDetailsViewController.m */,
+				D2209F461884EFD400282DAE /* OrderDetailsViewController.h */,
+				D2209F471884EFD400282DAE /* OrderDetailsViewController.m */,
 			);
 			name = FrontEnd;
 			sourceTree = "<group>";
@@ -644,6 +656,8 @@
 				D2209F3F1883EE9900282DAE /* CouponDetailsHeaderView.xib */,
 				D2A67A90185C21C500889114 /* AccountHeaderView.xib */,
 				D21DCE72187A7A6E008CF011 /* HomeControlView.xib */,
+				D2209F411884E7D700282DAE /* OrderDetailsHeaderView.xib */,
+				D2209F4918851FA500282DAE /* OrderItemTableViewCell.xib */,
 			);
 			name = XIBs;
 			sourceTree = "<group>";
@@ -663,6 +677,8 @@
 		D2C075B81852CA4700620114 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D2209F4B1885212600282DAE /* OrderItemTableViewCell.h */,
+				D2209F4C1885212600282DAE /* OrderItemTableViewCell.m */,
 				D2C075BC1852CACB00620114 /* ItemPickerTableViewCell.h */,
 				D2C075BD1852CACB00620114 /* ItemPickerTableViewCell.m */,
 				D2C075C218533B6A00620114 /* ItemPickerScrollView.h */,
@@ -679,8 +695,6 @@
 				D2A67A99185C48B100889114 /* TransactionHistoryTableViewCell.m */,
 				D246683E186036BB0089D5DB /* CartHeaderView.h */,
 				D246683F186036BB0089D5DB /* CartHeaderView.m */,
-				D2466844186052450089D5DB /* CartItemTableViewCell.h */,
-				D2466845186052450089D5DB /* CartItemTableViewCell.m */,
 				D2827DD9186D882D00E4A662 /* ItemGridView.h */,
 				D2827DDA186D882D00E4A662 /* ItemGridView.m */,
 				D21DCE75187A830D008CF011 /* HomeControlView.h */,
@@ -703,6 +717,8 @@
 				D2FF84CC187E91FA00D3A21C /* TSBadgeView.m */,
 				D2209F371880172800282DAE /* CouponDetailsHeaderView.h */,
 				D2209F381880172800282DAE /* CouponDetailsHeaderView.m */,
+				D2209F431884EAF500282DAE /* OrderDetailsHeaderView.h */,
+				D2209F441884EAF500282DAE /* OrderDetailsHeaderView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -760,7 +776,7 @@
 			);
 			name = "ToSavour Generate Seed DB";
 			productName = ToSavour;
-			productReference = D2466832185F15F70089D5DB /* ToSavour copy.app */;
+			productReference = D2466832185F15F70089D5DB /* Garffee.app */;
 			productType = "com.apple.product-type.application";
 		};
 		D293E4AD183DEDEB00B73795 /* ToSavour */ = {
@@ -779,7 +795,7 @@
 			);
 			name = ToSavour;
 			productName = ToSavour;
-			productReference = D293E4AE183DEDEB00B73795 /* ToSavour.app */;
+			productReference = D293E4AE183DEDEB00B73795 /* Garffee.app */;
 			productType = "com.apple.product-type.application";
 		};
 		D293E4D6183DEDEB00B73795 /* ToSavourTests */ = {
@@ -861,10 +877,12 @@
 				D293E4D2183DEDEB00B73795 /* Images.xcassets in Resources */,
 				D251EF16187D0B0A0012536E /* CartHeaderView.xib in Resources */,
 				D293EB2A185F04ED00A69034 /* MProductConfigurableOption.json in Resources */,
+				D2209F421884E7D700282DAE /* OrderDetailsHeaderView.xib in Resources */,
 				D2209F401883EE9900282DAE /* CouponDetailsHeaderView.xib in Resources */,
 				D293EB2B185F04ED00A69034 /* MProductInfo.json in Resources */,
 				D293EB2C185F04ED00A69034 /* MProductOptionChoice.json in Resources */,
 				D293E4BE183DEDEB00B73795 /* InfoPlist.strings in Resources */,
+				D2209F4A18851FA500282DAE /* OrderItemTableViewCell.xib in Resources */,
 				D21DCE73187A7A6E008CF011 /* HomeControlView.xib in Resources */,
 				DFE628A518558AD600E1C8FE /* DailyGameStoryboard.storyboard in Resources */,
 				D293E4C7183DEDEB00B73795 /* Main.storyboard in Resources */,
@@ -998,6 +1016,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2827DE9187288C700E4A662 /* MUserFacebookInfo.m in Sources */,
+				D2209F451884EAF500282DAE /* OrderDetailsHeaderView.m in Sources */,
 				D2827DD318694E4C00E4A662 /* MOrderInfo.m in Sources */,
 				D2827DDB186D882D00E4A662 /* ItemGridView.m in Sources */,
 				DF60E74D185B47BA00DB10DE /* PhotoHuntGridButton.m in Sources */,
@@ -1033,11 +1052,11 @@
 				D2209F3C18801D9800282DAE /* CouponDetailsViewController.m in Sources */,
 				D2A36A941850AA6C004D3D99 /* HomeViewController.m in Sources */,
 				DFE628A81855992800E1C8FE /* ChooseGameViewController.m in Sources */,
+				D2209F4D1885212600282DAE /* OrderItemTableViewCell.m in Sources */,
 				D251EF1E187D11C80012536E /* OrderProgressView.m in Sources */,
 				D2721690187BC99D00958E3B /* LineView.m in Sources */,
 				DFBDA14C1856111500BF3755 /* PhotoHuntViewController.m in Sources */,
 				D2A67A97185C487A00889114 /* AccountInfoTableViewCell.m in Sources */,
-				D2466846186052450089D5DB /* CartItemTableViewCell.m in Sources */,
 				D21DCE7B187AC5B7008CF011 /* FriendsListScrollView.m in Sources */,
 				D293E4F2183DF24000B73795 /* SlideMenuViewController.m in Sources */,
 				DF85270C185EDE450087E247 /* TSGameDownloadManager.m in Sources */,
@@ -1062,6 +1081,7 @@
 				D2A36A86185046B2004D3D99 /* TSTheming.m in Sources */,
 				D2C9168F185EEC9000452891 /* MItemSelectedOption.m in Sources */,
 				DF60E756185C455200DB10DE /* PhotoHuntImageView.m in Sources */,
+				D2209F481884EFD400282DAE /* OrderDetailsViewController.m in Sources */,
 				D2219653185AACD8007528EE /* NSManagedObject+Helper.m in Sources */,
 				D246684318603C800089D5DB /* CartViewController.m in Sources */,
 				D2A67A8E185B467400889114 /* AccountViewController.m in Sources */,
@@ -1139,7 +1159,7 @@
 				);
 				INFOPLIST_FILE = "ToSavour copy-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
-				PRODUCT_NAME = "ToSavour copy";
+				PRODUCT_NAME = "$(PRODUCT_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1162,7 +1182,7 @@
 				);
 				INFOPLIST_FILE = "ToSavour copy-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
-				PRODUCT_NAME = "ToSavour copy";
+				PRODUCT_NAME = "$(PRODUCT_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1203,6 +1223,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = Garffee;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1235,6 +1256,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_NAME = Garffee;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1252,7 +1274,7 @@
 				GCC_PREFIX_HEADER = "ToSavour/ToSavour-Prefix.pch";
 				INFOPLIST_FILE = "ToSavour/ToSavour-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "$(PRODUCT_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1270,7 +1292,7 @@
 				GCC_PREFIX_HEADER = "ToSavour/ToSavour-Prefix.pch";
 				INFOPLIST_FILE = "ToSavour/ToSavour-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "$(PRODUCT_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};

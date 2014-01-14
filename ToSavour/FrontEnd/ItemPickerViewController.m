@@ -88,7 +88,7 @@ typedef enum {
     if (defaultProductIndex == NSNotFound) {
         defaultProductIndex = self.allProducts.count / 2;
     }
-    self.selectedProduct = self.allProducts[defaultProductIndex];
+    self.selectedProduct = self.allProducts.count > 0 ? self.allProducts[defaultProductIndex] : nil;
 }
 
 - (void)viewDidLoad
@@ -157,7 +157,7 @@ typedef enum {
 - (NSArray *)allProducts {
     if (!_allProducts) {
         NSFetchRequest *fetchRequest = [MProductInfo fetchRequest];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"type = %@", MProductInfoTypeReal];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"type =[c] %@", MProductInfoTypeReal];
         fetchRequest.predicate = predicate;
         NSError *error = nil;
         self.allProducts = [[AppDelegate sharedAppDelegate].managedObjectContext executeFetchRequest:fetchRequest error:&error];

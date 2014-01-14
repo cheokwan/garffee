@@ -18,4 +18,17 @@
     }
 }
 
+- (NSManagedObject *)fetchUniqueObject:(NSFetchRequest *)fetchRequest {
+    NSError *error = nil;
+    NSArray *results = [self executeFetchRequest:fetchRequest error:&error];
+    if (error) {
+        DDLogError(@"error fetching unique object with fetch request %@: %@", fetchRequest, error);
+    } else if (results.count > 1) {
+        DDLogWarn(@"more than 1 object returned when fetching unique object %@: %@", fetchRequest, results);
+    } else if (results.count == 1) {
+        return results[0];
+    }
+    return nil;
+}
+
 @end

@@ -59,6 +59,7 @@
 #define LS_PENDING              NSLocalizedString(@"Pending", @"")
 #define LS_IN_PROGRESS          NSLocalizedString(@"In Progress", @"")
 #define LS_FINISHED             NSLocalizedString(@"Finished", @"")
+#define LS_NUM_NO               NSLocalizedString(@"No.", @"")
 #define LS_ORDER_NO             NSLocalizedString(@"Order No.", @"")
 #define LS_REF_NO               NSLocalizedString(@"Ref No.", @"")
 #define LS_GIFT_FROM            NSLocalizedString(@"Gift from", @"")
@@ -69,5 +70,8 @@
 #define LS_FREE                 NSLocalizedString(@"Free", @"")
 #define LS_REDEEM               NSLocalizedString(@"Redeem", @"")
 #define LS_REDEEM_GIFT          NSLocalizedString(@"Redeem Gift", @"")
+#define LS_ORDER_DETAILS        NSLocalizedString(@"Order Details", @"")
+#define LS_PICK_UP_LOCATION     NSLocalizedString(@"Pick Up Location", @"")
+#define LS_ORDER_ITEMS          NSLocalizedString(@"Order Items", @"")
 
 #endif
