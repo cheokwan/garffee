@@ -13,7 +13,7 @@
 #import "TSLocalizedString.h"
 #import "TSTheming.h"
 
-#define REGION_SPAN_DELTA       500.0f
+#define REGION_SPAN_DELTA       1000.0f
 
 @interface BranchLocationMapViewController ()
 
@@ -42,7 +42,7 @@
     _mapView.centerCoordinate = annotation.coordinate;
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(_mapView.centerCoordinate, REGION_SPAN_DELTA, REGION_SPAN_DELTA);
     _mapView.region = region;
-    _mapView.mapType = MKMapTypeHybrid;
+    _mapView.mapType = MKMapTypeStandard;
 }
 
 #pragma mark - MKMapViewDelegate

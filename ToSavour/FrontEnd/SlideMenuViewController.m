@@ -10,6 +10,7 @@
 #import "MUserInfo.h"
 #import "MCouponInfo.h"
 #import "MProductInfo.h"
+#import "MBranch.h"
 #import "OngoingOrderTableViewCell.h"
 #import "GiftTableViewCell.h"
 #import "TSFrontEndIncludes.h"
@@ -278,7 +279,7 @@ typedef enum {
             orderCell.titleLabel.textColor = [TSTheming defaultThemeColor];
             orderCell.titleLabel.text = [NSString stringWithFormat:@"%@ %@", LS_ORDER_NO, order.referenceNumber ? order.referenceNumber : @"None"];
             orderCell.priceLabel.text = [NSString stringWithPrice:[order.price floatValue]];
-            orderCell.locationLabel.text = [order storeBranchName];
+            orderCell.locationLabel.text = order.storeBranch.name;
             
             __weak OngoingOrderTableViewCell *weakOrderCell = orderCell;
             [orderCell.itemImageView setImageWithURL:[order URLForImageRepresentation] placeholderImage:nil options:0 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {

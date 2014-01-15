@@ -14,7 +14,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self initializeView];
+}
+
+- (void)initializeView {
     self.navigationItem.rightBarButtonItem = nil;
+    UINib *nib = [UINib nibWithNibName:NSStringFromClass(PickUpLocationTableViewCell.class) bundle:[NSBundle mainBundle]];
+    [self.tableView registerNib:nib forCellReuseIdentifier:NSStringFromClass(PickUpLocationTableViewCell.class)];
 }
 
 #pragma mark - UITableView related
@@ -29,7 +35,6 @@
     cell.delegate = self;
     cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     MBranch *branch = self.branches[indexPath.row];
-    cell.dateFormatter = self.dateFormatter;
     [cell configureWithBranch:branch];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 }
@@ -37,8 +42,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    BranchLocationMapViewController *branchLocationMapVC = (BranchLocationMapViewController*)[TSTheming viewControllerWithStoryboardIdentifier:@"BranchLocationMapViewController" storyboard:@"Main"];
-    MBranch *branch = self.branches[indexPath.row];
+    BranchLocationMapViewController *branchLocationMapVC = (BranchLocationMapViewController*)[TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(BranchLocationMapViewController.class)];
     branchLocationMapVC.branch = self.branches[indexPath.row];
     [self.navigationController pushViewController:branchLocationMapVC animated:YES];
 }

@@ -8,9 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import "RKMappableEntity.h"
 
 
-@interface MBranch : NSManagedObject
+@interface MBranch : NSManagedObject<RKMappableEntity>
 
 @property (nonatomic, retain) NSString * address;
 @property (nonatomic, retain) NSNumber * branchId;
@@ -23,6 +24,8 @@
 @property (nonatomic, retain) NSString * region;
 @property (nonatomic, retain) NSString * thumbnailURL;
 @property (nonatomic, retain) NSString * imageURL;
+
+- (NSURL *)URLForThumbnailImage;
 
 + (RKEntityMapping *)defaultEntityMapping;
 + (RKResponseDescriptor *)defaultResponseDescriptor;

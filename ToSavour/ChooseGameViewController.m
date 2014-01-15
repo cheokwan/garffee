@@ -330,7 +330,7 @@
 - (void)photoHuntViewControllerDidFinishGame:(PhotoHuntViewController *)controller {
     [self gameChanged];
     [self refetchGamesData];
-    DDLogCDebug(@"finished game and come back!");
+    DDLogDebug(@"finished game and come back!");
 }
 
 #pragma TSGameServiceCallDelegate
@@ -341,9 +341,9 @@
         if (data) {
             NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
             if (!jsonArray) {
-                DDLogCDebug(@"Error parsing JSON: %@", error);
+                DDLogDebug(@"Error parsing JSON: %@", error);
             } else {
-                DDLogCDebug(@"");
+                DDLogDebug(@"");
                 [self updateGameResultHistories:jsonArray];
             }
         }
@@ -353,10 +353,10 @@
             NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
             self.games = [NSMutableArray array];
             if (!jsonArray) {
-                DDLogCDebug(@"Error parsing JSON: %@", error);
+                DDLogDebug(@"Error parsing JSON: %@", error);
             } else {
                 for(NSDictionary *item in jsonArray) {
-                    DDLogCDebug(@"Item: %@", item);
+                    DDLogDebug(@"Item: %@", item);
                     TSGame *game = [[TSGame alloc] init];
                     game.gameId = [item[GAME_DICT_KEY_ID] stringValue];
                     game.name = item[GAME_DICT_KEY_NAME];
@@ -373,7 +373,7 @@
                     [_games addObject:game];
                 }
             }
-            DDLogCDebug(@"");
+            DDLogDebug(@"");
         }
         [self initializeScrollView];
         [self gameChanged];
@@ -385,7 +385,7 @@
             NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
             
             if (!jsonArray) {
-                DDLogCDebug(@"Error parsing JSON: %@", error);
+                DDLogDebug(@"Error parsing JSON: %@", error);
             } else {
                 for(NSDictionary *item in jsonArray) {
                     if (item[@"Value"]) {
@@ -397,7 +397,7 @@
                 self.serviceCallsStatus = GameServiceCallsStatusGameList;
                 [((TSGameServiceCalls *)[TSGameServiceCalls sharedInstance]) fetchGameList:self];
             } else {
-                DDLogCError(@"no configuration host is found");
+                DDLogError(@"no configuration host is found");
             }
         }
     }

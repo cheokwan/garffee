@@ -23,7 +23,6 @@ typedef enum {
 
 @interface CartViewController ()
 @property (nonatomic, strong)   OrderItemTableViewCell *cartItemPrototypeCell;
-@property (nonatomic, strong)   PickUpLocationViewController *pickUpLocationViewController;
 @end
 
 @implementation CartViewController
@@ -97,13 +96,11 @@ typedef enum {
         self.pendingOrder.userID = self.recipient.appID;
         self.pendingOrder.price = @(self.cartPrice);
         self.pendingOrder.orderedDate = [NSDate date];
-        self.pendingOrder.expectedArrivalTime = [NSDate dateWithTimeIntervalSinceNow:300]; // XXXXX
-        self.pendingOrder.pickupTime = [NSDate dateWithTimeIntervalSinceNow:300];  // XXXXX
         
-        self.pickUpLocationViewController = (PickUpLocationViewController*)[TSTheming viewControllerWithStoryboardIdentifier:@"PickUpLocationViewController" storyboard:@"Main"];
-        _pickUpLocationViewController.delegate = self;
-        _pickUpLocationViewController.order = _pendingOrder;
-        [self.navigationController pushViewController:_pickUpLocationViewController animated:YES];
+        PickUpLocationViewController *pickUpLocationViewController = (PickUpLocationViewController*)[TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(PickUpLocationViewController.class)];
+        pickUpLocationViewController.delegate = self;
+        pickUpLocationViewController.order = _pendingOrder;
+        [self.navigationController pushViewController:pickUpLocationViewController animated:YES];
     }
 }
 

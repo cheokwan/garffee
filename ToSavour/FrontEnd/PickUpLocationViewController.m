@@ -54,14 +54,14 @@
     [self.navigationItem.leftBarButtonItem setTintColor:[TSTheming defaultAccentColor]];
     [self.view bringSubviewToFront:_recommendedTimeView];
     [self updateTimeLabel:DEFAULT_ESTIMATED_TIME];
+    UINib *nib = [UINib nibWithNibName:NSStringFromClass(PickUpLocationTableViewCell.class) bundle:[NSBundle mainBundle]];
+    [self.tableView registerNib:nib forCellReuseIdentifier:NSStringFromClass(PickUpLocationTableViewCell.class)];
 }
 
 - (void)initialize {
     self.selectedBranch = nil;
     self.estimatedTimeFromWeb = 0;
     self.userEstimateTime = 0;
-    self.dateFormatter = [[NSDateFormatter alloc] init];
-    _dateFormatter.dateFormat = @"hh:mm";
     self.branchFRC = [self generateBranchFRC];
     NSError *error = nil;
     if (![_branchFRC performFetch:&error]) {
@@ -120,7 +120,6 @@
     cell.delegate = self;
     cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     MBranch *branch = self.branches[indexPath.row];
-    cell.dateFormatter = _dateFormatter;
     [cell configureWithBranch:branch];
     UIImage *accessoryImage;
     if (cell.branch == self.selectedBranch) {
@@ -129,7 +128,7 @@
         accessoryImage = [UIImage imageNamed:@"ico_unselect"];
     }
     UIImageView *imageView = [[UIImageView alloc] initWithImage:accessoryImage];
-    imageView.frame = CGRectMake(0, 0, 30, 30);
+    imageView.frame = CGRectMake(0, 0, 25, 25);
     cell.accessoryView = imageView;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
 }
@@ -235,7 +234,7 @@
             _spinner.mode = MBProgressHUDModeIndeterminate;
             _spinner.labelText = LS_SUBMITTING;
             
-            [[RestManager sharedInstance] postOrder:_order handler:self];
+            [[RestManager sharedInstance] postOrder:self.order handler:self];
         }
     }
 }

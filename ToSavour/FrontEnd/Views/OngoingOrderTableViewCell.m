@@ -27,7 +27,8 @@
 }
 
 - (void)initializeView {
-    self.itemImageView.layer.cornerRadius = 2.0;
+    self.itemImageView.layer.masksToBounds = YES;
+    self.itemImageView.layer.cornerRadius = 5.0;
 }
 
 - (void)awakeFromNib {

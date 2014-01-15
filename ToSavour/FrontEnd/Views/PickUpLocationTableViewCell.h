@@ -17,12 +17,14 @@
 @interface PickUpLocationTableViewCell : UITableViewCell
 
 @property (nonatomic, strong) IBOutlet UIImageView *thumbnailImageView;
-@property (nonatomic, strong) IBOutlet UILabel *branchNameLabel, *openingHourLabel, *telephoneNumberLabel;
-@property (nonatomic, strong) IBOutlet UIImageView *openingHourImageView, *telephoneNumberImageView;
+@property (nonatomic, strong) IBOutlet UILabel *branchNameLabel;
+@property (nonatomic, strong) IBOutlet UILabel *openingHourLabel;
+@property (nonatomic, strong) IBOutlet UILabel *telephoneNumberLabel;
+@property (nonatomic, strong) IBOutlet UIImageView *openingHourImageView;
+@property (nonatomic, strong) IBOutlet UIImageView *telephoneNumberImageView;
 
 @property (nonatomic, strong) MBranch *branch;
 @property (nonatomic, assign) id<PickUpLocationTableViewCellDelegate> delegate;
-@property (nonatomic, weak) NSDateFormatter *dateFormatter;
 
 - (void)configureWithBranch:(MBranch *)branch;
 

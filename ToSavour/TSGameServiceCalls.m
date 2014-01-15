@@ -34,17 +34,17 @@
     [request addValue:[RestManager sharedInstance].appToken forHTTPHeaderField:@"Authorization"];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject){
-        DDLogCDebug(@"SUCCEED");
+        DDLogDebug(@"SUCCEED");
         if ([handler respondsToSelector:@selector(restManagerService:succeededWithOperation:userInfo:)]) {
             [handler restManagerService:_cmd succeededWithOperation:operation userInfo:@{@"responseObject": responseObject}];
         }
     }failure:^(AFHTTPRequestOperation *operation, NSError *error){
-        DDLogCDebug(@"failed: %@; ERROR: %@", [operation request], error);
+        DDLogDebug(@"failed: %@; ERROR: %@", [operation request], error);
         if ([handler respondsToSelector:@selector(restManagerService:failedWithOperation:error:userInfo:)]) {
             [handler restManagerService:_cmd failedWithOperation:operation error:error userInfo:nil];
         }
     }];
-    DDLogCDebug(@"%@", request);
+    DDLogDebug(@"%@", request);
     [operation start];
 }
 
@@ -56,17 +56,17 @@
     [request addValue:[RestManager sharedInstance].appToken forHTTPHeaderField:@"Authorization"];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject){
-        DDLogCDebug(@"SUCCEED");
+        DDLogDebug(@"SUCCEED");
         if ([handler respondsToSelector:@selector(restManagerService:succeededWithOperation:userInfo:)]) {
             [handler restManagerService:_cmd succeededWithOperation:operation userInfo:@{@"responseObject": responseObject}];
         }
     }failure:^(AFHTTPRequestOperation *operation, NSError *error){
-        DDLogCDebug(@"failed: %@; ERROR: %@", [operation request], error);
+        DDLogDebug(@"failed: %@; ERROR: %@", [operation request], error);
         if ([handler respondsToSelector:@selector(restManagerService:failedWithOperation:error:userInfo:)]) {
             [handler restManagerService:_cmd failedWithOperation:operation error:error userInfo:nil];
         }
     }];
-    DDLogCDebug(@"%@", request);
+    DDLogDebug(@"%@", request);
     [operation start];
 }
 
@@ -78,17 +78,17 @@
     [request addValue:[RestManager sharedInstance].appToken forHTTPHeaderField:@"Authorization"];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject){
-        DDLogCDebug(@"SUCCEED");
+        DDLogDebug(@"SUCCEED");
         if ([handler respondsToSelector:@selector(restManagerService:succeededWithOperation:userInfo:)]) {
             [handler restManagerService:_cmd succeededWithOperation:operation userInfo:@{@"responseObject": responseObject}];
         }
     }failure:^(AFHTTPRequestOperation *operation, NSError *error){
-        DDLogCDebug(@"failed: %@; ERROR: %@", [operation request], error);
+        DDLogDebug(@"failed: %@; ERROR: %@", [operation request], error);
         if ([handler respondsToSelector:@selector(restManagerService:failedWithOperation:error:userInfo:)]) {
             [handler restManagerService:_cmd failedWithOperation:operation error:error userInfo:nil];
         }
     }];
-    DDLogCDebug(@"%@", request);
+    DDLogDebug(@"%@", request);
     [operation start];
 }
 
@@ -121,12 +121,12 @@
     
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject){
-        DDLogCDebug(@"SUCCEED");
+        DDLogDebug(@"SUCCEED");
         if (responseObject) {
             NSError *error = nil;
             NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&error];
             if (!jsonDict) {
-                DDLogCDebug(@"Error parsing JSON: %@", error);
+                DDLogDebug(@"Error parsing JSON: %@", error);
             } else {
                 TSGamePlayHistory *history = [[TSGamePlayHistory alloc] init];
                 RKMappingOperation *mappingOperation = [[RKMappingOperation alloc] initWithSourceObject:jsonDict destinationObject:history mapping:[TSGamePlayHistory gamePlayHistoryResponseMapping]];
@@ -138,12 +138,12 @@
             }
         }
     }failure:^(AFHTTPRequestOperation *operation, NSError *error){
-        DDLogCDebug(@"failed: %@; ERROR: %@", [operation request], error);
+        DDLogDebug(@"failed: %@; ERROR: %@", [operation request], error);
         if ([handler respondsToSelector:@selector(restManagerService:failedWithOperation:error:userInfo:)]) {
             [handler restManagerService:_cmd failedWithOperation:operation error:error userInfo:nil];
         }
     }];
-    DDLogCDebug(@"%@", request);
+    DDLogDebug(@"%@", request);
     [operation start];
 }
 
@@ -161,17 +161,17 @@
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject){
-        DDLogCDebug(@"SUCCEED");
+        DDLogDebug(@"SUCCEED");
         if ([handler respondsToSelector:@selector(restManagerService:succeededWithOperation:userInfo:)]) {
             [handler restManagerService:_cmd succeededWithOperation:operation userInfo:@{@"responseObject": responseObject}];
         }
     }failure:^(AFHTTPRequestOperation *operation, NSError *error){
-        DDLogCDebug(@"failed: %@; ERROR: %@", [operation request], error);
+        DDLogDebug(@"failed: %@; ERROR: %@", [operation request], error);
         if ([handler respondsToSelector:@selector(restManagerService:failedWithOperation:error:userInfo:)]) {
             [handler restManagerService:_cmd failedWithOperation:operation error:error userInfo:nil];
         }
     }];
-    DDLogCDebug(@"%@", request);
+    DDLogDebug(@"%@", request);
     [operation start];
 }
 
@@ -185,11 +185,11 @@
     [request addValue:[RestManager sharedInstance].appToken forHTTPHeaderField:@"Authorization"];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject){
-        DDLogCDebug(@"SUCCEED removed all game histories");
+        DDLogDebug(@"SUCCEED removed all game histories");
     }failure:^(AFHTTPRequestOperation *operation, NSError *error){
-        DDLogCDebug(@"FAILED to remove all game histories: %@; ERROR: %@", [operation request], error);
+        DDLogDebug(@"FAILED to remove all game histories: %@; ERROR: %@", [operation request], error);
     }];
-    DDLogCDebug(@"%@", request);
+    DDLogDebug(@"%@", request);
     [operation start];
 }
 //XXX-ML

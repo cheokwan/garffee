@@ -34,7 +34,6 @@
 @property (nonatomic) int userEstimateTime;
 
 @property (nonatomic, strong) NSFetchedResultsController *branchFRC;
-@property (nonatomic, strong) NSDateFormatter *dateFormatter;
 
 @property (nonatomic, strong) NSArray *branches;
 @property (nonatomic, strong) MOrderInfo *order;

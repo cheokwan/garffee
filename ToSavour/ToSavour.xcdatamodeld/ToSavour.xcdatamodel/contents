@@ -76,6 +76,7 @@
         <attribute name="storeBranchID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="userID" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="items" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MItemInfo" inverseName="order" inverseEntity="MItemInfo" syncable="YES"/>
+        <relationship name="storeBranch" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MBranch" syncable="YES"/>
     </entity>
     <entity name="MProductConfigurableOption" representedClassName="MProductConfigurableOption" syncable="YES">
         <attribute name="defaultChoice" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>

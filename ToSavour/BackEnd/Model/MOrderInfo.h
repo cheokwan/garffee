@@ -9,8 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 #import "RKMappableEntity.h"
+#import "MBranch.h"
 
-@class MItemInfo;
+@class MBranch, MItemInfo;
 
 static NSString *MOrderInfoStatusInCart     = @"incart";
 //static NSString *MOrderInfoStatusSubmitted  = @"submitted";   // TODO: probably don't need this state
@@ -22,21 +23,21 @@ static NSString *MOrderInfoStatusPickedUp   = @"pickedup";
 
 @interface MOrderInfo : NSManagedObject<RKMappableEntity>
 
-@property (nonatomic, retain) NSNumber * id;
-@property (nonatomic, retain) NSString * userID;
-@property (nonatomic, retain) NSNumber * price;
-@property (nonatomic, retain) NSDate * orderedDate;
-@property (nonatomic, retain) NSString * status;
-@property (nonatomic, retain) NSDate * pickupTime;
-@property (nonatomic, retain) NSNumber * priority;
 @property (nonatomic, retain) NSDate * expectedArrivalTime;
+@property (nonatomic, retain) NSNumber * id;
+@property (nonatomic, retain) NSDate * orderedDate;
+@property (nonatomic, retain) NSDate * pickupTime;
+@property (nonatomic, retain) NSNumber * price;
+@property (nonatomic, retain) NSNumber * priority;
 @property (nonatomic, retain) NSString * referenceNumber;
+@property (nonatomic, retain) NSString * status;
 @property (nonatomic, retain) NSNumber * storeBranchID;
+@property (nonatomic, retain) NSString * userID;
 @property (nonatomic, retain) NSSet *items;
+@property (nonatomic, retain) MBranch *storeBranch;
 
 + (MOrderInfo *)newOrderInfoInContext:(NSManagedObjectContext *)context;
 + (MOrderInfo *)existingOrNewOrderInfoInContext:(NSManagedObjectContext *)context;
-- (NSString *)storeBranchName;
 - (NSURL *)URLForImageRepresentation;
 - (void)updatePrice;
 @end

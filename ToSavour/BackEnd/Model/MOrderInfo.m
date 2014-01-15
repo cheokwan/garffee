@@ -15,17 +15,18 @@
 
 @implementation MOrderInfo
 
-@dynamic id;
-@dynamic userID;
-@dynamic price;
-@dynamic orderedDate;
-@dynamic status;
-@dynamic pickupTime;
-@dynamic priority;
 @dynamic expectedArrivalTime;
+@dynamic id;
+@dynamic orderedDate;
+@dynamic pickupTime;
+@dynamic price;
+@dynamic priority;
 @dynamic referenceNumber;
+@dynamic status;
 @dynamic storeBranchID;
+@dynamic userID;
 @dynamic items;
+@dynamic storeBranch;
 
 + (MOrderInfo *)newOrderInfoInContext:(NSManagedObjectContext *)context {
     MOrderInfo *order = [MOrderInfo newObjectInContext:context];
@@ -60,11 +61,6 @@
     NSAssert(fetchResults.count == 0, @"zombie MItemSelectedOption found: %@", fetchResults);
 }
 
-- (NSString *)storeBranchName {
-    // TODO: fetch branch name
-    return @"Causeway Bay";
-}
-
 - (NSURL *)URLForImageRepresentation {
     if (self.items.count > 0) {
         MItemInfo *item = [self.items allObjects][0];
@@ -83,6 +79,24 @@
         total += [item.price doubleValue];
     }
     self.price = @(total);
+}
+
+- (void)changeValue:(id)value forKey:(NSString *)key {
+    [self willChangeValueForKey:key];
+    [self setPrimitiveValue:value forKey:key];
+    [self didChangeValueForKey:key];
+    if ([key isEqualToString:@"storeBranchID"]) {
+        NSFetchRequest *fetchRequest = [MBranch fetchRequest];
+        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"branchId = %@", self.storeBranchID];
+        NSManagedObject *branchObject = [self.managedObjectContext fetchUniqueObject:fetchRequest];
+        if (!self.storeBranch && branchObject && [branchObject isKindOfClass:MBranch.class]) {
+            self.storeBranch = (MBranch *)branchObject;
+        }
+    }
+}
+
+- (void)setStoreBranchID:(NSNumber *)storeBranchID {
+    [self changeValue:storeBranchID forKey:@"storeBranchID"];
 }
 
 #pragma mark - RKMappableEntity

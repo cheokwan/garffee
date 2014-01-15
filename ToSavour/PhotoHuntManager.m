@@ -97,7 +97,7 @@
             if ([item hasPrefix:@"trans"]) {
                 self.transImageFullPath = itemFullPath;
             }
-            DDLogCDebug(@"%@ is not a directory", item);
+            DDLogDebug(@"%@ is not a directory", item);
         }
     }
     self.changesValidDict = [NSMutableDictionary dictionary];

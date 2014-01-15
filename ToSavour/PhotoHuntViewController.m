@@ -129,7 +129,7 @@ typedef enum {
 }
 
 - (void)timesUp {
-    DDLogCInfo(@"time's up: %f", [NSDate timeIntervalSinceReferenceDate]);
+    DDLogInfo(@"time's up: %f", [NSDate timeIntervalSinceReferenceDate]);
     if (_userEndGameAlertView) {
         [_userEndGameAlertView dismissWithClickedButtonIndex:_userEndGameAlertView.cancelButtonIndex animated:NO];
         [self unregisterAlertView:_userEndGameAlertView];

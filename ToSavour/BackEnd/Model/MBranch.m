@@ -24,6 +24,25 @@
 @dynamic thumbnailURL;
 @dynamic imageURL;
 
+- (NSURL *)URLForThumbnailImage {
+    if ([self.thumbnailURL trimmedWhiteSpaces].length > 0) {
+//        return [NSURL URLWithString:self.thumbnailURL];
+        return [NSURL URLWithString:@"http://static6.businessinsider.com/image/4f5691296bb3f7920700005b/starbucks-concept-store.jpg"]; // XXXXXX
+    } else {
+        return nil;
+    }
+}
+
+- (NSNumber *)latitude {
+    return @(22.281847);  // XXXXXX
+}
+
+- (NSNumber *)longitude {
+    return @(114.185103);  // XXXXXX
+}
+
+# pragma mark - RKMappableEntity
+
 + (RKEntityMapping *)defaultEntityMapping {
     RKEntityMapping *mapping = [RKEntityMapping mappingForEntityForName:NSStringFromClass(self.class) inManagedObjectStore:[RKManagedObjectStore defaultStore]];
     [mapping addAttributeMappingsFromDictionary:@{@"Address":                   @"address",

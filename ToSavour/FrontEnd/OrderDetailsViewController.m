@@ -9,7 +9,10 @@
 #import "OrderDetailsViewController.h"
 #import "TSTheming.h"
 #import "OrderItemTableViewCell.h"
+#import "PickUpLocationTableViewCell.h"
+#import "BranchLocationMapViewController.h"
 #import "MOrderInfo.h"
+#import "MBranch.h"
 
 typedef enum {
     OrderDetailsSectionPickupLocation = 0,
@@ -19,6 +22,7 @@ typedef enum {
 
 @interface OrderDetailsViewController ()
 @property (nonatomic, strong)   OrderItemTableViewCell *orderItemPrototypeCell;
+@property (nonatomic, strong)   PickUpLocationTableViewCell *storeBranchPrototypeCell;
 @property (nonatomic, readonly) NSArray *orderItems;
 @end
 
@@ -46,8 +50,11 @@ typedef enum {
     
     _orderDetailsList.dataSource = self;
     _orderDetailsList.delegate = self;
-    UINib *nib = [UINib nibWithNibName:NSStringFromClass(OrderItemTableViewCell.class) bundle:[NSBundle mainBundle]];
+    UINib *nib = nil;
+    nib = [UINib nibWithNibName:NSStringFromClass(OrderItemTableViewCell.class) bundle:[NSBundle mainBundle]];
     [_orderDetailsList registerNib:nib forCellReuseIdentifier:NSStringFromClass(OrderItemTableViewCell.class)];
+    nib = [UINib nibWithNibName:NSStringFromClass(PickUpLocationTableViewCell.class) bundle:[NSBundle mainBundle]];
+    [_orderDetailsList registerNib:nib forCellReuseIdentifier:NSStringFromClass(PickUpLocationTableViewCell.class)];
 }
 
 - (void)viewDidLoad
@@ -83,6 +90,13 @@ typedef enum {
     return _orderItemPrototypeCell;
 }
 
+- (PickUpLocationTableViewCell *)storeBranchPrototypeCell {
+    if (!_storeBranchPrototypeCell) {
+        self.storeBranchPrototypeCell = [_orderDetailsList dequeueReusableCellWithIdentifier:NSStringFromClass(PickUpLocationTableViewCell.class)];
+    }
+    return _storeBranchPrototypeCell;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return OrderDetailsSectionTotal;
 }
@@ -90,7 +104,7 @@ typedef enum {
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
         case OrderDetailsSectionPickupLocation: {
-            return 0;
+            return self.order.storeBranch ? 1 : 0;
         }
             break;
         case OrderDetailsSectionItems: {
@@ -104,7 +118,7 @@ typedef enum {
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
         case OrderDetailsSectionPickupLocation: {
-            return 0.0;
+            return self.storeBranchPrototypeCell.frame.size.height;
         }
             break;
         case OrderDetailsSectionItems: {
@@ -119,14 +133,13 @@ typedef enum {
     CGRect headerFrame = CGRectMake(0.0, 0.0, self.view.frame.size.width, height);
     UIView *headerView = [[UIView alloc] initWithFrame:headerFrame];
     
-    UILabel *headerTextLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0.5, headerFrame.size.width - 10.0, height - 1.0)];
+    UILabel *headerTextLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.5, headerFrame.size.width, height - 1.0)];
     headerTextLabel.font = [UIFont systemFontOfSize:12.0];
-    headerTextLabel.text = title;
+    headerTextLabel.text = [NSString stringWithFormat:@"    %@", title];  // iOS doesn't allow label margin
     [headerView addSubview:headerTextLabel];
     headerView.backgroundColor = _orderDetailsList.backgroundColor;
     headerTextLabel.backgroundColor = _orderDetailsList.backgroundColor;
     
-    // XXX-FIX: top and bottom line glitch
     UIView *topLine = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, headerFrame.size.width, 0.5)];
     UIView *bottomLine = [[UIView alloc] initWithFrame:CGRectMake(0.0, headerFrame.size.height - 0.5, headerFrame.size.width, 0.5)];
     topLine.backgroundColor = [UIColor lightGrayColor];
@@ -164,7 +177,7 @@ typedef enum {
     UITableViewCell *cell = nil;
     switch (indexPath.section) {
         case OrderDetailsSectionPickupLocation: {
-            cell = nil;
+            cell = [_orderDetailsList dequeueReusableCellWithIdentifier:NSStringFromClass(PickUpLocationTableViewCell.class)];
         }
             break;
         case OrderDetailsSectionItems: {
@@ -181,12 +194,27 @@ typedef enum {
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
         case OrderDetailsSectionPickupLocation: {
+            PickUpLocationTableViewCell *orderBranchCell = (PickUpLocationTableViewCell *)cell;
+            [orderBranchCell configureWithBranch:_order.storeBranch];
         }
             break;
         case OrderDetailsSectionItems: {
             OrderItemTableViewCell *orderItemCell = (OrderItemTableViewCell *)cell;
             MItemInfo *itemInfo = self.orderItems[indexPath.row];
             [orderItemCell configureWithItem:itemInfo];
+            orderItemCell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+            break;
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    switch (indexPath.section) {
+        case OrderDetailsSectionPickupLocation: {
+            BranchLocationMapViewController *storeMapViewController = (BranchLocationMapViewController*)[TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(BranchLocationMapViewController.class)];
+            storeMapViewController.branch = _order.storeBranch;
+            [self.navigationController pushViewController:storeMapViewController animated:YES];
         }
             break;
     }

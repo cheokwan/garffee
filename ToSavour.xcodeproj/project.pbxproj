@@ -27,6 +27,7 @@
 		D221964D1859BCC6007528EE /* FriendsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D221964C1859BCC6007528EE /* FriendsListViewController.m */; };
 		D22196501859C24C007528EE /* FriendsListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D221964F1859C24C007528EE /* FriendsListTableViewCell.m */; };
 		D2219653185AACD8007528EE /* NSManagedObject+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2219652185AACD8007528EE /* NSManagedObject+Helper.m */; };
+		D232ED821886501E00BDA9F9 /* PickUpLocationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D232ED811886501E00BDA9F9 /* PickUpLocationTableViewCell.xib */; };
 		D239770318474F230002D655 /* TSLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D239770218474F230002D655 /* TSLogFormatter.m */; };
 		D243757518488358000009D7 /* TSSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = D243757418488358000009D7 /* TSSettings.m */; };
 		D2437577184C3498000009D7 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2437576184C3497000009D7 /* MapKit.framework */; };
@@ -219,6 +220,7 @@
 		D2219651185AACD8007528EE /* NSManagedObject+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+Helper.h"; path = "Utilities/NSManagedObject+Helper.h"; sourceTree = "<group>"; };
 		D2219652185AACD8007528EE /* NSManagedObject+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObject+Helper.m"; path = "Utilities/NSManagedObject+Helper.m"; sourceTree = "<group>"; };
 		D2219654185AAD5C007528EE /* TSFrontEndIncludes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TSFrontEndIncludes.h; path = Utilities/TSFrontEndIncludes.h; sourceTree = "<group>"; };
+		D232ED811886501E00BDA9F9 /* PickUpLocationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PickUpLocationTableViewCell.xib; path = FrontEnd/XIBs/PickUpLocationTableViewCell.xib; sourceTree = "<group>"; };
 		D239770118474F230002D655 /* TSLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSLogFormatter.h; path = Utilities/TSLogFormatter.h; sourceTree = "<group>"; };
 		D239770218474F230002D655 /* TSLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSLogFormatter.m; path = Utilities/TSLogFormatter.m; sourceTree = "<group>"; };
 		D243757318488358000009D7 /* TSSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSSettings.h; path = Utilities/TSSettings.h; sourceTree = "<group>"; };
@@ -346,14 +348,14 @@
 		DF1C88D01875967800400283 /* PickUpLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PickUpLocationViewController.h; path = FrontEnd/PickUpLocationViewController.h; sourceTree = "<group>"; };
 		DF1C88D11875967800400283 /* PickUpLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PickUpLocationViewController.m; path = FrontEnd/PickUpLocationViewController.m; sourceTree = "<group>"; };
 		DF1C88D31875A82800400283 /* PickUpLocationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PickUpLocationTableViewCell.h; path = FrontEnd/Views/PickUpLocationTableViewCell.h; sourceTree = "<group>"; };
-		DF1C88D41875A82800400283 /* PickUpLocationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PickUpLocationTableViewCell.m; path = FrontEnd/Views/PickUpLocationTableViewCell.m; sourceTree = "<group>"; };
+		DF1C88D41875A82800400283 /* PickUpLocationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PickUpLocationTableViewCell.m; path = FrontEnd/Views/PickUpLocationTableViewCell.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		DF26BEB318653FC400598CA0 /* TSGamePlayHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSGamePlayHistory.h; sourceTree = "<group>"; };
 		DF26BEB418653FC400598CA0 /* TSGamePlayHistory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSGamePlayHistory.m; sourceTree = "<group>"; };
 		DF3075C7186D6224002D40AF /* imageNotFound.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = imageNotFound.jpg; path = Resource/imageNotFound.jpg; sourceTree = "<group>"; };
 		DF60E74B185B47BA00DB10DE /* PhotoHuntGridButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoHuntGridButton.h; sourceTree = "<group>"; };
 		DF60E74C185B47BA00DB10DE /* PhotoHuntGridButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoHuntGridButton.m; sourceTree = "<group>"; };
 		DF60E74E185C0D8000DB10DE /* PhotoHuntManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoHuntManager.h; sourceTree = "<group>"; };
-		DF60E74F185C0D8000DB10DE /* PhotoHuntManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoHuntManager.m; sourceTree = "<group>"; };
+		DF60E74F185C0D8000DB10DE /* PhotoHuntManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PhotoHuntManager.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		DF60E754185C455200DB10DE /* PhotoHuntImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoHuntImageView.h; sourceTree = "<group>"; };
 		DF60E755185C455200DB10DE /* PhotoHuntImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoHuntImageView.m; sourceTree = "<group>"; };
 		DF60E757185C642F00DB10DE /* NSMutableArray+Shuffle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Shuffle.h"; sourceTree = "<group>"; };
@@ -378,12 +380,12 @@
 		DFB856FF187C355F00B08559 /* MBranch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBranch.h; path = BackEnd/Model/MBranch.h; sourceTree = "<group>"; };
 		DFB85700187C355F00B08559 /* MBranch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBranch.m; path = BackEnd/Model/MBranch.m; sourceTree = "<group>"; };
 		DFBDA14A1856111500BF3755 /* PhotoHuntViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoHuntViewController.h; sourceTree = "<group>"; };
-		DFBDA14B1856111500BF3755 /* PhotoHuntViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoHuntViewController.m; sourceTree = "<group>"; };
+		DFBDA14B1856111500BF3755 /* PhotoHuntViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PhotoHuntViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		DFE628A418558AD600E1C8FE /* DailyGameStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DailyGameStoryboard.storyboard; sourceTree = "<group>"; };
 		DFE628A61855992800E1C8FE /* ChooseGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseGameViewController.h; sourceTree = "<group>"; };
-		DFE628A71855992800E1C8FE /* ChooseGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseGameViewController.m; sourceTree = "<group>"; };
+		DFE628A71855992800E1C8FE /* ChooseGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ChooseGameViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		DFE628AB1855AF2C00E1C8FE /* TSGameServiceCalls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSGameServiceCalls.h; sourceTree = "<group>"; };
-		DFE628AC1855AF2C00E1C8FE /* TSGameServiceCalls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSGameServiceCalls.m; sourceTree = "<group>"; };
+		DFE628AC1855AF2C00E1C8FE /* TSGameServiceCalls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TSGameServiceCalls.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		DFE628AF1855FB7D00E1C8FE /* AreYouReadyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AreYouReadyViewController.h; sourceTree = "<group>"; };
 		DFE628B01855FB7D00E1C8FE /* AreYouReadyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AreYouReadyViewController.m; sourceTree = "<group>"; };
 		DFE628B21855FE0C00E1C8FE /* CountDownButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountDownButton.h; sourceTree = "<group>"; };
@@ -671,6 +673,7 @@
 				D21DCE72187A7A6E008CF011 /* HomeControlView.xib */,
 				D2209F411884E7D700282DAE /* OrderDetailsHeaderView.xib */,
 				D2209F4918851FA500282DAE /* OrderItemTableViewCell.xib */,
+				D232ED811886501E00BDA9F9 /* PickUpLocationTableViewCell.xib */,
 			);
 			name = XIBs;
 			sourceTree = "<group>";
@@ -897,6 +900,7 @@
 				D293EB2B185F04ED00A69034 /* MProductInfo.json in Resources */,
 				D293EB2C185F04ED00A69034 /* MProductOptionChoice.json in Resources */,
 				D293E4BE183DEDEB00B73795 /* InfoPlist.strings in Resources */,
+				D232ED821886501E00BDA9F9 /* PickUpLocationTableViewCell.xib in Resources */,
 				D2209F4A18851FA500282DAE /* OrderItemTableViewCell.xib in Resources */,
 				D21DCE73187A7A6E008CF011 /* HomeControlView.xib in Resources */,
 				DFE628A518558AD600E1C8FE /* DailyGameStoryboard.storyboard in Resources */,
