@@ -73,6 +73,10 @@
 #define LS_ORDER_DETAILS        NSLocalizedString(@"Order Details", @"")
 #define LS_PICK_UP_LOCATION     NSLocalizedString(@"Pick Up Location", @"")
 #define LS_ORDER_ITEMS          NSLocalizedString(@"Order Items", @"")
-#define LS_LOCATION             NSLocalizedString(@"Location", @"Location")
+#define LS_LOCATION             NSLocalizedString(@"Location", @"")
+#define LS_BUSINESS_HOUR        NSLocalizedString(@"Business Hour", @"")
+#define LS_CONTACT_NUMBER       NSLocalizedString(@"Contact Number", @"")
+#define LS_ADDRESS              NSLocalizedString(@"Address", @"")
+#define LS_STORE_INFO           NSLocalizedString(@"Store Info", @"")
 
 #endif

@@ -152,6 +152,8 @@
 		D2C9168F185EEC9000452891 /* MItemSelectedOption.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C9168E185EEC9000452891 /* MItemSelectedOption.m */; };
 		D2C91695185EECBA00452891 /* MProductInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C91694185EECBA00452891 /* MProductInfo.m */; };
 		D2FF84CD187E91FA00D3A21C /* TSBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2FF84CC187E91FA00D3A21C /* TSBadgeView.m */; };
+		DF0D574E18881FE1001C3A9D /* BranchDetailsImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DF0D574D18881FE1001C3A9D /* BranchDetailsImageCell.m */; };
+		DF0D5751188820D8001C3A9D /* BranchDetailsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF0D5750188820D8001C3A9D /* BranchDetailsTableViewController.m */; };
 		DF1C88D21875967800400283 /* PickUpLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF1C88D11875967800400283 /* PickUpLocationViewController.m */; };
 		DF1C88D51875A82800400283 /* PickUpLocationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DF1C88D41875A82800400283 /* PickUpLocationTableViewCell.m */; };
 		DF26BEB518653FC400598CA0 /* TSGamePlayHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = DF26BEB418653FC400598CA0 /* TSGamePlayHistory.m */; };
@@ -345,6 +347,10 @@
 		D2C916A3185F015800452891 /* TSModelIncludes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TSModelIncludes.h; path = BackEnd/Model/TSModelIncludes.h; sourceTree = "<group>"; };
 		D2FF84CB187E91FA00D3A21C /* TSBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSBadgeView.h; path = FrontEnd/CustomUI/TSBadgeView.h; sourceTree = "<group>"; };
 		D2FF84CC187E91FA00D3A21C /* TSBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSBadgeView.m; path = FrontEnd/CustomUI/TSBadgeView.m; sourceTree = "<group>"; };
+		DF0D574C18881FE1001C3A9D /* BranchDetailsImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BranchDetailsImageCell.h; path = FrontEnd/Views/BranchDetailsImageCell.h; sourceTree = "<group>"; };
+		DF0D574D18881FE1001C3A9D /* BranchDetailsImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BranchDetailsImageCell.m; path = FrontEnd/Views/BranchDetailsImageCell.m; sourceTree = "<group>"; };
+		DF0D574F188820D8001C3A9D /* BranchDetailsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BranchDetailsTableViewController.h; path = FrontEnd/BranchDetailsTableViewController.h; sourceTree = "<group>"; };
+		DF0D5750188820D8001C3A9D /* BranchDetailsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BranchDetailsTableViewController.m; path = FrontEnd/BranchDetailsTableViewController.m; sourceTree = "<group>"; };
 		DF1C88D01875967800400283 /* PickUpLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PickUpLocationViewController.h; path = FrontEnd/PickUpLocationViewController.h; sourceTree = "<group>"; };
 		DF1C88D11875967800400283 /* PickUpLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PickUpLocationViewController.m; path = FrontEnd/PickUpLocationViewController.m; sourceTree = "<group>"; };
 		DF1C88D31875A82800400283 /* PickUpLocationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PickUpLocationTableViewCell.h; path = FrontEnd/Views/PickUpLocationTableViewCell.h; sourceTree = "<group>"; };
@@ -565,6 +571,10 @@
 				D2A67A8F185C218300889114 /* XIBs */,
 				D2C075B81852CA4700620114 /* Views */,
 				D2A36A8818504A12004D3D99 /* CustomUI */,
+				DFB3C1E218814A97004E5454 /* BranchListViewController.h */,
+				DFB3C1E318814A97004E5454 /* BranchListViewController.m */,
+				DF0D574F188820D8001C3A9D /* BranchDetailsTableViewController.h */,
+				DF0D5750188820D8001C3A9D /* BranchDetailsTableViewController.m */,
 				D293E4F0183DF24000B73795 /* SlideMenuViewController.h */,
 				D293E4F1183DF24000B73795 /* SlideMenuViewController.m */,
 				D2A556F9184C37F60039A5A0 /* MapTrackingViewController.h */,
@@ -735,8 +745,8 @@
 				D2209F381880172800282DAE /* CouponDetailsHeaderView.m */,
 				D2209F431884EAF500282DAE /* OrderDetailsHeaderView.h */,
 				D2209F441884EAF500282DAE /* OrderDetailsHeaderView.m */,
-				DFB3C1E218814A97004E5454 /* BranchListViewController.h */,
-				DFB3C1E318814A97004E5454 /* BranchListViewController.m */,
+				DF0D574C18881FE1001C3A9D /* BranchDetailsImageCell.h */,
+				DF0D574D18881FE1001C3A9D /* BranchDetailsImageCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1074,8 +1084,10 @@
 				DFE628A81855992800E1C8FE /* ChooseGameViewController.m in Sources */,
 				D2209F4D1885212600282DAE /* OrderItemTableViewCell.m in Sources */,
 				D251EF1E187D11C80012536E /* OrderProgressView.m in Sources */,
+				DF0D5751188820D8001C3A9D /* BranchDetailsTableViewController.m in Sources */,
 				D2721690187BC99D00958E3B /* LineView.m in Sources */,
 				DFBDA14C1856111500BF3755 /* PhotoHuntViewController.m in Sources */,
+				DF0D574E18881FE1001C3A9D /* BranchDetailsImageCell.m in Sources */,
 				D2A67A97185C487A00889114 /* AccountInfoTableViewCell.m in Sources */,
 				D21DCE7B187AC5B7008CF011 /* FriendsListScrollView.m in Sources */,
 				D293E4F2183DF24000B73795 /* SlideMenuViewController.m in Sources */,

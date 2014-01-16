@@ -33,6 +33,14 @@
     }
 }
 
+- (NSURL *)URLForImage {
+    if ([self.imageURL trimmedWhiteSpaces].length > 0) {
+        return [NSURL URLWithString:@"http://static6.businessinsider.com/image/4f5691296bb3f7920700005b/starbucks-concept-store.jpg"]; // XXXXXX
+    } else {
+        return nil;
+    }
+}
+
 - (NSNumber *)latitude {
     return @(22.281847);  // XXXXXX
 }
