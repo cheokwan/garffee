@@ -14,3 +14,10 @@
 + (RKResponseDescriptor *)defaultResponseDescriptor;
 
 @end
+
+
+@protocol RKMappableObject <NSObject>
+@required
++ (RKObjectMapping *)defaultObjectMapping;
++ (RKResponseDescriptor *)defaultResponseDescriptor;
+@end

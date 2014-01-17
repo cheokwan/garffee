@@ -55,7 +55,7 @@
         return nil;
     }
     if (fetchResults.count > 1) {
-        DDLogWarn(@"more than one user info exists, unexpected, keeping only the first: %@", fetchResults);
+        DDLogError(@"more than one user info exists, unexpected, keeping only the first: %@", fetchResults);
         for (NSManagedObject *userObject in fetchResults) {
             if (userObject != [fetchResults firstObject]) {
                 [context deleteObject:userObject];
@@ -96,7 +96,8 @@
     [self didChangeValueForKey:key];
     if ([key isEqualToString:@"appID"]) {
         if ([self.appID trimmedWhiteSpaces].length > 0) {
-            self.userType = @([self.userType intValue] | MUserInfoUserTypeAppNativeUser);
+//            self.userType = @([self.userType intValue] | MUserInfoUserTypeAppNativeUser);  // for convenience of sorting in a FRC, can't use the flag form
+            self.userType = @(MUserInfoUserTypeAppNativeUser);
         }
     } else if ([key isEqualToString:@"firstName"] || [key isEqualToString:@"lastName"]) {
         self.name = [[NSString stringWithFormat:@"%@ %@", self.firstName ? self.firstName : @"", self.lastName ? self.lastName : @""] trimmedWhiteSpaces];

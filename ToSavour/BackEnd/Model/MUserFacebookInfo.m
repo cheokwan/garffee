@@ -30,6 +30,10 @@
     self.userType = @(MUserInfoUserTypeFacebookUser);
 }
 
+- (void)setFbID:(NSString *)fbID {
+    [self changeValue:fbID forKey:@"fbID"];
+}
+
 - (void)setFbFirstName:(NSString *)fbFirstName {
     [self changeValue:fbFirstName forKey:@"fbFirstName"];
 }
@@ -63,7 +67,9 @@
     if ([self.appID trimmedWhiteSpaces].length > 0) {
         return;
     }
-    if ([key isEqualToString:@"fbFirstName"]) {
+    if ([key isEqualToString:@"fbID"]) {
+        self.facebookID = self.fbID;
+    } else if ([key isEqualToString:@"fbFirstName"]) {
         self.firstName = self.fbFirstName;
     } else if ([key isEqualToString:@"fbLastName"]) {
         self.lastName = self.fbLastName;

@@ -8,7 +8,7 @@
 
 #import "DataFetchManager.h"
 #import <AddressBook/AddressBook.h>
-#import "MUserAddressBookInfo.h"
+#import "TSModelIncludes.h"
 
 @interface DataFetchManager()
 @property (nonatomic, assign)   ABAddressBookRef addressBook;
@@ -81,7 +81,23 @@
         ABMultiValueRef phonesRef = ABRecordCopyValue(recordRef, kABPersonPhoneProperty);
         NSArray *phones = CFBridgingRelease(ABMultiValueCopyArrayOfAllValues(phonesRef));
         CFRelease(phonesRef);
-        NSString *phone = [phones commaSeparatedString];
+        NSString *phonesString = [phones commaSeparatedString];
+        
+        if ([phonesString trimmedWhiteSpaces].length == 0) {
+            // skip contacts who don't have any phone number
+            continue;
+        }
+        // canonize the phone numbers and store them
+        // TODO: generate in setters
+        NSMutableArray *canonPhones = [NSMutableArray array];
+        [phones enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            NSString *number = (NSString *)obj;
+            NSString *canonNumber = [number canonicalPhoneNumber];
+            if (canonNumber.length > 0) {
+                [canonPhones addObject:canonNumber];
+            }
+        }];
+        NSString *canonPhonesString = [canonPhones commaSeparatedString];
         
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"abContactID = %@", @(recordID)];
         MUserAddressBookInfo *abUser = (MUserAddressBookInfo *)[MUserAddressBookInfo existingOrNewObjectInContext:context withPredicate:predicate];
@@ -90,7 +106,8 @@
         abUser.abLastName = lastName;
         abUser.abBirthday = birthday;
         abUser.abEmail = email;
-        abUser.abPhoneNumber = phone;
+        abUser.abPhoneNumbers = phonesString;
+        abUser.abCanonicalPhoneNumbers = canonPhonesString;
         
         NSData *imageData = (NSData *)CFBridgingRelease(ABPersonCopyImageData(recordRef));
         if (imageData) {
@@ -116,6 +133,76 @@
     [context save:&error];
     if (error) {
         DDLogError(@"error saving address book contacts: %@", error);
+    }
+}
+
+- (void)discoverFacebookAppUsersInContext:(NSManagedObjectContext *)context {
+    [[RestManager sharedInstance] queryFacebookContactsInContext:context handler:self];
+}
+
+- (void)discoverAddressBookAppUsersContext:(NSManagedObjectContext *)context {
+    [[RestManager sharedInstance] queryAddressBookContactsInContext:context handler:self];
+}
+
+#pragma mark - RestManagerResponseHandler
+
+- (void)restManagerService:(SEL)selector succeededWithOperation:(NSOperation *)operation userInfo:(NSDictionary *)userInfo {
+    if (selector == @selector(queryFacebookContactsInContext:handler:)) {
+        RKMappingResult *mappingResult = userInfo[@"mappingResult"];
+        if ([mappingResult isKindOfClass:RKMappingResult.class]) {
+            // TODO: do it background maybe
+            NSArray *mappedObjects = [mappingResult array];
+            DDLogInfo(@"successfully query app friends with facebook contacts, %ld returned", mappedObjects.count);
+            for (KVPair *pair in mappedObjects) {
+                if (![pair isKindOfClass:KVPair.class]) {
+                    continue;
+                }
+                NSString *facebookID = pair.value;
+                NSString *appID = pair.key;
+                NSPredicate *fetchPredicate = [NSPredicate predicateWithFormat:@"fbID = %@", facebookID];
+                MUserFacebookInfo *existingUser = facebookID.length > 0
+                ? (MUserFacebookInfo *)[MUserFacebookInfo existingObjectInContext:[AppDelegate sharedAppDelegate].managedObjectContext withPredicate:fetchPredicate]
+                : nil;
+                if (existingUser && !existingUser.appID && appID.length > 0) {
+                    // TODO: if this appID fetches an existing object, e.g. MUserFacebookInfo or MUserAddressBookInfo
+                    // need to merge them; or just delete this existingUser and re-fetch MUserInfo
+                    existingUser.appID = appID;
+                }
+            }
+            [[AppDelegate sharedAppDelegate].managedObjectContext save];
+        }
+    } else if (selector == @selector(queryAddressBookContactsInContext:handler:)) {
+        RKMappingResult *mappingResult = userInfo[@"mappingResult"];
+        if ([mappingResult isKindOfClass:RKMappingResult.class]) {
+            // TODO: do it background maybe
+            NSArray *mappedObjects = [mappingResult array];
+            DDLogInfo(@"successfully query app friends with address book contacts, %ld returned", mappedObjects.count);
+            for (KVPair *pair in mappedObjects) {
+                if (![pair isKindOfClass:KVPair.class]) {
+                    continue;
+                }
+                NSString *phoneNumber = [pair.value canonicalPhoneNumber];
+                NSString *appID = pair.key;
+                NSPredicate *fetchPredicate = [NSPredicate predicateWithFormat:@"abCanonicalPhoneNumbers CONTAINS %@", phoneNumber];  // TODO: do more rigorous check, this has potential bug
+                MUserAddressBookInfo *existingUser = phoneNumber.length > 0
+                ? (MUserAddressBookInfo *)[MUserAddressBookInfo existingObjectInContext:[AppDelegate sharedAppDelegate].managedObjectContext withPredicate:fetchPredicate]
+                : nil;
+                if (existingUser && !existingUser.appID && appID.length > 0) {
+                    // TODO: if this appID fetches an existing object, e.g. MUserFacebookInfo or MUserAddressBookInfo
+                    // need to merge them; or just delete this existingUser and re-fetch MUserInfo
+                    existingUser.appID = appID;
+                }
+            }
+            [[AppDelegate sharedAppDelegate].managedObjectContext save];
+        }
+    }
+}
+
+- (void)restManagerService:(SEL)selector failedWithOperation:(NSOperation *)operation error:(NSError *)error userInfo:(NSDictionary *)userInfo {
+    if (selector == @selector(queryFacebookContactsInContext:handler:)) {
+        DDLogError(@"failed to query app friends with facebook contacts: %@", error);
+    } else if (selector == @selector(queryAddressBookContactsInContext:handler:)) {
+        DDLogError(@"failed to query app friends with address book contacts: %@", error);
     }
 }
 

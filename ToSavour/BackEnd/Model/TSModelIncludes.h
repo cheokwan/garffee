@@ -11,6 +11,7 @@
 
 #import "MUserInfo.h"
 #import "MUserFacebookInfo.h"
+#import "MUserAddressBookInfo.h"
 #import "MOrderInfo.h"
 #import "MProductInfo.h"
 #import "MProductConfigurableOption.h"

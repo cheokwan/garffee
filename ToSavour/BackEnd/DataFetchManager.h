@@ -7,10 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "RestManager.h"
 
-@interface DataFetchManager : NSObject
+@interface DataFetchManager : NSObject<RestManagerResponseHandler>
 
 + (instancetype)sharedInstance;
 - (void)fetchAddressBookContactsInContext:(NSManagedObjectContext *)context;
+- (void)discoverFacebookAppUsersInContext:(NSManagedObjectContext *)context;
+- (void)discoverAddressBookAppUsersContext:(NSManagedObjectContext *)context;
 
 @end

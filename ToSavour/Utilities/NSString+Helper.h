@@ -20,4 +20,6 @@
 
 - (BOOL)isCaseInsensitiveEqual:(NSString *)other;
 
+- (NSString *)canonicalPhoneNumber;
+
 @end

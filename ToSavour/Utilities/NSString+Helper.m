@@ -32,4 +32,13 @@
     return [[[self lowercaseString] trimmedWhiteSpaces] isEqualToString:[[other lowercaseString] trimmedWhiteSpaces]];
 }
 
+- (NSString *)canonicalPhoneNumber {
+    // just strip out the unwanted characters for now
+    static NSCharacterSet *rejectSet = nil;
+    if (!rejectSet) {
+        rejectSet = [[NSCharacterSet characterSetWithCharactersInString:@"0123456789+"] invertedSet];
+    }
+    return [[self componentsSeparatedByCharactersInSet:rejectSet] componentsJoinedByString:@""];
+}
+
 @end

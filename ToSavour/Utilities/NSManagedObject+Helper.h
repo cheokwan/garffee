@@ -12,6 +12,7 @@
 
 + (NSManagedObject *)newObjectInContext:(NSManagedObjectContext *)context;
 + (NSManagedObject *)existingOrNewObjectInContext:(NSManagedObjectContext *)context withPredicate:(NSPredicate *)predicate;
++ (NSManagedObject *)existingObjectInContext:(NSManagedObjectContext *)context withPredicate:(NSPredicate *)predicate;
 - (void)deleteInContext:(NSManagedObjectContext *)context;
 + (NSFetchRequest *)fetchRequest;
 + (void)removeALlObjectsInContext:(NSManagedObjectContext *)context;

@@ -103,11 +103,12 @@
     </entity>
     <entity name="MUserAddressBookInfo" representedClassName="MUserAddressBookInfo" parentEntity="MUserInfo" syncable="YES">
         <attribute name="abBirthday" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="abCanonicalPhoneNumbers" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="abContactID" optional="YES" attributeType="Integer 32" indexed="YES" syncable="YES"/>
         <attribute name="abEmail" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="abFirstName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="abLastName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="abPhoneNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="abPhoneNumbers" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="abProfileImageURL" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="MUserFacebookInfo" representedClassName="MUserFacebookInfo" parentEntity="MUserInfo" syncable="YES">

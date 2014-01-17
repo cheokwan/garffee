@@ -75,6 +75,7 @@ typedef enum {
 }
 
 - (NSArray *)inCartItems {
+    // TODO: reverse sort order
     return [[self.pendingOrder.items allObjects] sortedArrayUsingSelector:@selector(creationDate)];
 }
 
@@ -184,7 +185,7 @@ typedef enum {
 - (void)pickUpLocationViewControllerDidSubmitOrderSuccessfully:(PickUpLocationViewController *)viewController {
     [_pendingOrder deleteInContext:_pendingOrder.managedObjectContext];
     self.pendingOrder = nil;
-    [[AppDelegate sharedAppDelegate].managedObjectContext save];
+    [[AppDelegate sharedAppDelegate].managedObjectContext saveToPersistentStore];
     [self refreshCart:YES];
 }
 

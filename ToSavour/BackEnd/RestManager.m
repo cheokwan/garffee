@@ -14,8 +14,7 @@
 #import "MBranch.h"
 
 @interface RestManager()
-@property (nonatomic, strong)   RKObjectManager *facebookObjectManager;
-@property (nonatomic, strong)   RKObjectManager *appObjectManager;
+@property (nonatomic, strong)   NSOperationQueue *operationQueue;
 @end
 
 @implementation RestManager
@@ -33,20 +32,6 @@
         instance = [[self alloc] init];
     });
     return instance;
-}
-
-- (RKObjectManager *)facebookObjectManager {
-    if (!_facebookObjectManager) {
-        self.facebookObjectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:(NSString *)facebookAPIBaseURLString]];
-    }
-    return _facebookObjectManager;
-}
-
-- (RKObjectManager *)appObjectManager {
-    if (!_appObjectManager) {
-        self.appObjectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:(NSString *)appAPIBaseURLString]];
-    }
-    return _appObjectManager;
 }
 
 - (NSString *)facebookToken {
@@ -73,6 +58,8 @@
         NSData *tokenData = [SecurityManager searchKeychainCopyMatching:SecurityManagerIdAppToken];
         if (tokenData) {
             _appToken = [[NSString alloc] initWithData:tokenData encoding:NSUTF8StringEncoding];
+        } else {
+            // TODO: handle if tokenData is not found
         }
     }
     return _appToken;
@@ -96,35 +83,43 @@
     return _defaultDotNetDateFormatter;
 }
 
+- (NSOperationQueue *)operationQueue {
+    if (!_operationQueue) {
+        self.operationQueue = [[NSOperationQueue alloc] init];
+    }
+    return _operationQueue;
+}
+
 
 #pragma mark - Services
 
 // TODO: support fetching outside of non-mainqueue contexts
 
-- (void)fetchManagedObjectsWithServiceHost:(RestManagerServiceHostType)serviceHost endPoint:(NSString *)endPoint sourceSelector:(SEL)sourceSelector responseDescriptors:(NSArray *)responseDescriptors handler:(__weak id<RestManagerResponseHandler>)handler {
-    NSMutableURLRequest *request = nil;
-    RKObjectManager *objectManager = nil;
-    switch (serviceHost) {
-        case RestManagerServiceHostApp: {
-            NSURL *serviceURL = [NSURL URLWithString:[appAPIBaseURLString stringByAppendingPathComponent:endPoint]];
-            request = [[NSMutableURLRequest alloc] initWithURL:serviceURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60];
-            [request setValue:self.appToken forHTTPHeaderField:@"Authorization"];
-            objectManager = self.appObjectManager;
-        }
+- (NSMutableURLRequest *)requestWithServiceHostType:(RestManagerServiceHostType)serviceHostType endPoint:(NSString *)endPoint {
+    NSURL *serviceURL = nil;
+    switch (serviceHostType) {
+        case RestManagerServiceHostApp:
+            serviceURL = [NSURL URLWithString:[appAPIBaseURLString stringByAppendingPathComponent:endPoint]];
             break;
-        case RestManagerServiceHostFacebook: {
-            NSURL *serviceURL = [NSURL URLWithString:[facebookAPIBaseURLString stringByAppendingPathComponent:endPoint]];
-            request = [[NSMutableURLRequest alloc] initWithURL:serviceURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60];
-            objectManager = self.facebookObjectManager;
-        }
+        case RestManagerServiceHostFacebook:
+            serviceURL = [NSURL URLWithString:[facebookAPIBaseURLString stringByAppendingPathComponent:endPoint]];
+            break;
+        default:
             break;
     }
-    
-    RKManagedObjectRequestOperation *operation = [[RKManagedObjectRequestOperation alloc] initWithRequest:request responseDescriptors:responseDescriptors];
-    operation.managedObjectContext = [AppDelegate sharedAppDelegate].managedObjectContext;
-    operation.managedObjectCache = [RKManagedObjectStore defaultStore].managedObjectCache;
-    
+    // default values
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:serviceURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+    request.HTTPMethod = @"GET";
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    if (serviceHostType == RestManagerServiceHostApp) {
+        [request setValue:self.appToken forHTTPHeaderField:@"Authorization"];
+    }
+    return request;
+}
+
+- (void)startOperation:(RKObjectRequestOperation *)operation sourceSelector:(SEL)sourceSelector handler:(__weak id<RestManagerResponseHandler>)handler {
     [operation setCompletionBlockWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        DDLogDebug(@"REST operation %@ succeeded", NSStringFromSelector(sourceSelector));
         if ([handler respondsToSelector:@selector(restManagerService:succeededWithOperation:userInfo:)]) {
             NSDictionary *userInfo = mappingResult ? @{@"mappingResult": mappingResult} : nil;
             [handler restManagerService:sourceSelector succeededWithOperation:operation userInfo:userInfo];
@@ -135,25 +130,45 @@
             [handler restManagerService:sourceSelector failedWithOperation:operation error:error userInfo:nil];
         }
     }];
-    [objectManager enqueueObjectRequestOperation:operation];
+    [self.operationQueue addOperation:operation];
 }
+
+- (void)fetchManagedObjectsWithRequest:(NSURLRequest *)request context:(NSManagedObjectContext *)context sourceSelector:(SEL)sourceSelector responseDescriptors:(NSArray *)responseDescriptors persist:(BOOL)persist handler:(__weak id<RestManagerResponseHandler>)handler {
+    RKManagedObjectRequestOperation *operation = [[RKManagedObjectRequestOperation alloc] initWithRequest:request responseDescriptors:responseDescriptors];
+    operation.managedObjectContext = context;
+    operation.managedObjectCache = [RKManagedObjectStore defaultStore].managedObjectCache;
+    if (!persist) {
+        operation.savesToPersistentStore = NO;
+    }
+    [self startOperation:operation sourceSelector:sourceSelector handler:handler];
+}
+
+- (void)fetchObjectWithRequest:(NSURLRequest *)request sourceSelector:(SEL)sourceSelector responseDescriptors:(NSArray *)responseDescriptors handler:(__weak id<RestManagerResponseHandler>)handler {
+    RKObjectRequestOperation *operation = [[RKObjectRequestOperation alloc] initWithRequest:request responseDescriptors:responseDescriptors];
+    [self startOperation:operation sourceSelector:sourceSelector handler:handler];
+}
+
 
 #pragma mark - Facebook Services
 
 - (void)fetchFacebookAppUserInfo:(__weak id<RestManagerResponseHandler>)handler {
     // fetch user info
     NSString *endPoint = [NSString stringWithFormat:@"/me/?access_token=%@&fields=id,name,username,email,first_name,middle_name,last_name,gender,age_range,link,locale,birthday,picture.width(200),picture.height(200)", self.facebookToken];
-    [self fetchManagedObjectsWithServiceHost:RestManagerServiceHostFacebook endPoint:endPoint sourceSelector:_cmd responseDescriptors:@[[MUserFacebookInfo defaultResponseDescriptor]] handler:handler];
+    NSURLRequest *request = [self requestWithServiceHostType:RestManagerServiceHostFacebook endPoint:endPoint];
+    [self fetchManagedObjectsWithRequest:request context:[AppDelegate sharedAppDelegate].managedObjectContext sourceSelector:_cmd responseDescriptors:@[[MUserFacebookInfo defaultResponseDescriptor]] persist:YES handler:handler];
 }
 
 
 - (void)fetchFacebookFriendsInfo:(__weak id<RestManagerResponseHandler>)handler {
     // fetch friends info
     NSString *endPoint = [NSString stringWithFormat:@"/me/friends?access_token=%@&fields=id,name,username,email,first_name,middle_name,last_name,gender,age_range,link,locale,birthday,picture.width(200),picture.height(200)", self.facebookToken];
-    [self fetchManagedObjectsWithServiceHost:RestManagerServiceHostFacebook endPoint:endPoint sourceSelector:_cmd responseDescriptors:@[[MUserFacebookInfo fetchFriendsResponseDescriptor]] handler:handler];
+    NSURLRequest *request = [self requestWithServiceHostType:RestManagerServiceHostFacebook endPoint:endPoint];
+    [self fetchManagedObjectsWithRequest:request context:[AppDelegate sharedAppDelegate].managedObjectContext sourceSelector:_cmd responseDescriptors:@[[MUserFacebookInfo fetchFriendsResponseDescriptor]] persist:YES handler:handler];
 }
 
 #pragma mark - App Services
+
+#pragma mark - Fetching Remote Data
 
 // TODO: handle the new login flow with native account support, currently this assumes
 // we always fetch the app user with facebook credentials
@@ -257,81 +272,156 @@
 }
 
 - (void)fetchAppProductInfo:(__weak id<RestManagerResponseHandler>)handler {
-    [self fetchManagedObjectsWithServiceHost:RestManagerServiceHostApp endPoint:@"/products" sourceSelector:_cmd responseDescriptors:@[[MProductInfo defaultResponseDescriptor]] handler:handler];
+    [self fetchManagedObjectsWithRequest:[self requestWithServiceHostType:RestManagerServiceHostApp endPoint:@"/products"] context:[AppDelegate sharedAppDelegate].managedObjectContext sourceSelector:_cmd responseDescriptors:@[[MProductInfo defaultResponseDescriptor]] persist:YES handler:handler];
 }
 
 - (void)fetchAppConfigurations:(__weak id<RestManagerResponseHandler>)handler {
-    [self fetchManagedObjectsWithServiceHost:RestManagerServiceHostApp endPoint:@"/configurations" sourceSelector:_cmd responseDescriptors:@[[MGlobalConfiguration defaultResponseDescriptor]] handler:handler];
+    [self fetchManagedObjectsWithRequest:[self requestWithServiceHostType:RestManagerServiceHostApp endPoint:@"/configurations"] context:[AppDelegate sharedAppDelegate].managedObjectContext sourceSelector:_cmd responseDescriptors:@[[MGlobalConfiguration defaultResponseDescriptor]] persist:YES handler:handler];
 }
 
 - (void)fetchBranches:(__weak id<RestManagerResponseHandler>)handler {
-    [self fetchManagedObjectsWithServiceHost:RestManagerServiceHostApp endPoint:@"/storebranches" sourceSelector:_cmd responseDescriptors:@[[MBranch defaultResponseDescriptor]] handler:handler];
+    [self fetchManagedObjectsWithRequest:[self requestWithServiceHostType:RestManagerServiceHostApp endPoint:@"/storebranches"] context:[AppDelegate sharedAppDelegate].managedObjectContext sourceSelector:_cmd responseDescriptors:@[[MBranch defaultResponseDescriptor]] persist:YES handler:handler];
 }
 
 - (void)fetchAppCouponInfo:(__weak id<RestManagerResponseHandler>)handler {
-    [self fetchManagedObjectsWithServiceHost:RestManagerServiceHostApp endPoint:@"/coupons" sourceSelector:_cmd responseDescriptors:@[[MCouponInfo defaultResponseDescriptor]] handler:handler];
+    [self fetchManagedObjectsWithRequest:[self requestWithServiceHostType:RestManagerServiceHostApp endPoint:@"/coupons"] context:[AppDelegate sharedAppDelegate].managedObjectContext sourceSelector:_cmd responseDescriptors:@[[MCouponInfo defaultResponseDescriptor]] persist:YES handler:handler];
 }
 
+- (void)fetchAppOrderHistories:(__weak id<RestManagerResponseHandler>)handler {
+    [self fetchManagedObjectsWithRequest:[self requestWithServiceHostType:RestManagerServiceHostApp endPoint:@"/orderhistories"] context:[AppDelegate sharedAppDelegate].managedObjectContext sourceSelector:_cmd responseDescriptors:@[[MOrderInfo defaultResponseDescriptor]] persist:YES handler:handler];
+}
+
+#pragma mark - Posting Data
 
 - (void)postOrder:(MOrderInfo *)order handler:(__weak id<RestManagerResponseHandler>)handler {
-    NSURL *serviceURL = [NSURL URLWithString:[appAPIBaseURLString stringByAppendingPathComponent:@"/orders"]];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:serviceURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60];
+    NSMutableURLRequest *request = [self requestWithServiceHostType:RestManagerServiceHostApp endPoint:@"/orders"];
     request.HTTPMethod = @"POST";
-    [request setValue:self.appToken forHTTPHeaderField:@"Authorization"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
     RKRequestDescriptor *serialization = [RKRequestDescriptor requestDescriptorWithMapping:[[MOrderInfo defaultEntityMapping] inverseMapping] objectClass:MOrderInfo.class rootKeyPath:nil method:RKRequestMethodPOST];
     NSError *error = nil;
     NSMutableDictionary *jsonDict = [[RKObjectParameterization parametersWithObject:order requestDescriptor:serialization error:&error] mutableCopy];
     
-    AFJSONRequestOperation *operation = nil;
     if (error) {
         DDLogError(@"JSON parameterization problem during posting order: %@", error);
     } else {
         request.HTTPBody = [RKMIMETypeSerialization dataFromObject:jsonDict MIMEType:RKMIMETypeJSON error:&error];
-        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         if (error) {
             DDLogError(@"JSON serialization problem during posting order: %@", error);
-        } else {
-            operation = [[AFJSONRequestOperation alloc] initWithRequest:request];
         }
     }
     
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if (responseObject) {
-            NSManagedObjectContext *context = [AppDelegate sharedAppDelegate].managedObjectContext;
-            MOrderInfo *takenOrder = [MOrderInfo newOrderInfoInContext:context];
-            NSDictionary *responseDict = [responseObject isKindOfClass:NSArray.class] && ((NSArray *)responseObject).count > 0 ? responseObject[0] : responseObject;
-            RKMappingOperation *mappingOperation = [[RKMappingOperation alloc] initWithSourceObject:responseDict destinationObject:takenOrder mapping:[MOrderInfo defaultEntityMapping]];
-            RKManagedObjectMappingOperationDataSource *dataSource = [[RKManagedObjectMappingOperationDataSource alloc] initWithManagedObjectContext:context cache:[RKManagedObjectStore defaultStore].managedObjectCache];
-            mappingOperation.dataSource = dataSource;
-            NSError *error = nil;
-            [mappingOperation performMapping:&error];
-            if (!error) {
-                DDLogInfo(@"successfully received and deserialized taken order: %@", takenOrder.id);
-                if ([handler respondsToSelector:@selector(restManagerService:succeededWithOperation:userInfo:)]) {
-                    NSDictionary *userInfo = responseObject ? @{@"responseObject": responseObject} : nil;
-                    [handler restManagerService:_cmd succeededWithOperation:operation userInfo:userInfo];
-                }
-            } else {
-                DDLogError(@"error in deserializaing taken order: %@", error);
-                if ([handler respondsToSelector:@selector(restManagerService:failedWithOperation:error:userInfo:)]) {
-                    [handler restManagerService:_cmd failedWithOperation:operation error:error userInfo:nil];
-                }
-            }
-        } else {
-            DDLogError(@"empty response from posted order");
-            if ([handler respondsToSelector:@selector(restManagerService:failedWithOperation:error:userInfo:)]) {
-                [handler restManagerService:_cmd failedWithOperation:operation error:error userInfo:nil];
-            }
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        DDLogError(@"REST operation failed: %@", error);
-        if ([handler respondsToSelector:@selector(restManagerService:failedWithOperation:error:userInfo:)]) {
-            [handler restManagerService:_cmd failedWithOperation:operation error:error userInfo:nil];
-        }
-    }];
-    [operation start];
+    [self fetchManagedObjectsWithRequest:request context:[AppDelegate sharedAppDelegate].managedObjectContext sourceSelector:_cmd responseDescriptors:@[[MOrderInfo defaultResponseDescriptor]] persist:NO handler:handler];
 }
 
+#pragma mark - Query type
+
+- (void)queryFacebookContactsInContext:(NSManagedObjectContext *)context handler:(__weak id<RestManagerResponseHandler>)handler {
+    NSMutableURLRequest *request = [self requestWithServiceHostType:RestManagerServiceHostApp endPoint:@"/memberids/facebookid"];
+    request.HTTPMethod = @"POST";
+    
+    NSFetchRequest *fetchRequest = [MUserFacebookInfo fetchRequest];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"appID = %@", nil];
+    NSError *error = nil;
+    NSArray *facebookContacts = [context executeFetchRequest:fetchRequest error:&error];
+    if (error) {
+        DDLogError(@"error fetching facebook contacts: %@", error);
+        if ([handler respondsToSelector:@selector(restManagerService:failedWithOperation:error:userInfo:)]) {
+            [handler restManagerService:_cmd failedWithOperation:nil error:error userInfo:nil];
+            return;
+        }
+    } else if (facebookContacts.count == 0) {
+        if ([handler respondsToSelector:@selector(restManagerService:succeededWithOperation:userInfo:)]) {
+            [handler restManagerService:_cmd succeededWithOperation:nil userInfo:nil];
+        }
+        return;
+    }
+    
+    NSMutableArray *allFacebookIDs = [NSMutableArray array];
+    [facebookContacts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        MUserFacebookInfo *user = (MUserFacebookInfo *)obj;
+        if (user.fbID.length > 0) {
+            [allFacebookIDs addObject:user.fbID];
+        }
+    }];
+    
+    // TODO: if there's too many facebook IDs, may need to separate fetch into stages
+    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:allFacebookIDs options:0 error:&error];
+    if (error) {
+        DDLogError(@"error serializating facebook contacts IDs to JSON: %@", error);
+        if ([handler respondsToSelector:@selector(restManagerService:failedWithOperation:error:userInfo:)]) {
+            [handler restManagerService:_cmd failedWithOperation:nil error:error userInfo:nil];
+            return;
+        }
+    }
+    
+    request.HTTPBody = jsonData;
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    DDLogDebug(@"query facebook contacts JSON body: %@", jsonString);
+    
+    [self fetchObjectWithRequest:request sourceSelector:_cmd responseDescriptors:@[[KVPair defaultResponseDescriptor]] handler:handler];
+}
+
+- (void)queryAddressBookContactsInContext:(NSManagedObjectContext *)context handler:(__weak id<RestManagerResponseHandler>)handler {
+    NSMutableURLRequest *request = [self requestWithServiceHostType:RestManagerServiceHostApp endPoint:@"/memberids/phonenumber"];
+    request.HTTPMethod = @"POST";
+    
+    NSFetchRequest *fetchRequest = [MUserAddressBookInfo fetchRequest];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"appID = %@", nil];
+    NSError *error = nil;
+    NSArray *phoneContacts = [context executeFetchRequest:fetchRequest error:&error];
+    if (error) {
+        DDLogError(@"error fetching phone contacts: %@", error);
+        if ([handler respondsToSelector:@selector(restManagerService:failedWithOperation:error:userInfo:)]) {
+            [handler restManagerService:_cmd failedWithOperation:nil error:error userInfo:nil];
+            return;
+        }
+    } else if (phoneContacts.count == 0) {
+        if ([handler respondsToSelector:@selector(restManagerService:succeededWithOperation:userInfo:)]) {
+            [handler restManagerService:_cmd succeededWithOperation:nil userInfo:nil];
+        }
+        return;
+    }
+    
+    NSMutableArray *allPhoneNumbers = [NSMutableArray array];
+    [phoneContacts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        MUserAddressBookInfo *user = (MUserAddressBookInfo *)obj;
+        NSArray *numbers = [user.abCanonicalPhoneNumbers decodeCommaSeparatedString];
+        if (numbers.count > 0) {
+            [allPhoneNumbers addObjectsFromArray:numbers];
+        }
+    }];
+    
+    // TODO: if there's too many contacts phone numbers, may need to separate fetch into stages
+    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:allPhoneNumbers options:0 error:&error];
+    if (error) {
+        DDLogError(@"error serializating phone contacts numbers to JSON: %@", error);
+        if ([handler respondsToSelector:@selector(restManagerService:failedWithOperation:error:userInfo:)]) {
+            [handler restManagerService:_cmd failedWithOperation:nil error:error userInfo:nil];
+            return;
+        }
+    }
+    
+    request.HTTPBody = jsonData;
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    DDLogDebug(@"query phone contacts JSON body: %@", jsonString);
+    
+    [self fetchObjectWithRequest:request sourceSelector:_cmd responseDescriptors:@[[KVPair defaultResponseDescriptor]] handler:handler];
+}
+
+@end
+
+
+
+@implementation KVPair
++ (RKObjectMapping *)defaultObjectMapping {
+    RKObjectMapping *mapping = [RKObjectMapping mappingForClass:self.class];
+    [mapping addAttributeMappingsFromDictionary:@{@"Key": @"key",
+                                                  @"Value": @"value"}];
+    return mapping;
+}
++ (RKResponseDescriptor *)defaultResponseDescriptor {
+    return [RKResponseDescriptor responseDescriptorWithMapping:[self.class defaultObjectMapping] method:RKRequestMethodAny pathPattern:nil keyPath:nil statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+}
 @end

@@ -47,7 +47,7 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSManagedObjectContext *context = [AppDelegate sharedAppDelegate].persistentStoreManagedObjectContext;
         NSFetchRequest *fetchRequest = [MUserInfo fetchRequest];
-        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"isAppUser = %@", @NO];
+        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"isAppUser = %@ AND userType = %@", @NO, @(MUserInfoUserTypeAppNativeUser)];
         NSSortDescriptor *sdUserType = [[NSSortDescriptor alloc] initWithKey:@"userType" ascending:YES];
         NSSortDescriptor *sdName = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
         fetchRequest.sortDescriptors = @[sdUserType, sdName];

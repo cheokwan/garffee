@@ -12,12 +12,13 @@
 @implementation MUserAddressBookInfo
 
 @dynamic abBirthday;
+@dynamic abContactID;
 @dynamic abEmail;
 @dynamic abFirstName;
 @dynamic abLastName;
-@dynamic abPhoneNumber;
+@dynamic abPhoneNumbers;
 @dynamic abProfileImageURL;
-@dynamic abContactID;
+@dynamic abCanonicalPhoneNumbers;
 
 
 - (NSURL *)URLForProfileImage {
@@ -49,8 +50,8 @@
     [self changeValue:abEmail forKey:@"abEmail"];
 }
 
-- (void)setAbPhoneNumber:(NSString *)abPhoneNumber {
-    [self changeValue:abPhoneNumber forKey:@"abPhoneNumber"];
+- (void)setAbPhoneNumbers:(NSString *)abPhoneNumbers {
+    [self changeValue:abPhoneNumbers forKey:@"abPhoneNumbers"];
 }
 
 - (void)setAbProfileImageURL:(NSString *)abProfileImageURL {
@@ -70,8 +71,8 @@
         self.birthday = self.abBirthday;
     } else if ([key isEqualToString:@"abEmail"]) {
         self.email = self.abEmail;
-    } else if ([key isEqualToString:@"abPhoneNumber"]) {
-        self.phoneNumber = self.abPhoneNumber;
+    } else if ([key isEqualToString:@"abPhoneNumbers"]) {
+        self.phoneNumber = self.abPhoneNumbers;
     } else if ([key isEqualToString:@"abProfileImageURL"]) {
         self.profileImageURL = self.abProfileImageURL;
     }
@@ -85,7 +86,7 @@
                                              @"abEmail",
                                              @"abFirstName",
                                              @"abLastName",
-                                             @"abPhoneNumber",
+                                             @"abPhoneNumbers",
                                              @"abProfileImageURL",
                                              @"abContactID",
                                              ]];
@@ -99,16 +100,22 @@
 
 - (NSString *)description {
     return [[super description] stringByAppendingString:[NSString stringWithFormat:
+            @"abContactID:%@, "
             @"abFirstName:%@, "
             @"abLastName:%@, "
             @"abBirthday:%@, "
-            @"abPhoneNumber:%@, "
-            @"abEmail:%@, ",
+            @"abPhoneNumbers:%@, "
+            @"abCanonicalPhoneNumbers:%@, "
+            @"abEmail:%@, "
+            @"abProfileImageURL:%@, ",
+            self.abContactID,
             self.abFirstName,
             self.abLastName,
             self.abBirthday,
-            self.abPhoneNumber,
-            self.abEmail
+            self.abPhoneNumbers,
+            self.abCanonicalPhoneNumbers,
+            self.abEmail,
+            self.abProfileImageURL
             ]];
 }
 

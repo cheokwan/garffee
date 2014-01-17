@@ -10,12 +10,24 @@
 
 @implementation NSManagedObjectContext (Helper)
 
-- (void)save {
+- (BOOL)save {
     NSError *error = nil;
     if ([self hasChanges] && ![self save:&error]) {
         DDLogError(@"unresolved error saving context: %@ %@", error, error.userInfo);
         NSAssert(NO, @"unresolved error saving context: %@ %@", error, error.userInfo);
+        return NO;
     }
+    return YES;
+}
+
+- (BOOL)saveToPersistentStore {
+    NSError *error = nil;
+    if (![self saveToPersistentStore:&error]) {
+        DDLogError(@"unresolved error saving to persistent store: %@ %@", error, error.userInfo);
+        NSAssert(NO, @"unresolved error saving to persistent store: %@ %@", error, error.userInfo);
+        return NO;
+    }
+    return YES;
 }
 
 - (NSManagedObject *)fetchUniqueObject:(NSFetchRequest *)fetchRequest {

@@ -10,7 +10,8 @@
 
 @interface NSManagedObjectContext (Helper)
 
-- (void)save;
+- (BOOL)save;
+- (BOOL)saveToPersistentStore;
 - (NSManagedObject *)fetchUniqueObject:(NSFetchRequest *)fetchRequest;
 
 @end

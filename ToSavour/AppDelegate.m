@@ -179,12 +179,7 @@
 {
     DDLogDebug(@"");
     // Saves changes in the application's managed object context before the application terminates.
-    [self.managedObjectContext save];
-    NSError *error = nil;
-    [self.managedObjectContext saveToPersistentStore:&error];
-    if (!error) {
-        DDLogError(@"error saving context to persistent store: %@", error);
-    }
+    [self.managedObjectContext saveToPersistentStore];
 }
 
 #pragma mark - Core Data stack + RestKit

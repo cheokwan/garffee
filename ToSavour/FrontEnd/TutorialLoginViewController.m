@@ -162,6 +162,7 @@
 
 - (void)restManagerService:(SEL)selector succeededWithOperation:(NSOperation *)operation userInfo:(NSDictionary *)userInfo {
     
+    // TODO: need some way to recover if this china of fetches was interrupted by crash e.g.
     if (selector == @selector(fetchFacebookAppUserInfo:)) {
         // fetched facebook info, now move onto fetching app user info with
         // facebook credentials
@@ -175,31 +176,26 @@
             DDLogError(@"unable to retrieve the mapped facebook user info");
         }
     }
-    if (selector == @selector(fetchFacebookFriendsInfo:)) {
-        // ignore for now
-    }
     if (selector == @selector(fetchAppUserInfo:)) {
+        [[RestManager sharedInstance] fetchFacebookFriendsInfo:self];
+    }
+    if (selector == @selector(fetchFacebookFriendsInfo:)) {
         // successfully logged in and registered user info, now fetch app configs
         [[RestManager sharedInstance] fetchAppConfigurations:self];
-        [[RestManager sharedInstance] fetchAppProductInfo:self];
+        [[DataFetchManager sharedInstance] discoverFacebookAppUsersInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
+        [[DataFetchManager sharedInstance] discoverAddressBookAppUsersContext:[AppDelegate sharedAppDelegate].managedObjectContext];
     }
     // TODO: make following calls parallel
     if (selector == @selector(fetchAppConfigurations:)) {
         // successfully fetched app configs, now fetch products info
         [[RestManager sharedInstance] fetchAppProductInfo:self];
-        [[RestManager sharedInstance] fetchBranches:self];
     }
     if (selector == @selector(fetchAppProductInfo:)) {
-        // successfully fetched products info, now dismiss the login view
-        [self dismissAfterLoggedIn];
+        [[RestManager sharedInstance] fetchBranches:self];
     }
     if (selector == @selector(fetchBranches:)) {
-//        NSLog(@"");
-//        NSManagedObjectContext *context = [AppDelegate sharedAppDelegate].managedObjectContext;
-//        NSFetchRequest *request = [MBranch fetchRequest];
-//        NSFetchedResultsController *frc = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:context sectionNameKeyPath:nil cacheName:nil];
-//        [frc performFetch:nil];
-//        NSLog(@"");
+        // successfully fetched products info, now dismiss the login view
+        [self dismissAfterLoggedIn];
     }
 }
 
@@ -235,7 +231,6 @@
     _spinner.mode = MBProgressHUDModeIndeterminate;
     _spinner.labelText = LS_LOADING;
     [[RestManager sharedInstance] fetchFacebookAppUserInfo:self];
-    [[RestManager sharedInstance] fetchFacebookFriendsInfo:self];
 }
 
 - (void)loginView:(FBLoginView *)loginView handleError:(NSError *)error {

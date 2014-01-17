@@ -223,7 +223,7 @@
         self.confirmOrderAlertView.delegate = nil;
         self.confirmOrderAlertView = nil;
         if (buttonIndex != alertView.cancelButtonIndex) {
-            self.order.status = MOrderInfoStatusPending;
+//            self.order.status = MOrderInfoStatusPending;  // don't need to change the status on client
             self.order.storeBranchID = _selectedBranch.branchId;
             self.order.orderedDate = [NSDate date];
             int userExpectedTimeInSecond = _userEstimateTime * 60;

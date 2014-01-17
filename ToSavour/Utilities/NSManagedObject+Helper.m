@@ -15,6 +15,11 @@
 }
 
 + (NSManagedObject *)existingOrNewObjectInContext:(NSManagedObjectContext *)context withPredicate:(NSPredicate *)predicate {
+    NSManagedObject *existingObject = [self.class existingObjectInContext:context withPredicate:predicate];
+    return existingObject ? existingObject : [self.class newObjectInContext:context];
+}
+
++ (NSManagedObject *)existingObjectInContext:(NSManagedObjectContext *)context withPredicate:(NSPredicate *)predicate {
     NSFetchRequest *fetchRequest = [self.class fetchRequest];
     fetchRequest.predicate = predicate;
     NSError *error = nil;
@@ -25,8 +30,6 @@
                 DDLogWarn(@"found duplicates when fetching existing managed object: %@", fetchResults);
             }
             return fetchResults[0];
-        } else {
-            return [self.class newObjectInContext:context];
         }
     } else {
         DDLogError(@"error fetching existing managed object: %@", error);

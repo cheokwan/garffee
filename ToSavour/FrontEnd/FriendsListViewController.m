@@ -61,9 +61,9 @@ typedef enum {
     return self.fetchedResultsController.sections.count;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return [(id<NSFetchedResultsSectionInfo>)(self.fetchedResultsController.sections[section]) indexTitle];
-}
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+//    return [(id<NSFetchedResultsSectionInfo>)(self.fetchedResultsController.sections[section]) indexTitle];
+//}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [(id<NSFetchedResultsSectionInfo>)(self.fetchedResultsController.sections[section]) numberOfObjects];
