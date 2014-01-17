@@ -10,6 +10,7 @@
 #import "AvatarView.h"
 #import "MUserInfo.h"
 #import "TSFrontEndIncludes.h"
+#import "CartViewController.h"
 
 @implementation FriendsListScrollView
 
@@ -104,6 +105,7 @@
         CGFloat avatarViewHeight = frame.size.height - 35.0;
         CGRect avatarViewFrame = CGRectMake((frame.size.width - avatarViewHeight) / 2.0, 10.0, avatarViewHeight, avatarViewHeight);
         self.avatarView = [[AvatarView alloc] initWithFrame:avatarViewFrame user:user showAccessoryImage:YES interactable:YES];
+        _avatarView.delegate = self;
         
         CGRect nameLabelFrame = CGRectMake(5.0, avatarViewHeight + 15.0, frame.size.width - 10.0, 15.0);
         self.nameLabel = [[UILabel alloc] initWithFrame:nameLabelFrame];
@@ -116,6 +118,21 @@
         [self addSubview:_nameLabel];
     }
     return self;
+}
+
+#pragma mark - AvatarViewDelegate
+
+- (void)avatarButtonPressedInAvatarView:(AvatarView *)avatarView {
+    MainTabBarController *tabBarController = [AppDelegate sharedAppDelegate].mainTabBarController;
+    CartViewController *cart = (CartViewController *)[tabBarController viewControllerAtTab:MainTabBarControllerTabCart];
+    if ([cart isKindOfClass:CartViewController.class]) {
+        [cart updateRecipient:avatarView.user];
+    }
+    [tabBarController switchToTab:MainTabBarControllerTabCart animated:YES];
+}
+
+- (void)accessoryButtonPressedInAvatarView:(AvatarView *)avatarView {
+    // ignore
 }
 
 @end

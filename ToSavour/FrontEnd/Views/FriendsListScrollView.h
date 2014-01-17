@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AvatarView.h"
 @class AvatarView;
 @class MUserInfo;
 
@@ -18,7 +19,7 @@
 @end
 
 
-@interface FriendsListScrollViewCell : UIView
+@interface FriendsListScrollViewCell : UIView<AvatarViewDelegate>
 @property (nonatomic, strong)   AvatarView *avatarView;
 @property (nonatomic, strong)   UILabel *nameLabel;
 

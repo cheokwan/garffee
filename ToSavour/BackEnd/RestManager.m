@@ -313,6 +313,35 @@
     [self fetchManagedObjectsWithRequest:request context:[AppDelegate sharedAppDelegate].managedObjectContext sourceSelector:_cmd responseDescriptors:@[[MOrderInfo defaultResponseDescriptor]] persist:NO handler:handler];
 }
 
+- (void)postGiftCoupon:(MOrderInfo *)order handler:(__weak id<RestManagerResponseHandler>)handler {
+    NSMutableURLRequest *request = [self requestWithServiceHostType:RestManagerServiceHostApp endPoint:@"/coupons"];
+    request.HTTPMethod = @"POST";
+    
+    // XXXXXX
+    for (MItemInfo *item in order.items) {
+        // XXX-SERVER-BUG: need to change the orderID into nullable foreign key
+        item.orderID = @3;
+    }
+    
+    RKRequestDescriptor *serialization = [RKRequestDescriptor requestDescriptorWithMapping:[MOrderInfo giftCouponCreationEntityMapping] objectClass:MOrderInfo.class rootKeyPath:nil method:RKRequestMethodPOST];
+    NSError *error = nil;
+    NSMutableDictionary *jsonDict = [[RKObjectParameterization parametersWithObject:order requestDescriptor:serialization error:&error] mutableCopy];
+    MUserInfo *appUser = [MUserInfo currentAppUserInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
+    [jsonDict setValue:appUser.appID forKey:@"SenderUserId"];
+    
+    if (error) {
+        DDLogError(@"JSON parameterization problem during posting gift coupon: %@", error);
+    } else {
+        request.HTTPBody = [RKMIMETypeSerialization dataFromObject:jsonDict MIMEType:RKMIMETypeJSON error:&error];
+        if (error) {
+            DDLogError(@"JSON serialization problem during posting gift coupon: %@", error);
+        }
+    }
+    
+    // TODO: we don't need to store the returned coupon
+    [self fetchManagedObjectsWithRequest:request context:[AppDelegate sharedAppDelegate].managedObjectContext sourceSelector:_cmd responseDescriptors:@[[MCouponInfo defaultResponseDescriptor]] persist:YES handler:handler];
+}
+
 #pragma mark - Query type
 
 - (void)queryFacebookContactsInContext:(NSManagedObjectContext *)context handler:(__weak id<RestManagerResponseHandler>)handler {

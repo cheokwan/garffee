@@ -11,6 +11,8 @@
 #import "TSFrontEndIncludes.h"
 #import "AppDelegate.h"
 #import "ChooseGameViewController.h"
+#import "CartViewController.h"
+#import "ItemPickerViewController.h"
 #import "UIView+Helpers.h"
 #import "FriendsListScrollView.h"
 #import "MUserInfo.h"
@@ -40,6 +42,7 @@
     self.homeControlView = controlView;
     [self.view addSubview:_homeControlView];
     [_homeControlView updateView];
+    [_homeControlView.orderNowButton addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
     self.promotionScrollView.delegate = self;
 }
@@ -103,6 +106,24 @@
             [[AppDelegate sharedAppDelegate].slidingViewController resetTopViewAnimated:YES];
         }
         slided = !slided;
+    } else if (sender == _homeControlView.orderNowButton) {
+        MainTabBarController *tabBarController = [AppDelegate sharedAppDelegate].mainTabBarController;
+        CartViewController *cart = (CartViewController *)[tabBarController viewControllerAtTab:MainTabBarControllerTabCart];
+        MUserInfo *appUser = [MUserInfo currentAppUserInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
+        if ([cart isKindOfClass:CartViewController.class]) {
+            [cart updateRecipient:appUser];
+        }
+        
+        ItemPickerViewController *itemPicker = (ItemPickerViewController *)[TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(ItemPickerViewController.class)];
+        itemPicker.delegate = cart;
+        TSNavigationController *naviController = [[TSNavigationController alloc] initWithRootViewController:itemPicker];
+        
+        [self presentViewController:naviController animated:YES completion:nil];
+        double delayInSeconds = 0.5;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [tabBarController switchToTab:MainTabBarControllerTabCart animated:NO];
+        });
     }
 }
 

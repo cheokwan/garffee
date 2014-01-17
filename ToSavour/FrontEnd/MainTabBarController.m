@@ -10,6 +10,7 @@
 #import "TSFrontEndIncludes.h"
 #import <QuartzCore/QuartzCore.h>
 #import "CartViewController.h"
+#import "TSNavigationController.h"
 
 @interface MainTabBarController ()
 
@@ -52,14 +53,12 @@
                 item.title = LS_HOME;
                 [item setImage:[UIImage imageNamed:@"ico_home_off"]];
                 [item setSelectedImage:[UIImage imageNamed:@"ico_home_on"]];
-
             }
                 break;
             case MainTabBarControllerTabStore: {
                 item.title = LS_STORE;
                 [item setImage:[UIImage imageNamed:@"ico_store_off"]];
                 [item setSelectedImage:[UIImage imageNamed:@"ico_store_on"]];
-
             }
                 break;
             case MainTabBarControllerTabCart: {
@@ -72,14 +71,12 @@
                 item.title = LS_FRIENDS;
                 [item setImage:[UIImage imageNamed:@"ico_friends_off"]];
                 [item setSelectedImage:[UIImage imageNamed:@"ico_friends_on"]];
-
             }
                 break;
             case MainTabBarControllerTabAccount: {
                 item.title = LS_ACCOUNT;
                 [item setImage:[UIImage imageNamed:@"ico_account_off"]];
                 [item setSelectedImage:[UIImage imageNamed:@"ico_account_on"]];
-
             }
                 break;
             default: {
@@ -104,6 +101,29 @@
     } else if (index == MainTabBarControllerTabCart) {
         UITabBarItem *cartTabBarItem = [self.tabBar.items objectAtIndex:MainTabBarControllerTabCart];
         [cartTabBarItem setBadgeValue:nil];
+    }
+}
+
+- (UIViewController *)viewControllerAtTab:(MainTabBarControllerTab)tab {
+    UIViewController *viewController = nil;
+    if (tab < self.viewControllers.count) {
+        viewController = self.viewControllers[tab];
+        if ([viewController isKindOfClass:UINavigationController.class]) {
+            viewController = ((UINavigationController *)viewController).viewControllers[0];
+        }
+    }
+    return viewController;
+}
+
+- (void)switchToTab:(MainTabBarControllerTab)tab animated:(BOOL)animated {
+    if (tab < self.viewControllers.count) {
+        if (animated) {
+            [UIView animateWithDuration:0.3 animations:^{
+                [self setSelectedIndex:tab];
+            }];
+        } else {
+            [self setSelectedIndex:tab];
+        }
     }
 }
 

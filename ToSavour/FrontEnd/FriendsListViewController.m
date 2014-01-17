@@ -12,6 +12,7 @@
 #import <FacebookSDK/FacebookSDK.h>  // XXX-TEST
 #import "AvatarView.h"
 #import "MUserInfo.h"
+#import "CartViewController.h"
 
 typedef enum {
     FriendsListSectionAppNativeFriends = 0,
@@ -24,6 +25,8 @@ typedef enum {
 @interface FriendsListViewController ()
 @property (nonatomic, strong)   FriendsListTableViewCell *friendsListPrototypeCell;
 @property (nonatomic, strong)   NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, readonly)   UIView *sendGiftAccessoryView;
+@property (nonatomic, readonly)   UIView *sendInviteAccessoryView;
 @end
 
 @implementation FriendsListViewController
@@ -55,7 +58,56 @@ typedef enum {
     // Dispose of any resources that can be recreated.
 }
 
+- (void)buttonPressed:(id)sender event:(id)event {
+    UITouch *touch = [[event allTouches] anyObject];
+    NSIndexPath *indexPath = [_friendsList indexPathForRowAtPoint:[touch locationInView:_friendsList]];
+    MUserInfo *friend = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    if ([friend.userType intValue] == MUserInfoUserTypeAppNativeUser) {
+        MainTabBarController *tabBarController = [AppDelegate sharedAppDelegate].mainTabBarController;
+        CartViewController *cart = (CartViewController *)[tabBarController viewControllerAtTab:MainTabBarControllerTabCart];
+        if ([cart isKindOfClass:CartViewController.class]) {
+            [cart updateRecipient:friend];
+        }
+        [tabBarController switchToTab:MainTabBarControllerTabCart animated:YES];
+    } else if ([friend.userType intValue] == MUserInfoUserTypeFacebookUser ||
+               [friend.userType intValue] == MUserInfoUserTypeAddressBookUser) {
+        // TODO: invite logic goes here
+    }
+}
+
 #pragma mark - UITableViewDelegate, UITableViewDataSource
+
+- (UIView *)sendGiftAccessoryView {
+    CGFloat frameDimension = self.friendsListPrototypeCell.bounds.size.height - 30.0;
+    UIButton *giftButton = [[UIButton alloc] initWithFrame:CGRectMake(0.0, 0.0, frameDimension, frameDimension)];
+    [giftButton setImage:[UIImage imageNamed:@"ico_gift"] forState:UIControlStateNormal];
+    [giftButton setImageEdgeInsets:UIEdgeInsetsMake(0.0, 3.0, 0.0, -3.0)];
+    giftButton.clipsToBounds = NO;
+    [giftButton addTarget:self action:@selector(buttonPressed:event:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(-5.0, 0.0, 0.5, frameDimension)];
+    line.backgroundColor = [UIColor lightGrayColor];
+    [giftButton addSubview:line];
+    return giftButton;
+}
+
+- (UIView *)sendInviteAccessoryView {
+    CGFloat frameDimension = self.friendsListPrototypeCell.bounds.size.height - 30.0;
+    UIButton *inviteButton = [[UIButton alloc] initWithFrame:CGRectMake(0.0, 0.0, frameDimension, frameDimension)];
+    [inviteButton setTitle:LS_INVITE forState:UIControlStateNormal];
+    [inviteButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    inviteButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+    inviteButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
+    [inviteButton setImage:nil forState:UIControlStateNormal];
+    [inviteButton setTitleEdgeInsets:UIEdgeInsetsMake(0.0, 3.0, 0.0, -3.0)];
+    inviteButton.clipsToBounds = NO;
+    [inviteButton addTarget:self action:@selector(buttonPressed:event:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(-5.0, 0.0, 0.5, frameDimension)];
+    line.backgroundColor = [UIColor lightGrayColor];
+    [inviteButton addSubview:line];
+    return inviteButton;
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.fetchedResultsController.sections.count;
@@ -97,7 +149,16 @@ typedef enum {
     friendCell.avatarView = [[AvatarView alloc] initWithFrame:friendCell.avatarView.frame user:friendInfo showAccessoryImage:YES interactable:NO];
     [friendCell addSubview:friendCell.avatarView];
     friendCell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    MUserInfo *friend = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    if ([friend.userType intValue] == MUserInfoUserTypeAppNativeUser) {
+        friendCell.accessoryView = self.sendGiftAccessoryView;
+    } else if ([friend.userType intValue] == MUserInfoUserTypeFacebookUser ||
+               [friend.userType intValue] == MUserInfoUserTypeAddressBookUser) {
+        friendCell.accessoryView = self.sendInviteAccessoryView;
+    }
 }
+
 
 #pragma mark - NSFetchedResultsControllerDelegate
 

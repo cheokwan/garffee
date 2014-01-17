@@ -49,6 +49,9 @@
 }
 
 - (void)updateRecipient:(MUserInfo *)newRecipient {
+    if (newRecipient.appID.length == 0) {
+        newRecipient = nil;
+    }
     MUserInfo *appUser = [MUserInfo currentAppUserInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
     NSString *nameToShow = nil;
     if ([newRecipient isEqual:appUser]) {

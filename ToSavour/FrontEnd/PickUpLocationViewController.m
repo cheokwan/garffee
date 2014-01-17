@@ -184,7 +184,8 @@
             self.userEstimateTime = _estimatedTimeFromWeb;
             [self updateTimeLabel:_userEstimateTime];
         }
-    } else if (selector == @selector(postOrder:handler:)) {
+    } else if (selector == @selector(postOrder:handler:) ||
+               selector == @selector(postGiftCoupon:handler:)) {
         DDLogInfo(@"successfully submitted order to server");
         
         RIButtonItem *dismissButton = [RIButtonItem itemWithLabel:LS_OK];
@@ -201,7 +202,8 @@
 }
 
 - (void)restManagerService:(SEL)selector failedWithOperation:(NSOperation *)operation error:(NSError *)error userInfo:(NSDictionary *)userInfo {
-    if (selector == @selector(postOrder:handler:)) {
+    if (selector == @selector(postOrder:handler:) ||
+        selector == @selector(postGiftCoupon:handler:)) {
         DDLogWarn(@"error in submitting order to server: %@", error);
         
         RIButtonItem *dismissButton = [RIButtonItem itemWithLabel:LS_OK];
@@ -234,7 +236,11 @@
             _spinner.mode = MBProgressHUDModeIndeterminate;
             _spinner.labelText = LS_SUBMITTING;
             
-            [[RestManager sharedInstance] postOrder:self.order handler:self];
+            if ([self.order.recipient isEqual:[MUserInfo currentAppUserInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext]]) {
+                [[RestManager sharedInstance] postOrder:self.order handler:self];
+            } else {
+                [[RestManager sharedInstance] postGiftCoupon:self.order handler:self];
+            }
         }
     }
 }

@@ -27,6 +27,7 @@
 @dynamic userID;
 @dynamic items;
 @dynamic storeBranch;
+@dynamic recipient;
 
 + (MOrderInfo *)newOrderInfoInContext:(NSManagedObjectContext *)context {
     MOrderInfo *order = [MOrderInfo newObjectInContext:context];
@@ -81,6 +82,13 @@
     self.price = @(total);
 }
 
+- (void)updateRecipient:(MUserInfo *)recipient {
+    if (recipient.appID.length > 0) {
+        self.recipient = recipient;
+        self.userID = recipient.appID;
+    }
+}
+
 - (void)changeValue:(id)value forKey:(NSString *)key {
     [self willChangeValueForKey:key];
     [self setPrimitiveValue:value forKey:key];
@@ -92,11 +100,22 @@
         if (!self.storeBranch && branchObject && [branchObject isKindOfClass:MBranch.class]) {
             self.storeBranch = (MBranch *)branchObject;
         }
+    } else if ([key isEqualToString:@"userID"]) {
+        NSFetchRequest *fetchRequest = [MUserInfo fetchRequest];
+        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"appID = %@", self.userID];
+        NSManagedObject *userObject = [self.managedObjectContext fetchUniqueObject:fetchRequest];
+        if (!self.recipient && userObject && [userObject isKindOfClass:MUserInfo.class]) {
+            self.recipient = (MUserInfo *)userObject;
+        }
     }
 }
 
 - (void)setStoreBranchID:(NSNumber *)storeBranchID {
     [self changeValue:storeBranchID forKey:@"storeBranchID"];
+}
+
+- (void)setUserID:(NSString *)userID {
+    [self changeValue:userID forKey:@"userID"];
 }
 
 #pragma mark - RKMappableEntity
@@ -118,6 +137,22 @@
     [mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"Items" toKeyPath:@"items" withMapping:[MItemInfo defaultEntityMapping]]];
     mapping.valueTransformer = [[RestManager sharedInstance] defaultDotNetValueTransformer];
     return mapping;
+}
+
++ (RKEntityMapping *)giftCouponCreationEntityMapping {
+    RKEntityMapping *mapping = [RKEntityMapping mappingForEntityForName:NSStringFromClass(self.class) inManagedObjectStore:[RKManagedObjectStore defaultStore]];
+    [mapping addAttributeMappingsFromDictionary:@{//@"Id": @"",
+                                                  //@"ReferenceCode": @"",
+                                                  //@"SponsorName": @"",
+                                                  //@"SenderUserId": @"",
+                                                  @"ReceiverUserId": @"userID",
+                                                  @"CreatedDateTime": @"orderedDate",
+                                                  //@"RedeemedDateTime": @"",
+                                                  @"Price": @"price",
+                                                  }];
+    [mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"Items" toKeyPath:@"items" withMapping:[MItemInfo defaultEntityMapping]]];
+    mapping.valueTransformer = [[RestManager sharedInstance] defaultDotNetValueTransformer];
+    return [mapping inverseMapping];
 }
 
 + (RKResponseDescriptor *)defaultResponseDescriptor {

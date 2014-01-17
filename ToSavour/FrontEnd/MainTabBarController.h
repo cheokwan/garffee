@@ -18,4 +18,7 @@ typedef enum {
 
 @interface MainTabBarController : UITabBarController
 
+- (UIViewController *)viewControllerAtTab:(MainTabBarControllerTab)tab;
+- (void)switchToTab:(MainTabBarControllerTab)tab animated:(BOOL)animated;
+
 @end

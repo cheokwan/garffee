@@ -94,31 +94,27 @@ typedef enum {
         TSNavigationController *naviController = [[TSNavigationController alloc] initWithRootViewController:itemPicker];
         [self presentViewController:naviController animated:YES completion:nil];
     } else if (sender == _cartHeaderView.checkoutButton) {
-        self.pendingOrder.userID = self.recipient.appID;
-        self.pendingOrder.price = @(self.cartPrice);
-        self.pendingOrder.orderedDate = [NSDate date];
-        
         PickUpLocationViewController *pickUpLocationViewController = (PickUpLocationViewController*)[TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(PickUpLocationViewController.class)];
         pickUpLocationViewController.delegate = self;
-        pickUpLocationViewController.order = _pendingOrder;
+        pickUpLocationViewController.order = self.pendingOrder;
         [self.navigationController pushViewController:pickUpLocationViewController animated:YES];
     }
 }
 
 - (void)refreshCart:(BOOL)animated {
     [_itemList reloadSections:[NSIndexSet indexSetWithIndex:CartSectionItems] withRowAnimation: animated ? UITableViewRowAnimationFade : UITableViewRowAnimationNone];
-    if (![_cartHeaderView hasRecipient] && self.inCartItems.count > 0) {
-        MUserInfo *appUser = [MUserInfo currentAppUserInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
-        [_cartHeaderView updateRecipient:appUser];
-        self.recipient = appUser;
-    }
-    CGFloat totalPrice = 0.0;
-    for (MItemInfo *item in self.inCartItems) {
-        totalPrice += [item.price floatValue];
-    }
-    [_cartHeaderView updateTotalPrice:totalPrice];
-    self.cartPrice = totalPrice;
-    _cartHeaderView.checkoutButton.enabled = self.inCartItems.count > 0;
+    
+    [self.pendingOrder updatePrice];
+    [_cartHeaderView updateTotalPrice:[self.pendingOrder.price floatValue]];
+    
+    [_cartHeaderView updateRecipient:self.pendingOrder.recipient];
+    
+    _cartHeaderView.checkoutButton.enabled = self.inCartItems.count > 0 && self.pendingOrder.recipient;
+}
+
+- (void)updateRecipient:(MUserInfo *)recipient {
+    [self.pendingOrder updateRecipient:recipient];
+    [self refreshCart:NO];
 }
 
 
@@ -172,11 +168,21 @@ typedef enum {
     }
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
 #pragma mark - ItemPickerViewControllerDelegate
 
 - (void)itemPicker:(ItemPickerViewController *)itemPicker didAddItem:(MItemInfo *)item {
     [self.pendingOrder addItemsObject:item];
     [self.pendingOrder updatePrice];
+    
+    if (!self.pendingOrder.recipient) {
+        MUserInfo *appUser = [MUserInfo currentAppUserInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
+        [self.pendingOrder updateRecipient:appUser];
+    }
+    
     [self refreshCart:YES];
 }
 

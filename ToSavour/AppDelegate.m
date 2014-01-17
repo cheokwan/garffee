@@ -22,10 +22,6 @@
 #import "TSModelIncludes.h"
 #import "RestManager.h"
 
-//XXX-ML
-#import "MockData.h"
-#import "MBranch.h"
-//XXX-ML
 
 @implementation AppDelegate
 
@@ -70,7 +66,8 @@
     
     // Populate views
     self.slidingViewController = (ECSlidingViewController *)self.window.rootViewController;
-    _slidingViewController.topViewController = [TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(MainTabBarController.class)];
+    self.mainTabBarController = (MainTabBarController *)[TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(MainTabBarController.class)];
+    _slidingViewController.topViewController = _mainTabBarController;
     
     SlideMenuViewController *slideMenu = (SlideMenuViewController *)[TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(SlideMenuViewController.class)];
     TSNavigationController *slideMenuNaviController = [[TSNavigationController alloc] initWithRootViewController:slideMenu];
@@ -97,10 +94,6 @@
         // re-fetch user info again for updated app token
         [[RestManager sharedInstance] fetchAppUserInfo:nil];
     }
-    
-//    [MockData removeAllBranches];
-//    [MockData mockBranches];
-    
     return YES;
 }
 

@@ -194,7 +194,10 @@
         [[RestManager sharedInstance] fetchBranches:self];
     }
     if (selector == @selector(fetchBranches:)) {
-        // successfully fetched products info, now dismiss the login view
+        [[RestManager sharedInstance] fetchAppOrderHistories:self];
+    }
+    if (selector == @selector(fetchAppOrderHistories:)) {
+        // successfully fetched everything, now dismiss the login view
         [self dismissAfterLoggedIn];
     }
 }

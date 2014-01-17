@@ -10,10 +10,14 @@
 #import "AccountInfoTableViewCell.h"
 #import "TransactionHistoryTableViewCell.h"
 #import "TSFrontEndIncludes.h"
+#import "MOrderInfo.h"
+#import "MItemInfo.h"
+#import "MProductInfo.h"
 
 @interface AccountViewController ()
 @property (nonatomic, strong)   AccountInfoTableViewCell *accountInfoPrototypeCell;
 @property (nonatomic, strong)   TransactionHistoryTableViewCell *transactionHistoryPrototypeCell;
+@property (nonatomic, strong)   NSFetchedResultsController *transactionHistoryFetchedResultsController;
 @end
 
 @implementation AccountViewController
@@ -63,7 +67,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
+    return self.transactionHistoryFetchedResultsController.fetchedObjects.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -86,15 +90,67 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = nil;
-    cell = [_infoTable dequeueReusableCellWithIdentifier:NSStringFromClass(AccountInfoTableViewCell.class) forIndexPath:indexPath];
+//    cell = [_infoTable dequeueReusableCellWithIdentifier:NSStringFromClass(AccountInfoTableViewCell.class) forIndexPath:indexPath];
+    cell = [_infoTable dequeueReusableCellWithIdentifier:NSStringFromClass(TransactionHistoryTableViewCell.class) forIndexPath:indexPath];
     [self configureCell:cell atIndexPath:indexPath];
     return cell;
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    AccountInfoTableViewCell *accountInfoCell = (AccountInfoTableViewCell *)cell;
-    accountInfoCell.titleLabel.text = @"Title";  // XXX-TEST
+//    AccountInfoTableViewCell *accountInfoCell = (AccountInfoTableViewCell *)cell;
+    TransactionHistoryTableViewCell *historyCell = (TransactionHistoryTableViewCell *)cell;
+    MOrderInfo *order = [self.transactionHistoryFetchedResultsController objectAtIndexPath:indexPath];
+    NSString *productName = ((MItemInfo *)[order.items anyObject]).product.name;
+    historyCell.titleLabel.text = productName.length > 0 ? productName : order.referenceNumber;
+    historyCell.subtitleLabel.text = [order.orderedDate defaultStringRepresentation];
+    historyCell.priceLabel.text = [NSString stringWithPrice:[order.price floatValue]];
     return;
+}
+
+#pragma mark - NSFetchedResultsControllerDelegate
+
+- (NSFetchedResultsController *)transactionHistoryFetchedResultsController {
+    if (!_transactionHistoryFetchedResultsController) {
+        NSFetchRequest *fetchRequest = [MOrderInfo fetchRequest];
+        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"status =[c] %@", MOrderInfoStatusPickedUp];
+        NSSortDescriptor *sdOrderedDate = [[NSSortDescriptor alloc] initWithKey:@"orderedDate" ascending:NO];
+        fetchRequest.sortDescriptors = @[sdOrderedDate];
+        fetchRequest.fetchBatchSize = 20;
+        self.transactionHistoryFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[AppDelegate sharedAppDelegate].managedObjectContext sectionNameKeyPath:nil cacheName:nil];  // XXX-FIX cache name
+        _transactionHistoryFetchedResultsController.delegate = self;
+        
+        NSError *error = nil;
+        if (![_transactionHistoryFetchedResultsController performFetch:&error]) {
+            DDLogError(@"error fetching transaction history: %@", error);
+        }
+    }
+    return _transactionHistoryFetchedResultsController;
+}
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    [_infoTable beginUpdates];
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+    switch (type) {
+        case NSFetchedResultsChangeInsert:
+            [_infoTable insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+        case NSFetchedResultsChangeDelete:
+            [_infoTable deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+        case NSFetchedResultsChangeUpdate:
+            [self configureCell:[_infoTable cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+            break;
+        case NSFetchedResultsChangeMove:
+            [_infoTable deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [_infoTable insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    [_infoTable endUpdates];
 }
 
 #pragma mark - AccountHeaderViewDelegate

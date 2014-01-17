@@ -10,8 +10,9 @@
 #import <CoreData/CoreData.h>
 #import "RKMappableEntity.h"
 #import "MBranch.h"
+#import "MUserInfo.h"
 
-@class MBranch, MItemInfo;
+@class MBranch, MItemInfo, MUserInfo;
 
 static NSString *MOrderInfoStatusInCart     = @"incart";
 //static NSString *MOrderInfoStatusSubmitted  = @"submitted";   // TODO: probably don't need this state
@@ -35,11 +36,15 @@ static NSString *MOrderInfoStatusPickedUp   = @"pickedup";
 @property (nonatomic, retain) NSString * userID;
 @property (nonatomic, retain) NSSet *items;
 @property (nonatomic, retain) MBranch *storeBranch;
+@property (nonatomic, retain) MUserInfo *recipient;
 
 + (MOrderInfo *)newOrderInfoInContext:(NSManagedObjectContext *)context;
 + (MOrderInfo *)existingOrNewOrderInfoInContext:(NSManagedObjectContext *)context;
 - (NSURL *)URLForImageRepresentation;
 - (void)updatePrice;
+- (void)updateRecipient:(MUserInfo *)recipient;
+
++ (RKEntityMapping *)giftCouponCreationEntityMapping;
 @end
 
 @interface MOrderInfo (CoreDataGeneratedAccessors)

@@ -29,27 +29,12 @@
 
 - (NSString *)issuerName {
     NSString *name = @"";
-    if ([self issuer]) {
-        name = [self issuer].name;  // TODO: do remote fetch if user does not exist locally
-    } else if ([self.sponsorName trimmedWhiteSpaces].length > 0) {
+    if (self.sender) {
+        name = self.sender.name;  // TODO: do remote fetch if user does not exist locally
+    } else if (self.sponsorName) {
         name = self.sponsorName;
     }
     return name;
-}
-
-- (MUserInfo *)issuer {
-    if (self.sender) {
-        return self.sender;
-    } else if (self.senderUserID) {
-        NSFetchRequest *fetchRequest = [MUserInfo fetchRequest];
-        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"appID = %@", self.senderUserID];
-        NSError *error = nil;
-        NSArray *users = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-        if (users.count > 0) {
-            return users[0];
-        }
-    }
-    return nil;
 }
 
 - (NSURL *)URLForImageRepresentation {
@@ -61,7 +46,36 @@
         }
     }
 //    return nil;
-    return [NSURL URLWithString:@"http://1.bp.blogspot.com/-4TqWQzfscLY/Up4veCapg1I/AAAAAAAAPT8/UBX9a5WlbiE/s1600/Red-Holiday-Gift.png"];  // XXX-TEST
+    return [NSURL URLWithString:@"http://1.bp.blogspot.com/-4TqWQzfscLY/Up4veCapg1I/AAAAAAAAPT8/UBX9a5WlbiE/s1600/Red-Holiday-Gift.png"];  // XXXXXX
+}
+
+- (void)changeValue:(id)value forKey:(NSString *)key {
+    [self willChangeValueForKey:key];
+    [self setPrimitiveValue:value forKey:key];
+    [self didChangeValueForKey:key];
+    if ([key isEqualToString:@"senderUserID"]) {
+        NSFetchRequest *fetchRequest = [MUserInfo fetchRequest];
+        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"appID = %@", self.senderUserID];
+        NSManagedObject *senderObject = [self.managedObjectContext fetchUniqueObject:fetchRequest];
+        if (!self.sender && senderObject && [senderObject isKindOfClass:MUserInfo.class]) {
+            self.sender = (MUserInfo *)senderObject;
+        }
+    } else if ([key isEqualToString:@"receiverUserID"]) {
+        NSFetchRequest *fetchRequest = [MUserInfo fetchRequest];
+        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"appID = %@", self.receiverUserID];
+        NSManagedObject *receiverObject = [self.managedObjectContext fetchUniqueObject:fetchRequest];
+        if (!self.receiver && receiverObject && [receiverObject isKindOfClass:MUserInfo.class]) {
+            self.receiver = (MUserInfo *)receiverObject;
+        }
+    }
+}
+
+- (void)setSenderUserID:(NSString *)senderUserID {
+    [self changeValue:senderUserID forKey:@"senderUserID"];
+}
+
+- (void)setReceiverUserID:(NSString *)receiverUserID {
+    [self changeValue:receiverUserID forKey:@"receiverUserID"];
 }
 
 #pragma mark - RKMappableEntity

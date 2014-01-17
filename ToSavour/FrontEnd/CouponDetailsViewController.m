@@ -55,7 +55,7 @@
 
 - (void)updateView {
     [_headerView updateReferenceNumber:_coupon.referenceCode];
-    [_headerView updateSender:_coupon.issuer];
+    [_headerView updateSender:_coupon.sender];
     if ([_headerView.nameLabel.text trimmedWhiteSpaces].length == 0 &&
         _coupon.sponsorName) {
         _headerView.nameLabel.text = _coupon.sponsorName;
