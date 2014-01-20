@@ -229,6 +229,8 @@
     for (int i=0; i<[self numberOfGames]; i++) {
         CGRect rect = CGRectMake(i*_gamesScrollView.frameSizeWidth + SCROLL_VIEW_IMAGE_INTERVAL, 0, _gamesScrollView.frameSizeWidth - 2 * SCROLL_VIEW_IMAGE_INTERVAL, _gamesScrollView.frameSizeHeight);
         UIImageView *anImageView = [[UIImageView alloc] initWithFrame:rect];
+        anImageView.layer.cornerRadius = 5.0f;
+        anImageView.layer.masksToBounds = YES;
         anImageView.contentMode = UIViewContentModeScaleAspectFit;
         __weak UIImageView *weakImageView = anImageView;
         TSGame *game = [_games objectAtIndex:i];

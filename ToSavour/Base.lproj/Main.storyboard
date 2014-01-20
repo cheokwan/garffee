@@ -472,29 +472,91 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BranchDetailsImageCell" rowHeight="132" id="4H6-yT-ORq" customClass="BranchDetailsImageCell">
-                                <rect key="frame" x="0.0" y="86" width="320" height="132"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BranchDetailsImageCell" rowHeight="207" id="4H6-yT-ORq" customClass="BranchDetailsImageCell">
+                                <rect key="frame" x="0.0" y="86" width="320" height="207"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4H6-yT-ORq" id="kbc-Ns-kaa">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="131"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="206"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZU7-0X-NmS">
-                                            <rect key="frame" x="9" y="8" width="302" height="116"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZU7-0X-NmS">
+                                            <rect key="frame" x="9" y="9" width="302" height="187"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="116" id="btA-4a-A80"/>
-                                                <constraint firstAttribute="width" constant="302" id="eKD-Cv-S3f"/>
-                                            </constraints>
                                         </imageView>
                                     </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="centerY" secondItem="ZU7-0X-NmS" secondAttribute="centerY" constant="-0.5" id="Jrv-0s-y8D"/>
-                                        <constraint firstAttribute="centerX" secondItem="ZU7-0X-NmS" secondAttribute="centerX" id="sdO-Gw-OTN"/>
-                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="branchImageView" destination="ZU7-0X-NmS" id="biP-JX-D7P"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BranchDetailsNameCell" rowHeight="30" id="9Sh-sF-ghN" userLabel="Branch Name Cell" customClass="BranchDetailsNameCell">
+                                <rect key="frame" x="0.0" y="293" width="320" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9Sh-sF-ghN" id="7We-gn-gJg">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="29"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hong Kong Science Park" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XuZ-Bf-txz">
+                                            <rect key="frame" x="20" y="4" width="280" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="nameLabel" destination="XuZ-Bf-txz" id="PvB-5C-lny"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BranchDetailsNormalCell" rowHeight="30" id="SYc-aV-mjK" userLabel="Branch Normal Cell" customClass="BranchDetailsNormalCell">
+                                <rect key="frame" x="0.0" y="323" width="320" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SYc-aV-mjK" id="lKq-4p-kYu">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="29"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ico_time" translatesAutoresizingMaskIntoConstraints="NO" id="UOJ-tC-a0T">
+                                            <rect key="frame" x="19" y="5" width="20" height="20"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        </imageView>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="XXXXXXXXXXXXX" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="88m-zn-YJm">
+                                            <rect key="frame" x="47" y="6" width="253" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="detailsLabel" destination="88m-zn-YJm" id="Tk8-Wg-QnL"/>
+                                    <outlet property="iconImageView" destination="UOJ-tC-a0T" id="6Pe-Lh-Yq6"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BranchDetailsAddressCell" rowHeight="88" id="OTE-sl-oHs" customClass="BranchDetailsAddressCell">
+                                <rect key="frame" x="0.0" y="353" width="320" height="88"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OTE-sl-oHs" id="u9c-vd-gcS">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="87"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ico_location" translatesAutoresizingMaskIntoConstraints="NO" id="4Cy-kg-pEC">
+                                            <rect key="frame" x="19" y="5" width="20" height="20"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        </imageView>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="231" translatesAutoresizingMaskIntoConstraints="NO" id="kmW-lE-TGw">
+                                            <rect key="frame" x="47" y="6" width="231" height="38"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="addressLabel" destination="kmW-lE-TGw" id="RqS-gE-7qf"/>
+                                    <outlet property="iconImageView" destination="4Cy-kg-pEC" id="zUx-DJ-07c"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1037,8 +1099,13 @@
     <resources>
         <image name="PlayIcon" width="26" height="26"/>
         <image name="StopIcon" width="26" height="26"/>
+        <image name="StopIcon" width="26" height="26"/>
+        <image name="StopIcon" width="26" height="26"/>
+        <image name="StopIcon" width="26" height="26"/>
         <image name="btn_time_add" width="30" height="30"/>
         <image name="btn_time_del" width="30" height="30"/>
+        <image name="ico_location" width="20" height="20"/>
+        <image name="ico_time" width="20" height="20"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

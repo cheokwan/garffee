@@ -29,6 +29,12 @@
     // Configure the view for the selected state
 }
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    _branchImageView.layer.cornerRadius = 5.0f;
+    _branchImageView.layer.masksToBounds = YES;
+}
+
 - (void)setBranchImageURL:(NSURL *)branchImageURL {
     _branchImageURL = branchImageURL;
     __weak UIImageView *weakImageView = _branchImageView;

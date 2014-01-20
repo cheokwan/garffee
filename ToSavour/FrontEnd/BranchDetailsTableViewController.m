@@ -10,6 +10,9 @@
 
 #import <UIView+Helpers/UIView+Helpers.h>
 #import "BranchDetailsImageCell.h"
+#import "BranchDetailsNameCell.h"
+#import "BranchDetailsNormalCell.h"
+#import "BranchDetailsAddressCell.h"
 
 #import "BranchLocationMapViewController.h"
 #import "TSTheming.h"
@@ -29,7 +32,9 @@ typedef NS_ENUM(NSInteger, BranchDetailsRows) {
 
 @interface BranchDetailsTableViewController ()
 @property (nonatomic, strong) BranchDetailsImageCell *imagePrototypeCell;
-@property (nonatomic, strong) UITableViewCell *normalPrototypeCell;
+@property (nonatomic, strong) BranchDetailsNameCell *namePrototypeCell;
+@property (nonatomic, strong) BranchDetailsNormalCell *normalPrototypeCell;
+@property (nonatomic, strong) BranchDetailsAddressCell *addressPrototypeCell;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
 @end
 
@@ -53,7 +58,7 @@ typedef NS_ENUM(NSInteger, BranchDetailsRows) {
 
 - (void)initialize {
     self.dateFormatter = [[NSDateFormatter alloc] init];
-    _dateFormatter.dateFormat = @"hh:mma";
+    _dateFormatter.dateFormat = @"hh:mm a";
 }
 
 - (void)didReceiveMemoryWarning
@@ -69,8 +74,17 @@ typedef NS_ENUM(NSInteger, BranchDetailsRows) {
         case BranchDetailsRowsImage:
             height = [self imagePrototypeCell].frameSizeHeight;
             break;
+        case BranchDetailsRowsBranchName:
+            height = [self namePrototypeCell].frameSizeHeight;
+            break;
+        case BranchDetailsRowsOpeningHours:
+        case BranchDetailsRowsPhoneNumber:
+            height = [self normalPrototypeCell].frameSizeHeight;
+            break;
+        case BranchDetailsRowsAddress:
+            height = [self addressPrototypeCell].frameSizeHeight;
+            break;
         default:
-            height = NORMAL_CELL_HEIGHT;
             break;
     }
     return height;
@@ -89,22 +103,23 @@ typedef NS_ENUM(NSInteger, BranchDetailsRows) {
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = nil;
-    static NSString *normalCellIdentifier = @"NormalCell";
     NSString *cellIdentifier;
     switch (indexPath.row) {
         case BranchDetailsRowsImage:
             cellIdentifier = NSStringFromClass(BranchDetailsImageCell.class);
-            cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
             break;
-        default:
-            cellIdentifier = normalCellIdentifier;
-            cell = [tableView dequeueReusableCellWithIdentifier:normalCellIdentifier];
-            if (cell == nil) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:normalCellIdentifier];
-            }
-            cell.frameSizeHeight = NORMAL_CELL_HEIGHT;
+        case BranchDetailsRowsBranchName:
+            cellIdentifier = NSStringFromClass(BranchDetailsNameCell.class);
+            break;
+        case BranchDetailsRowsOpeningHours:
+        case BranchDetailsRowsPhoneNumber:
+            cellIdentifier = NSStringFromClass(BranchDetailsNormalCell.class);
+            break;
+        case BranchDetailsRowsAddress:
+            cellIdentifier = NSStringFromClass(BranchDetailsAddressCell.class);
             break;
     }
+    cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     [self configureCell:cell atIndexPath:indexPath];
     return cell;
 }
@@ -116,28 +131,39 @@ typedef NS_ENUM(NSInteger, BranchDetailsRows) {
     cell.textLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
     cell.detailTextLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
     cell.detailTextLabel.text = @"";
-    cell.detailTextLabel.textColor= cell.textLabel.textColor;
+    cell.detailTextLabel.textColor = cell.textLabel.textColor;
     switch (indexPath.row) {
         case BranchDetailsRowsImage: {
             BranchDetailsImageCell *aCell = (BranchDetailsImageCell*)cell;
             aCell.branchImageURL = [_branch URLForImage];
         }
             break;
-        case BranchDetailsRowsBranchName:
-            cell.textLabel.text = _branch.name;
+        case BranchDetailsRowsBranchName: {
+            BranchDetailsNameCell *aCell = (BranchDetailsNameCell*)cell;
+            aCell.nameLabel.text = _branch.name;
+            aCell.nameLabel.textColor = [TSTheming defaultThemeColor];
+        }
             break;
-        case BranchDetailsRowsOpeningHours:
-            cell.textLabel.text = LS_BUSINESS_HOUR;
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@", [_dateFormatter stringFromDate:_branch.openTime], [_dateFormatter stringFromDate:_branch.closeTime]];
+        case BranchDetailsRowsOpeningHours: {
+            BranchDetailsNormalCell *aCell = (BranchDetailsNormalCell*)cell;
+            aCell.iconImageView.image = [UIImage imageNamed:@"ico_time"];
+            aCell.detailsLabel.text = [NSString stringWithFormat:@"%@ - %@", [_dateFormatter stringFromDate:_branch.openTime], [_dateFormatter stringFromDate:_branch.closeTime]];
+        }
             break;
-        case BranchDetailsRowsPhoneNumber:
-            cell.textLabel.text = LS_CONTACT_NUMBER;
-            cell.detailTextLabel.text = _branch.phoneNumber;
+        case BranchDetailsRowsPhoneNumber: {
+            BranchDetailsNormalCell *aCell = (BranchDetailsNormalCell*)cell;
+            aCell.iconImageView.image = [UIImage imageNamed:@"ico_phone"];
+            aCell.detailsLabel.text = _branch.phoneNumber;
+        }
             break;
-        case BranchDetailsRowsAddress:
-            cell.textLabel.text = LS_ADDRESS;
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+        case BranchDetailsRowsAddress: {
+            BranchDetailsAddressCell *aCell = (BranchDetailsAddressCell*)cell;
+            aCell.iconImageView.image = [UIImage imageNamed:@"ico_location"];
+            aCell.addressLabel.text = _branch.address;
+            [aCell.addressLabel sizeToFit];
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ico_pin"]];
+            aCell.accessoryView = imageView;
+        }
             break;
         default:
             break;
@@ -160,5 +186,31 @@ typedef NS_ENUM(NSInteger, BranchDetailsRows) {
     }
     return _imagePrototypeCell;
 }
+
+- (BranchDetailsNameCell *)namePrototypeCell {
+    if (!_namePrototypeCell) {
+        self.namePrototypeCell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass(BranchDetailsNameCell.class)];
+    }
+    return _namePrototypeCell;
+}
+
+- (BranchDetailsNormalCell *)normalPrototypeCell {
+    if (!_normalPrototypeCell) {
+        self.normalPrototypeCell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass(BranchDetailsNormalCell.class)];
+    }
+    return _normalPrototypeCell;
+}
+
+- (BranchDetailsAddressCell *)addressPrototypeCell {
+    if (!_addressPrototypeCell) {
+        self.addressPrototypeCell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass(BranchDetailsAddressCell.class)];
+        float padding = _addressPrototypeCell.addressLabel.frameOriginY;
+        _addressPrototypeCell.addressLabel.text = _branch.address;
+        [_addressPrototypeCell.addressLabel sizeToFit];
+        _addressPrototypeCell.frameSizeHeight = 2 * padding + _addressPrototypeCell.addressLabel.frameSizeHeight;
+    }
+    return _addressPrototypeCell;
+}
+
 
 @end
