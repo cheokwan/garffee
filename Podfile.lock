@@ -44,7 +44,6 @@ PODS:
   - TransitionKit (2.0.0)
   - UIAlertView-Blocks (0.0.1)
   - UIColor-HexString (1.0.1)
-  - UIImage-Resize (1.0.1)
   - UIView+Helpers (1.3.0)
 
 DEPENDENCIES:
@@ -59,7 +58,6 @@ DEPENDENCIES:
   - SSZipArchive
   - UIAlertView-Blocks
   - UIColor-HexString
-  - UIImage-Resize
   - UIView+Helpers
 
 SPEC CHECKSUMS:
@@ -81,7 +79,6 @@ SPEC CHECKSUMS:
   TransitionKit: 433284465abacdc07852d7db6dd0cc075010059a
   UIAlertView-Blocks: 7689ad7dd941417e7a7da81507482bc6f4f15bcd
   UIColor-HexString: 8a3f512f71b6d94a2cf6bdeabcad2f3532f31b5a
-  UIImage-Resize: 575381c9746383a5f557bc584a538a2d2ff53c76
   UIView+Helpers: 9a9d8c9a698b1527728af0a3b4d8572b9a8fbd14
 
 COCOAPODS: 0.29.0

@@ -104,6 +104,9 @@
 		D2827DFB187540BD00E4A662 /* NSArray+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DF9187540BD00E4A662 /* NSArray+Helper.m */; };
 		D2827DFE18755B1400E4A662 /* MUserAddressBookInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DFD18755B1400E4A662 /* MUserAddressBookInfo.m */; };
 		D2827DFF18755B1400E4A662 /* MUserAddressBookInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DFD18755B1400E4A662 /* MUserAddressBookInfo.m */; };
+		D287CE62188D51CB001D0C42 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = D287CE5E188D51CB001D0C42 /* LICENSE */; };
+		D287CE63188D51CB001D0C42 /* README in Resources */ = {isa = PBXBuildFile; fileRef = D287CE5F188D51CB001D0C42 /* README */; };
+		D287CE64188D51CB001D0C42 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = D287CE61188D51CB001D0C42 /* UIImage+Resize.m */; };
 		D293E4B2183DEDEB00B73795 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4B1183DEDEB00B73795 /* Foundation.framework */; };
 		D293E4B4183DEDEB00B73795 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4B3183DEDEB00B73795 /* CoreGraphics.framework */; };
 		D293E4B6183DEDEB00B73795 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4B5183DEDEB00B73795 /* UIKit.framework */; };
@@ -269,6 +272,10 @@
 		D2827DF9187540BD00E4A662 /* NSArray+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+Helper.m"; path = "Utilities/NSArray+Helper.m"; sourceTree = "<group>"; };
 		D2827DFC18755B1400E4A662 /* MUserAddressBookInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUserAddressBookInfo.h; path = BackEnd/Model/MUserAddressBookInfo.h; sourceTree = "<group>"; };
 		D2827DFD18755B1400E4A662 /* MUserAddressBookInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUserAddressBookInfo.m; path = BackEnd/Model/MUserAddressBookInfo.m; sourceTree = "<group>"; };
+		D287CE5E188D51CB001D0C42 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = BackEnd/Libraries/LICENSE; sourceTree = "<group>"; };
+		D287CE5F188D51CB001D0C42 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README; path = BackEnd/Libraries/README; sourceTree = "<group>"; };
+		D287CE60188D51CB001D0C42 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+Resize.h"; path = "BackEnd/Libraries/UIImage+Resize.h"; sourceTree = "<group>"; };
+		D287CE61188D51CB001D0C42 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Resize.m"; path = "BackEnd/Libraries/UIImage+Resize.m"; sourceTree = "<group>"; };
 		D293E4AE183DEDEB00B73795 /* Garffee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Garffee.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D293E4B1183DEDEB00B73795 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D293E4B3183DEDEB00B73795 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -471,6 +478,17 @@
 			name = Utilities;
 			sourceTree = "<group>";
 		};
+		D287CE5D188D5168001D0C42 /* LIbraries */ = {
+			isa = PBXGroup;
+			children = (
+				D287CE5E188D51CB001D0C42 /* LICENSE */,
+				D287CE5F188D51CB001D0C42 /* README */,
+				D287CE60188D51CB001D0C42 /* UIImage+Resize.h */,
+				D287CE61188D51CB001D0C42 /* UIImage+Resize.m */,
+			);
+			name = LIbraries;
+			sourceTree = "<group>";
+		};
 		D293E4A5183DEDEB00B73795 = {
 			isa = PBXGroup;
 			children = (
@@ -598,6 +616,7 @@
 		D293E4F3184356D300B73795 /* BackEnd */ = {
 			isa = PBXGroup;
 			children = (
+				D287CE5D188D5168001D0C42 /* LIbraries */,
 				DF852706185EDDAA0087E247 /* DailyAwardGame */,
 				D2A55702184DB5ED0039A5A0 /* Model */,
 				D293E4F4184357B400B73795 /* TimeTracker.h */,
@@ -892,6 +911,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D287CE63188D51CB001D0C42 /* README in Resources */,
 				D293E4D2183DEDEB00B73795 /* Images.xcassets in Resources */,
 				D251EF16187D0B0A0012536E /* CartHeaderView.xib in Resources */,
 				D293EB2A185F04ED00A69034 /* MProductConfigurableOption.json in Resources */,
@@ -900,6 +920,7 @@
 				D293EB2B185F04ED00A69034 /* MProductInfo.json in Resources */,
 				D293EB2C185F04ED00A69034 /* MProductOptionChoice.json in Resources */,
 				D293E4BE183DEDEB00B73795 /* InfoPlist.strings in Resources */,
+				D287CE62188D51CB001D0C42 /* LICENSE in Resources */,
 				D232ED821886501E00BDA9F9 /* PickUpLocationTableViewCell.xib in Resources */,
 				D2209F4A18851FA500282DAE /* OrderItemTableViewCell.xib in Resources */,
 				D21DCE73187A7A6E008CF011 /* HomeControlView.xib in Resources */,
@@ -1101,6 +1122,7 @@
 				D2A36A911850684A004D3D99 /* MainTabBarController.m in Sources */,
 				D21DCE77187A830D008CF011 /* HomeControlView.m in Sources */,
 				D2A36A86185046B2004D3D99 /* TSTheming.m in Sources */,
+				D287CE64188D51CB001D0C42 /* UIImage+Resize.m in Sources */,
 				D2C9168F185EEC9000452891 /* MItemSelectedOption.m in Sources */,
 				DF60E756185C455200DB10DE /* PhotoHuntImageView.m in Sources */,
 				D2209F481884EFD400282DAE /* OrderDetailsViewController.m in Sources */,
