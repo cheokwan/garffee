@@ -45,6 +45,7 @@
     _couponItemsList.delegate = self;
     UINib *nib = [UINib nibWithNibName:NSStringFromClass(OrderItemTableViewCell.class) bundle:[NSBundle mainBundle]];
     [_couponItemsList registerNib:nib forCellReuseIdentifier:NSStringFromClass(OrderItemTableViewCell.class)];
+    _couponItemsList.contentInset = UIEdgeInsetsMake(_headerView.frame.size.height, 0.0, 0.0, 0.0);
 }
 
 - (void)viewDidLoad

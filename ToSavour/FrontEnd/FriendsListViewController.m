@@ -13,6 +13,7 @@
 #import "AvatarView.h"
 #import "MUserInfo.h"
 #import "CartViewController.h"
+#import <MessageUI/MessageUI.h>
 
 typedef enum {
     FriendsListSectionAppNativeFriends = 0,
@@ -58,6 +59,24 @@ typedef enum {
     // Dispose of any resources that can be recreated.
 }
 
+- (NSString *)invitationBody {
+    return [NSString stringWithFormat:@"Check out %@ iOS", BRAND_NAME];
+}
+
+- (NSString *)invitationTitle {
+    return [NSString stringWithFormat:NSLocalizedString(@"Come Check Out %@", @""), BRAND_NAME];
+}
+
+- (void)showInvitationFeedbackOK {
+    NSString *feedbackMessage = [NSString stringWithFormat:NSLocalizedString(@"You have successfully invited your friend to try %@, Thank you for supporting us!", @""), BRAND_NAME];
+    [[[UIAlertView alloc] initWithTitle:nil message:feedbackMessage delegate:nil cancelButtonTitle:LS_OK otherButtonTitles:nil, nil] show];
+}
+
+- (void)showInvitationFeedbackError {
+    NSString *feedbackMessage = NSLocalizedString(@"Your invitation message failed to be sent out, please try again later", @"");
+    [[[UIAlertView alloc] initWithTitle:LS_ERROR message:feedbackMessage delegate:nil cancelButtonTitle:LS_OK otherButtonTitles:nil, nil] show];
+}
+
 - (void)buttonPressed:(id)sender event:(id)event {
     UITouch *touch = [[event allTouches] anyObject];
     NSIndexPath *indexPath = [_friendsList indexPathForRowAtPoint:[touch locationInView:_friendsList]];
@@ -69,9 +88,37 @@ typedef enum {
             [cart updateRecipient:friend];
         }
         [tabBarController switchToTab:MainTabBarControllerTabCart animated:YES];
-    } else if ([friend.userType intValue] == MUserInfoUserTypeFacebookUser ||
-               [friend.userType intValue] == MUserInfoUserTypeAddressBookUser) {
-        // TODO: invite logic goes here
+    } else if ([friend.userType intValue] == MUserInfoUserTypeFacebookUser) {
+        NSMutableDictionary *params = [@{@"message": [self invitationBody],
+                                         @"title": [self invitationTitle],
+                                         @"to": friend.facebookID,
+                                         @"redirect_url": @"http://store.apple.com/hk"} mutableCopy];
+        NSString *facebookAppID = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"FacebookAppID"];
+        if (facebookAppID) {
+            [params setObject:facebookAppID forKey:@"app_id"];
+        } else {
+            DDLogError(@"failed to read Facebook app ID from Info.plist");
+        }
+        
+        [FBWebDialogs presentDialogModallyWithSession:[FBSession activeSession] dialog:@"apprequests" parameters:params handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
+            if (result == FBWebDialogResultDialogCompleted) {
+                DDLogInfo(@"successfully invited facebook friend: %@, resultURL: %@", friend.facebookID, resultURL);
+                [self showInvitationFeedbackOK];
+            } else if (result == FBWebDialogResultDialogNotCompleted && error) {
+                DDLogError(@"failed to invite facebook friend: %@", error);
+                [self showInvitationFeedbackError];
+            }
+        }];
+    } else if ([friend.userType intValue] == MUserInfoUserTypeAddressBookUser) {
+        if ([MFMessageComposeViewController canSendText]) {
+            MFMessageComposeViewController *messageComposer = [[MFMessageComposeViewController alloc] init];
+            messageComposer.messageComposeDelegate = self;
+            messageComposer.body = [self invitationBody];
+            messageComposer.recipients = [[friend.phoneNumber decodeCommaSeparatedString] firstObject];  // TODO: for better experience, choose a HK number
+            [self presentViewController:messageComposer animated:YES completion:nil];
+        } else {
+            [[[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"Your device is not configured for sending messages, please enable iMessage to continue inviting your friend", @"") delegate:nil cancelButtonTitle:LS_OK otherButtonTitles:nil, nil] show];
+        }
     }
 }
 
@@ -205,6 +252,26 @@ typedef enum {
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     [_friendsList endUpdates];
+}
+
+#pragma mark - MFMessageComposeViewControllerDelegate
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result {
+    switch (result) {
+        case MessageComposeResultCancelled: {
+            // do nothing
+        }
+            break;
+        case MessageComposeResultSent: {
+            [self showInvitationFeedbackOK];
+        }
+            break;
+        case MessageComposeResultFailed: {
+            [self showInvitationFeedbackError];
+        }
+            break;
+    }
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

@@ -21,5 +21,6 @@
 + (UIColor *)defaultThemeColor;
 + (UIColor *)defaultAccentColor;
 + (UIColor *)defaultContrastColor;
++ (UIColor *)defaultBackgroundTransparentColor;
 
 @end

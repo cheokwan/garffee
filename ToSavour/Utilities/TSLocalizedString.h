@@ -75,5 +75,6 @@
 #define LS_ORDER_ITEMS          NSLocalizedString(@"Order Items", @"")
 #define LS_LOCATION             NSLocalizedString(@"Location", @"Location")
 #define LS_INVITE               NSLocalizedString(@"Invite", @"")
+#define LS_ERROR                NSLocalizedString(@"Error", @"")
 
 #endif

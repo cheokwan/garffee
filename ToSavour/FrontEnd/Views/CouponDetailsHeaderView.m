@@ -24,6 +24,7 @@
     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height - 0.5, self.frame.size.width, 0.5)];
     line.backgroundColor = [UIColor lightGrayColor];
     [self addSubview:line];
+    self.backgroundColor = [TSTheming defaultBackgroundTransparentColor];
 }
 
 - (id)initWithFrame:(CGRect)frame

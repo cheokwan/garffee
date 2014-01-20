@@ -64,6 +64,10 @@
     return [UIColor blackColor];
 }
 
++ (UIColor *)defaultBackgroundTransparentColor {
+    return [UIColor colorWithHexString:@"EEF1F1F1"];
+}
+
 + (UIView *)navigationBrandNameTitleView {
     return [TSTheming navigationTitleViewWithString:BRAND_NAME];
 }
