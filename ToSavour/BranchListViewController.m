@@ -7,7 +7,7 @@
 //
 
 #import "BranchListViewController.h"
-#import "BranchLocationMapViewController.h"
+#import "BranchDetailsTableViewController.h"
 #import "TSTheming.h"
 
 @implementation BranchListViewController
@@ -42,9 +42,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    BranchLocationMapViewController *branchLocationMapVC = (BranchLocationMapViewController*)[TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(BranchLocationMapViewController.class)];
-    branchLocationMapVC.branch = self.branches[indexPath.row];
-    [self.navigationController pushViewController:branchLocationMapVC animated:YES];
+    BranchDetailsTableViewController *branchDetailsTableVC = (BranchDetailsTableViewController*)[TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(BranchDetailsTableViewController.class)];
+    [branchDetailsTableVC initialize];
+    branchDetailsTableVC.branch = self.branches[indexPath.row];
+    [self.navigationController pushViewController:branchDetailsTableVC animated:YES];
 }
 
 @end

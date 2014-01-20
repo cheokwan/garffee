@@ -155,6 +155,8 @@
 		D2C9168F185EEC9000452891 /* MItemSelectedOption.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C9168E185EEC9000452891 /* MItemSelectedOption.m */; };
 		D2C91695185EECBA00452891 /* MProductInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C91694185EECBA00452891 /* MProductInfo.m */; };
 		D2FF84CD187E91FA00D3A21C /* TSBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2FF84CC187E91FA00D3A21C /* TSBadgeView.m */; };
+		DF0D574E18881FE1001C3A9D /* BranchDetailsImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DF0D574D18881FE1001C3A9D /* BranchDetailsImageCell.m */; };
+		DF0D5751188820D8001C3A9D /* BranchDetailsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF0D5750188820D8001C3A9D /* BranchDetailsTableViewController.m */; };
 		DF1C88D21875967800400283 /* PickUpLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF1C88D11875967800400283 /* PickUpLocationViewController.m */; };
 		DF1C88D51875A82800400283 /* PickUpLocationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DF1C88D41875A82800400283 /* PickUpLocationTableViewCell.m */; };
 		DF26BEB518653FC400598CA0 /* TSGamePlayHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = DF26BEB418653FC400598CA0 /* TSGamePlayHistory.m */; };
@@ -178,6 +180,9 @@
 		DFE628AD1855AF2C00E1C8FE /* TSGameServiceCalls.m in Sources */ = {isa = PBXBuildFile; fileRef = DFE628AC1855AF2C00E1C8FE /* TSGameServiceCalls.m */; };
 		DFE628B11855FB7D00E1C8FE /* AreYouReadyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFE628B01855FB7D00E1C8FE /* AreYouReadyViewController.m */; };
 		DFE628B41855FE0D00E1C8FE /* CountDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = DFE628B31855FE0C00E1C8FE /* CountDownButton.m */; };
+		DFED33B8188D49B900E9C9C2 /* BranchDetailsNameCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DFED33B7188D49B900E9C9C2 /* BranchDetailsNameCell.m */; };
+		DFED33BB188D49E400E9C9C2 /* BranchDetailsNormalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DFED33BA188D49E400E9C9C2 /* BranchDetailsNormalCell.m */; };
+		DFED33BE188D4A1300E9C9C2 /* BranchDetailsAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DFED33BD188D4A1300E9C9C2 /* BranchDetailsAddressCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -352,6 +357,10 @@
 		D2C916A3185F015800452891 /* TSModelIncludes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TSModelIncludes.h; path = BackEnd/Model/TSModelIncludes.h; sourceTree = "<group>"; };
 		D2FF84CB187E91FA00D3A21C /* TSBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSBadgeView.h; path = FrontEnd/CustomUI/TSBadgeView.h; sourceTree = "<group>"; };
 		D2FF84CC187E91FA00D3A21C /* TSBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSBadgeView.m; path = FrontEnd/CustomUI/TSBadgeView.m; sourceTree = "<group>"; };
+		DF0D574C18881FE1001C3A9D /* BranchDetailsImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BranchDetailsImageCell.h; path = FrontEnd/Views/BranchDetailsImageCell.h; sourceTree = "<group>"; };
+		DF0D574D18881FE1001C3A9D /* BranchDetailsImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BranchDetailsImageCell.m; path = FrontEnd/Views/BranchDetailsImageCell.m; sourceTree = "<group>"; };
+		DF0D574F188820D8001C3A9D /* BranchDetailsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BranchDetailsTableViewController.h; path = FrontEnd/BranchDetailsTableViewController.h; sourceTree = "<group>"; };
+		DF0D5750188820D8001C3A9D /* BranchDetailsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BranchDetailsTableViewController.m; path = FrontEnd/BranchDetailsTableViewController.m; sourceTree = "<group>"; };
 		DF1C88D01875967800400283 /* PickUpLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PickUpLocationViewController.h; path = FrontEnd/PickUpLocationViewController.h; sourceTree = "<group>"; };
 		DF1C88D11875967800400283 /* PickUpLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PickUpLocationViewController.m; path = FrontEnd/PickUpLocationViewController.m; sourceTree = "<group>"; };
 		DF1C88D31875A82800400283 /* PickUpLocationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PickUpLocationTableViewCell.h; path = FrontEnd/Views/PickUpLocationTableViewCell.h; sourceTree = "<group>"; };
@@ -397,6 +406,12 @@
 		DFE628B01855FB7D00E1C8FE /* AreYouReadyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AreYouReadyViewController.m; sourceTree = "<group>"; };
 		DFE628B21855FE0C00E1C8FE /* CountDownButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountDownButton.h; sourceTree = "<group>"; };
 		DFE628B31855FE0C00E1C8FE /* CountDownButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountDownButton.m; sourceTree = "<group>"; };
+		DFED33B6188D49B900E9C9C2 /* BranchDetailsNameCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BranchDetailsNameCell.h; path = FrontEnd/Views/BranchDetailsNameCell.h; sourceTree = "<group>"; };
+		DFED33B7188D49B900E9C9C2 /* BranchDetailsNameCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BranchDetailsNameCell.m; path = FrontEnd/Views/BranchDetailsNameCell.m; sourceTree = "<group>"; };
+		DFED33B9188D49E400E9C9C2 /* BranchDetailsNormalCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BranchDetailsNormalCell.h; path = FrontEnd/Views/BranchDetailsNormalCell.h; sourceTree = "<group>"; };
+		DFED33BA188D49E400E9C9C2 /* BranchDetailsNormalCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BranchDetailsNormalCell.m; path = FrontEnd/Views/BranchDetailsNormalCell.m; sourceTree = "<group>"; };
+		DFED33BC188D4A1300E9C9C2 /* BranchDetailsAddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BranchDetailsAddressCell.h; sourceTree = "<group>"; };
+		DFED33BD188D4A1300E9C9C2 /* BranchDetailsAddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BranchDetailsAddressCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -583,6 +598,10 @@
 				D2A67A8F185C218300889114 /* XIBs */,
 				D2C075B81852CA4700620114 /* Views */,
 				D2A36A8818504A12004D3D99 /* CustomUI */,
+				DFB3C1E218814A97004E5454 /* BranchListViewController.h */,
+				DFB3C1E318814A97004E5454 /* BranchListViewController.m */,
+				DF0D574F188820D8001C3A9D /* BranchDetailsTableViewController.h */,
+				DF0D5750188820D8001C3A9D /* BranchDetailsTableViewController.m */,
 				D293E4F0183DF24000B73795 /* SlideMenuViewController.h */,
 				D293E4F1183DF24000B73795 /* SlideMenuViewController.m */,
 				D2A556F9184C37F60039A5A0 /* MapTrackingViewController.h */,
@@ -754,8 +773,14 @@
 				D2209F381880172800282DAE /* CouponDetailsHeaderView.m */,
 				D2209F431884EAF500282DAE /* OrderDetailsHeaderView.h */,
 				D2209F441884EAF500282DAE /* OrderDetailsHeaderView.m */,
-				DFB3C1E218814A97004E5454 /* BranchListViewController.h */,
-				DFB3C1E318814A97004E5454 /* BranchListViewController.m */,
+				DF0D574C18881FE1001C3A9D /* BranchDetailsImageCell.h */,
+				DF0D574D18881FE1001C3A9D /* BranchDetailsImageCell.m */,
+				DFED33B6188D49B900E9C9C2 /* BranchDetailsNameCell.h */,
+				DFED33B7188D49B900E9C9C2 /* BranchDetailsNameCell.m */,
+				DFED33B9188D49E400E9C9C2 /* BranchDetailsNormalCell.h */,
+				DFED33BA188D49E400E9C9C2 /* BranchDetailsNormalCell.m */,
+				DFED33BC188D4A1300E9C9C2 /* BranchDetailsAddressCell.h */,
+				DFED33BD188D4A1300E9C9C2 /* BranchDetailsAddressCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1086,7 +1111,9 @@
 				D2209F36187FAE4F00282DAE /* NSManagedObjectContext+Helper.m in Sources */,
 				D2C075C11852E29500620114 /* ItemPickerViewController.m in Sources */,
 				D2C9168C185EEC7500452891 /* MItemInfo.m in Sources */,
+				DFED33B8188D49B900E9C9C2 /* BranchDetailsNameCell.m in Sources */,
 				D221964D1859BCC6007528EE /* FriendsListViewController.m in Sources */,
+				DFED33BB188D49E400E9C9C2 /* BranchDetailsNormalCell.m in Sources */,
 				D2827DFA187540BD00E4A662 /* NSArray+Helper.m in Sources */,
 				D2466849186062DC0089D5DB /* NSString+Helper.m in Sources */,
 				D2C075C418533B6A00620114 /* ItemPickerScrollView.m in Sources */,
@@ -1095,8 +1122,11 @@
 				DFE628A81855992800E1C8FE /* ChooseGameViewController.m in Sources */,
 				D2209F4D1885212600282DAE /* OrderItemTableViewCell.m in Sources */,
 				D251EF1E187D11C80012536E /* OrderProgressView.m in Sources */,
+				DF0D5751188820D8001C3A9D /* BranchDetailsTableViewController.m in Sources */,
+				DFED33BE188D4A1300E9C9C2 /* BranchDetailsAddressCell.m in Sources */,
 				D2721690187BC99D00958E3B /* LineView.m in Sources */,
 				DFBDA14C1856111500BF3755 /* PhotoHuntViewController.m in Sources */,
+				DF0D574E18881FE1001C3A9D /* BranchDetailsImageCell.m in Sources */,
 				D2A67A97185C487A00889114 /* AccountInfoTableViewCell.m in Sources */,
 				D21DCE7B187AC5B7008CF011 /* FriendsListScrollView.m in Sources */,
 				D293E4F2183DF24000B73795 /* SlideMenuViewController.m in Sources */,

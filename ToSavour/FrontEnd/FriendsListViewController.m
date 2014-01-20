@@ -26,8 +26,8 @@ typedef enum {
 @interface FriendsListViewController ()
 @property (nonatomic, strong)   FriendsListTableViewCell *friendsListPrototypeCell;
 @property (nonatomic, strong)   NSFetchedResultsController *fetchedResultsController;
-@property (nonatomic, readonly)   UIView *sendGiftAccessoryView;
-@property (nonatomic, readonly)   UIView *sendInviteAccessoryView;
+@property (nonatomic, readonly) UIView *sendGiftAccessoryView;
+@property (nonatomic, readonly) UIView *sendInviteAccessoryView;
 @end
 
 @implementation FriendsListViewController
@@ -114,7 +114,7 @@ typedef enum {
             MFMessageComposeViewController *messageComposer = [[MFMessageComposeViewController alloc] init];
             messageComposer.messageComposeDelegate = self;
             messageComposer.body = [self invitationBody];
-            messageComposer.recipients = [[friend.phoneNumber decodeCommaSeparatedString] firstObject];  // TODO: for better experience, choose a HK number
+            messageComposer.recipients = @[[[friend.phoneNumber decodeCommaSeparatedString] firstObject]];  // TODO: for better experience, choose a HK number
             [self presentViewController:messageComposer animated:YES completion:nil];
         } else {
             [[[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"Your device is not configured for sending messages, please enable iMessage to continue inviting your friend", @"") delegate:nil cancelButtonTitle:LS_OK otherButtonTitles:nil, nil] show];
@@ -271,6 +271,7 @@ typedef enum {
         }
             break;
     }
+    controller.recipients = nil;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

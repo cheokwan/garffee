@@ -25,6 +25,7 @@
 @property (nonatomic, retain) NSString * thumbnailURL;
 @property (nonatomic, retain) NSString * imageURL;
 
+- (NSURL *)URLForImage;
 - (NSURL *)URLForThumbnailImage;
 
 + (RKEntityMapping *)defaultEntityMapping;
