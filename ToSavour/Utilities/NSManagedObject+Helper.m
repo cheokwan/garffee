@@ -78,4 +78,10 @@
     return value;
 }
 
+- (void)changePrimitiveValue:(id)value forKey:(NSString *)key {
+    [self willChangeValueForKey:key];
+    [self setPrimitiveValue:value forKey:key];
+    [self didChangeValueForKey:key];
+}
+
 @end

@@ -43,7 +43,6 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     BranchDetailsTableViewController *branchDetailsTableVC = (BranchDetailsTableViewController*)[TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(BranchDetailsTableViewController.class)];
-    [branchDetailsTableVC initialize];
     branchDetailsTableVC.branch = self.branches[indexPath.row];
     [self.navigationController pushViewController:branchDetailsTableVC animated:YES];
 }

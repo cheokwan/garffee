@@ -35,16 +35,25 @@ typedef NS_ENUM(NSInteger, BranchDetailsRows) {
 @property (nonatomic, strong) BranchDetailsNameCell *namePrototypeCell;
 @property (nonatomic, strong) BranchDetailsNormalCell *normalPrototypeCell;
 @property (nonatomic, strong) BranchDetailsAddressCell *addressPrototypeCell;
-@property (nonatomic, strong) NSDateFormatter *dateFormatter;
 @end
 
 @implementation BranchDetailsTableViewController
+
++ (NSDateFormatter *)dateFormatter {
+    static NSDateFormatter *dateFormatter = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        dateFormatter = [[NSDateFormatter alloc] init];
+        NSString *formatString = [NSDateFormatter dateFormatFromTemplate:@"hh:mm" options:0 locale:[NSLocale currentLocale]];
+        [dateFormatter setDateFormat:formatString];
+    });
+    return dateFormatter;
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
-        // Custom initialization
     }
     return self;
 }
@@ -54,11 +63,6 @@ typedef NS_ENUM(NSInteger, BranchDetailsRows) {
     [super viewDidLoad];
     self.navigationItem.titleView = [TSTheming navigationTitleViewWithString:LS_STORE_INFO];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-}
-
-- (void)initialize {
-    self.dateFormatter = [[NSDateFormatter alloc] init];
-    _dateFormatter.dateFormat = @"hh:mm a";
 }
 
 - (void)didReceiveMemoryWarning
@@ -147,7 +151,7 @@ typedef NS_ENUM(NSInteger, BranchDetailsRows) {
         case BranchDetailsRowsOpeningHours: {
             BranchDetailsNormalCell *aCell = (BranchDetailsNormalCell*)cell;
             aCell.iconImageView.image = [UIImage imageNamed:@"ico_time"];
-            aCell.detailsLabel.text = [NSString stringWithFormat:@"%@ - %@", [_dateFormatter stringFromDate:_branch.openTime], [_dateFormatter stringFromDate:_branch.closeTime]];
+            aCell.detailsLabel.text = [NSString stringWithFormat:@"%@ - %@", [self.class.dateFormatter stringFromDate:_branch.openTime], [self.class.dateFormatter stringFromDate:_branch.closeTime]];
         }
             break;
         case BranchDetailsRowsPhoneNumber: {

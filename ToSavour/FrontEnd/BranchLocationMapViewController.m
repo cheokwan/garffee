@@ -43,6 +43,7 @@
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(_mapView.centerCoordinate, REGION_SPAN_DELTA, REGION_SPAN_DELTA);
     _mapView.region = region;
     _mapView.mapType = MKMapTypeStandard;
+    [_mapView selectAnnotation:annotation animated:YES];
 }
 
 #pragma mark - MKMapViewDelegate

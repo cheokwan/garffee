@@ -43,20 +43,6 @@
     return item;
 }
 
-- (void)setProduct:(MProductInfo *)product {
-    [self willChangeValueForKey:@"product"];
-    [self setPrimitiveValue:product forKey:@"product"];
-    [self didChangeValueForKey:@"product"];
-    self.productID = self.product.id;
-}
-
-- (void)setOrder:(MOrderInfo *)order {
-    [self willChangeValueForKey:@"order"];
-    [self setPrimitiveValue:order forKey:@"order"];
-    [self didChangeValueForKey:@"order"];
-    self.orderID = self.order.id;
-}
-
 - (void)updatePrice {
     double total = 0.0;
     for (MItemSelectedOption *selectedOption in self.itemSelectedOptions) {
@@ -66,30 +52,34 @@
 }
 
 - (void)changeValue:(id)value forKey:(NSString *)key {
-    [self willChangeValueForKey:key];
-    [self setPrimitiveValue:value forKey:key];
-    [self didChangeValueForKey:key];
+    [self changePrimitiveValue:value forKey:key];
     if ([key isEqualToString:@"productID"]) {
         NSFetchRequest *fetchRequest = [MProductInfo fetchRequest];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"id = %@", self.productID];
         NSManagedObject *productObject = [self.managedObjectContext fetchUniqueObject:fetchRequest];
         if (!self.product && productObject && [productObject isKindOfClass:MProductInfo.class]) {
-            self.product = (MProductInfo *)productObject;
+            [self changePrimitiveValue:productObject forKey:@"product"];
         }
     } else if ([key isEqualToString:@"orderID"]) {
         NSFetchRequest *fetchRequest = [MOrderInfo fetchRequest];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"id = %@", self.orderID];
         NSManagedObject *orderObject = [self.managedObjectContext fetchUniqueObject:fetchRequest];
         if (!self.order && orderObject && [orderObject isKindOfClass:MOrderInfo.class]) {
-            self.order = (MOrderInfo *)orderObject;
+            [self changePrimitiveValue:orderObject forKey:@"order"];
         }
     } else if ([key isEqualToString:@"couponID"]) {
         NSFetchRequest *fetchRequest = [MCouponInfo fetchRequest];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"id = %@", self.couponID];
         NSManagedObject *couponObject = [self.managedObjectContext fetchUniqueObject:fetchRequest];
         if (!self.coupon && couponObject && [couponObject isKindOfClass:MCouponInfo.class]) {
-            self.coupon = (MCouponInfo *)couponObject;
+            [self changePrimitiveValue:couponObject forKey:@"coupon"];
         }
+    } else if ([key isEqualToString:@"product"]) {
+        [self changePrimitiveValue:self.product.id forKey:@"productID"];
+    } else if ([key isEqualToString:@"order"]) {
+        [self changePrimitiveValue:self.order.id forKey:@"orderID"];
+    } else if ([key isEqualToString:@"coupon"]) {
+        [self changePrimitiveValue:self.coupon.id forKey:@"couponID"];
     }
 }
 
@@ -103,6 +93,18 @@
 
 - (void)setCouponID:(NSNumber *)couponID {
     [self changeValue:couponID forKey:@"couponID"];
+}
+
+- (void)setProduct:(MProductInfo *)product {
+    [self changeValue:product forKey:@"product"];
+}
+
+- (void)setOrder:(MOrderInfo *)order {
+    [self changeValue:order forKey:@"order"];
+}
+
+- (void)setCoupon:(MCouponInfo *)coupon {
+    [self changeValue:coupon forKey:@"coupon"];
 }
 
 #pragma mark - RKMappableEntity

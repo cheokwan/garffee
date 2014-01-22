@@ -145,9 +145,10 @@
                                     <constraint firstAttribute="height" constant="85" id="YtQ-k8-2j1"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3bA-jw-XFT">
+                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3bA-jw-XFT">
                                 <rect key="frame" x="0.0" y="518" width="320" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="wmZ-4E-FyB"/>
                                 </constraints>
@@ -157,7 +158,7 @@
                                 </state>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="81" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="KHN-eI-dWg">
-                                <rect key="frame" x="0.0" y="64" width="320" height="454"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -175,12 +176,12 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="lbf-Ah-KLV" secondAttribute="trailing" id="3hz-2g-zwW"/>
-                            <constraint firstItem="t1t-Kf-3BI" firstAttribute="top" secondItem="KHN-eI-dWg" secondAttribute="bottom" constant="50" id="745-2h-UBj"/>
                             <constraint firstAttribute="trailing" secondItem="KHN-eI-dWg" secondAttribute="trailing" id="9bA-uf-Ymb"/>
                             <constraint firstItem="3bA-jw-XFT" firstAttribute="leading" secondItem="l6Y-s7-Uhb" secondAttribute="leading" id="9n1-oZ-oyA"/>
                             <constraint firstItem="lbf-Ah-KLV" firstAttribute="top" secondItem="9qL-q3-og3" secondAttribute="bottom" id="AuH-8l-JM2"/>
                             <constraint firstAttribute="trailing" secondItem="3bA-jw-XFT" secondAttribute="trailing" id="Dqx-Rf-iy3"/>
                             <constraint firstItem="KHN-eI-dWg" firstAttribute="leading" secondItem="l6Y-s7-Uhb" secondAttribute="leading" id="NzZ-3c-YiH"/>
+                            <constraint firstItem="KHN-eI-dWg" firstAttribute="bottom" secondItem="3bA-jw-XFT" secondAttribute="bottom" id="Otv-X8-G1O"/>
                             <constraint firstItem="KHN-eI-dWg" firstAttribute="top" secondItem="lbf-Ah-KLV" secondAttribute="top" id="Pbk-6F-OaB"/>
                             <constraint firstItem="lbf-Ah-KLV" firstAttribute="leading" secondItem="l6Y-s7-Uhb" secondAttribute="leading" id="yf6-e0-sOm"/>
                             <constraint firstItem="t1t-Kf-3BI" firstAttribute="top" secondItem="3bA-jw-XFT" secondAttribute="bottom" id="z80-hg-R2g"/>
@@ -235,7 +236,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="81" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="fdo-NJ-h0f">
-                                <rect key="frame" x="0.0" y="64" width="320" height="411"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -257,15 +258,15 @@
                                 <rect key="frame" x="0.0" y="475" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Recommend Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IcA-cC-9i2" userLabel="Recommend Time">
-                                        <rect key="frame" x="10" y="12" width="130" height="21"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Recommend Time!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IcA-cC-9i2" userLabel="Recommend Time">
+                                        <rect key="frame" x="10" y="12" width="155" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vhe-Yz-FhT" userLabel="Minus Time Button">
-                                        <rect key="frame" x="145" y="7" width="30" height="30"/>
+                                        <rect key="frame" x="165" y="7" width="30" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <state key="normal" image="btn_time_del">
@@ -275,8 +276,8 @@
                                             <action selector="buttonPressed:" destination="2aX-JZ-I5p" eventType="touchUpInside" id="j8V-VM-hge"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9G4-Qv-g0D" userLabel="Time">
-                                        <rect key="frame" x="180" y="12" width="95" height="21"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="999:99 mins" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9G4-Qv-g0D" userLabel="Time">
+                                        <rect key="frame" x="195" y="12" width="85" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <nil key="highlightedColor"/>
@@ -301,11 +302,10 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="lDv-P2-bcG" secondAttribute="centerX" id="3Vu-nC-zYc"/>
-                            <constraint firstAttribute="centerX" secondItem="XEY-DN-8aq" secondAttribute="centerX" id="5Fq-xn-bIP"/>
                             <constraint firstItem="lDv-P2-bcG" firstAttribute="top" secondItem="vfI-wh-XMl" secondAttribute="bottom" id="7W5-xP-UCA"/>
-                            <constraint firstItem="XEY-DN-8aq" firstAttribute="top" secondItem="fdo-NJ-h0f" secondAttribute="bottom" id="ARr-Ri-H8A"/>
                             <constraint firstItem="fdo-NJ-h0f" firstAttribute="leading" secondItem="s1o-Qs-PIY" secondAttribute="leading" id="C4i-0B-H44"/>
                             <constraint firstAttribute="trailing" secondItem="XEY-DN-8aq" secondAttribute="trailing" id="dWS-9b-jPn"/>
+                            <constraint firstItem="fdo-NJ-h0f" firstAttribute="bottom" secondItem="XEY-DN-8aq" secondAttribute="bottom" id="kWL-uW-Ltc"/>
                             <constraint firstItem="fdo-NJ-h0f" firstAttribute="top" secondItem="lDv-P2-bcG" secondAttribute="bottom" id="nKt-yK-pHT"/>
                             <constraint firstItem="nrr-Q5-mmD" firstAttribute="top" secondItem="XEY-DN-8aq" secondAttribute="bottom" id="t4L-iu-wGE"/>
                             <constraint firstItem="XEY-DN-8aq" firstAttribute="leading" secondItem="s1o-Qs-PIY" secondAttribute="leading" id="tSw-fU-9na"/>
@@ -317,8 +317,8 @@
                     <connections>
                         <outlet property="addTimeButton" destination="omg-nY-z64" id="neF-ax-Lmf"/>
                         <outlet property="minusTimeButton" destination="Vhe-Yz-FhT" id="i7a-or-gUJ"/>
+                        <outlet property="recommendedTimeConstantLabel" destination="IcA-cC-9i2" id="3ZA-nf-XI1"/>
                         <outlet property="recommendedTimeView" destination="XEY-DN-8aq" id="Vqi-ao-Gxd"/>
-                        <outlet property="recommenedTimeConstantLabel" destination="IcA-cC-9i2" id="MJn-f7-Zl1"/>
                         <outlet property="tableView" destination="fdo-NJ-h0f" id="J0l-eG-HUX"/>
                         <outlet property="timeLabel" destination="9G4-Qv-g0D" id="J0B-It-OFx"/>
                         <outlet property="view" destination="s1o-Qs-PIY" id="se1-8A-sGa"/>
@@ -814,7 +814,7 @@
         <scene sceneID="S4D-E2-qMh">
             <objects>
                 <tableViewController storyboardIdentifier="SlideMenuViewController" id="erp-Le-PWb" customClass="SlideMenuViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="dcR-Mf-Gqh">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="81" sectionHeaderHeight="22" sectionFooterHeight="22" id="dcR-Mf-Gqh">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

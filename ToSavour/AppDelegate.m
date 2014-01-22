@@ -192,7 +192,7 @@
     
     NSString *seedStorePath = [RKApplicationDataDirectory() stringByAppendingPathComponent:@"ToSavourSeed.sqlite"];
     RKManagedObjectImporter *importer = [[RKManagedObjectImporter alloc] initWithManagedObjectModel:self.managedObjectModel storePath:seedStorePath];
-    [importer importObjectsFromItemAtPath:[[NSBundle mainBundle] pathForResource:@"MProductInfo" ofType:@"json"]
+    [importer importObjectsFromItemAtPath:[[NSBundle mainBundle] pathForResource:@"MProductOptionRule" ofType:@"json"]
                               withMapping:[MProductInfo defaultEntityMapping]
                                   keyPath:nil
                                     error:&error];
@@ -201,6 +201,29 @@
         [importer logSeedingInfo];
     } else {
         DDLogError(@"failed to finish import and save seed database due to error: %@", error);
+    }
+}
+
+- (void)loadModelResourcesFromBundle {
+    NSString *storePath = [RKApplicationDataDirectory() stringByAppendingPathComponent:@"ToSavour.sqlite"];
+    RKManagedObjectImporter *importer = [[RKManagedObjectImporter alloc] initWithManagedObjectModel:self.managedObjectModel storePath:storePath];
+    importer.resetsStoreBeforeImporting = NO;
+    NSArray *modelResources = @[MProductInfo.class];
+    BOOL success = NO;
+    NSError *error = nil;
+    for (Class class in modelResources) {
+        NSString *resourcePath = [[NSBundle mainBundle] pathForResource:NSStringFromClass(class) ofType:@"json"];
+        success = [importer importObjectsFromItemAtPath:resourcePath
+                                                 withMapping:[class defaultEntityMapping]
+                                                     keyPath:nil
+                                                       error:&error];
+        if (!success) {
+            DDLogError(@"failed to import model resource from bundle: %@, %@", resourcePath, error);
+        }
+    }
+    success = [importer finishImporting:&error];
+    if (!success) {
+        DDLogError(@"failed to finish importing model resource from bundle: %@", error);
     }
 }
 

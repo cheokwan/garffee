@@ -18,10 +18,12 @@
 #import <UIAlertView-Blocks/UIAlertView+Blocks.h>
 
 #define DEFAULT_ESTIMATED_TIME      5
+#define MAX_ESTIMATED_TIME          99
+#define MIN_ESTIMATED_TIME          1
 
 @interface PickUpLocationViewController ()
 //UI related
-@property (nonatomic, strong) UIBarButtonItem *finishButton;
+@property (nonatomic, strong) UIButton *finishButton;
 @property (nonatomic, strong) UIAlertView *confirmOrderAlertView;
 @property (nonatomic, strong) PickUpLocationTableViewCell *prototypeCell;
 @property (nonatomic, strong) MBProgressHUD *spinner;
@@ -41,32 +43,39 @@
     return self;
 }
 
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self initialize];
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self initialize];
 	// Do any additional setup after loading the view.
     self.navigationItem.titleView = [TSTheming navigationTitleViewWithString:LS_PICK_UP_LOCATION];
-    self.finishButton = [[UIBarButtonItem alloc] initWithTitle:LS_FINISH style:UIBarButtonItemStylePlain target:self action:@selector(buttonPressed:)];
-    _finishButton.tintColor = [TSTheming defaultAccentColor];
-    [self.navigationItem setRightBarButtonItem:_finishButton];
-    [self updateFinishButton];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.finishButton];
     [self.navigationItem.leftBarButtonItem setTintColor:[TSTheming defaultAccentColor]];
+    [self updateFinishButtonAnimated:NO];
+    
     [self.view bringSubviewToFront:_recommendedTimeView];
-    [self updateTimeLabel:DEFAULT_ESTIMATED_TIME];
+    [self updateTimeLabel:DEFAULT_ESTIMATED_TIME animated:NO];
+    _recommendedTimeView.backgroundColor = [TSTheming defaultBackgroundTransparentColor];
+    _recommendedTimeConstantLabel.text = LS_RECOMMENDED_TIME;
+    _recommendedTimeConstantLabel.textColor = [TSTheming defaultThemeColor];
+    
     UINib *nib = [UINib nibWithNibName:NSStringFromClass(PickUpLocationTableViewCell.class) bundle:[NSBundle mainBundle]];
     [self.tableView registerNib:nib forCellReuseIdentifier:NSStringFromClass(PickUpLocationTableViewCell.class)];
+    _tableView.contentInset = UIEdgeInsetsMake(0.0, 0.0, _recommendedTimeView.frame.size.height, 0.0);
 }
 
 - (void)initialize {
     self.selectedBranch = nil;
     self.estimatedTimeFromWeb = 0;
     self.userEstimateTime = 0;
-    self.branchFRC = [self generateBranchFRC];
-    NSError *error = nil;
-    if (![_branchFRC performFetch:&error]) {
-        DDLogDebug(@"fetch branch failed: %@", error);
-    }
 }
 
 - (IBAction)buttonPressed:(id)sender {
@@ -76,18 +85,47 @@
             [_confirmOrderAlertView show];
         }
     } else if (sender == _addTimeButton) {
-        self.userEstimateTime++;
-        self.userEstimateTime = MIN(_userEstimateTime, 99);
-        [self updateTimeLabel:_userEstimateTime];
+        self.userEstimateTime = MIN(_userEstimateTime + 1, MAX_ESTIMATED_TIME);
+        [self updateTimeLabel:_userEstimateTime animated:NO];
+        _minusTimeButton.enabled = YES;
+        if (_userEstimateTime == MAX_ESTIMATED_TIME) {
+            _addTimeButton.enabled = NO;
+        }
     } else if (sender == _minusTimeButton) {
-        self.userEstimateTime--;
-        self.userEstimateTime = MAX(_userEstimateTime, 1);
-        [self updateTimeLabel:_userEstimateTime];
+        self.userEstimateTime = MAX(_userEstimateTime - 1, MIN_ESTIMATED_TIME);
+        [self updateTimeLabel:_userEstimateTime animated:NO];
+        _addTimeButton.enabled = YES;
+        if (_userEstimateTime == MIN_ESTIMATED_TIME) {
+            _minusTimeButton.enabled = NO;
+        }
     }
 }
 
-- (void)updateTimeLabel:(int)time {
-    self.timeLabel.text = [NSString stringWithFormat:@"%02d:00 mins", time];
+- (void)updateTimeLabel:(int)minute animated:(BOOL)animated {
+    NSString *timeText = [NSString stringWithFormat:@"%02d:00 mins", minute];
+    if (animated) {
+        [UIView animateWithDuration:0.2 animations:^{
+            _timeLabel.alpha = 0.0;
+            _timeLabel.text = timeText;
+            _timeLabel.alpha = 1.0;
+        }];
+    } else {
+        _timeLabel.text = timeText;
+    }
+}
+
+- (UIButton *)finishButton {
+    if (!_finishButton) {
+        self.finishButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+        [_finishButton setTitle:LS_FINISH forState:UIControlStateNormal];
+        [_finishButton setTintColor:[TSTheming defaultAccentColor]];
+        [_finishButton setTitleColor:[TSTheming defaultAccentColor] forState:UIControlStateNormal];
+        [_finishButton setTitleColor:[UIColor clearColor] forState:UIControlStateDisabled];
+        [_finishButton sizeToFit];
+        _finishButton.contentEdgeInsets = UIEdgeInsetsMake(0.0, 5.0, 0.0, -5.0);
+        [_finishButton addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _finishButton;
 }
 
 #pragma mark - UITableView related
@@ -136,22 +174,33 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     PickUpLocationTableViewCell *cell = (PickUpLocationTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    if (cell.branch != _selectedBranch) {
+        [[TSBranchServiceCalls sharedInstance] fetchEstimatedTime:self branch:_selectedBranch];
+    }
+    
     self.selectedBranch = cell.branch;
     [self.tableView reloadData];
-    //XXX-ML TO-DO: get estimated time
-    [[TSBranchServiceCalls sharedInstance] fetchEstimatedTime:self branch:_selectedBranch];
 }
 
 #pragma mark - fetch related
 - (NSArray *)branches {
-    return _branchFRC.fetchedObjects;
+    return self.branchFRC.fetchedObjects;
 }
 
-- (NSFetchedResultsController *)generateBranchFRC {
-    NSManagedObjectContext *context = [AppDelegate sharedAppDelegate].managedObjectContext;
-    NSFetchRequest *fetchRequest = [MBranch fetchRequest];
-    NSFetchedResultsController *resultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:nil];
-    return resultsController;
+- (NSFetchedResultsController *)branchFRC {
+    if (!_branchFRC) {
+        NSManagedObjectContext *context = [AppDelegate sharedAppDelegate].managedObjectContext;
+        NSFetchRequest *fetchRequest = [MBranch fetchRequest];
+        self.branchFRC = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:nil];
+        // TODO: use fetched results controller delegate to handle branch changes
+        
+        NSError *error = nil;
+        if (![_branchFRC performFetch:&error]) {
+            DDLogError(@"error fetching branches: %@", error);
+            _branchFRC = nil;
+        }
+    }
+    return _branchFRC;
 }
 
 #pragma mark - PickUpLocationTableViewCellDelegate
@@ -165,14 +214,19 @@
 
 - (void)setSelectedBranch:(MBranch *)selectedBranch {
     _selectedBranch = selectedBranch;
-    [self updateFinishButton];
+    [self updateFinishButtonAnimated:YES];
 }
 
-- (void)updateFinishButton {
-    if (_selectedBranch) {
-        _finishButton.enabled = YES;
+- (void)updateFinishButtonAnimated:(BOOL)animated {
+    BOOL enabled = _selectedBranch != nil;
+    if (animated && enabled != _finishButton.enabled) {
+        [UIView animateWithDuration:0.2 animations:^{
+            _finishButton.alpha = 0.0;
+            _finishButton.enabled = enabled;
+            _finishButton.alpha = 1.0;
+        }];
     } else {
-        _finishButton.enabled = NO;
+        _finishButton.enabled = enabled;
     }
 }
 
@@ -182,7 +236,7 @@
         if (userInfo[@"EstimatedTime"]) {
             self.estimatedTimeFromWeb = [userInfo[@"EstimatedTime"] intValue];
             self.userEstimateTime = _estimatedTimeFromWeb;
-            [self updateTimeLabel:_userEstimateTime];
+            [self updateTimeLabel:_userEstimateTime animated:YES];
         }
     } else if (selector == @selector(postOrder:handler:) ||
                selector == @selector(postGiftCoupon:handler:)) {

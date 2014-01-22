@@ -38,14 +38,15 @@
     [_redeemButton setTitle:LS_REDEEM forState:UIControlStateNormal];
     _redeemButton.tintColor = [TSTheming defaultAccentColor];
     _redeemButton.backgroundColor = [TSTheming defaultThemeColor];
-    _redeemButton.alpha = 0.7;
+    _redeemButton.alpha = 0.85;
     [_redeemButton addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
     _couponItemsList.dataSource = self;
     _couponItemsList.delegate = self;
     UINib *nib = [UINib nibWithNibName:NSStringFromClass(OrderItemTableViewCell.class) bundle:[NSBundle mainBundle]];
     [_couponItemsList registerNib:nib forCellReuseIdentifier:NSStringFromClass(OrderItemTableViewCell.class)];
-    _couponItemsList.contentInset = UIEdgeInsetsMake(_headerView.frame.size.height, 0.0, 0.0, 0.0);
+    _couponItemsList.contentInset = UIEdgeInsetsMake(_headerView.frame.size.height, 0.0, _redeemButton.frame.size.height, 0.0);
+    [self.view bringSubviewToFront:_redeemButton];
 }
 
 - (void)viewDidLoad

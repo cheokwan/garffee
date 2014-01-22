@@ -223,6 +223,7 @@ typedef enum {
         NSError *error = nil;
         if (![_fetchedResultsController performFetch:&error]) {
             DDLogError(@"error fetching friends list: %@", error);
+            _fetchedResultsController = nil;
         }
     }
     return _fetchedResultsController;

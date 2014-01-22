@@ -18,5 +18,6 @@
 + (void)removeALlObjectsInContext:(NSManagedObjectContext *)context;
 
 - (id)getPrimitiveValueForKey:(NSString *)key;
+- (void)changePrimitiveValue:(id)value forKey:(NSString *)key;
 
 @end

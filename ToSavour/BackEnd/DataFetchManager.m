@@ -152,7 +152,7 @@
         if ([mappingResult isKindOfClass:RKMappingResult.class]) {
             // TODO: do it background maybe
             NSArray *mappedObjects = [mappingResult array];
-            DDLogInfo(@"successfully query app friends with facebook contacts, %ld returned", mappedObjects.count);
+            DDLogInfo(@"successfully query app friends with facebook contacts, %d returned", (int)mappedObjects.count);
             for (KVPair *pair in mappedObjects) {
                 if (![pair isKindOfClass:KVPair.class]) {
                     continue;
@@ -176,7 +176,7 @@
         if ([mappingResult isKindOfClass:RKMappingResult.class]) {
             // TODO: do it background maybe
             NSArray *mappedObjects = [mappingResult array];
-            DDLogInfo(@"successfully query app friends with address book contacts, %ld returned", mappedObjects.count);
+            DDLogInfo(@"successfully query app friends with address book contacts, %d returned", (int)mappedObjects.count);
             for (KVPair *pair in mappedObjects) {
                 if (![pair isKindOfClass:KVPair.class]) {
                     continue;

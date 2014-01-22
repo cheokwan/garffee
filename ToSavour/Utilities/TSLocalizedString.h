@@ -80,5 +80,7 @@
 #define LS_CONTACT_NUMBER       NSLocalizedString(@"Contact Number", @"")
 #define LS_ADDRESS              NSLocalizedString(@"Address", @"")
 #define LS_STORE_INFO           NSLocalizedString(@"Store Info", @"")
+#define LS_LOCATION_UNAVAILABLE NSLocalizedString(@"Location Unavailable", @"")
+#define LS_RECOMMENDED_TIME     NSLocalizedString(@"Recommended Time", @"")
 
 #endif

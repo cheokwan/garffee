@@ -27,7 +27,12 @@
 }
 
 - (NSString *)subtitle {
-    return [NSString stringWithFormat:@"%f", [self distance]];
+    CLLocationDistance distance = self.distance;
+    if (distance == CLLocationDistanceMax || distance < 0.0) {
+        return LS_LOCATION_UNAVAILABLE;
+    } else {
+        return [NSString stringWithFormat:@"%f m", distance];
+    }
 }
 
 - (CLLocationDistance)distance {

@@ -26,4 +26,6 @@
 - (NSURL *)applicationCachesDirectory;
 - (NSURL *)addressBookUserImageCacheDirectory;
 
+- (void)loadModelResourcesFromBundle;
+
 @end

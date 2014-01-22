@@ -26,18 +26,43 @@
     return itemSelectedOption;
 }
 
+- (void)changeValue:(id)value forKey:(NSString *)key {
+    [self changePrimitiveValue:value forKey:key];
+    if ([key isEqualToString:@"itemID"]) {
+        NSFetchRequest *fetchRequest = [MItemInfo fetchRequest];
+        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"id = %@", self.itemID];
+        NSManagedObject *itemObject = [self.managedObjectContext fetchUniqueObject:fetchRequest];
+        if (!self.item && itemObject && [itemObject isKindOfClass:MItemInfo.class]) {
+            [self changePrimitiveValue:itemObject forKey:@"item"];
+        }
+    } else if ([key isEqualToString:@"optionChoiceID"]) {
+        NSFetchRequest *fetchRequest = [MProductOptionChoice fetchRequest];
+        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"id = %@", self.optionChoiceID];
+        NSManagedObject *choiceObject = [self.managedObjectContext fetchUniqueObject:fetchRequest];
+        if (!self.productOptionChoice && choiceObject && [choiceObject isKindOfClass:MProductOptionChoice.class]) {
+            [self changePrimitiveValue:choiceObject forKey:@"productOptionChoice"];
+        }
+    } else if ([key isEqualToString:@"item"]) {
+        [self changePrimitiveValue:self.item.id forKey:@"itemID"];
+    } else if ([key isEqualToString:@"productOptionChoice"]) {
+        [self changePrimitiveValue:self.productOptionChoice.id forKey:@"optionChoiceID"];
+    }
+}
+
+- (void)setItemID:(NSNumber *)itemID {
+    [self changeValue:itemID forKey:@"itemID"];
+}
+
+- (void)setOptionChoiceID:(NSNumber *)optionChoiceID {
+    [self changeValue:optionChoiceID forKey:@"optionChoiceID"];
+}
+
 - (void)setProductOptionChoice:(MProductOptionChoice *)productOptionChoice {
-    [self willChangeValueForKey:@"productOptionChoice"];
-    [self setPrimitiveValue:productOptionChoice forKey:@"productOptionChoice"];
-    [self didChangeValueForKey:@"productOptionChoice"];
-    self.optionChoiceID = self.productOptionChoice.id;
+    [self changeValue:productOptionChoice forKey:@"productOptionChoice"];
 }
 
 - (void)setItem:(MItemInfo *)item {
-    [self willChangeValueForKey:@"item"];
-    [self setPrimitiveValue:item forKey:@"item"];
-    [self didChangeValueForKey:@"item"];
-    self.itemID = self.item.id;
+    [self changeValue:item forKey:@"item"];
 }
 
 #pragma mark - RKMappableEntity

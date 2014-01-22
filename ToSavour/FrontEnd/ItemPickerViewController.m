@@ -193,7 +193,7 @@ typedef enum {
             return 1;
             break;
         case ItemPickerSectionProductOptions:
-            return self.selectedProduct.configurableOptions.count;
+            return self.selectedProduct.sortedConfigurableOptions.count;
             break;
         case ItemPickerSectionSubmitButton:
             return 1;
@@ -253,7 +253,7 @@ typedef enum {
             break;
         case ItemPickerSectionProductOptions: {
             itemViews = [NSMutableArray array];
-            MProductConfigurableOption *configurableOption = self.selectedProduct.configurableOptions[indexPath.row];
+            MProductConfigurableOption *configurableOption = self.selectedProduct.sortedConfigurableOptions[indexPath.row];
             for (MProductOptionChoice *choice in configurableOption.choices) {
                 ItemGridView *itemView = [[ItemGridView alloc] initWithFrame:itemViewFrame text:choice.name imageURL:[NSURL URLWithString:choice.resolvedImageURL] interactable:YES shouldReceiveNotification:YES];
                 itemView.delegate = self;
@@ -327,7 +327,7 @@ typedef enum {
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:ItemPickerSectionProductOptions];
             ItemPickerTableViewCell *itemPickerCell = (ItemPickerTableViewCell *)[self.itemTable cellForRowAtIndexPath:indexPath];
             NSInteger choiceIndex = [itemPickerCell.pickerScrollView getCurrentSelectedItemIndex];
-            MProductConfigurableOption *configurableOption = self.selectedProduct.configurableOptions[row];
+            MProductConfigurableOption *configurableOption = self.selectedProduct.sortedConfigurableOptions[row];
             MProductOptionChoice *choice = configurableOption.choices[choiceIndex];
             [selectedOptionChoices addObject:choice];
         }

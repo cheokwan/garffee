@@ -91,9 +91,7 @@
 }
 
 - (void)changeValue:(id)value forKey:(NSString *)key {
-    [self willChangeValueForKey:key];
-    [self setPrimitiveValue:value forKey:key];
-    [self didChangeValueForKey:key];
+    [self changePrimitiveValue:value forKey:key];
     if ([key isEqualToString:@"appID"]) {
         if ([self.appID trimmedWhiteSpaces].length > 0) {
 //            self.userType = @([self.userType intValue] | MUserInfoUserTypeAppNativeUser);  // for convenience of sorting in a FRC, can't use the flag form

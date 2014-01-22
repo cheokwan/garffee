@@ -50,23 +50,25 @@
 }
 
 - (void)changeValue:(id)value forKey:(NSString *)key {
-    [self willChangeValueForKey:key];
-    [self setPrimitiveValue:value forKey:key];
-    [self didChangeValueForKey:key];
+    [self changePrimitiveValue:value forKey:key];
     if ([key isEqualToString:@"senderUserID"]) {
         NSFetchRequest *fetchRequest = [MUserInfo fetchRequest];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"appID = %@", self.senderUserID];
         NSManagedObject *senderObject = [self.managedObjectContext fetchUniqueObject:fetchRequest];
         if (!self.sender && senderObject && [senderObject isKindOfClass:MUserInfo.class]) {
-            self.sender = (MUserInfo *)senderObject;
+            [self changePrimitiveValue:senderObject forKey:@"sender"];
         }
     } else if ([key isEqualToString:@"receiverUserID"]) {
         NSFetchRequest *fetchRequest = [MUserInfo fetchRequest];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"appID = %@", self.receiverUserID];
         NSManagedObject *receiverObject = [self.managedObjectContext fetchUniqueObject:fetchRequest];
         if (!self.receiver && receiverObject && [receiverObject isKindOfClass:MUserInfo.class]) {
-            self.receiver = (MUserInfo *)receiverObject;
+            [self changePrimitiveValue:receiverObject forKey:@"receiver"];
         }
+    } else if ([key isEqualToString:@"sender"]) {
+        [self changePrimitiveValue:self.sender.appID forKey:@"senderUserID"];
+    } else if ([key isEqualToString:@"receiver"]) {
+        [self changePrimitiveValue:self.receiver.appID forKey:@"receiverUserID"];
     }
 }
 
@@ -76,6 +78,14 @@
 
 - (void)setReceiverUserID:(NSString *)receiverUserID {
     [self changeValue:receiverUserID forKey:@"receiverUserID"];
+}
+
+- (void)setSender:(MUserInfo *)sender {
+    [self changeValue:sender forKey:@"sender"];
+}
+
+- (void)setReceiver:(MUserInfo *)receiver {
+    [self changeValue:receiver forKey:@"receiver"];
 }
 
 #pragma mark - RKMappableEntity

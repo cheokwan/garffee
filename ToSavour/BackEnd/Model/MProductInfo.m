@@ -25,6 +25,11 @@
     return [[MGlobalConfiguration cachedBlobHostName] stringByAppendingPathComponent:self.imageURL];
 }
 
+- (NSArray *)sortedConfigurableOptions {
+    NSSortDescriptor *sdSequence = [NSSortDescriptor sortDescriptorWithKey:@"sequence" ascending:YES];
+    return [self.configurableOptions sortedArrayUsingDescriptors:@[sdSequence]];
+}
+
 #pragma mark - RKMappableEntity
 
 + (RKEntityMapping *)defaultEntityMapping {

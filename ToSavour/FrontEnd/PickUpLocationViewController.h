@@ -24,7 +24,7 @@
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 
 @property (nonatomic, strong) IBOutlet UIView *recommendedTimeView;
-@property (nonatomic, strong) IBOutlet UILabel *recommenedTimeConstantLabel;
+@property (nonatomic, strong) IBOutlet UILabel *recommendedTimeConstantLabel;
 @property (nonatomic, strong) IBOutlet UIButton *minusTimeButton;
 @property (nonatomic, strong) IBOutlet UIButton *addTimeButton;
 @property (nonatomic, strong) IBOutlet UILabel *timeLabel;

@@ -22,9 +22,9 @@
 
 - (void)fetchEstimatedTime:(__weak id<RestManagerResponseHandler>)handler branch:(MBranch *)branch {
     //XXX-ML TO-DO: network call
-    int randomMin = arc4random() % 30 + 5;
+    int estimatedTimeInMin = 10;
     if ([handler respondsToSelector:@selector(restManagerService:succeededWithOperation:userInfo:)]) {
-        [handler restManagerService:_cmd succeededWithOperation:nil userInfo:@{@"EstimatedTime": [NSString stringWithFormat:@"%d", randomMin]}];
+        [handler restManagerService:_cmd succeededWithOperation:nil userInfo:@{@"EstimatedTime": [NSString stringWithFormat:@"%d", estimatedTimeInMin]}];
     }
 }
 

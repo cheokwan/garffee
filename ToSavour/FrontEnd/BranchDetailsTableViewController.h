@@ -14,6 +14,4 @@
 
 @property (nonatomic, strong) MBranch *branch;
 
-- (void)initialize;
-
 @end

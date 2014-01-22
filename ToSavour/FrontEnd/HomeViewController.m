@@ -41,7 +41,6 @@
     controlView.frame = self.homeControlView.frame;
     self.homeControlView = controlView;
     [self.view addSubview:_homeControlView];
-    [_homeControlView updateView];
     [_homeControlView.orderNowButton addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
     self.promotionScrollView.delegate = self;
@@ -135,6 +134,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [_homeControlView updateView];
     [self updateItemBadgeCount];
 }
 

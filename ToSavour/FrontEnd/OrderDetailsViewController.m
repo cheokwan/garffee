@@ -10,7 +10,7 @@
 #import "TSTheming.h"
 #import "OrderItemTableViewCell.h"
 #import "PickUpLocationTableViewCell.h"
-#import "BranchLocationMapViewController.h"
+#import "BranchDetailsTableViewController.h"
 #import "MOrderInfo.h"
 #import "MBranch.h"
 
@@ -212,9 +212,9 @@ typedef enum {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     switch (indexPath.section) {
         case OrderDetailsSectionPickupLocation: {
-            BranchLocationMapViewController *storeMapViewController = (BranchLocationMapViewController*)[TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(BranchLocationMapViewController.class)];
-            storeMapViewController.branch = _order.storeBranch;
-            [self.navigationController pushViewController:storeMapViewController animated:YES];
+            BranchDetailsTableViewController *branchDetailsViewController = (BranchDetailsTableViewController*)[TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(BranchDetailsTableViewController.class)];
+            branchDetailsViewController.branch = _order.storeBranch;
+            [self.navigationController pushViewController:branchDetailsViewController animated:YES];
         }
             break;
     }

@@ -25,6 +25,7 @@ static NSString *MProductInfoTypeVirtual = @"virtual";
 @property (nonatomic, retain) NSOrderedSet *configurableOptions;
 
 @property (nonatomic, readonly) NSString *resolvedImageURL;
+@property (nonatomic, readonly) NSArray *sortedConfigurableOptions;
 @end
 
 @interface MProductInfo (CoreDataGeneratedAccessors)

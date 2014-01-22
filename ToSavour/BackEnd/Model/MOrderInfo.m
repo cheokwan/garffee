@@ -90,23 +90,25 @@
 }
 
 - (void)changeValue:(id)value forKey:(NSString *)key {
-    [self willChangeValueForKey:key];
-    [self setPrimitiveValue:value forKey:key];
-    [self didChangeValueForKey:key];
+    [self changePrimitiveValue:value forKey:key];
     if ([key isEqualToString:@"storeBranchID"]) {
         NSFetchRequest *fetchRequest = [MBranch fetchRequest];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"branchId = %@", self.storeBranchID];
         NSManagedObject *branchObject = [self.managedObjectContext fetchUniqueObject:fetchRequest];
         if (!self.storeBranch && branchObject && [branchObject isKindOfClass:MBranch.class]) {
-            self.storeBranch = (MBranch *)branchObject;
+            [self changePrimitiveValue:branchObject forKey:@"storeBranch"];
         }
     } else if ([key isEqualToString:@"userID"]) {
         NSFetchRequest *fetchRequest = [MUserInfo fetchRequest];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"appID = %@", self.userID];
         NSManagedObject *userObject = [self.managedObjectContext fetchUniqueObject:fetchRequest];
         if (!self.recipient && userObject && [userObject isKindOfClass:MUserInfo.class]) {
-            self.recipient = (MUserInfo *)userObject;
+            [self changePrimitiveValue:userObject forKey:@"recipient"];
         }
+    } else if ([key isEqualToString:@"storeBranch"]) {
+        [self changePrimitiveValue:self.storeBranch.branchId forKey:@"storeBranchID"];
+    } else if ([key isEqualToString:@"recipient"]) {
+        [self changePrimitiveValue:self.recipient.appID forKey:@"userID"];
     }
 }
 
@@ -116,6 +118,14 @@
 
 - (void)setUserID:(NSString *)userID {
     [self changeValue:userID forKey:@"userID"];
+}
+
+- (void)setStoreBranch:(MBranch *)storeBranch {
+    [self changeValue:storeBranch forKey:@"storeBranch"];
+}
+
+- (void)setRecipient:(MUserInfo *)recipient {
+    [self changeValue:recipient forKey:@"recipient"];
 }
 
 #pragma mark - RKMappableEntity
