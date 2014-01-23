@@ -20,5 +20,6 @@ typedef enum {
 
 - (UIViewController *)viewControllerAtTab:(MainTabBarControllerTab)tab;
 - (void)switchToTab:(MainTabBarControllerTab)tab animated:(BOOL)animated;
+- (void)updateCartTabBadge:(UITabBarItem *)selectedItem;
 
 @end

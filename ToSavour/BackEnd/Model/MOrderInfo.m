@@ -86,6 +86,9 @@
     if (recipient.appID.length > 0) {
         self.recipient = recipient;
         self.userID = recipient.appID;
+    } else {
+        self.recipient = nil;
+        //self.userID = nil;  // triggered automatically
     }
 }
 

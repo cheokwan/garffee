@@ -28,6 +28,10 @@ typedef enum {
 @property (nonatomic, strong)   NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, readonly) UIView *sendGiftAccessoryView;
 @property (nonatomic, readonly) UIView *sendInviteAccessoryView;
+
+@property (nonatomic, strong)   NSMutableArray *searchResults;
+@property (nonatomic, strong)   NSTimer *searchTimer;
+@property (nonatomic, assign)   BOOL isSearching;
 @end
 
 @implementation FriendsListViewController
@@ -45,12 +49,33 @@ typedef enum {
     _friendsList.delegate = self;
     _friendsList.dataSource = self;
     self.navigationItem.titleView = [TSTheming navigationTitleViewWithString:LS_FRIENDS];
+    
+    self.searchDisplayController.searchResultsTableView.rowHeight = self.friendsListPrototypeCell.frame.size.height;
+    self.searchDisplayController.searchResultsTableView.delegate = self;
+    self.searchDisplayController.delegate = self;
+    [_searchBar setTintColor:[TSTheming defaultAccentColor]];
+    _searchBar.placeholder = LS_SEARCH_FRIENDS;
+    self.searchResults = [NSMutableArray array];
+    
+    UINib *nib = [UINib nibWithNibName:NSStringFromClass(FriendsListTableViewCell.class) bundle:[NSBundle mainBundle]];
+    [_friendsList registerNib:nib forCellReuseIdentifier:NSStringFromClass(FriendsListTableViewCell.class)];
+    [self.searchDisplayController.searchResultsTableView registerNib:nib forCellReuseIdentifier:NSStringFromClass(FriendsListTableViewCell.class)];
+    
+    // hiding the search bar initially
+    CGRect newBounds = _friendsList.bounds;
+    newBounds.origin.y = newBounds.origin.y + _searchBar.bounds.size.height;
+    _friendsList.bounds = newBounds;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self initializeView];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [_searchTimer invalidate];
+    self.searchTimer = nil;
 }
 
 - (void)didReceiveMemoryWarning
@@ -80,7 +105,15 @@ typedef enum {
 - (void)buttonPressed:(id)sender event:(id)event {
     UITouch *touch = [[event allTouches] anyObject];
     NSIndexPath *indexPath = [_friendsList indexPathForRowAtPoint:[touch locationInView:_friendsList]];
-    MUserInfo *friend = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    MUserInfo *friend = nil;
+    if ([self isSearching]) {
+        friend = indexPath.row < self.searchResults.count ? self.searchResults[indexPath.row] : nil;
+        [_searchBar resignFirstResponder];
+    } else {
+        friend = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    }
+    
     if ([friend.userType intValue] == MUserInfoUserTypeAppNativeUser) {
         MainTabBarController *tabBarController = [AppDelegate sharedAppDelegate].mainTabBarController;
         CartViewController *cart = (CartViewController *)[tabBarController viewControllerAtTab:MainTabBarControllerTabCart];
@@ -122,6 +155,30 @@ typedef enum {
     }
 }
 
+#pragma mark - UISearchBarDelegate, UISearchDisplayDelegate
+
+- (BOOL)isSearching {
+    return [_searchBar.text trimmedWhiteSpaces].length > 0;
+}
+
+- (void)filterFriendsListForSearch {
+    NSString *searchText = _searchBar.text;
+    [self.searchResults removeAllObjects];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"name CONTAINS[c] %@", searchText];
+        [self.searchResults addObjectsFromArray:[self.fetchedResultsController.fetchedObjects filteredArrayUsingPredicate:searchPredicate]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.searchDisplayController.searchResultsTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+        });
+    });
+}
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+    [_searchTimer invalidate];
+    self.searchTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(filterFriendsListForSearch) userInfo:nil repeats:NO];
+    return NO;
+}
+
 #pragma mark - UITableViewDelegate, UITableViewDataSource
 
 - (UIView *)sendGiftAccessoryView {
@@ -157,7 +214,12 @@ typedef enum {
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.fetchedResultsController.sections.count;
+    if (tableView == _friendsList) {
+        return self.fetchedResultsController.sections.count;
+    } else if (tableView == self.searchDisplayController.searchResultsTableView) {
+        return 1;
+    }
+    return 0;
 }
 
 //- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -165,7 +227,12 @@ typedef enum {
 //}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [(id<NSFetchedResultsSectionInfo>)(self.fetchedResultsController.sections[section]) numberOfObjects];
+    if (tableView == _friendsList) {
+        return [(id<NSFetchedResultsSectionInfo>)(self.fetchedResultsController.sections[section]) numberOfObjects];
+    } else if (tableView == self.searchDisplayController.searchResultsTableView) {
+        return self.searchResults.count;
+    }
+    return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -180,15 +247,24 @@ typedef enum {
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = nil;
-    cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(FriendsListTableViewCell.class) forIndexPath:indexPath];
-    [self configureCell:cell atIndexPath:indexPath];
-    return cell;
+    if (tableView == _friendsList || tableView == self.searchDisplayController.searchResultsTableView) {
+        UITableViewCell *cell = nil;
+        cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(FriendsListTableViewCell.class) forIndexPath:indexPath];
+        [self configureCell:cell atIndexPath:indexPath forTableView:tableView];
+        return cell;
+    }
+    return nil;
 }
 
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath forTableView:(UITableView *)tableView {
     FriendsListTableViewCell *friendCell = (FriendsListTableViewCell *)cell;
-    MUserInfo *friendInfo = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    MUserInfo *friendInfo = nil;
+    if (tableView == _friendsList) {
+        friendInfo = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    } else if (tableView == self.searchDisplayController.searchResultsTableView) {
+        friendInfo = indexPath.row < self.searchResults.count ? self.searchResults[indexPath.row] : nil;
+    }
     friendCell.title.text = friendInfo.name;
     friendCell.subtitle.text = [friendInfo.birthday defaultStringRepresentation];  // XXX-TEST
     
@@ -197,11 +273,10 @@ typedef enum {
     [friendCell addSubview:friendCell.avatarView];
     friendCell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    MUserInfo *friend = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    if ([friend.userType intValue] == MUserInfoUserTypeAppNativeUser) {
+    if ([friendInfo.userType intValue] == MUserInfoUserTypeAppNativeUser) {
         friendCell.accessoryView = self.sendGiftAccessoryView;
-    } else if ([friend.userType intValue] == MUserInfoUserTypeFacebookUser ||
-               [friend.userType intValue] == MUserInfoUserTypeAddressBookUser) {
+    } else if ([friendInfo.userType intValue] == MUserInfoUserTypeFacebookUser ||
+               [friendInfo.userType intValue] == MUserInfoUserTypeAddressBookUser) {
         friendCell.accessoryView = self.sendInviteAccessoryView;
     }
 }
@@ -242,7 +317,7 @@ typedef enum {
             [_friendsList deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
         case NSFetchedResultsChangeUpdate:
-            [self configureCell:[_friendsList cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+            [self configureCell:[_friendsList cellForRowAtIndexPath:indexPath] atIndexPath:indexPath forTableView:_friendsList];
             break;
         case NSFetchedResultsChangeMove:
             [_friendsList deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];

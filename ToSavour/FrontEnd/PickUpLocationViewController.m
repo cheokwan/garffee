@@ -80,10 +80,7 @@
 
 - (IBAction)buttonPressed:(id)sender {
     if (sender == _finishButton) {
-        if (!_confirmOrderAlertView) {
-            self.confirmOrderAlertView = [[UIAlertView alloc] initWithTitle:LS_CONFIRM_ORDER_TITLE message:LS_CONFIRM_ORDER_DETAILS delegate:self cancelButtonTitle:LS_CANCEL otherButtonTitles:LS_CONFIRM, nil];
-            [_confirmOrderAlertView show];
-        }
+        [self.confirmOrderAlertView show];
     } else if (sender == _addTimeButton) {
         self.userEstimateTime = MIN(_userEstimateTime + 1, MAX_ESTIMATED_TIME);
         [self updateTimeLabel:_userEstimateTime animated:NO];
@@ -126,6 +123,31 @@
         [_finishButton addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _finishButton;
+}
+
+- (UIAlertView *)confirmOrderAlertView {
+    if (!_confirmOrderAlertView) {
+        RIButtonItem *cancelButton = [RIButtonItem itemWithLabel:LS_CANCEL];
+        RIButtonItem *confirmButton = [RIButtonItem itemWithLabel:LS_CONFIRM];
+        [confirmButton setAction:^{
+            //self.order.status = MOrderInfoStatusPending;  // don't need to change the status on client
+            self.order.storeBranchID = _selectedBranch.branchId;
+            self.order.orderedDate = [NSDate date];
+            int userExpectedTimeInSecond = _userEstimateTime * 60;
+            self.order.expectedArrivalTime = [self.order.orderedDate dateByAddingTimeInterval:userExpectedTimeInSecond];
+            //self.order.pickupTime = [self.order.expectedArrivalTime copy];
+            
+            self.spinner = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            _spinner.mode = MBProgressHUDModeIndeterminate;
+            _spinner.labelText = LS_SUBMITTING;
+            
+            NSAssert([self.order.recipient isEqual:[MUserInfo currentAppUserInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext]], @"submitting order but recipient is not app user");
+            [[RestManager sharedInstance] postOrder:self.order handler:self];
+        }];
+        
+        self.confirmOrderAlertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Submit order now?", @"") message:nil cancelButtonItem:cancelButton otherButtonItems:confirmButton, nil];
+    }
+    return _confirmOrderAlertView;
 }
 
 #pragma mark - UITableView related
@@ -238,8 +260,7 @@
             self.userEstimateTime = _estimatedTimeFromWeb;
             [self updateTimeLabel:_userEstimateTime animated:YES];
         }
-    } else if (selector == @selector(postOrder:handler:) ||
-               selector == @selector(postGiftCoupon:handler:)) {
+    } else if (selector == @selector(postOrder:handler:)) {
         DDLogInfo(@"successfully submitted order to server");
         
         RIButtonItem *dismissButton = [RIButtonItem itemWithLabel:LS_OK];
@@ -247,17 +268,16 @@
             if ([_delegate respondsToSelector:@selector(pickUpLocationViewControllerDidSubmitOrderSuccessfully:)]) {
                 [_delegate pickUpLocationViewControllerDidSubmitOrderSuccessfully:self];
             }
-            [_spinner hide:NO];
             [self.navigationController popViewControllerAnimated:YES];
         }];
         
-        [[[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"Order has been submitted, thank you!", @"") cancelButtonItem:dismissButton otherButtonItems:nil, nil] show];
+        [_spinner hide:YES];
+        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Your order has been submitted, thank you!", @"") message:nil cancelButtonItem:dismissButton otherButtonItems:nil, nil] show];
     }
 }
 
 - (void)restManagerService:(SEL)selector failedWithOperation:(NSOperation *)operation error:(NSError *)error userInfo:(NSDictionary *)userInfo {
-    if (selector == @selector(postOrder:handler:) ||
-        selector == @selector(postGiftCoupon:handler:)) {
+    if (selector == @selector(postOrder:handler:)) {
         DDLogWarn(@"error in submitting order to server: %@", error);
         
         RIButtonItem *dismissButton = [RIButtonItem itemWithLabel:LS_OK];
@@ -265,37 +285,11 @@
             if ([_delegate respondsToSelector:@selector(pickUpLocationViewControllerDidFailToSubmitOrder:)]) {
                 [_delegate pickUpLocationViewControllerDidFailToSubmitOrder:self];
             }
-            [_spinner hide:NO];
             [self.navigationController popViewControllerAnimated:YES];
         }];
         
-        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Order Submit Error", @"") message:NSLocalizedString(@"Order submission failed, please try again later", @"") cancelButtonItem:dismissButton otherButtonItems:nil, nil] show];
-    }
-}
-
-#pragma mark - UIAlertViewDelegate
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (alertView == _confirmOrderAlertView) {
-        self.confirmOrderAlertView.delegate = nil;
-        self.confirmOrderAlertView = nil;
-        if (buttonIndex != alertView.cancelButtonIndex) {
-//            self.order.status = MOrderInfoStatusPending;  // don't need to change the status on client
-            self.order.storeBranchID = _selectedBranch.branchId;
-            self.order.orderedDate = [NSDate date];
-            int userExpectedTimeInSecond = _userEstimateTime * 60;
-            self.order.expectedArrivalTime = [self.order.orderedDate dateByAddingTimeInterval:userExpectedTimeInSecond];
-            self.order.pickupTime = [self.order.expectedArrivalTime copy];
-            
-            self.spinner = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            _spinner.mode = MBProgressHUDModeIndeterminate;
-            _spinner.labelText = LS_SUBMITTING;
-            
-            if ([self.order.recipient isEqual:[MUserInfo currentAppUserInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext]]) {
-                [[RestManager sharedInstance] postOrder:self.order handler:self];
-            } else {
-                [[RestManager sharedInstance] postGiftCoupon:self.order handler:self];
-            }
-        }
+        [_spinner hide:YES];
+        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Order Submit Error", @"") message:NSLocalizedString(@"Your order has failed to submit, please try again later", @"") cancelButtonItem:dismissButton otherButtonItems:nil, nil] show];
     }
 }
 

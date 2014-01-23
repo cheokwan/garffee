@@ -29,7 +29,7 @@
 - (NSString *)subtitle {
     CLLocationDistance distance = self.distance;
     if (distance == CLLocationDistanceMax || distance < 0.0) {
-        return LS_LOCATION_UNAVAILABLE;
+        return LS_DISTANCE_UNAVAILABLE;
     } else {
         return [NSString stringWithFormat:@"%f m", distance];
     }

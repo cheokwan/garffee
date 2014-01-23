@@ -154,6 +154,8 @@
 		D2C9168C185EEC7500452891 /* MItemInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C9168B185EEC7500452891 /* MItemInfo.m */; };
 		D2C9168F185EEC9000452891 /* MItemSelectedOption.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C9168E185EEC9000452891 /* MItemSelectedOption.m */; };
 		D2C91695185EECBA00452891 /* MProductInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C91694185EECBA00452891 /* MProductInfo.m */; };
+		D2FF847218912573003BF58C /* FriendsListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2FF847118912573003BF58C /* FriendsListTableViewCell.xib */; };
+		D2FF847318912573003BF58C /* FriendsListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2FF847118912573003BF58C /* FriendsListTableViewCell.xib */; };
 		D2FF84CD187E91FA00D3A21C /* TSBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2FF84CC187E91FA00D3A21C /* TSBadgeView.m */; };
 		DF0D574E18881FE1001C3A9D /* BranchDetailsImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DF0D574D18881FE1001C3A9D /* BranchDetailsImageCell.m */; };
 		DF0D5751188820D8001C3A9D /* BranchDetailsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF0D5750188820D8001C3A9D /* BranchDetailsTableViewController.m */; };
@@ -355,6 +357,7 @@
 		D2C91693185EECB900452891 /* MProductInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MProductInfo.h; path = BackEnd/Model/MProductInfo.h; sourceTree = "<group>"; };
 		D2C91694185EECBA00452891 /* MProductInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MProductInfo.m; path = BackEnd/Model/MProductInfo.m; sourceTree = "<group>"; };
 		D2C916A3185F015800452891 /* TSModelIncludes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TSModelIncludes.h; path = BackEnd/Model/TSModelIncludes.h; sourceTree = "<group>"; };
+		D2FF847118912573003BF58C /* FriendsListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FriendsListTableViewCell.xib; path = FrontEnd/XIBs/FriendsListTableViewCell.xib; sourceTree = "<group>"; };
 		D2FF84CB187E91FA00D3A21C /* TSBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSBadgeView.h; path = FrontEnd/CustomUI/TSBadgeView.h; sourceTree = "<group>"; };
 		D2FF84CC187E91FA00D3A21C /* TSBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSBadgeView.m; path = FrontEnd/CustomUI/TSBadgeView.m; sourceTree = "<group>"; };
 		DF0D574C18881FE1001C3A9D /* BranchDetailsImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BranchDetailsImageCell.h; path = FrontEnd/Views/BranchDetailsImageCell.h; sourceTree = "<group>"; };
@@ -712,6 +715,7 @@
 				D2209F411884E7D700282DAE /* OrderDetailsHeaderView.xib */,
 				D2209F4918851FA500282DAE /* OrderItemTableViewCell.xib */,
 				D232ED811886501E00BDA9F9 /* PickUpLocationTableViewCell.xib */,
+				D2FF847118912573003BF58C /* FriendsListTableViewCell.xib */,
 			);
 			name = XIBs;
 			sourceTree = "<group>";
@@ -927,6 +931,7 @@
 				D2466829185F15F70089D5DB /* MProductOptionChoice.json in Resources */,
 				D246682A185F15F70089D5DB /* InfoPlist.strings in Resources */,
 				D246682B185F15F70089D5DB /* Main.storyboard in Resources */,
+				D2FF847318912573003BF58C /* FriendsListTableViewCell.xib in Resources */,
 				D246682C185F15F70089D5DB /* AccountHeaderView.xib in Resources */,
 				D246682D185F15F70089D5DB /* MBranch.json in Resources */,
 			);
@@ -953,6 +958,7 @@
 				D293E4C7183DEDEB00B73795 /* Main.storyboard in Resources */,
 				D2A67A91185C21C500889114 /* AccountHeaderView.xib in Resources */,
 				D2C075B71851D33F00620114 /* MBranch.json in Resources */,
+				D2FF847218912573003BF58C /* FriendsListTableViewCell.xib in Resources */,
 				DF3075C8186D6224002D40AF /* imageNotFound.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

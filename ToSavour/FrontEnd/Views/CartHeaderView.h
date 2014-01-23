@@ -21,6 +21,7 @@
 @property (nonatomic, strong)   IBOutlet UILabel *toLabel;
 @property (nonatomic, strong)   IBOutlet AvatarView *recipientAvatarView;
 @property (nonatomic, strong)   IBOutlet UILabel *nameLabel;
+@property (nonatomic, strong)   IBOutlet UIButton *removeRecipientButton;
 
 - (void)updateRecipient:(MUserInfo *)newRecipient;
 - (void)updateTotalPrice:(CGFloat)price;

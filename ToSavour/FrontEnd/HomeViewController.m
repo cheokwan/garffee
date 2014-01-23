@@ -136,6 +136,7 @@
     [super viewWillAppear:animated];
     [_homeControlView updateView];
     [self updateItemBadgeCount];
+    [[AppDelegate sharedAppDelegate].mainTabBarController updateCartTabBadge:self.tabBarItem];
 }
 
 - (void)didReceiveMemoryWarning

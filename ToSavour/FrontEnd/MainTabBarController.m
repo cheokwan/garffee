@@ -89,19 +89,7 @@
 }
 
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
-    NSUInteger index = [self.tabBar.items indexOfObject:item];
-    if (index != NSNotFound && index != MainTabBarControllerTabCart) {
-        // switching out from cart
-        UINavigationController *navi = self.viewControllers[MainTabBarControllerTabCart];
-        CartViewController *cart = navi.viewControllers[0];
-        if (cart.inCartItems.count > 0) {
-            UITabBarItem *cartTabBarItem = [self.tabBar.items objectAtIndex:MainTabBarControllerTabCart];
-            [cartTabBarItem setBadgeValue:[@(cart.inCartItems.count) stringValue]];
-        }
-    } else if (index == MainTabBarControllerTabCart) {
-        UITabBarItem *cartTabBarItem = [self.tabBar.items objectAtIndex:MainTabBarControllerTabCart];
-        [cartTabBarItem setBadgeValue:nil];
-    }
+    [self updateCartTabBadge:item];
 }
 
 - (UIViewController *)viewControllerAtTab:(MainTabBarControllerTab)tab {
@@ -125,6 +113,24 @@
             [self setSelectedIndex:tab];
         }
     }
+}
+
+- (void)updateCartTabBadge:(UITabBarItem *)selectedItem {
+//    NSUInteger index = [self.tabBar.items indexOfObject:selectedItem];
+//    if (index != NSNotFound && index != MainTabBarControllerTabCart) {
+// switching out from cart
+    UINavigationController *navi = self.viewControllers[MainTabBarControllerTabCart];
+    CartViewController *cart = navi.viewControllers[0];
+    UITabBarItem *cartTabBarItem = [self.tabBar.items objectAtIndex:MainTabBarControllerTabCart];
+    if (cart.inCartItems.count > 0) {
+        [cartTabBarItem setBadgeValue:[@(cart.inCartItems.count) stringValue]];
+    } else {
+        [cartTabBarItem setBadgeValue:nil];
+    }
+//    } else if (index == MainTabBarControllerTabCart) {
+//        UITabBarItem *cartTabBarItem = [self.tabBar.items objectAtIndex:MainTabBarControllerTabCart];
+//        [cartTabBarItem setBadgeValue:nil];
+//    }
 }
 
 @end

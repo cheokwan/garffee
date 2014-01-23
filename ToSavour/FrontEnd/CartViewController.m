@@ -14,6 +14,9 @@
 #import "MProductInfo.h"
 #import "MItemInfo.h"
 #import "MOrderInfo.h"
+#import <UIAlertView-Blocks/UIAlertView+Blocks.h>
+#import <MBProgressHUD/MBProgressHUD.h>
+#import "MainTabBarController.h"
 
 typedef enum {
     CartSectionItems = 0,
@@ -23,6 +26,8 @@ typedef enum {
 
 @interface CartViewController ()
 @property (nonatomic, strong)   OrderItemTableViewCell *cartItemPrototypeCell;
+@property (nonatomic, strong)   UIAlertView *confirmGiftAlertView;
+@property (nonatomic, strong)   MBProgressHUD *spinner;
 @end
 
 @implementation CartViewController
@@ -59,6 +64,8 @@ typedef enum {
     self.cartHeaderView = cartHeader;
     [_cartHeaderView.checkoutButton addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_cartHeaderView];
+    [_cartHeaderView.removeRecipientButton addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    
     self.navigationItem.titleView = [TSTheming navigationTitleViewWithString:LS_CART];
     self.navigationItem.leftBarButtonItem = self.addOrderButton;
 }
@@ -88,6 +95,26 @@ typedef enum {
     return _addOrderButton;
 }
 
+- (UIAlertView *)confirmGiftAlertView {
+    if (!_confirmGiftAlertView) {
+        RIButtonItem *cancelButton = [RIButtonItem itemWithLabel:LS_CANCEL];
+        RIButtonItem *confirmButton = [RIButtonItem itemWithLabel:LS_CONFIRM];
+        [confirmButton setAction:^{
+            self.pendingOrder.orderedDate = [NSDate date];
+            
+            self.spinner = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            _spinner.mode = MBProgressHUDModeIndeterminate;
+            _spinner.labelText = LS_SUBMITTING;
+            
+            NSAssert(![self.pendingOrder.recipient isEqual:[MUserInfo currentAppUserInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext]], @"submitting gift coupon but recipient is app user");
+            [[RestManager sharedInstance] postGiftCoupon:self.pendingOrder handler:self];
+        }];
+        
+        self.confirmGiftAlertView = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Send gift to %@ now?", @""), self.pendingOrder.recipient.name] message:nil cancelButtonItem:cancelButton otherButtonItems:confirmButton, nil];
+    }
+    return _confirmGiftAlertView;
+}
+
 - (void)buttonPressed:(id)sender {
     if (sender == _addOrderButton) {
         ItemPickerViewController *itemPicker = (ItemPickerViewController *)[TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(ItemPickerViewController.class)];
@@ -95,10 +122,25 @@ typedef enum {
         TSNavigationController *naviController = [[TSNavigationController alloc] initWithRootViewController:itemPicker];
         [self presentViewController:naviController animated:YES completion:nil];
     } else if (sender == _cartHeaderView.checkoutButton) {
-        PickUpLocationViewController *pickUpLocationViewController = (PickUpLocationViewController*)[TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(PickUpLocationViewController.class)];
-        pickUpLocationViewController.delegate = self;
-        pickUpLocationViewController.order = self.pendingOrder;
-        [self.navigationController pushViewController:pickUpLocationViewController animated:YES];
+        if ([self.pendingOrder.recipient isEqual:[MUserInfo currentAppUserInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext]]) {
+            // if recipient is app user himself, show store location picker
+            PickUpLocationViewController *pickUpLocationViewController = (PickUpLocationViewController*)[TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(PickUpLocationViewController.class)];
+            pickUpLocationViewController.delegate = self;
+            pickUpLocationViewController.order = self.pendingOrder;
+            [self.navigationController pushViewController:pickUpLocationViewController animated:YES];
+        } else {
+            // if recipient is a friend, confirm right away
+            [self.confirmGiftAlertView show];
+        }
+    } else if (sender == _cartHeaderView.removeRecipientButton) {
+        [UIView animateWithDuration:0.2 animations:^{
+            _cartHeaderView.recipientAvatarView.alpha = 0.0;
+        } completion:^(BOOL finished) {
+            [self updateRecipient:nil];
+            [UIView animateWithDuration:0.2 animations:^{
+                _cartHeaderView.recipientAvatarView.alpha = 1.0;
+            }];
+        }];
     }
 }
 
@@ -111,6 +153,9 @@ typedef enum {
     [_cartHeaderView updateRecipient:self.pendingOrder.recipient];
     
     _cartHeaderView.checkoutButton.enabled = self.inCartItems.count > 0 && self.pendingOrder.recipient;
+    
+    // update cart tab badge
+    [[AppDelegate sharedAppDelegate].mainTabBarController updateCartTabBadge:self.tabBarItem];
 }
 
 - (void)updateRecipient:(MUserInfo *)recipient {
@@ -118,6 +163,43 @@ typedef enum {
     [self refreshCart:NO];
 }
 
+- (void)clearPendingOrder {
+    [_pendingOrder deleteInContext:_pendingOrder.managedObjectContext];
+    self.pendingOrder = nil;
+    [[AppDelegate sharedAppDelegate].managedObjectContext saveToPersistentStore];
+    [self refreshCart:YES];
+}
+
+- (void)reinstatePendingOrder {
+    _pendingOrder.status = MOrderInfoStatusInCart;  // revert status back to InCart
+    [[AppDelegate sharedAppDelegate].managedObjectContext save];
+}
+
+#pragma makr - RestManagerResponseHandler
+
+- (void)restManagerService:(SEL)selector succeededWithOperation:(NSOperation *)operation userInfo:(NSDictionary *)userInfo {
+    if (selector == @selector(postGiftCoupon:handler:)) {
+        DDLogInfo(@"successfully submitted coupon to server");
+        
+        RIButtonItem *dismissButton = [RIButtonItem itemWithLabel:LS_OK];
+        
+        [_spinner hide:YES];
+        [[[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Your gift has been sent to %@, thank you!", @""), self.pendingOrder.recipient.name] message:nil cancelButtonItem:dismissButton otherButtonItems:nil, nil] show];
+        [self clearPendingOrder];
+    }
+}
+
+- (void)restManagerService:(SEL)selector failedWithOperation:(NSOperation *)operation error:(NSError *)error userInfo:(NSDictionary *)userInfo {
+    if (selector == @selector(postGiftCoupon:handler:)) {
+        DDLogWarn(@"error in submitting gift coupon to server: %@", error);
+        
+        RIButtonItem *dismissButton = [RIButtonItem itemWithLabel:LS_OK];
+        
+        [_spinner hide:YES];
+        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Gift Sending Error", @"") message:@"Your gift order has failed to submit, please try again later" cancelButtonItem:dismissButton otherButtonItems:nil, nil] show];
+        [self reinstatePendingOrder];
+    }
+}
 
 #pragma mark - UITableViewDelegate, UITableViewDataSource
 
@@ -190,15 +272,11 @@ typedef enum {
 #pragma makr - PickUpLocationViewControllerDelegate
 
 - (void)pickUpLocationViewControllerDidSubmitOrderSuccessfully:(PickUpLocationViewController *)viewController {
-    [_pendingOrder deleteInContext:_pendingOrder.managedObjectContext];
-    self.pendingOrder = nil;
-    [[AppDelegate sharedAppDelegate].managedObjectContext saveToPersistentStore];
-    [self refreshCart:YES];
+    [self clearPendingOrder];
 }
 
 - (void)pickUpLocationViewControllerDidFailToSubmitOrder:(PickUpLocationViewController *)viewController {
-    _pendingOrder.status = MOrderInfoStatusInCart;  // revert status back to InCart
-    [[AppDelegate sharedAppDelegate].managedObjectContext save];
+    [self reinstatePendingOrder];
 }
 
 @end

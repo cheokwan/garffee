@@ -24,6 +24,9 @@
     _toLabel.text = LS_TO;
     [self updateRecipient:nil];
     [self updateTotalPrice:0.0];
+    [_removeRecipientButton setImage:[UIImage imageNamed:@"ico_remove"] forState:UIControlStateNormal];
+    [_removeRecipientButton setImage:nil forState:UIControlStateDisabled];
+    
     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height - 0.5, self.frame.size.width, 0.5)];
     line.backgroundColor = [UIColor lightGrayColor];
     [self addSubview:line];
@@ -70,6 +73,9 @@
     [_recipientAvatarView removeFromSuperview];
     self.recipientAvatarView = newAvatarView;
     [self.recipientBar addSubview:_recipientAvatarView];
+    
+    _removeRecipientButton.enabled = newRecipient != nil;
+    _removeRecipientButton.hidden = !_removeRecipientButton.enabled;
 }
 
 - (BOOL)hasRecipient {

@@ -53,8 +53,6 @@
 #define LS_BALANCE              NSLocalizedString(@"Balance", @"")
 #define LS_PICK_UP_LOCATION     NSLocalizedString(@"Pick Up Location", @"")
 #define LS_FINISH               NSLocalizedString(@"Finish", @"")
-#define LS_CONFIRM_ORDER_TITLE  NSLocalizedString(@"Confirm Order", @"")
-#define LS_CONFIRM_ORDER_DETAILS    NSLocalizedString(@"Are you sure?", @"")
 #define LS_CONFIRM              NSLocalizedString(@"Confirm", @"")
 #define LS_PENDING              NSLocalizedString(@"Pending", @"")
 #define LS_IN_PROGRESS          NSLocalizedString(@"In Progress", @"")
@@ -80,7 +78,8 @@
 #define LS_CONTACT_NUMBER       NSLocalizedString(@"Contact Number", @"")
 #define LS_ADDRESS              NSLocalizedString(@"Address", @"")
 #define LS_STORE_INFO           NSLocalizedString(@"Store Info", @"")
-#define LS_LOCATION_UNAVAILABLE NSLocalizedString(@"Location Unavailable", @"")
+#define LS_DISTANCE_UNAVAILABLE NSLocalizedString(@"Distance Unavailable", @"")
 #define LS_RECOMMENDED_TIME     NSLocalizedString(@"Recommended Time", @"")
+#define LS_SEARCH_FRIENDS       NSLocalizedString(@"Search Friends", @"")
 
 #endif

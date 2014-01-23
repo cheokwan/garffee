@@ -12,7 +12,7 @@
 #import "PickUpLocationViewController.h"
 #import "RestManager.h"
 
-@interface CartViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, ItemPickerViewControllerDelegate, PickUpLocationViewControllerDelegate>
+@interface CartViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, ItemPickerViewControllerDelegate, PickUpLocationViewControllerDelegate, RestManagerResponseHandler>
 
 @property (nonatomic, strong)   IBOutlet UITableView *itemList;
 @property (nonatomic, strong)   IBOutlet CartHeaderView *cartHeaderView;

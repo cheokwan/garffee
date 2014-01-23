@@ -54,11 +54,18 @@
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZME-K8-v8v">
-                            <rect key="frame" x="110" y="0.0" width="200" height="40"/>
+                            <rect key="frame" x="110" y="0.0" width="180" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u4w-1e-Kyy" userLabel="Button - Remove Recipient">
+                            <rect key="frame" x="280" y="5" width="30" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
                     </subviews>
                 </view>
             </subviews>
@@ -71,6 +78,7 @@
                 <outlet property="priceLabel" destination="l03-1B-JQz" id="aro-B6-wdy"/>
                 <outlet property="recipientAvatarView" destination="A5H-gi-UuJ" id="FFQ-Y5-IoG"/>
                 <outlet property="recipientBar" destination="KMs-VY-uJZ" id="8vO-44-pZ1"/>
+                <outlet property="removeRecipientButton" destination="u4w-1e-Kyy" id="ojW-c6-kA9"/>
                 <outlet property="toLabel" destination="K2y-Eg-jda" id="pnv-ho-sbY"/>
                 <outlet property="totalLabel" destination="YkR-cp-vkr" id="3Tk-P1-bbs"/>
             </connections>
