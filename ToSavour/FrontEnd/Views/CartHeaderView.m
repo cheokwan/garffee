@@ -74,7 +74,7 @@
     self.recipientAvatarView = newAvatarView;
     [self.recipientBar addSubview:_recipientAvatarView];
     
-    _removeRecipientButton.enabled = newRecipient != nil;
+    _removeRecipientButton.enabled = newRecipient != nil && ![newRecipient isEqual:appUser];
     _removeRecipientButton.hidden = !_removeRecipientButton.enabled;
 }
 

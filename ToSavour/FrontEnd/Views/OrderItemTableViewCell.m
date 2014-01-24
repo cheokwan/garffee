@@ -10,6 +10,10 @@
 #import "TSFrontEndIncludes.h"
 #import "MProductInfo.h"
 
+@interface OrderItemTableViewCell()
+@property (nonatomic, assign)   UITableViewCellStateMask previousState;
+@end
+
 @implementation OrderItemTableViewCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -28,19 +32,40 @@
 }
 
 - (void)configureWithItem:(MItemInfo *)item {
-        __weak OrderItemTableViewCell *weakSelf = self;
-        [self.itemImageView setImageWithURL:[NSURL URLWithString:item.product.resolvedImageURL] placeholderImage:nil options:0 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-            if (image) {
-                weakSelf.itemImageView.image = [image resizedImageToSize:weakSelf.itemImageView.frame.size];
-            } else {
-                DDLogWarn(@"cannot set image for item: %@ - error %@", weakSelf.itemNameLabel.text, error);
-            }
-        }];
-        
-        self.itemNameLabel.text = item.product.name;
-        self.itemDetailsLabel.text = item.description;  // TODO: fill in this detail
-        self.priceLabel.text = [NSString stringWithPrice:[item.price floatValue]];
-        self.quantityLabel.text = [NSString stringWithFormat:@"%@: %d", LS_QUANTITY, 1];  // TODO: handle quantity
+    __weak OrderItemTableViewCell *weakSelf = self;
+    [self.itemImageView setImageWithURL:[NSURL URLWithString:item.product.resolvedImageURL] placeholderImage:nil options:0 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+        if (image) {
+            weakSelf.itemImageView.image = [image resizedImageToSize:weakSelf.itemImageView.frame.size];
+        } else {
+            DDLogWarn(@"cannot set image for item: %@ - error %@", weakSelf.itemNameLabel.text, error);
+        }
+    }];
+    
+    self.itemNameLabel.text = item.product.name;
+    self.itemDetailsLabel.text = item.description;  // TODO: fill in this detail
+    self.priceLabel.text = [NSString stringWithPrice:[item.price floatValue]];
+    self.quantityLabel.text = [NSString stringWithFormat:@"%@: %d", LS_QUANTITY, 1];  // TODO: handle quantity
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+//    if (self.previousState & UITableViewCellStateShowingEditControlMask) {
+//        [UIView animateWithDuration:0.2 animations:^{
+//            _priceLabel.alpha = 0.0;
+//        }];
+//        if (self.showingDeleteConfirmation) {
+//            // hide addtional suckers
+//        }
+//    } else {
+//        [UIView animateWithDuration:0.2 animations:^{
+//            _priceLabel.alpha = 1.0;
+//        }];
+//    }
+}
+
+- (void)willTransitionToState:(UITableViewCellStateMask)state {
+    [super willTransitionToState:state];
+    self.previousState = state;
 }
 
 @end
