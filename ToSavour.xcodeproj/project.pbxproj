@@ -161,6 +161,8 @@
 		DF0D5751188820D8001C3A9D /* BranchDetailsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF0D5750188820D8001C3A9D /* BranchDetailsTableViewController.m */; };
 		DF1C88D21875967800400283 /* PickUpLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF1C88D11875967800400283 /* PickUpLocationViewController.m */; };
 		DF1C88D51875A82800400283 /* PickUpLocationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DF1C88D41875A82800400283 /* PickUpLocationTableViewCell.m */; };
+		DF1E79671894C05F0012CDC0 /* AccountInfoTableManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DF1E79661894C05F0012CDC0 /* AccountInfoTableManager.m */; };
+		DF1E796A1894DEC10012CDC0 /* AccountInfoTableViewBalanceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DF1E79691894DEC10012CDC0 /* AccountInfoTableViewBalanceCell.m */; };
 		DF26BEB518653FC400598CA0 /* TSGamePlayHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = DF26BEB418653FC400598CA0 /* TSGamePlayHistory.m */; };
 		DF3075C8186D6224002D40AF /* imageNotFound.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DF3075C7186D6224002D40AF /* imageNotFound.jpg */; };
 		DF60E74D185B47BA00DB10DE /* PhotoHuntGridButton.m in Sources */ = {isa = PBXBuildFile; fileRef = DF60E74C185B47BA00DB10DE /* PhotoHuntGridButton.m */; };
@@ -368,6 +370,10 @@
 		DF1C88D11875967800400283 /* PickUpLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PickUpLocationViewController.m; path = FrontEnd/PickUpLocationViewController.m; sourceTree = "<group>"; };
 		DF1C88D31875A82800400283 /* PickUpLocationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PickUpLocationTableViewCell.h; path = FrontEnd/Views/PickUpLocationTableViewCell.h; sourceTree = "<group>"; };
 		DF1C88D41875A82800400283 /* PickUpLocationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PickUpLocationTableViewCell.m; path = FrontEnd/Views/PickUpLocationTableViewCell.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		DF1E79651894C05F0012CDC0 /* AccountInfoTableManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountInfoTableManager.h; sourceTree = "<group>"; };
+		DF1E79661894C05F0012CDC0 /* AccountInfoTableManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountInfoTableManager.m; sourceTree = "<group>"; };
+		DF1E79681894DEC10012CDC0 /* AccountInfoTableViewBalanceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountInfoTableViewBalanceCell.h; sourceTree = "<group>"; };
+		DF1E79691894DEC10012CDC0 /* AccountInfoTableViewBalanceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountInfoTableViewBalanceCell.m; sourceTree = "<group>"; };
 		DF26BEB318653FC400598CA0 /* TSGamePlayHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSGamePlayHistory.h; sourceTree = "<group>"; };
 		DF26BEB418653FC400598CA0 /* TSGamePlayHistory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSGamePlayHistory.m; sourceTree = "<group>"; };
 		DF3075C7186D6224002D40AF /* imageNotFound.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = imageNotFound.jpg; path = Resource/imageNotFound.jpg; sourceTree = "<group>"; };
@@ -631,6 +637,8 @@
 				D2209F471884EFD400282DAE /* OrderDetailsViewController.m */,
 				DFB3C1E518842FE2004E5454 /* BranchLocationMapViewController.h */,
 				DFB3C1E618842FE2004E5454 /* BranchLocationMapViewController.m */,
+				DF1E79651894C05F0012CDC0 /* AccountInfoTableManager.h */,
+				DF1E79661894C05F0012CDC0 /* AccountInfoTableManager.m */,
 			);
 			name = FrontEnd;
 			sourceTree = "<group>";
@@ -785,6 +793,8 @@
 				DFED33BA188D49E400E9C9C2 /* BranchDetailsNormalCell.m */,
 				DFED33BC188D4A1300E9C9C2 /* BranchDetailsAddressCell.h */,
 				DFED33BD188D4A1300E9C9C2 /* BranchDetailsAddressCell.m */,
+				DF1E79681894DEC10012CDC0 /* AccountInfoTableViewBalanceCell.h */,
+				DF1E79691894DEC10012CDC0 /* AccountInfoTableViewBalanceCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1134,6 +1144,7 @@
 				DFBDA14C1856111500BF3755 /* PhotoHuntViewController.m in Sources */,
 				DF0D574E18881FE1001C3A9D /* BranchDetailsImageCell.m in Sources */,
 				D2A67A97185C487A00889114 /* AccountInfoTableViewCell.m in Sources */,
+				DF1E796A1894DEC10012CDC0 /* AccountInfoTableViewBalanceCell.m in Sources */,
 				D21DCE7B187AC5B7008CF011 /* FriendsListScrollView.m in Sources */,
 				D293E4F2183DF24000B73795 /* SlideMenuViewController.m in Sources */,
 				DF85270C185EDE450087E247 /* TSGameDownloadManager.m in Sources */,
@@ -1166,6 +1177,7 @@
 				D246684318603C800089D5DB /* CartViewController.m in Sources */,
 				D2A67A8E185B467400889114 /* AccountViewController.m in Sources */,
 				D2A36A8E18504ADE004D3D99 /* TSNavigationController.m in Sources */,
+				DF1E79671894C05F0012CDC0 /* AccountInfoTableManager.m in Sources */,
 				D2827DB61867E64000E4A662 /* MProductOptionChoice.m in Sources */,
 				D251EF19187D0BBE0012536E /* GiftTableViewCell.m in Sources */,
 				D293E4CA183DEDEB00B73795 /* ToSavour.xcdatamodeld in Sources */,

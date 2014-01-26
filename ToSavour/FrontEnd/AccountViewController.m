@@ -9,14 +9,18 @@
 #import "AccountViewController.h"
 #import "AccountInfoTableViewCell.h"
 #import "TransactionHistoryTableViewCell.h"
+#import "AccountInfoTableViewBalanceCell.h"
 #import "TSFrontEndIncludes.h"
 #import "MOrderInfo.h"
 #import "MItemInfo.h"
 #import "MProductInfo.h"
+#import "AccountInfoTableManager.h"
+#import <UIView+Helpers/UIView+Helpers.h>
 
 @interface AccountViewController ()
 @property (nonatomic, strong)   AccountInfoTableViewCell *accountInfoPrototypeCell;
 @property (nonatomic, strong)   TransactionHistoryTableViewCell *transactionHistoryPrototypeCell;
+@property (nonatomic, strong)   AccountInfoTableViewBalanceCell *balancePrototypeCell;
 @property (nonatomic, strong)   NSFetchedResultsController *transactionHistoryFetchedResultsController;
 @end
 
@@ -60,18 +64,42 @@
     return _accountHeaderView;
 }
 
+- (UISegmentedControl *)tableSwitcher {
+    return self.accountHeaderView.tableSwitcher;
+}
+
 #pragma mark - UITableViewDelegate, UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    NSInteger numberOfSection = 1;
+    if ([self tableSwitcher].selectedSegmentIndex == SegmentIndexAccountInfo) {
+        numberOfSection = [[AccountInfoTableManager sharedInstance] numberOfSections];
+    }
+    return numberOfSection;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.transactionHistoryFetchedResultsController.fetchedObjects.count;
+    NSInteger numberOfRows = 0;
+    if ([self tableSwitcher].selectedSegmentIndex == SegmentIndexOrderHistories) {
+        numberOfRows = self.transactionHistoryFetchedResultsController.fetchedObjects.count;
+    } else if ([self tableSwitcher].selectedSegmentIndex == SegmentIndexAccountInfo) {
+        numberOfRows = [[AccountInfoTableManager sharedInstance] numberOfRows:section];
+    }
+    return numberOfRows;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return self.accountInfoPrototypeCell.frame.size.height;
+    CGFloat height = 0.0f;
+    if ([self tableSwitcher].selectedSegmentIndex == SegmentIndexOrderHistories) {
+        height = self.transactionHistoryPrototypeCell.frameSizeHeight;
+    } else if ([self tableSwitcher].selectedSegmentIndex == SegmentIndexAccountInfo) {
+        if (indexPath.section == AccountInfoTableSectionsBalance) {
+            height = self.balancePrototypeCell.frameSizeHeight;
+        } else if (indexPath.section == AccountInfoTableSectionsUserInfo) {
+            height = self.accountInfoPrototypeCell.frameSizeHeight;
+        }
+    }
+    return height;
 }
 
 - (AccountInfoTableViewCell *)accountInfoPrototypeCell {
@@ -88,23 +116,80 @@
     return _transactionHistoryPrototypeCell;
 }
 
+- (AccountInfoTableViewBalanceCell *)balancePrototypeCell {
+    if (!_balancePrototypeCell) {
+        self.balancePrototypeCell = [_infoTable dequeueReusableCellWithIdentifier:NSStringFromClass(AccountInfoTableViewBalanceCell.class)];
+    }
+    return _balancePrototypeCell;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = nil;
-//    cell = [_infoTable dequeueReusableCellWithIdentifier:NSStringFromClass(AccountInfoTableViewCell.class) forIndexPath:indexPath];
-    cell = [_infoTable dequeueReusableCellWithIdentifier:NSStringFromClass(TransactionHistoryTableViewCell.class) forIndexPath:indexPath];
+    if ([self tableSwitcher].selectedSegmentIndex == SegmentIndexOrderHistories) {
+        cell = [_infoTable dequeueReusableCellWithIdentifier:NSStringFromClass(TransactionHistoryTableViewCell.class) forIndexPath:indexPath];
+    } else if ([self tableSwitcher].selectedSegmentIndex == SegmentIndexAccountInfo) {
+        if (indexPath.section == AccountInfoTableSectionsBalance) {
+            cell = [_infoTable dequeueReusableCellWithIdentifier:NSStringFromClass(AccountInfoTableViewBalanceCell.class) forIndexPath:indexPath];
+        } else if (indexPath.section == AccountInfoTableSectionsUserInfo) {
+            cell = [_infoTable dequeueReusableCellWithIdentifier:NSStringFromClass(AccountInfoTableViewCell.class) forIndexPath:indexPath];
+        }
+        
+    }
     [self configureCell:cell atIndexPath:indexPath];
     return cell;
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-//    AccountInfoTableViewCell *accountInfoCell = (AccountInfoTableViewCell *)cell;
-    TransactionHistoryTableViewCell *historyCell = (TransactionHistoryTableViewCell *)cell;
+    if ([self tableSwitcher].selectedSegmentIndex == SegmentIndexOrderHistories) {
+        [self configureHistoryCell:(TransactionHistoryTableViewCell*)cell atIndexPath:indexPath];
+    } else if ([self tableSwitcher].selectedSegmentIndex == SegmentIndexAccountInfo) {
+        [self configureAccountCell:cell atIndexPath:indexPath];
+    }
+    return;
+}
+
+- (void)configureHistoryCell:(TransactionHistoryTableViewCell *)historyCell atIndexPath:(NSIndexPath *)indexPath {
     MOrderInfo *order = [self.transactionHistoryFetchedResultsController objectAtIndexPath:indexPath];
     NSString *productName = ((MItemInfo *)[order.items anyObject]).product.name;
     historyCell.titleLabel.text = productName.length > 0 ? productName : order.referenceNumber;
     historyCell.subtitleLabel.text = [order.orderedDate defaultStringRepresentation];
     historyCell.priceLabel.text = [NSString stringWithPrice:[order.price floatValue]];
     return;
+}
+
+- (void)configureAccountCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == AccountInfoTableSectionsBalance) {
+        AccountInfoTableViewBalanceCell *balanceCell = (AccountInfoTableViewBalanceCell*)cell;
+        balanceCell.balanceStringLabel.text = LS_BALANCE;
+        balanceCell.balanceStringLabel.textColor = [TSTheming defaultThemeColor];
+        balanceCell.balance.text = [[AccountInfoTableManager sharedInstance] balanceString];
+    } else if (indexPath.section == AccountInfoTableSectionsUserInfo) {
+        AccountInfoTableViewCell *accountCell = (AccountInfoTableViewCell*)cell;
+        accountCell.imageView.image = [[AccountInfoTableManager sharedInstance] cellImageForIndexPath:indexPath];
+        accountCell.titleLabel.text = [[AccountInfoTableManager sharedInstance] cellLabelTextForIndexPath:indexPath];
+        accountCell.customView = [[AccountInfoTableManager sharedInstance] accessoryViewForIndexPath:indexPath taget:self action:@selector(genderButonPressed:)];
+        CGRect customViewRect = accountCell.customView.frame;
+        float padding = 10.0f;
+        customViewRect.origin.x = accountCell.frameSizeWidth - padding - customViewRect.size.width;
+        customViewRect.origin.y = accountCell.frameSizeHeight / 2 - customViewRect.size.height / 2;
+        accountCell.customView.frame = customViewRect;
+    }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    return;
+}
+
+- (void)genderButonPressed:(id)sender {
+    NSManagedObjectContext *context = [AppDelegate sharedAppDelegate].managedObjectContext;
+    MUserInfo *userInfo = [MUserInfo currentAppUserInfoInContext:context];
+    if ([userInfo.gender isEqualToString:@"male"]) {
+        userInfo.gender = @"female";
+    } else if ([userInfo.gender isEqualToString:@"female"]) {
+        userInfo.gender = @"male";
+    } else {
+        userInfo.gender = @"male";
+    }
+    [context save];
+    [self.infoTable reloadData];
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate
@@ -156,6 +241,7 @@
 #pragma mark - AccountHeaderViewDelegate
 
 - (void)accountHeaderView:(AccountHeaderView *)accountHeaderView didSwitchToTableSegment:(NSInteger)segmentIndex {
+    [self.infoTable reloadData];
 }
 
 #pragma mark - UIImagePickerControllerDelegate
