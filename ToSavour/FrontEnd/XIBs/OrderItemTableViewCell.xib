@@ -43,6 +43,12 @@
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <textField opaque="NO" clipsSubviews="YES" alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1!" borderStyle="roundedRect" textAlignment="center" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="aUM-jp-A0M" userLabel="Text Field - Quantity">
+                        <rect key="frame" x="230" y="25" width="50" height="30"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
                 </subviews>
             </tableViewCellContentView>
             <connections>
@@ -51,6 +57,7 @@
                 <outlet property="itemNameLabel" destination="cqh-oz-5G1" id="k2U-IY-QBv"/>
                 <outlet property="priceLabel" destination="kxV-QS-mav" id="J4h-b7-gQ3"/>
                 <outlet property="quantityLabel" destination="je8-gz-pfE" id="5cA-Ck-c1Z"/>
+                <outlet property="quantityTextField" destination="aUM-jp-A0M" id="mm2-7D-vmQ"/>
             </connections>
         </tableViewCell>
     </objects>

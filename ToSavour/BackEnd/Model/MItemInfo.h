@@ -21,10 +21,13 @@
 @property (nonatomic, retain) NSNumber * price;
 @property (nonatomic, retain) NSNumber * productID;
 @property (nonatomic, retain) NSString * status;
+@property (nonatomic, retain) NSNumber * quantity;
+@property (nonatomic, retain) MCouponInfo *coupon;
 @property (nonatomic, retain) NSSet *itemSelectedOptions;
 @property (nonatomic, retain) MOrderInfo *order;
 @property (nonatomic, retain) MProductInfo *product;
-@property (nonatomic, retain) MCouponInfo *coupon;
+
+@property (nonatomic, readonly) NSString *detailString;
 
 + (id)newItemInfoWithProduct:(MProductInfo *)product optionChoices:(NSArray *)choices inContext:(NSManagedObjectContext *)context;
 - (void)updatePrice;

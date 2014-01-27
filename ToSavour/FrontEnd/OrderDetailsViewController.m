@@ -196,6 +196,7 @@ typedef enum {
         case OrderDetailsSectionPickupLocation: {
             PickUpLocationTableViewCell *orderBranchCell = (PickUpLocationTableViewCell *)cell;
             [orderBranchCell configureWithBranch:_order.storeBranch];
+            orderBranchCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
             break;
         case OrderDetailsSectionItems: {

@@ -8,7 +8,6 @@
 
 #import "CartViewController.h"
 #import "TSFrontEndIncludes.h"
-#import "OrderItemTableViewCell.h"
 #import "AppDelegate.h"
 #import "TSNavigationController.h"
 #import "MProductInfo.h"
@@ -29,6 +28,8 @@ typedef enum {
 @property (nonatomic, strong)   UIAlertView *confirmGiftAlertView;
 @property (nonatomic, strong)   MBProgressHUD *spinner;
 @end
+
+// TODO: control logic too complicated, need refactor
 
 @implementation CartViewController
 
@@ -84,8 +85,8 @@ typedef enum {
 }
 
 - (NSArray *)inCartItems {
-    // TODO: reverse sort order
-    return [[self.pendingOrder.items allObjects] sortedArrayUsingSelector:@selector(creationDate)];
+    NSSortDescriptor *sdCreationDate = [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES];
+    return [self.pendingOrder.items sortedArrayUsingDescriptors:@[sdCreationDate]];
 }
 
 - (UIButton *)addOrderButton {
@@ -181,9 +182,21 @@ typedef enum {
     _cartHeaderView.checkoutButton.enabled = self.inCartItems.count > 0 && self.pendingOrder.recipient && !_itemList.isEditing;
 }
 
-- (void)refreshCart:(BOOL)animated {
+- (void)refreshPrice:(BOOL)animated {
     [self.pendingOrder updatePrice];
-    [_cartHeaderView updateTotalPrice:[self.pendingOrder.price floatValue]];
+    if (animated) {
+        [UIView animateWithDuration:0.3 animations:^{
+            _cartHeaderView.priceLabel.alpha = 0.0;
+            [_cartHeaderView updateTotalPrice:[self.pendingOrder.price floatValue]];
+            _cartHeaderView.priceLabel.alpha = 1.0;
+        }];
+    } else {
+        [_cartHeaderView updateTotalPrice:[self.pendingOrder.price floatValue]];
+    }
+}
+
+- (void)refreshCart:(BOOL)animated {
+    [self refreshPrice:animated];
     
     [_cartHeaderView updateRecipient:self.pendingOrder.recipient];
     
@@ -284,6 +297,7 @@ typedef enum {
             OrderItemTableViewCell *cartItemCell = (OrderItemTableViewCell *)cell;
             MItemInfo *itemInfo = self.inCartItems[indexPath.row];
             [cartItemCell configureWithItem:itemInfo];
+            cartItemCell.delegate = self;
         }
             break;
         case CartSectionPromotion: {
@@ -339,6 +353,7 @@ typedef enum {
                 [_itemList deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
                 
                 [self refreshButtons:YES];
+                [self refreshPrice:YES];
                 double delayInSeconds = 0.3;
                 dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
                 dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
@@ -378,6 +393,12 @@ typedef enum {
 
 - (void)pickUpLocationViewControllerDidFailToSubmitOrder:(PickUpLocationViewController *)viewController {
     [self reinstatePendingOrder];
+}
+
+#pragma mark - OrderItemTableViewCellDelegate
+
+- (void)orderItemTableViewCell:(OrderItemTableViewCell *)cell didEditOrderItem:(MItemInfo *)item {
+    [self refreshPrice:YES];
 }
 
 @end

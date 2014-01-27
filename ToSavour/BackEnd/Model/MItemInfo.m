@@ -24,10 +24,11 @@
 @dynamic price;
 @dynamic productID;
 @dynamic status;
+@dynamic quantity;
+@dynamic coupon;
 @dynamic itemSelectedOptions;
 @dynamic order;
 @dynamic product;
-@dynamic coupon;
 
 + (id)newItemInfoWithProduct:(MProductInfo *)product optionChoices:(NSArray *)choices inContext:(NSManagedObjectContext *)context {
     MItemInfo *item = [MItemInfo newObjectInContext:context];
@@ -39,8 +40,20 @@
     
     item.creationDate = [NSDate date];
     item.status = MOrderInfoStatusPending;
+    item.quantity = @1;  // XXX TODO: handle quantity
     [item updatePrice];
     return item;
+}
+
+- (NSString *)detailString {
+    NSMutableArray *optionNames = [NSMutableArray array];
+    NSSortDescriptor *sdOptionChoiceID = [NSSortDescriptor sortDescriptorWithKey:@"optionChoiceID" ascending:YES];
+    NSArray *options = [self.itemSelectedOptions sortedArrayUsingDescriptors:@[sdOptionChoiceID]];
+    for (MItemSelectedOption *option in options) {
+        [optionNames addObject:option.productOptionChoice.name];
+    }
+    // XXXXXX
+    return [[optionNames objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, MIN(optionNames.count, 2))]] commaSeparatedString];
 }
 
 - (void)updatePrice {
@@ -48,7 +61,12 @@
     for (MItemSelectedOption *selectedOption in self.itemSelectedOptions) {
         total += [selectedOption.productOptionChoice.price doubleValue];
     }
-    self.price = @(total);
+    self.price = @(total * [self.quantity intValue]);
+}
+
+- (void)awakeFromInsert {
+    [super awakeFromInsert];
+    self.quantity = @1;
 }
 
 - (void)changeValue:(id)value forKey:(NSString *)key {
@@ -80,6 +98,8 @@
         [self changePrimitiveValue:self.order.id forKey:@"orderID"];
     } else if ([key isEqualToString:@"coupon"]) {
         [self changePrimitiveValue:self.coupon.id forKey:@"couponID"];
+    } else if ([key isEqualToString:@"quantity"]) {
+        [self updatePrice];
     }
 }
 
@@ -105,6 +125,10 @@
 
 - (void)setCoupon:(MCouponInfo *)coupon {
     [self changeValue:coupon forKey:@"coupon"];
+}
+
+- (void)setQuantity:(NSNumber *)quantity {
+    [self changeValue:quantity forKey:@"quantity"];
 }
 
 #pragma mark - RKMappableEntity
