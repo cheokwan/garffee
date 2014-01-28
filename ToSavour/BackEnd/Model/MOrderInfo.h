@@ -38,9 +38,10 @@ static NSString *MOrderInfoStatusPickedUp   = @"pickedup";
 @property (nonatomic, retain) MBranch *storeBranch;
 @property (nonatomic, retain) MUserInfo *recipient;
 
+@property (nonatomic, readonly) NSURL *URLForImageRepresentation;
+
 + (MOrderInfo *)newOrderInfoInContext:(NSManagedObjectContext *)context;
 + (MOrderInfo *)existingOrNewOrderInfoInContext:(NSManagedObjectContext *)context;
-- (NSURL *)URLForImageRepresentation;
 - (void)updatePrice;
 - (void)updateRecipient:(MUserInfo *)recipient;
 

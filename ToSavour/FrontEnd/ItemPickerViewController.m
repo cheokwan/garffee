@@ -243,7 +243,7 @@ typedef enum {
         case ItemPickerSectionProductCategoryAndName: {
             itemViews = [NSMutableArray array];
             for (MProductInfo *product in self.allProducts) {
-                ItemGridView *itemView = [[ItemGridView alloc] initWithFrame:itemViewFrame text:product.name imageURL:[NSURL URLWithString:product.resolvedImageURL] interactable:YES shouldReceiveNotification:YES];
+                ItemGridView *itemView = [[ItemGridView alloc] initWithFrame:itemViewFrame text:product.name imageURL:product.URLForImageRepresentation interactable:YES shouldReceiveNotification:YES];
                 itemView.delegate = self;
                 [itemViews addObject:itemView];
             }
@@ -255,7 +255,7 @@ typedef enum {
             itemViews = [NSMutableArray array];
             MProductConfigurableOption *configurableOption = self.selectedProduct.sortedConfigurableOptions[indexPath.row];
             for (MProductOptionChoice *choice in configurableOption.choices) {
-                ItemGridView *itemView = [[ItemGridView alloc] initWithFrame:itemViewFrame text:choice.name imageURL:[NSURL URLWithString:choice.resolvedImageURL] interactable:YES shouldReceiveNotification:YES];
+                ItemGridView *itemView = [[ItemGridView alloc] initWithFrame:itemViewFrame text:choice.name imageURL:choice.URLForImageRepresentation interactable:YES shouldReceiveNotification:YES];
                 itemView.delegate = self;
                 [itemViews addObject:itemView];
             }

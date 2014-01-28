@@ -14,15 +14,25 @@
 
 @implementation MProductInfo
 
+@dynamic category;
 @dynamic id;
+@dynamic imageURL;
 @dynamic name;
 @dynamic type;
-@dynamic category;
-@dynamic imageURL;
+@dynamic localCachedImageURL;
 @dynamic configurableOptions;
 
 - (NSString *)resolvedImageURL {
     return [[MGlobalConfiguration cachedBlobHostName] stringByAppendingPathComponent:self.imageURL];
+}
+
+- (NSURL *)URLForImageRepresentation {
+    if (self.localCachedImageURL.length > 0) {
+        return [NSURL fileURLWithPath:self.localCachedImageURL];
+    } else if (self.resolvedImageURL.length > 0) {
+        return [NSURL URLWithString:self.resolvedImageURL];
+    }
+    return nil;
 }
 
 - (NSArray *)sortedConfigurableOptions {

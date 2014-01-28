@@ -183,8 +183,10 @@ typedef enum {
 }
 
 - (void)refreshPrice:(BOOL)animated {
+    CGFloat beforePrice = [self.pendingOrder.price floatValue];
     [self.pendingOrder updatePrice];
-    if (animated) {
+    CGFloat afterPrice = [self.pendingOrder.price floatValue];
+    if (beforePrice != afterPrice && animated) {
         [UIView animateWithDuration:0.3 animations:^{
             _cartHeaderView.priceLabel.alpha = 0.0;
             [_cartHeaderView updateTotalPrice:[self.pendingOrder.price floatValue]];

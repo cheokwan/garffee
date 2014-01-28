@@ -19,6 +19,7 @@
 #import "MOrderInfo.h"
 #import "MCouponInfo.h"
 
+// TODO: fucking deadlock everywhere, figure out why
 
 @implementation HomeViewController
 @synthesize itemBagButton = _itemBagButton;
@@ -134,9 +135,13 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [_homeControlView updateView];
-    [self updateItemBadgeCount];
     [[AppDelegate sharedAppDelegate].mainTabBarController updateCartTabBadge:self.tabBarItem];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self updateItemBadgeCount];
+    [_homeControlView updateView];
 }
 
 - (void)didReceiveMemoryWarning

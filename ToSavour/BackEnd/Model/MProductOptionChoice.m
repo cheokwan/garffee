@@ -18,10 +18,20 @@
 @dynamic imageURL;
 @dynamic name;
 @dynamic price;
+@dynamic localCachedImageURL;
 @dynamic productConfigurableOption;
 
 - (NSString *)resolvedImageURL {
     return [[MGlobalConfiguration cachedBlobHostName] stringByAppendingPathComponent:self.imageURL];
+}
+
+- (NSURL *)URLForImageRepresentation {
+    if (self.localCachedImageURL.length > 0) {
+        return [NSURL fileURLWithPath:self.localCachedImageURL];
+    } else if (self.resolvedImageURL.length > 0) {
+        return [NSURL URLWithString:self.resolvedImageURL];
+    }
+    return nil;
 }
 
 #pragma mark - RKMappableEntity

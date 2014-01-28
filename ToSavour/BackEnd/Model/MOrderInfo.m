@@ -65,10 +65,7 @@
 - (NSURL *)URLForImageRepresentation {
     if (self.items.count > 0) {
         MItemInfo *item = [self.items allObjects][0];
-        NSString *urlString = [item.product resolvedImageURL];
-        if (urlString.length > 0) {
-            return [NSURL URLWithString:urlString];
-        }
+        return item.product.URLForImageRepresentation;
     }
     return nil;
 }

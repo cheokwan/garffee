@@ -81,5 +81,6 @@
 #define LS_DISTANCE_UNAVAILABLE NSLocalizedString(@"Distance Unavailable", @"")
 #define LS_RECOMMENDED_TIME     NSLocalizedString(@"Recommended Time", @"")
 #define LS_SEARCH_FRIENDS       NSLocalizedString(@"Search Friends", @"")
+#define LS_NEVER                NSLocalizedString(@"Never", @"")
 
 #endif

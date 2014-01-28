@@ -25,6 +25,7 @@
 - (NSURL *)applicationDocumentsDirectory;
 - (NSURL *)applicationCachesDirectory;
 - (NSURL *)addressBookUserImageCacheDirectory;
+- (NSURL *)productImageCacheDirectory;
 
 - (void)loadModelResourcesFromBundle;
 

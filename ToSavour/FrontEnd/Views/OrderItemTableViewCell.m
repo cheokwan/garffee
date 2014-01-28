@@ -38,7 +38,7 @@ static UIEdgeInsets tableViewContentInsets;
     self.item = item;
     
     __weak OrderItemTableViewCell *weakSelf = self;
-    [self.itemImageView setImageWithURL:[NSURL URLWithString:item.product.resolvedImageURL] placeholderImage:nil options:0 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+    [self.itemImageView setImageWithURL:item.product.URLForImageRepresentation placeholderImage:nil options:0 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
         if (image) {
             weakSelf.itemImageView.image = [image resizedImageToSize:weakSelf.itemImageView.frame.size];
         } else {

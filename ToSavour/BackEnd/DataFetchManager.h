@@ -15,5 +15,6 @@
 - (void)fetchAddressBookContactsInContext:(NSManagedObjectContext *)context;
 - (void)discoverFacebookAppUsersInContext:(NSManagedObjectContext *)context;
 - (void)discoverAddressBookAppUsersContext:(NSManagedObjectContext *)context;
+- (void)cacheLocalProductImages:(NSManagedObjectContext *)context;
 
 @end

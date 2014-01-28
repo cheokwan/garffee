@@ -9,6 +9,7 @@
 #import "DataFetchManager.h"
 #import <AddressBook/AddressBook.h>
 #import "TSModelIncludes.h"
+#import <AFNetworking/AFNetworking.h>
 
 @interface DataFetchManager()
 @property (nonatomic, assign)   ABAddressBookRef addressBook;
@@ -111,21 +112,9 @@
         
         NSData *imageData = (NSData *)CFBridgingRelease(ABPersonCopyImageData(recordRef));
         if (imageData) {
-            if (abUser.URLForProfileImage) {
-                NSError *error = nil;
-                [[NSFileManager defaultManager] removeItemAtURL:abUser.URLForProfileImage error:&error];
-                if (error) {
-                    DDLogError(@"error removing old cached contact image %@: %@", abUser.URLForProfileImage, error);
-                }
-            }
-            
-            NSMutableString *fileName = [[abUser.name lowercaseString] mutableCopy];
-            [fileName appendString:[@([[NSDate date] timeIntervalSinceReferenceDate]) stringValue]];
-            [fileName replaceOccurrencesOfString:@" " withString:@"_" options:0 range:NSMakeRange(0, fileName.length)];
-            if (fileName.length > 0) {
-                NSString *filePath = [[[[AppDelegate sharedAppDelegate] addressBookUserImageCacheDirectory] path] stringByAppendingPathComponent:fileName];
-                [imageData writeToFile:filePath atomically:NO];
-                abUser.abProfileImageURL = filePath;
+            NSURL *cacheURL = [[[AppDelegate sharedAppDelegate] addressBookUserImageCacheDirectory] cacheData:imageData baseFileName:abUser.name originalCacheURL:abUser.URLForProfileImage];
+            if (cacheURL) {
+                abUser.abProfileImageURL = cacheURL.path;
             }
         }
     }
@@ -142,6 +131,45 @@
 
 - (void)discoverAddressBookAppUsersContext:(NSManagedObjectContext *)context {
     [[RestManager sharedInstance] queryAddressBookContactsInContext:context handler:self];
+}
+
+- (void)cacheLocalProductImages:(NSManagedObjectContext *)context {
+    NSFetchRequest *productFetchRequest = [MProductInfo fetchRequest];
+    NSFetchRequest *choiceFetchRequest = [MProductOptionChoice fetchRequest];
+    NSError *error = nil;
+    NSArray *products = [context executeFetchRequest:productFetchRequest error:&error];
+    if (error) {
+        DDLogError(@"error fetching products: %@", error);
+    }
+    NSArray *choices = [context executeFetchRequest:choiceFetchRequest error:&error];
+    if (error) {
+        DDLogError(@"error fetching option choices: %@", error);
+    }
+    
+    NSMutableArray *allItems = [NSMutableArray array];
+    [allItems addObjectsFromArray:products];
+    [allItems addObjectsFromArray:choices];
+    for (id item in allItems) {
+        if ([item respondsToSelector:@selector(resolvedImageURL)] &&
+            [item resolvedImageURL]) {
+            
+            NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[item resolvedImageURL]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+            AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+            [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+                if (operation.responseData.length > 0) {
+                    NSURL *originalCacheURL = [item localCachedImageURL] ? [NSURL fileURLWithPath:[item localCachedImageURL]] : nil;
+                    NSURL *newCacheURL = [[[AppDelegate sharedAppDelegate] productImageCacheDirectory] cacheData:operation.responseData baseFileName:[[item resolvedImageURL] lastPathComponent] originalCacheURL:originalCacheURL];
+                    if (newCacheURL) {
+                        [item setLocalCachedImageURL:newCacheURL.path];
+                        DDLogInfo(@"successfully downloaded and cached product image to path: %@", newCacheURL);
+                    }
+                }
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                DDLogError(@"error downloading product image at path %@: %@", [item resolvedImageURL], error);
+            }];
+            [[RestManager sharedInstance].operationQueue addOperation:operation];
+        }
+    }
 }
 
 #pragma mark - RestManagerResponseHandler

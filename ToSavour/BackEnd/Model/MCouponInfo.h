@@ -26,8 +26,9 @@
 @property (nonatomic, retain) MUserInfo *receiver;
 @property (nonatomic, retain) MUserInfo *sender;
 
+@property (nonatomic, readonly) NSURL *URLForImageRepresentation;
+
 - (NSString *)issuerName;
-- (NSURL *)URLForImageRepresentation;
 
 @end
 

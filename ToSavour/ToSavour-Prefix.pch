@@ -34,5 +34,6 @@
     #import "UIView+Helper.h"
     #import "NSDate+Helper.h"
     #import "UIButton+Helper.h"
+    #import "NSURL+Helper.h"
     #import "AppDelegate.h"
 #endif
