@@ -10,10 +10,13 @@
 #import <AddressBook/AddressBook.h>
 #import "TSModelIncludes.h"
 #import <AFNetworking/AFNetworking.h>
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface DataFetchManager()
 @property (nonatomic, assign)   ABAddressBookRef addressBook;
 @property (nonatomic, assign)   CFArrayRef allABContacts;
+
+@property (nonatomic, strong)   NSMutableArray *dummyImageViews;
 @end
 
 @implementation DataFetchManager
@@ -25,6 +28,13 @@
         instance = [[self alloc] init];
     });
     return instance;
+}
+
+- (NSMutableArray *)dummyImageViews {
+    if (!_dummyImageViews) {
+        self.dummyImageViews = [NSMutableArray array];
+    }
+    return _dummyImageViews;
 }
 
 - (ABAddressBookRef)addressBook {
@@ -149,25 +159,39 @@
     NSMutableArray *allItems = [NSMutableArray array];
     [allItems addObjectsFromArray:products];
     [allItems addObjectsFromArray:choices];
+    [self.dummyImageViews removeAllObjects];
+    
     for (id item in allItems) {
         if ([item respondsToSelector:@selector(resolvedImageURL)] &&
             [item resolvedImageURL]) {
+            UIImageView *imageView = [[UIImageView alloc] init];
+            [_dummyImageViews addObject:imageView];  // retain the imageView
             
-            NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[item resolvedImageURL]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
-            AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-            [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-                if (operation.responseData.length > 0) {
-                    NSURL *originalCacheURL = [item localCachedImageURL] ? [NSURL fileURLWithPath:[item localCachedImageURL]] : nil;
-                    NSURL *newCacheURL = [[[AppDelegate sharedAppDelegate] productImageCacheDirectory] cacheData:operation.responseData baseFileName:[[item resolvedImageURL] lastPathComponent] originalCacheURL:originalCacheURL];
-                    if (newCacheURL) {
-                        [item setLocalCachedImageURL:newCacheURL.path];
-                        DDLogInfo(@"successfully downloaded and cached product image to path: %@", newCacheURL);
+            __weak UIImageView *weakImageView = imageView;
+            [imageView setImageWithURL:[NSURL URLWithString:[item resolvedImageURL]] placeholderImage:nil options:0 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+                NSData *imageData = nil;
+                if (image) {
+                    if ([[[item resolvedImageURL] lowercaseString] hasSuffix:@".jpg"]) {
+                        imageData = UIImageJPEGRepresentation(image, 0.8);
+                    } else {
+                        imageData = UIImagePNGRepresentation(image);
                     }
                 }
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                DDLogError(@"error downloading product image at path %@: %@", [item resolvedImageURL], error);
+                if (imageData.length > 0) {
+                    NSURL *originalCacheURL = [item localCachedImageURL] ? [NSURL fileURLWithPath:[item localCachedImageURL]] : nil;
+                    NSURL *newCacheURL = [[[AppDelegate sharedAppDelegate] productImageCacheDirectory] cacheData:imageData baseFileName:[[item resolvedImageURL] lastPathComponent] originalCacheURL:originalCacheURL];
+                    if (newCacheURL) {
+                        [item setLocalCachedImageURL:newCacheURL.path];
+                        DDLogInfo(@"successfully downloaded and cached product image %@ to path: %@", [item resolvedImageURL], newCacheURL);
+                    }
+                } else {
+                    DDLogError(@"error downloading product image at path %@: %@", [item resolvedImageURL], error);
+                }
+                [_dummyImageViews removeObject:weakImageView];
+                if (_dummyImageViews.count == 0) {
+                    [context save];
+                }
             }];
-            [[RestManager sharedInstance].operationQueue addOperation:operation];
         }
     }
 }

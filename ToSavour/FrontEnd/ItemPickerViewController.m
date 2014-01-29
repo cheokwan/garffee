@@ -337,6 +337,8 @@ typedef enum {
             MItemInfo *newItem = [MItemInfo newItemInfoWithProduct:self.selectedProduct optionChoices:selectedOptionChoices inContext:[AppDelegate sharedAppDelegate].managedObjectContext];
             [_delegate itemPicker:self didAddItem:newItem];
         }
+        MainTabBarController *tabBarController = [AppDelegate sharedAppDelegate].mainTabBarController;
+        [tabBarController switchToTab:MainTabBarControllerTabCart animated:NO];
         [self dismissViewControllerAnimated:YES completion:nil];
     } else {
         ItemPickerScrollView *pickerScrollView = nil;

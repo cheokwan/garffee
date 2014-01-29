@@ -12,6 +12,7 @@
 #import "MOrderInfo.h"
 #import "MItemInfo.h"
 #import "MProductInfo.h"
+#import "OrderCompositeImageView.h"
 
 @implementation HomeControlView
 
@@ -74,6 +75,11 @@
                 NSManagedObjectContext *mainContext = [AppDelegate sharedAppDelegate].managedObjectContext;
                 MOrderInfo *mainLastOrder = (MOrderInfo *)[mainContext objectWithID:lastOrder.objectID];
                 _lastOrderTimeLabel.text = [[self.class dateFormatter] stringFromDate:mainLastOrder.orderedDate];
+                
+                UIImageView *lastOrderImage = [[OrderCompositeImageView alloc] initWithFrame:_lastOrderImage.frame order:mainLastOrder];
+                [_lastOrderImage removeFromSuperview];
+                self.lastOrderImage = lastOrderImage;
+                [self addSubview:_lastOrderImage];
             } else {
                 _lastOrderTimeLabel.text = LS_NEVER;
             }

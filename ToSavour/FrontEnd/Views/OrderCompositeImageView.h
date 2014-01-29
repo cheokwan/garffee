@@ -11,4 +11,8 @@
 
 @interface OrderCompositeImageView : UIImageView
 
+@property (nonatomic, strong)   MOrderInfo *order;
+
+- (id)initWithFrame:(CGRect)frame order:(MOrderInfo *)order;
+
 @end
