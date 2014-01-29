@@ -45,6 +45,8 @@ static NSString *MOrderInfoStatusPickedUp   = @"pickedup";
 - (void)updatePrice;
 - (void)updateRecipient:(MUserInfo *)recipient;
 
+- (MItemInfo *)chosenItem;
+
 + (RKEntityMapping *)giftCouponCreationEntityMapping;
 @end
 

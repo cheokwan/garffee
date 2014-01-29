@@ -21,6 +21,11 @@
 @dynamic choices;
 @dynamic product;
 
+- (NSArray *)sortedOptionChoices {
+    NSSortDescriptor *sdId = [NSSortDescriptor sortDescriptorWithKey:@"id" ascending:YES];
+    return [self.choices sortedArrayUsingDescriptors:@[sdId]];
+}
+
 #pragma mark - RKMappableEntity
 
 + (RKEntityMapping *)defaultEntityMapping {

@@ -63,11 +63,7 @@
 }
 
 - (NSURL *)URLForImageRepresentation {
-    if (self.items.count > 0) {
-        MItemInfo *item = [self.items allObjects][0];
-        return item.product.URLForImageRepresentation;
-    }
-    return nil;
+    return self.chosenItem.product.URLForImageRepresentation;
 }
 
 - (void)updatePrice {
@@ -126,6 +122,13 @@
 
 - (void)setRecipient:(MUserInfo *)recipient {
     [self changeValue:recipient forKey:@"recipient"];
+}
+
+- (MItemInfo *)chosenItem {
+    if (self.items.count > 0) {
+        return [[self.items allObjects] firstObject];
+    }
+    return nil;
 }
 
 #pragma mark - RKMappableEntity

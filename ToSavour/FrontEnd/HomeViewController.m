@@ -118,6 +118,19 @@
         itemPicker.delegate = cart;
         TSNavigationController *naviController = [[TSNavigationController alloc] initWithRootViewController:itemPicker];
         
+        // XXXXXX TESTING
+        NSFetchRequest *fetchRequest = [MOrderInfo fetchRequest];
+        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"status = %@", MOrderInfoStatusInCart];
+        NSError *error = nil;
+        NSArray *orders = [[AppDelegate sharedAppDelegate].managedObjectContext executeFetchRequest:fetchRequest error:&error];
+        if (error) {
+            DDLogError(@"error fetching ongoing orders: %@", error);
+        }
+        if (orders.count > 0) {
+            MOrderInfo *order = [orders firstObject];
+            itemPicker.defaultItem = [order chosenItem];
+        }
+        // XXXXXX
         [self presentViewController:naviController animated:YES completion:nil];
     }
 }

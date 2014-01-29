@@ -66,7 +66,7 @@
 
 - (void)awakeFromInsert {
     [super awakeFromInsert];
-    self.quantity = @1;
+    [self changePrimitiveValue:@1 forKey:@"quantity"];
 }
 
 - (void)changeValue:(id)value forKey:(NSString *)key {
@@ -99,7 +99,10 @@
     } else if ([key isEqualToString:@"coupon"]) {
         [self changePrimitiveValue:self.coupon.id forKey:@"couponID"];
     } else if ([key isEqualToString:@"quantity"]) {
-        [self updatePrice];
+        if (self.itemSelectedOptions.count > 0) {
+            // XXX-SERVER-BUG  update price when server returns no item selected options set it to 0
+            [self updatePrice];
+        }
     }
 }
 

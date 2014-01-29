@@ -59,6 +59,17 @@
     return [RKResponseDescriptor responseDescriptorWithMapping:[self.class defaultEntityMapping] method:RKRequestMethodAny pathPattern:nil keyPath:nil statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
 }
 
+// TODO: use this
+//- (BOOL)isEqual:(id)object {
+//    if ([object isKindOfClass:self.class]) {
+//        MProductInfo *anotherProduct = (MProductInfo *)object;
+//        if ([self.id isEqual:anotherProduct.id]) {
+//            return YES;
+//        }
+//    }
+//    return NO;
+//}
+
 - (NSString *)description {
     return [NSString stringWithFormat:
             @"id:%@ "
