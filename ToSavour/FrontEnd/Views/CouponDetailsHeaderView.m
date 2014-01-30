@@ -68,6 +68,7 @@
 }
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     [self initializeView];
 }
 

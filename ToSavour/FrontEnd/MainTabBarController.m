@@ -46,6 +46,7 @@
 }
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     for (int tabIndex = 0; tabIndex < self.tabBar.items.count; ++tabIndex) {
         UITabBarItem *item = self.tabBar.items[tabIndex];
         switch (tabIndex) {

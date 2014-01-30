@@ -12,6 +12,9 @@
 
 @implementation OrderCompositeImageView
 
+#define ORDER_COMPOSITE_IMAGE_MAX_ITEM  10
+static CGRect itemImageRects[ORDER_COMPOSITE_IMAGE_MAX_ITEM];
+
 - (void)initialize {
     self.layer.cornerRadius = 3.5;
     self.layer.masksToBounds = YES;
@@ -36,73 +39,119 @@
 }
 
 - (void)updateView {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         // XXX-SERVER-BUG: order from history may not have items in them
         //((MItemInfo *)[_order.items anyObject]).product.URLForImageRepresentation;
-        NSManagedObjectContext *context = [AppDelegate sharedAppDelegate].persistentStoreManagedObjectContext;
-        NSFetchRequest *fetchRequest = [MProductInfo fetchRequest];
-        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"localCachedImageURL != %@ AND name IN[c] %@", nil, @[/*@"Cappuccino",*/ @"Coffee"/*, @"Latte"*/]];
+        // XXXXXX TESTING
+//        NSManagedObjectContext *context = [AppDelegate sharedAppDelegate].persistentStoreManagedObjectContext;
+        NSManagedObjectContext *context = [AppDelegate sharedAppDelegate].managedObjectContext;
+        NSFetchRequest *fetchRequest = [MOrderInfo fetchRequest];
+        NSSortDescriptor *sdOrderedDate = [NSSortDescriptor sortDescriptorWithKey:@"orderedDate" ascending:NO];
+        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"status = %@", MOrderInfoStatusInCart];
+        fetchRequest.sortDescriptors = @[sdOrderedDate];
         NSError *error = nil;
-        NSArray *products = [context executeFetchRequest:fetchRequest error:&error];
+        NSArray *orders = [context executeFetchRequest:fetchRequest error:&error];
         if (error) {
             DDLogError(@"error fetching products for cached images: %@", error);
         }
-        if (products.count == 0) {
-            double delayInSeconds = 3.0;
-            DDLogWarn(@"fetched 0 products, going to retry in %f seconds", delayInSeconds);
+        if (orders.count == 0) {
+            double delayInSeconds = 5.0;
+            DDLogWarn(@"fetched 0 orders, going to retry in %f seconds", delayInSeconds);
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
             dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
                 [self updateView];
             });
         } else {
-            dispatch_async(dispatch_get_main_queue(), ^{
+//            dispatch_async(dispatch_get_main_queue(), ^{
                 NSMutableArray *images = [NSMutableArray array];
-                for (MProductInfo *product in products) {
-                    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfFile:product.localCachedImageURL]];
-                    [images addObject:image];
-                }
-                
-                CGFloat imageMargin = 10.0;  // XXXXXX
-                UIImage *sampleImage = [images lastObject];
-                CGFloat sampleImageProportionWidth = (sampleImage.size.width * self.bounds.size.height / sampleImage.size.height) - (imageMargin * 2.0);
-                CGSize itemImageSize = CGSizeMake(sampleImageProportionWidth, self.bounds.size.height);
-                CGFloat x = 0.0;
-                CGFloat dx = 0.0;
-                if (self.bounds.size.width > images.count * itemImageSize.width) {
-                    // the imageview can fit all the item images
-                    dx = itemImageSize.width;
-                } else {
-                    // item images will need to be overlapped
-                    // last item remains on top of all others
-                    dx = (self.bounds.size.width - itemImageSize.width) / (CGFloat)(images.count - 1);
-                }
-                
-                UIGraphicsBeginImageContext(self.bounds.size);
-//                CGContextRef c = UIGraphicsGetCurrentContext();  XXXXXX
-                
-                for (UIImage *image in images) {
-                    CGFloat imageProportionalWidth = (image.size.width * itemImageSize.height / image.size.height);
-                    CGRect imageRect = CGRectMake(x - imageMargin, 0, imageProportionalWidth, itemImageSize.height);
+                MOrderInfo *lastOrder = [orders firstObject];
+                for (MItemInfo *item in lastOrder.items) {
+                    if (!item.product.localCachedImageURL) {
+                        continue;
+                    }
+                    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfFile:item.product.localCachedImageURL]];
+                    CGRect cropRect = CGRectInset(CGRectMake(0, 0, image.size.width, image.size.height), 15.0, 0.0);
                     
-//                    CGContextSaveGState(c); {
-//                        CGContextSetFillColorWithColor(c, [UIColor whiteColor].CGColor);
-//                        CGContextSetShadow(c, CGSizeMake(-7.0, 0.0), 3.0);
-//                        CGRect shadowRect = CGRectMake(imageRect.origin.x + imageRect.size.width / 4.0, imageRect.origin.y + imageRect.size.height / 4.0, imageRect.size.width / 2.0, imageRect.size.height / 2.0);
-//                        //CGContextFillRect(c, shadowRect);
-//                        CGContextFillEllipseInRect(c, shadowRect);
-//                    } CGContextRestoreGState(c);
-                    
-                    [image drawInRect:imageRect];
-                    x += dx;
+                    CGImageRef croppedImageRef = CGImageCreateWithImageInRect(image.CGImage, cropRect);
+                    if (croppedImageRef) {
+                        UIImage *croppedImage = [UIImage imageWithCGImage:croppedImageRef];
+                        [images addObject:croppedImage];
+                        CGImageRelease(croppedImageRef);
+                    } else {
+                        [images addObject:image];
+                    }
                 }
+                
+                CGRect drawingRect = CGRectInset(self.bounds, 0.0, 0.0);
+                [self calculateItemImageRectsBoundTo:drawingRect.size sampleImage:[images firstObject] total:images.count];
+                UIGraphicsBeginImageContext(drawingRect.size);
+                CGContextMoveToPoint(UIGraphicsGetCurrentContext(), drawingRect.origin.x, drawingRect.origin.y);
+                NSInteger numImagesToDraw = MIN(images.count, ORDER_COMPOSITE_IMAGE_MAX_ITEM);
+                for (NSInteger imageIndex = 0; imageIndex < numImagesToDraw; ++imageIndex) {
+                    CGRect imageRect = itemImageRects[imageIndex];
+//                    BOOL inFirstRow = (imageRect.origin.y == 0.0);
+                    [images[imageIndex] drawInRect:imageRect];
+                }
+                
                 UIImage *compositeImage = UIGraphicsGetImageFromCurrentImageContext();
                 UIGraphicsEndImageContext();
                 
                 self.contentMode = UIViewContentModeLeft;
                 self.image = compositeImage;
-            });
+//            });
         }
-    });
+//    });
+}
+
+- (void)calculateItemImageRectsBoundTo:(CGSize)boundSize sampleImage:(UIImage *)sampleImage total:(NSInteger)total {
+    // TODO: make this smarter
+    CGFloat sampleHeightWidthRatio = sampleImage.size.height / sampleImage.size.width;
+    NSInteger numToDraw = MIN(total, ORDER_COMPOSITE_IMAGE_MAX_ITEM);
+    
+    // figure out if one row overflows
+    CGFloat singleRowItemHeight = 0.8 * boundSize.height;
+    CGFloat singleRowItemWidth = singleRowItemHeight / sampleHeightWidthRatio;
+    BOOL singleRow = floor(boundSize.width / singleRowItemWidth) >= numToDraw;
+    
+    // ready to layout the rects
+    memset(itemImageRects, 0, sizeof(CGRect) & ORDER_COMPOSITE_IMAGE_MAX_ITEM);
+    if (singleRow) {
+        CGFloat leftMargin = (boundSize.width - (singleRowItemWidth * numToDraw)) / 2.0;
+        CGFloat topMargin = (boundSize.height - singleRowItemHeight) / 2.0;
+        CGRect sampleRect = CGRectMake(leftMargin, topMargin, singleRowItemWidth, singleRowItemHeight);
+        for (NSInteger i = 0; i < numToDraw; ++i) {
+            CGRect itemRect = CGRectOffset(sampleRect, i * singleRowItemWidth, 0.0);
+            itemImageRects[i] = itemRect;
+        }
+    } else {
+        // just do maximum two rows for now... TODO...
+        NSInteger numInFirstRow = ceil(numToDraw / 2.0);
+        NSInteger numInSecondRow = numToDraw - numInFirstRow;
+        
+        // if we have too much items, then we are fucked... choose the MAX wisely TODO...
+        CGFloat firstRowItemHeight = 0.7 * boundSize.height;
+        CGFloat secondRowItemHeight = 0.8 * boundSize.height;
+        
+        CGFloat firstRowItemWidth = firstRowItemHeight / sampleHeightWidthRatio;
+        CGFloat secondRowItemWidth = secondRowItemHeight / sampleHeightWidthRatio;
+        
+        CGFloat firstRowLeftMargin = (boundSize.width - (firstRowItemWidth * numInFirstRow)) / 2.0;
+        CGRect firstRowSampleRect = CGRectMake(firstRowLeftMargin, 0.0, firstRowItemWidth, firstRowItemHeight);
+        for (NSInteger i = 0; i < numInFirstRow; ++i) {
+            CGRect itemRect = CGRectOffset(firstRowSampleRect, i * firstRowItemWidth, 0.0);
+            itemImageRects[i] = itemRect;
+        }
+        
+        CGFloat secondRowLeftMargin = (boundSize.width - (secondRowItemWidth * numInSecondRow)) / 2.0;
+        if (numInFirstRow == numInSecondRow && numToDraw != ORDER_COMPOSITE_IMAGE_MAX_ITEM) {
+//            secondRowLeftMargin += (firstRowItemWidth / 2.0);
+        }
+        CGRect secondRowSampleRect = CGRectMake(secondRowLeftMargin, boundSize.height - secondRowItemHeight, secondRowItemWidth, secondRowItemHeight);
+        for (NSInteger i = 0; i < numInSecondRow; ++i) {
+            CGRect itemRect = CGRectOffset(secondRowSampleRect, i * secondRowItemWidth, 0.0);
+            itemImageRects[numInFirstRow + i] = itemRect;
+        }
+    }
 }
 
 /*

@@ -187,7 +187,7 @@ typedef enum {
     [self.pendingOrder updatePrice];
     CGFloat afterPrice = [self.pendingOrder.price floatValue];
     if (beforePrice != afterPrice && animated) {
-        [UIView animateWithDuration:0.3 animations:^{
+        [UIView animateWithDuration:0.2 animations:^{
             _cartHeaderView.priceLabel.alpha = 0.0;
             [_cartHeaderView updateTotalPrice:[self.pendingOrder.price floatValue]];
             _cartHeaderView.priceLabel.alpha = 1.0;
@@ -350,7 +350,6 @@ typedef enum {
                 
                 [self.pendingOrder removeItemsObject:itemToRemove];
                 [itemToRemove deleteInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
-                [self.pendingOrder updatePrice];
                 
                 [_itemList deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
                 
@@ -377,7 +376,6 @@ typedef enum {
 
 - (void)itemPicker:(ItemPickerViewController *)itemPicker didAddItem:(MItemInfo *)item {
     [self.pendingOrder addItemsObject:item];
-    [self.pendingOrder updatePrice];
     
     if (!self.pendingOrder.recipient) {
         MUserInfo *appUser = [MUserInfo currentAppUserInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
