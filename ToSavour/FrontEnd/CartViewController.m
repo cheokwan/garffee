@@ -27,6 +27,8 @@ typedef enum {
 @property (nonatomic, strong)   OrderItemTableViewCell *cartItemPrototypeCell;
 @property (nonatomic, strong)   UIAlertView *confirmGiftAlertView;
 @property (nonatomic, strong)   MBProgressHUD *spinner;
+
+@property (nonatomic, strong)   UIAlertView *confirmClearAlertView;
 @end
 
 // TODO: control logic too complicated, need refactor
@@ -112,6 +114,19 @@ typedef enum {
     return _editCartButton;
 }
 
+- (UIButton *)clearAllButton {
+    if (!_clearAllButton) {
+        self.clearAllButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+        [_clearAllButton setTitle:LS_CLEAR_ALL forState:UIControlStateNormal];
+        [_clearAllButton setTitleColor:[TSTheming defaultAccentColor] forState:UIControlStateNormal];
+        [_clearAllButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+        [_clearAllButton sizeToFit];
+        _clearAllButton.contentEdgeInsets = UIEdgeInsetsMake(0.0, -5.0, 0.0, 5.0);
+        [_clearAllButton addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _clearAllButton;
+}
+
 - (UIAlertView *)confirmGiftAlertView {
     if (!_confirmGiftAlertView) {
         RIButtonItem *cancelButton = [RIButtonItem itemWithLabel:LS_CANCEL];
@@ -135,6 +150,30 @@ typedef enum {
         self.confirmGiftAlertView = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Send gift to %@ now?", @""), self.pendingOrder.recipient.name] message:nil cancelButtonItem:cancelButton otherButtonItems:confirmButton, nil];
     }
     return _confirmGiftAlertView;
+}
+
+- (UIAlertView *)confirmClearAlertView {
+    if (!_confirmClearAlertView) {
+        RIButtonItem *cancelButton = [RIButtonItem itemWithLabel:LS_CANCEL];
+        [cancelButton setAction:^{
+            self.confirmClearAlertView = nil;
+        }];
+        
+        RIButtonItem *confirmButton = [RIButtonItem itemWithLabel:LS_CONFIRM];
+        [confirmButton setAction:^{
+            NSArray *items = [self.pendingOrder.items allObjects];
+            for (MItemInfo *item in items) {
+                [self.pendingOrder removeItemsObject:item];
+                [item deleteInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
+            }
+            [self refreshCart:YES];
+            
+            self.confirmClearAlertView = nil;
+        }];
+        
+        self.confirmClearAlertView = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Clear cart now?", @"")] message:nil cancelButtonItem:cancelButton otherButtonItems:confirmButton, nil];
+    }
+    return _confirmClearAlertView;
 }
 
 - (void)buttonPressed:(id)sender {
@@ -168,15 +207,54 @@ typedef enum {
         BOOL editing = !_itemList.isEditing;
         [_itemList setEditing:editing animated:YES];
         [self refreshButtons:YES];
+    } else if (sender == _clearAllButton) {
+        [self.confirmClearAlertView show];
     }
 }
 
 - (void)refreshButtons:(BOOL)animated {
     // update add order button
-    _itemList.isEditing ? [_addOrderButton hideDisable:animated] : [_addOrderButton unhideEnable:animated];
+    // TODO: too ugly, refactor these animated code
+    if (_itemList.isEditing) {
+        if (animated) {
+            [_addOrderButton hideDisable:animated];
+            double delayInSeconds = 0.2;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                [_clearAllButton hideDisable:NO];
+                self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.clearAllButton];
+                [_clearAllButton unhideEnable:animated];
+            });
+        } else {
+            self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.clearAllButton];
+            [_clearAllButton unhideEnable:animated];
+        }
+    } else {
+        if (animated) {
+            [_clearAllButton hideDisable:animated];
+            double delayInSeconds = 0.2;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                [_addOrderButton hideDisable:NO];
+                self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.addOrderButton];
+                [_addOrderButton unhideEnable:animated];
+            });
+        } else {
+            self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.addOrderButton];
+            [_addOrderButton unhideEnable:animated];
+        }
+    }
     
     // update edit cart button
-    self.inCartItems.count > 0 ? [_editCartButton unhideEnable:animated] : [_editCartButton hideDisable:animated];
+    if (animated) {
+        double delayInSeconds = 0.2;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            self.inCartItems.count > 0 ? [_editCartButton unhideEnable:animated] : [_editCartButton hideDisable:animated];
+        });
+    } else {
+        self.inCartItems.count > 0 ? [_editCartButton unhideEnable:animated] : [_editCartButton hideDisable:animated];
+    }
     
     // update checkout button
     _cartHeaderView.checkoutButton.enabled = self.inCartItems.count > 0 && self.pendingOrder.recipient && !_itemList.isEditing;

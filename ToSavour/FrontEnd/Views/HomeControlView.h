@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MOrderInfo.h"
 @class FriendsListScrollView;
 
 @interface HomeControlView : UIView
@@ -18,6 +19,8 @@
 @property (nonatomic, strong)   IBOutlet UIButton *orderNowButton;
 @property (nonatomic, strong)   IBOutlet UIImageView *lastOrderImage;
 @property (nonatomic, strong)   IBOutlet FriendsListScrollView *friendsScrollView;
+
+@property (nonatomic, strong)   MOrderInfo *cachedLastOrder;
 
 - (void)updateView;
 

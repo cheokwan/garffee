@@ -19,6 +19,7 @@
 @property (nonatomic, strong)   IBOutlet CartHeaderView *cartHeaderView;
 @property (nonatomic, strong)   UIButton *addOrderButton;
 @property (nonatomic, strong)   UIButton *editCartButton;
+@property (nonatomic, strong)   UIButton *clearAllButton;
 
 @property (nonatomic, strong)   MOrderInfo *pendingOrder;
 @property (nonatomic, readonly) NSArray *inCartItems;

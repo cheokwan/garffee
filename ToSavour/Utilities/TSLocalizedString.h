@@ -82,5 +82,6 @@
 #define LS_RECOMMENDED_TIME     NSLocalizedString(@"Recommended Time", @"")
 #define LS_SEARCH_FRIENDS       NSLocalizedString(@"Search Friends", @"")
 #define LS_NEVER                NSLocalizedString(@"Never", @"")
+#define LS_CLEAR_ALL            NSLocalizedString(@"Clear All", @"")
 
 #endif

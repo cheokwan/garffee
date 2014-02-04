@@ -118,6 +118,7 @@
         [_finishButton setTintColor:[TSTheming defaultAccentColor]];
         [_finishButton setTitleColor:[TSTheming defaultAccentColor] forState:UIControlStateNormal];
         [_finishButton setTitleColor:[UIColor clearColor] forState:UIControlStateDisabled];
+        [_finishButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
         [_finishButton sizeToFit];
         _finishButton.contentEdgeInsets = UIEdgeInsetsMake(0.0, 5.0, 0.0, -5.0);
         [_finishButton addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];

@@ -70,6 +70,7 @@
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self removeAllSubviews];
+                self.alpha = 0.0;
                 CGFloat frameWidth = self.frame.size.height * 2.5 / 3.0;
                 CGFloat offsetX = 0.0;
                 NSManagedObjectContext *mainContext = [AppDelegate sharedAppDelegate].managedObjectContext;
@@ -81,6 +82,9 @@
                     offsetX += frameWidth;
                 }
                 self.contentSize = CGSizeMake(offsetX, self.frame.size.height);
+                [UIView animateWithDuration:0.3 animations:^{
+                    self.alpha = 1.0;
+                }];
             });
         }
     });

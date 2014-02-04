@@ -145,6 +145,10 @@
     return (NSInteger)index;
 }
 
+- (NSInteger)getTotalNumberOfItems {
+    return self.subviews.count;
+}
+
 - (void)snapToColumn {
     // snsp to the nearest whole item
     // TODO: this might not be the smartest way to calcuate

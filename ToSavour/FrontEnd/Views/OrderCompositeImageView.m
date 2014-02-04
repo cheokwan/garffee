@@ -97,7 +97,11 @@ static CGRect itemImageRects[ORDER_COMPOSITE_IMAGE_MAX_ITEM];
                 UIGraphicsEndImageContext();
                 
                 self.contentMode = UIViewContentModeLeft;
-                self.image = compositeImage;
+                [UIView animateWithDuration:0.3 animations:^{
+                    self.alpha = 0.0;
+                    self.image = compositeImage;
+                    self.alpha = 1.0;
+                }];
 //            });
         }
 //    });

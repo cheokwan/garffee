@@ -49,8 +49,9 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         NSManagedObjectContext *context = [AppDelegate sharedAppDelegate].persistentStoreManagedObjectContext;
         NSFetchRequest *fetchRequest = [MOrderInfo fetchRequest];
-        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"status =[c] %@", MOrderInfoStatusPickedUp];
         NSSortDescriptor *sdOrderedDate = [[NSSortDescriptor alloc] initWithKey:@"orderedDate" ascending:NO];
+//        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"status =[c] %@", MOrderInfoStatusPickedUp];  XXXXXX
+        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"status =[c] %@", MOrderInfoStatusInCart];
         fetchRequest.sortDescriptors = @[sdOrderedDate];
         NSError *error = nil;
         NSArray *lastOrders = [context executeFetchRequest:fetchRequest error:&error];
@@ -74,12 +75,18 @@
             if (lastOrder) {
                 NSManagedObjectContext *mainContext = [AppDelegate sharedAppDelegate].managedObjectContext;
                 MOrderInfo *mainLastOrder = (MOrderInfo *)[mainContext objectWithID:lastOrder.objectID];
-                _lastOrderTimeLabel.text = [[self.class dateFormatter] stringFromDate:mainLastOrder.orderedDate];
-                
-                UIImageView *lastOrderImage = [[OrderCompositeImageView alloc] initWithFrame:_lastOrderImage.frame order:mainLastOrder];
-                [_lastOrderImage removeFromSuperview];
-                self.lastOrderImage = lastOrderImage;
-                [self addSubview:_lastOrderImage];
+                static NSInteger cachedLastOrderItemCount = 0;  // XXXXXX
+                if (![_cachedLastOrder isEqual:mainLastOrder] || cachedLastOrderItemCount != mainLastOrder.items.count) {
+                    self.cachedLastOrder = mainLastOrder;
+                    cachedLastOrderItemCount = mainLastOrder.items.count;  // XXXXXX
+//                    _lastOrderTimeLabel.text = [[self.class dateFormatter] stringFromDate:mainLastOrder.orderedDate];  // XXXXXX
+                    _lastOrderTimeLabel.text = [[self.class dateFormatter] stringFromDate:[NSDate date]];
+
+                    UIImageView *lastOrderImage = [[OrderCompositeImageView alloc] initWithFrame:_lastOrderImage.frame order:mainLastOrder];
+                    [_lastOrderImage removeFromSuperview];
+                    self.lastOrderImage = lastOrderImage;
+                    [self addSubview:_lastOrderImage];
+                }
             } else {
                 _lastOrderTimeLabel.text = LS_NEVER;
             }

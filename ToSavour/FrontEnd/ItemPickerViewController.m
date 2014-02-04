@@ -35,6 +35,7 @@ typedef enum {
 @property (nonatomic, strong)   ItemPickerTableViewCell *cachedSubmitButtonCell;
 @property (nonatomic, strong)   ItemGridView *addItemButton;
 
+@property (nonatomic, assign)   BOOL viewAppeared;
 @end
 
 @implementation ItemPickerViewController
@@ -96,6 +97,70 @@ typedef enum {
 {
     [super viewDidLoad];
     [self initializeView];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    // play selection animation
+    NSMutableArray *cells = [NSMutableArray array];
+    for (ItemPickerTableViewCell *cell in _itemTable.visibleCells) {
+        cell.hidden = NO;
+        if (cell.pickerScrollView.occupiedIndexPath.section == ItemPickerSectionProductOptions) {
+            [cells addObject:cell];
+        }
+    }
+    
+    BOOL left = YES;
+    NSMutableArray *directionsLeft = [NSMutableArray array];
+    for (ItemPickerTableViewCell *cell in cells) {
+        NSInteger selectedItemIndex = [cell.pickerScrollView getCurrentSelectedItemIndex];
+        NSInteger totalNumItems = [cell.pickerScrollView getTotalNumberOfItems];
+        
+        if ((left && selectedItemIndex == 0) ||
+            (!left && selectedItemIndex >= totalNumItems - 1)) {
+            left = !left;
+        }
+        if (left) {
+            selectedItemIndex -= 1;
+        } else {
+            selectedItemIndex += 1;
+        }
+        [directionsLeft addObject:@(left)];
+
+        [cell.pickerScrollView selectItemAtIndex:selectedItemIndex animated:NO];
+        
+        left = !left;  // flip the direction
+    }
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        for (ItemPickerTableViewCell *cell in _itemTable.visibleCells) {
+            cell.alpha = 0.0;
+            cell.hidden = NO;
+            cell.alpha = 1.0;
+        }
+    }];
+    
+    double delayInSeconds = 0.5;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+    for (NSInteger i = 0; i < cells.count; ++i) {
+        ItemPickerTableViewCell *cell = cells[i];
+        BOOL left = YES;
+        
+        NSInteger selectedItemIndex = [cell.pickerScrollView getCurrentSelectedItemIndex];
+        // reverse animate the selection
+        if (left) {
+            selectedItemIndex += 1;
+        } else {
+            selectedItemIndex -= 1;
+        }
+        
+        [cell.pickerScrollView selectItemAtIndex:selectedItemIndex animated:YES];
+    }
+    });
+    
+    _viewAppeared = YES;
 }
 
 - (void)didReceiveMemoryWarning
@@ -215,7 +280,7 @@ typedef enum {
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = nil;
+    ItemPickerTableViewCell *cell = nil;
     
     switch (indexPath.section) {
         case ItemPickerSectionProductCategoryAndName:
@@ -231,6 +296,11 @@ typedef enum {
     if (!cell) {
         cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(ItemPickerTableViewCell.class) forIndexPath:indexPath];
         [self configureCell:cell atIndexPath:indexPath];
+        if (!_viewAppeared) {
+            cell.hidden = YES;
+        } else {
+            cell.hidden = NO;
+        }
     }
     return cell;
 }
