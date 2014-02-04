@@ -40,6 +40,7 @@
 }
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     [self updateView];
 }
 
@@ -55,6 +56,9 @@
         //fetchRequest.includesPropertyValues = NO;
         NSError *error = nil;
         NSArray *friends = [context executeFetchRequest:fetchRequest error:&error];
+        if (error) {
+            DDLogError(@"error fetching friends in scroll view: %@", error);
+        }
         if (friends.count == 0) {
             // TODO: better handle this
             double delayInSeconds = 3.0;

@@ -15,6 +15,7 @@
 #import "MProductConfigurableOption.h"
 #import "MProductOptionChoice.h"
 #import "MItemInfo.h"
+#import "MItemSelectedOption.h"
 #import "MGlobalConfiguration.h"
 #import "TSFrontEndIncludes.h"
 #import "ItemGridView.h"
@@ -84,11 +85,11 @@ typedef enum {
     
     self.navigationItem.titleView = [TSTheming navigationTitleViewWithString:LS_ORDER];
     self.navigationItem.rightBarButtonItem = self.dismissButton;
-    NSInteger defaultProductIndex = [self.allProducts indexOfObject:_defaultProduct];
+    NSInteger defaultProductIndex = [self.allProducts indexOfObject:_defaultItem.product];
     if (defaultProductIndex == NSNotFound) {
         defaultProductIndex = self.allProducts.count / 2;
     }
-    self.selectedProduct = self.allProducts.count > 0 ? self.allProducts[defaultProductIndex] : nil;
+    self.selectedProduct = self.allProducts.count > defaultProductIndex ? self.allProducts[defaultProductIndex] : nil;
 }
 
 - (void)viewDidLoad
@@ -243,7 +244,7 @@ typedef enum {
         case ItemPickerSectionProductCategoryAndName: {
             itemViews = [NSMutableArray array];
             for (MProductInfo *product in self.allProducts) {
-                ItemGridView *itemView = [[ItemGridView alloc] initWithFrame:itemViewFrame text:product.name imageURL:[NSURL URLWithString:product.resolvedImageURL] interactable:YES shouldReceiveNotification:YES];
+                ItemGridView *itemView = [[ItemGridView alloc] initWithFrame:itemViewFrame text:product.name imageURL:product.URLForImageRepresentation interactable:YES shouldReceiveNotification:YES];
                 itemView.delegate = self;
                 [itemViews addObject:itemView];
             }
@@ -254,12 +255,24 @@ typedef enum {
         case ItemPickerSectionProductOptions: {
             itemViews = [NSMutableArray array];
             MProductConfigurableOption *configurableOption = self.selectedProduct.sortedConfigurableOptions[indexPath.row];
-            for (MProductOptionChoice *choice in configurableOption.choices) {
-                ItemGridView *itemView = [[ItemGridView alloc] initWithFrame:itemViewFrame text:choice.name imageURL:[NSURL URLWithString:choice.resolvedImageURL] interactable:YES shouldReceiveNotification:YES];
+            for (MProductOptionChoice *choice in configurableOption.sortedOptionChoices) {
+                ItemGridView *itemView = [[ItemGridView alloc] initWithFrame:itemViewFrame text:choice.name imageURL:choice.URLForImageRepresentation interactable:YES shouldReceiveNotification:YES];
                 itemView.delegate = self;
                 [itemViews addObject:itemView];
             }
-            defaultChoiceIndex = [configurableOption.defaultChoice intValue];
+            if ([_defaultItem.product isEqual:self.selectedProduct]) {
+                // search through the default item to find a selected option choice
+                for (MItemSelectedOption *selectedOption in _defaultItem.itemSelectedOptions) {
+                    NSUInteger optionChoiceIndex = [configurableOption.sortedOptionChoices indexOfObject:selectedOption.productOptionChoice];
+                    if (optionChoiceIndex != NSNotFound) {
+                        defaultChoiceIndex = optionChoiceIndex;
+                    }
+                }
+            }
+            if (defaultChoiceIndex < 0) {
+                // if no index found, use the default choice
+                defaultChoiceIndex = [configurableOption.defaultChoice intValue];
+            }
         }
             break;
         case ItemPickerSectionSubmitButton: {
@@ -328,7 +341,7 @@ typedef enum {
             ItemPickerTableViewCell *itemPickerCell = (ItemPickerTableViewCell *)[self.itemTable cellForRowAtIndexPath:indexPath];
             NSInteger choiceIndex = [itemPickerCell.pickerScrollView getCurrentSelectedItemIndex];
             MProductConfigurableOption *configurableOption = self.selectedProduct.sortedConfigurableOptions[row];
-            MProductOptionChoice *choice = configurableOption.choices[choiceIndex];
+            MProductOptionChoice *choice = configurableOption.sortedOptionChoices[choiceIndex];
             [selectedOptionChoices addObject:choice];
         }
         
@@ -337,6 +350,8 @@ typedef enum {
             MItemInfo *newItem = [MItemInfo newItemInfoWithProduct:self.selectedProduct optionChoices:selectedOptionChoices inContext:[AppDelegate sharedAppDelegate].managedObjectContext];
             [_delegate itemPicker:self didAddItem:newItem];
         }
+        MainTabBarController *tabBarController = [AppDelegate sharedAppDelegate].mainTabBarController;
+        [tabBarController switchToTab:MainTabBarControllerTabCart animated:NO];
         [self dismissViewControllerAnimated:YES completion:nil];
     } else {
         ItemPickerScrollView *pickerScrollView = nil;

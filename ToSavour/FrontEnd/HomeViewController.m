@@ -19,6 +19,7 @@
 #import "MOrderInfo.h"
 #import "MCouponInfo.h"
 
+// TODO: fucking deadlock everywhere, figure out why
 
 @implementation HomeViewController
 @synthesize itemBagButton = _itemBagButton;
@@ -117,12 +118,20 @@
         itemPicker.delegate = cart;
         TSNavigationController *naviController = [[TSNavigationController alloc] initWithRootViewController:itemPicker];
         
+        // XXXXXX TESTING
+        NSFetchRequest *fetchRequest = [MOrderInfo fetchRequest];
+        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"status = %@", MOrderInfoStatusInCart];
+        NSError *error = nil;
+        NSArray *orders = [[AppDelegate sharedAppDelegate].managedObjectContext executeFetchRequest:fetchRequest error:&error];
+        if (error) {
+            DDLogError(@"error fetching ongoing orders: %@", error);
+        }
+        if (orders.count > 0) {
+            MOrderInfo *order = [orders firstObject];
+            itemPicker.defaultItem = [order chosenItem];
+        }
+        // XXXXXX
         [self presentViewController:naviController animated:YES completion:nil];
-        double delayInSeconds = 0.5;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            [tabBarController switchToTab:MainTabBarControllerTabCart animated:NO];
-        });
     }
 }
 
@@ -134,9 +143,13 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [_homeControlView updateView];
-    [self updateItemBadgeCount];
     [[AppDelegate sharedAppDelegate].mainTabBarController updateCartTabBadge:self.tabBarItem];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self updateItemBadgeCount];
+    [_homeControlView updateView];
 }
 
 - (void)didReceiveMemoryWarning

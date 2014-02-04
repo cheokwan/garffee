@@ -10,13 +10,15 @@
 #import "CartHeaderView.h"
 #import "ItemPickerViewController.h"
 #import "PickUpLocationViewController.h"
+#import "OrderItemTableViewCell.h"
 #import "RestManager.h"
 
-@interface CartViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, ItemPickerViewControllerDelegate, PickUpLocationViewControllerDelegate, RestManagerResponseHandler>
+@interface CartViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, ItemPickerViewControllerDelegate, PickUpLocationViewControllerDelegate, RestManagerResponseHandler, OrderItemTableViewCellDelegate>
 
 @property (nonatomic, strong)   IBOutlet UITableView *itemList;
 @property (nonatomic, strong)   IBOutlet CartHeaderView *cartHeaderView;
-@property (nonatomic, strong)   UIBarButtonItem *addOrderButton;
+@property (nonatomic, strong)   UIButton *addOrderButton;
+@property (nonatomic, strong)   UIButton *editCartButton;
 
 @property (nonatomic, strong)   MOrderInfo *pendingOrder;
 @property (nonatomic, readonly) NSArray *inCartItems;

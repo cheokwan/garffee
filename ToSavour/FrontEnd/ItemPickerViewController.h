@@ -26,6 +26,6 @@
 @property (nonatomic, strong)   UIBarButtonItem *dismissButton;
 
 @property (nonatomic, weak)     id<ItemPickerViewControllerDelegate> delegate;
-@property (nonatomic, weak)     MProductInfo *defaultProduct;
+@property (nonatomic, strong)   MItemInfo *defaultItem;
 
 @end

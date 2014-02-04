@@ -17,14 +17,16 @@ static NSString *MProductInfoTypeVirtual = @"virtual";
 
 @interface MProductInfo : NSManagedObject<RKMappableEntity>
 
+@property (nonatomic, retain) NSString * category;
 @property (nonatomic, retain) NSNumber * id;
+@property (nonatomic, retain) NSString * imageURL;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSString * type;
-@property (nonatomic, retain) NSString * category;
-@property (nonatomic, retain) NSString * imageURL;
+@property (nonatomic, retain) NSString * localCachedImageURL;
 @property (nonatomic, retain) NSOrderedSet *configurableOptions;
 
 @property (nonatomic, readonly) NSString *resolvedImageURL;
+@property (nonatomic, readonly) NSURL *URLForImageRepresentation;
 @property (nonatomic, readonly) NSArray *sortedConfigurableOptions;
 @end
 

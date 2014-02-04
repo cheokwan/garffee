@@ -86,5 +86,6 @@
 #define LS_SEX                  NSLocalizedString(@"Sex", @"")
 #define LS_BIRTHDAY             NSLocalizedString(@"Birthday", @"")
 #define LS_PHONE                NSLocalizedString(@"Phone", @"")
+#define LS_NEVER                NSLocalizedString(@"Never", @"")
 
 #endif

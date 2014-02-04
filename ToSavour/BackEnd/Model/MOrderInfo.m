@@ -63,14 +63,7 @@
 }
 
 - (NSURL *)URLForImageRepresentation {
-    if (self.items.count > 0) {
-        MItemInfo *item = [self.items allObjects][0];
-        NSString *urlString = [item.product resolvedImageURL];
-        if (urlString.length > 0) {
-            return [NSURL URLWithString:urlString];
-        }
-    }
-    return nil;
+    return self.chosenItem.product.URLForImageRepresentation;
 }
 
 - (void)updatePrice {
@@ -129,6 +122,13 @@
 
 - (void)setRecipient:(MUserInfo *)recipient {
     [self changeValue:recipient forKey:@"recipient"];
+}
+
+- (MItemInfo *)chosenItem {
+    if (self.items.count > 0) {
+        return [[self.items allObjects] firstObject];
+    }
+    return nil;
 }
 
 #pragma mark - RKMappableEntity

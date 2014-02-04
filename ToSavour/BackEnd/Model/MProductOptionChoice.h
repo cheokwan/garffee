@@ -18,8 +18,10 @@
 @property (nonatomic, retain) NSString * imageURL;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSNumber * price;
+@property (nonatomic, retain) NSString * localCachedImageURL;
 @property (nonatomic, retain) MProductConfigurableOption *productConfigurableOption;
 
 @property (nonatomic, readonly) NSString *resolvedImageURL;
+@property (nonatomic, readonly) NSURL *URLForImageRepresentation;
 
 @end

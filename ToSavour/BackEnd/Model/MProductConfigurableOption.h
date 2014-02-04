@@ -20,6 +20,8 @@
 @property (nonatomic, retain) NSNumber * defaultChoice;
 @property (nonatomic, retain) NSOrderedSet *choices;
 @property (nonatomic, retain) MProductInfo *product;
+
+@property (nonatomic, readonly) NSArray *sortedOptionChoices;
 @end
 
 @interface MProductConfigurableOption (CoreDataGeneratedAccessors)

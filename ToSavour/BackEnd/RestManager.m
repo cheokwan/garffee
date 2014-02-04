@@ -14,7 +14,6 @@
 #import "MBranch.h"
 
 @interface RestManager()
-@property (nonatomic, strong)   NSOperationQueue *operationQueue;
 @end
 
 @implementation RestManager

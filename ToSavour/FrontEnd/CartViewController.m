@@ -8,7 +8,6 @@
 
 #import "CartViewController.h"
 #import "TSFrontEndIncludes.h"
-#import "OrderItemTableViewCell.h"
 #import "AppDelegate.h"
 #import "TSNavigationController.h"
 #import "MProductInfo.h"
@@ -29,6 +28,8 @@ typedef enum {
 @property (nonatomic, strong)   UIAlertView *confirmGiftAlertView;
 @property (nonatomic, strong)   MBProgressHUD *spinner;
 @end
+
+// TODO: control logic too complicated, need refactor
 
 @implementation CartViewController
 
@@ -67,7 +68,8 @@ typedef enum {
     [_cartHeaderView.removeRecipientButton addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
     self.navigationItem.titleView = [TSTheming navigationTitleViewWithString:LS_CART];
-    self.navigationItem.leftBarButtonItem = self.addOrderButton;
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.addOrderButton];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.editCartButton];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -83,21 +85,40 @@ typedef enum {
 }
 
 - (NSArray *)inCartItems {
-    // TODO: reverse sort order
-    return [[self.pendingOrder.items allObjects] sortedArrayUsingSelector:@selector(creationDate)];
+    NSSortDescriptor *sdCreationDate = [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES];
+    return [self.pendingOrder.items sortedArrayUsingDescriptors:@[sdCreationDate]];
 }
 
-- (UIBarButtonItem *)addOrderButton {
+- (UIButton *)addOrderButton {
     if (!_addOrderButton) {
-        self.addOrderButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(buttonPressed:)];
-        _addOrderButton.tintColor = [TSTheming defaultAccentColor];
+        self.addOrderButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+        [_addOrderButton setImage:[UIImage imageNamed:@"ico_add"] forState:UIControlStateNormal];
+        [_addOrderButton setTintColor:[TSTheming defaultAccentColor]];
+        _addOrderButton.contentEdgeInsets = UIEdgeInsetsMake(0.0, -5.0, 0.0, 5.0);
+        [_addOrderButton addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _addOrderButton;
+}
+
+- (UIButton *)editCartButton {
+    if (!_editCartButton) {
+        self.editCartButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+        [_editCartButton setImage:[UIImage imageNamed:@"ico_edit"] forState:UIControlStateNormal];
+        [_editCartButton setImage:nil forState:UIControlStateDisabled];
+        [_editCartButton setTintColor:[TSTheming defaultAccentColor]];
+        _editCartButton.contentEdgeInsets = UIEdgeInsetsMake(0.0, 5.0, 0.0, -5.0);
+        [_editCartButton addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _editCartButton;
 }
 
 - (UIAlertView *)confirmGiftAlertView {
     if (!_confirmGiftAlertView) {
         RIButtonItem *cancelButton = [RIButtonItem itemWithLabel:LS_CANCEL];
+        [cancelButton setAction:^{
+            self.confirmGiftAlertView = nil;
+        }];
+        
         RIButtonItem *confirmButton = [RIButtonItem itemWithLabel:LS_CONFIRM];
         [confirmButton setAction:^{
             self.pendingOrder.orderedDate = [NSDate date];
@@ -108,6 +129,7 @@ typedef enum {
             
             NSAssert(![self.pendingOrder.recipient isEqual:[MUserInfo currentAppUserInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext]], @"submitting gift coupon but recipient is app user");
             [[RestManager sharedInstance] postGiftCoupon:self.pendingOrder handler:self];
+            self.confirmGiftAlertView = nil;
         }];
         
         self.confirmGiftAlertView = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Send gift to %@ now?", @""), self.pendingOrder.recipient.name] message:nil cancelButtonItem:cancelButton otherButtonItems:confirmButton, nil];
@@ -136,23 +158,57 @@ typedef enum {
         [UIView animateWithDuration:0.2 animations:^{
             _cartHeaderView.recipientAvatarView.alpha = 0.0;
         } completion:^(BOOL finished) {
-            [self updateRecipient:nil];
-            [UIView animateWithDuration:0.2 animations:^{
+            // restore to app user as the recipient
+            [UIView animateWithDuration:0.3 animations:^{
+                [self updateRecipient:[MUserInfo currentAppUserInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext]];
                 _cartHeaderView.recipientAvatarView.alpha = 1.0;
             }];
         }];
+    } else if (sender == _editCartButton) {
+        BOOL editing = !_itemList.isEditing;
+        [_itemList setEditing:editing animated:YES];
+        [self refreshButtons:YES];
+    }
+}
+
+- (void)refreshButtons:(BOOL)animated {
+    // update add order button
+    _itemList.isEditing ? [_addOrderButton hideDisable:animated] : [_addOrderButton unhideEnable:animated];
+    
+    // update edit cart button
+    self.inCartItems.count > 0 ? [_editCartButton unhideEnable:animated] : [_editCartButton hideDisable:animated];
+    
+    // update checkout button
+    _cartHeaderView.checkoutButton.enabled = self.inCartItems.count > 0 && self.pendingOrder.recipient && !_itemList.isEditing;
+}
+
+- (void)refreshPrice:(BOOL)animated {
+    CGFloat beforePrice = [self.pendingOrder.price floatValue];
+    [self.pendingOrder updatePrice];
+    CGFloat afterPrice = [self.pendingOrder.price floatValue];
+    if (beforePrice != afterPrice && animated) {
+        [UIView animateWithDuration:0.2 animations:^{
+            _cartHeaderView.priceLabel.alpha = 0.0;
+            [_cartHeaderView updateTotalPrice:[self.pendingOrder.price floatValue]];
+            _cartHeaderView.priceLabel.alpha = 1.0;
+        }];
+    } else {
+        [_cartHeaderView updateTotalPrice:[self.pendingOrder.price floatValue]];
     }
 }
 
 - (void)refreshCart:(BOOL)animated {
-    [_itemList reloadSections:[NSIndexSet indexSetWithIndex:CartSectionItems] withRowAnimation: animated ? UITableViewRowAnimationFade : UITableViewRowAnimationNone];
-    
-    [self.pendingOrder updatePrice];
-    [_cartHeaderView updateTotalPrice:[self.pendingOrder.price floatValue]];
+    [self refreshPrice:animated];
     
     [_cartHeaderView updateRecipient:self.pendingOrder.recipient];
     
-    _cartHeaderView.checkoutButton.enabled = self.inCartItems.count > 0 && self.pendingOrder.recipient;
+    if (_itemList.isEditing && self.inCartItems.count == 0) {
+        [_itemList setEditing:NO animated:animated];
+    }
+    
+    [self refreshButtons:animated];
+    
+    [_itemList reloadSections:[NSIndexSet indexSetWithIndex:CartSectionItems] withRowAnimation: animated ? UITableViewRowAnimationFade : UITableViewRowAnimationNone];
     
     // update cart tab badge
     [[AppDelegate sharedAppDelegate].mainTabBarController updateCartTabBadge:self.tabBarItem];
@@ -243,6 +299,7 @@ typedef enum {
             OrderItemTableViewCell *cartItemCell = (OrderItemTableViewCell *)cell;
             MItemInfo *itemInfo = self.inCartItems[indexPath.row];
             [cartItemCell configureWithItem:itemInfo];
+            cartItemCell.delegate = self;
         }
             break;
         case CartSectionPromotion: {
@@ -255,11 +312,70 @@ typedef enum {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (indexPath.section) {
+        case CartSectionItems: {
+            return YES;
+        }
+            break;
+    }
+    return NO;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (indexPath.section) {
+        case CartSectionItems: {
+            return UITableViewCellEditingStyleDelete;
+        }
+            break;
+    }
+    return UITableViewCellEditingStyleNone;
+}
+
+- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (indexPath.section) {
+        case CartSectionItems: {
+            return YES;
+        }
+            break;
+    }
+    return NO;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (indexPath.section) {
+        case CartSectionItems: {
+            if (editingStyle == UITableViewCellEditingStyleDelete) {
+                MItemInfo *itemToRemove = self.inCartItems[indexPath.row];
+                
+                [self.pendingOrder removeItemsObject:itemToRemove];
+                [itemToRemove deleteInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
+                
+                [_itemList deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+                
+                [self refreshButtons:YES];
+                [self refreshPrice:YES];
+                double delayInSeconds = 0.3;
+                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+                dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                    [self refreshCart:NO];
+                });
+            }
+        }
+            break;
+    }
+}
+
+//- (void)tableView:(UITableView *)tableView willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+//}
+//
+//- (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+//}
+
 #pragma mark - ItemPickerViewControllerDelegate
 
 - (void)itemPicker:(ItemPickerViewController *)itemPicker didAddItem:(MItemInfo *)item {
     [self.pendingOrder addItemsObject:item];
-    [self.pendingOrder updatePrice];
     
     if (!self.pendingOrder.recipient) {
         MUserInfo *appUser = [MUserInfo currentAppUserInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
@@ -277,6 +393,12 @@ typedef enum {
 
 - (void)pickUpLocationViewControllerDidFailToSubmitOrder:(PickUpLocationViewController *)viewController {
     [self reinstatePendingOrder];
+}
+
+#pragma mark - OrderItemTableViewCellDelegate
+
+- (void)orderItemTableViewCell:(OrderItemTableViewCell *)cell didEditOrderItem:(MItemInfo *)item {
+    [self refreshPrice:YES];
 }
 
 @end

@@ -9,10 +9,14 @@
 #import "DataFetchManager.h"
 #import <AddressBook/AddressBook.h>
 #import "TSModelIncludes.h"
+#import <AFNetworking/AFNetworking.h>
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface DataFetchManager()
 @property (nonatomic, assign)   ABAddressBookRef addressBook;
 @property (nonatomic, assign)   CFArrayRef allABContacts;
+
+@property (nonatomic, strong)   NSMutableArray *dummyImageViews;
 @end
 
 @implementation DataFetchManager
@@ -24,6 +28,13 @@
         instance = [[self alloc] init];
     });
     return instance;
+}
+
+- (NSMutableArray *)dummyImageViews {
+    if (!_dummyImageViews) {
+        self.dummyImageViews = [NSMutableArray array];
+    }
+    return _dummyImageViews;
 }
 
 - (ABAddressBookRef)addressBook {
@@ -111,21 +122,9 @@
         
         NSData *imageData = (NSData *)CFBridgingRelease(ABPersonCopyImageData(recordRef));
         if (imageData) {
-            if (abUser.URLForProfileImage) {
-                NSError *error = nil;
-                [[NSFileManager defaultManager] removeItemAtURL:abUser.URLForProfileImage error:&error];
-                if (error) {
-                    DDLogError(@"error removing old cached contact image %@: %@", abUser.URLForProfileImage, error);
-                }
-            }
-            
-            NSMutableString *fileName = [[abUser.name lowercaseString] mutableCopy];
-            [fileName appendString:[@([[NSDate date] timeIntervalSinceReferenceDate]) stringValue]];
-            [fileName replaceOccurrencesOfString:@" " withString:@"_" options:0 range:NSMakeRange(0, fileName.length)];
-            if (fileName.length > 0) {
-                NSString *filePath = [[[[AppDelegate sharedAppDelegate] addressBookUserImageCacheDirectory] path] stringByAppendingPathComponent:fileName];
-                [imageData writeToFile:filePath atomically:NO];
-                abUser.abProfileImageURL = filePath;
+            NSURL *cacheURL = [[[AppDelegate sharedAppDelegate] addressBookUserImageCacheDirectory] cacheData:imageData baseFileName:abUser.name originalCacheURL:abUser.URLForProfileImage];
+            if (cacheURL) {
+                abUser.abProfileImageURL = cacheURL.path;
             }
         }
     }
@@ -142,6 +141,59 @@
 
 - (void)discoverAddressBookAppUsersContext:(NSManagedObjectContext *)context {
     [[RestManager sharedInstance] queryAddressBookContactsInContext:context handler:self];
+}
+
+- (void)cacheLocalProductImages:(NSManagedObjectContext *)context {
+    NSFetchRequest *productFetchRequest = [MProductInfo fetchRequest];
+    NSFetchRequest *choiceFetchRequest = [MProductOptionChoice fetchRequest];
+    NSError *error = nil;
+    NSArray *products = [context executeFetchRequest:productFetchRequest error:&error];
+    if (error) {
+        DDLogError(@"error fetching products: %@", error);
+    }
+    NSArray *choices = [context executeFetchRequest:choiceFetchRequest error:&error];
+    if (error) {
+        DDLogError(@"error fetching option choices: %@", error);
+    }
+    
+    NSMutableArray *allItems = [NSMutableArray array];
+    [allItems addObjectsFromArray:products];
+    [allItems addObjectsFromArray:choices];
+    [self.dummyImageViews removeAllObjects];
+    
+    for (id item in allItems) {
+        if ([item respondsToSelector:@selector(resolvedImageURL)] &&
+            [item resolvedImageURL]) {
+            UIImageView *imageView = [[UIImageView alloc] init];
+            [_dummyImageViews addObject:imageView];  // retain the imageView
+            
+            __weak UIImageView *weakImageView = imageView;
+            [imageView setImageWithURL:[NSURL URLWithString:[item resolvedImageURL]] placeholderImage:nil options:0 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+                NSData *imageData = nil;
+                if (image) {
+                    if ([[[item resolvedImageURL] lowercaseString] hasSuffix:@".jpg"]) {
+                        imageData = UIImageJPEGRepresentation(image, 0.8);
+                    } else {
+                        imageData = UIImagePNGRepresentation(image);
+                    }
+                }
+                if (imageData.length > 0) {
+                    NSURL *originalCacheURL = [item localCachedImageURL] ? [NSURL fileURLWithPath:[item localCachedImageURL]] : nil;
+                    NSURL *newCacheURL = [[[AppDelegate sharedAppDelegate] productImageCacheDirectory] cacheData:imageData baseFileName:[[item resolvedImageURL] lastPathComponent] originalCacheURL:originalCacheURL];
+                    if (newCacheURL) {
+                        [item setLocalCachedImageURL:newCacheURL.path];
+                        DDLogInfo(@"successfully downloaded and cached product image %@ to path: %@", [item resolvedImageURL], newCacheURL);
+                    }
+                } else {
+                    DDLogError(@"error downloading product image at path %@: %@", [item resolvedImageURL], error);
+                }
+                [_dummyImageViews removeObject:weakImageView];
+                if (_dummyImageViews.count == 0) {
+                    [context save];
+                }
+            }];
+        }
+    }
 }
 
 #pragma mark - RestManagerResponseHandler

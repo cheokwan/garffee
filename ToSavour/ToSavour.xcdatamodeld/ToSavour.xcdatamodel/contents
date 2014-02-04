@@ -51,6 +51,7 @@
         <attribute name="orderID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="price" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="productID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="quantity" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="coupon" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MCouponInfo" inverseName="items" inverseEntity="MCouponInfo" syncable="YES"/>
         <relationship name="itemSelectedOptions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MItemSelectedOption" inverseName="item" inverseEntity="MItemSelectedOption" syncable="YES"/>
@@ -91,6 +92,7 @@
         <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="imageURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="localCachedImageURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="configurableOptions" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="MProductConfigurableOption" inverseName="product" inverseEntity="MProductConfigurableOption" syncable="YES"/>
@@ -98,6 +100,7 @@
     <entity name="MProductOptionChoice" representedClassName="MProductOptionChoice" syncable="YES">
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="imageURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="localCachedImageURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="price" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <relationship name="productConfigurableOption" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MProductConfigurableOption" inverseName="choices" inverseEntity="MProductConfigurableOption" syncable="YES"/>

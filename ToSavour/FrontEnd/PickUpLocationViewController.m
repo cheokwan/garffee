@@ -128,6 +128,10 @@
 - (UIAlertView *)confirmOrderAlertView {
     if (!_confirmOrderAlertView) {
         RIButtonItem *cancelButton = [RIButtonItem itemWithLabel:LS_CANCEL];
+        [cancelButton setAction:^{
+            self.confirmOrderAlertView = nil;
+        }];
+        
         RIButtonItem *confirmButton = [RIButtonItem itemWithLabel:LS_CONFIRM];
         [confirmButton setAction:^{
             //self.order.status = MOrderInfoStatusPending;  // don't need to change the status on client
@@ -143,6 +147,7 @@
             
             NSAssert([self.order.recipient isEqual:[MUserInfo currentAppUserInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext]], @"submitting order but recipient is not app user");
             [[RestManager sharedInstance] postOrder:self.order handler:self];
+            self.confirmOrderAlertView = nil;
         }];
         
         self.confirmOrderAlertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Submit order now?", @"") message:nil cancelButtonItem:cancelButton otherButtonItems:confirmButton, nil];

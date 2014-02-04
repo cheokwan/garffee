@@ -48,9 +48,14 @@ typedef enum {
 - (void)initializeView {
     _friendsList.delegate = self;
     _friendsList.dataSource = self;
+    for (UIView *view in self.view.subviews) {
+        if ([view respondsToSelector:@selector(setScrollsToTop:)]) {
+            [view performSelector:@selector(setScrollsToTop:) withObject:@NO];
+        }
+    }
+    _friendsList.scrollsToTop = YES;
     self.navigationItem.titleView = [TSTheming navigationTitleViewWithString:LS_FRIENDS];
     
-    self.searchDisplayController.searchResultsTableView.rowHeight = self.friendsListPrototypeCell.frame.size.height;
     self.searchDisplayController.searchResultsTableView.delegate = self;
     self.searchDisplayController.delegate = self;
     [_searchBar setTintColor:[TSTheming defaultAccentColor]];
@@ -175,7 +180,7 @@ typedef enum {
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
     [_searchTimer invalidate];
-    self.searchTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(filterFriendsListForSearch) userInfo:nil repeats:NO];
+    self.searchTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(filterFriendsListForSearch) userInfo:nil repeats:NO];
     return NO;
 }
 
@@ -242,6 +247,7 @@ typedef enum {
 - (FriendsListTableViewCell *)friendsListPrototypeCell {
     if (!_friendsListPrototypeCell) {
         self.friendsListPrototypeCell = [_friendsList dequeueReusableCellWithIdentifier:NSStringFromClass(FriendsListTableViewCell.class)];
+        self.searchDisplayController.searchResultsTableView.rowHeight = _friendsListPrototypeCell.frame.size.height;
     }
     return _friendsListPrototypeCell;
 }

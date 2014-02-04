@@ -290,16 +290,24 @@
     return [[[[NSFileManager defaultManager] URLsForDirectory:NSCachesDirectory inDomains:NSUserDomainMask] lastObject] URLByAppendingPathComponent:[NSBundle mainBundle].bundleIdentifier];
 }
 
-- (NSURL *)addressBookUserImageCacheDirectory {
-    NSURL *dirURL = [[self applicationCachesDirectory] URLByAppendingPathComponent:@"AddressBook"];
+- (NSURL *)cacheDirectoryWithPathComponent:(NSString *)pathComponent {
+    NSURL *dirURL = [[self applicationCachesDirectory] URLByAppendingPathComponent:pathComponent];
     if (![[NSFileManager defaultManager] fileExistsAtPath:[dirURL path]]) {
         NSError *error = nil;
         [[NSFileManager defaultManager] createDirectoryAtPath:[dirURL path] withIntermediateDirectories:YES attributes:nil error:&error];
         if (error) {
-            DDLogError(@"error creating address book image cache directory: %@", error);
+            DDLogError(@"error creating cache directory with component %@: %@", pathComponent, error);
         }
     }
     return dirURL;
+}
+
+- (NSURL *)addressBookUserImageCacheDirectory {
+    return [self cacheDirectoryWithPathComponent:@"AddressBook"];
+}
+
+- (NSURL *)productImageCacheDirectory {
+    return [self cacheDirectoryWithPathComponent:@"Product"];
 }
 
 @end

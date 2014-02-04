@@ -191,6 +191,7 @@
         [[RestManager sharedInstance] fetchAppProductInfo:self];
     }
     if (selector == @selector(fetchAppProductInfo:)) {
+        [[DataFetchManager sharedInstance] cacheLocalProductImages:[AppDelegate sharedAppDelegate].managedObjectContext];
         [[RestManager sharedInstance] fetchBranches:self];
     }
     if (selector == @selector(fetchBranches:)) {

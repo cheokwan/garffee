@@ -14,15 +14,25 @@
 
 @implementation MProductInfo
 
+@dynamic category;
 @dynamic id;
+@dynamic imageURL;
 @dynamic name;
 @dynamic type;
-@dynamic category;
-@dynamic imageURL;
+@dynamic localCachedImageURL;
 @dynamic configurableOptions;
 
 - (NSString *)resolvedImageURL {
     return [[MGlobalConfiguration cachedBlobHostName] stringByAppendingPathComponent:self.imageURL];
+}
+
+- (NSURL *)URLForImageRepresentation {
+    if (self.localCachedImageURL.length > 0) {
+        return [NSURL fileURLWithPath:self.localCachedImageURL];
+    } else if (self.resolvedImageURL.length > 0) {
+        return [NSURL URLWithString:self.resolvedImageURL];
+    }
+    return nil;
 }
 
 - (NSArray *)sortedConfigurableOptions {
@@ -48,6 +58,17 @@
 + (RKResponseDescriptor *)defaultResponseDescriptor {
     return [RKResponseDescriptor responseDescriptorWithMapping:[self.class defaultEntityMapping] method:RKRequestMethodAny pathPattern:nil keyPath:nil statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
 }
+
+// TODO: use this
+//- (BOOL)isEqual:(id)object {
+//    if ([object isKindOfClass:self.class]) {
+//        MProductInfo *anotherProduct = (MProductInfo *)object;
+//        if ([self.id isEqual:anotherProduct.id]) {
+//            return YES;
+//        }
+//    }
+//    return NO;
+//}
 
 - (NSString *)description {
     return [NSString stringWithFormat:
