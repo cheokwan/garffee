@@ -16,6 +16,8 @@
 @property (nonatomic, strong) UITextField *emailTextField;
 @property (nonatomic, strong) UITextField *birthdayTextField;
 @property (nonatomic, strong) UITextField *phoneNumberTextField;
+
+@property (nonatomic, strong) NSMutableDictionary *customViewDict;
 @end
 
 @implementation AccountInfoTableManager
@@ -134,12 +136,29 @@ static AccountInfoTableManager *instance = nil;
             default:
                 break;
         }
+        if (view) {
+            self.customViewDict[@(indexPath.row)] = view;
+        }
     }
     return view;
 }
 
+- (AccountInfoTableRows)accountInfoTypeOfCustomView:(UIView *)view {
+    NSArray *types = [_customViewDict allKeysForObject:view];
+    NSAssert(types.count <= 1, @"at most 1 type");
+    AccountInfoTableRows type = AccountInfoTableRowsNone;
+    if (types.count > 0) {
+        type = [types[0] intValue];
+    }
+    return type;
+}
+
 - (NSString *)balanceString {
     return [NSString stringWithPrice:[self.user.creditBalance floatValue]];
+}
+
+- (NSDate *)userBirthday {
+    return self.user.birthday;
 }
 
 #pragma marks - Accessory views
@@ -179,6 +198,8 @@ static AccountInfoTableManager *instance = nil;
     UITextField *textField = [[UITextField alloc] init];
     textField.textAlignment = NSTextAlignmentRight;
     textField.frame = CGRectMake(0, 0, 160, 37);
+    textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    textField.autocorrectionType = UITextAutocorrectionTypeNo;
     return textField;
 }
 
@@ -217,6 +238,13 @@ static AccountInfoTableManager *instance = nil;
         self.user = [MUserInfo currentAppUserInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
     }
     return _user;
+}
+
+- (NSMutableDictionary *)customViewDict {
+    if (!_customViewDict) {
+        self.customViewDict = [NSMutableDictionary dictionary];
+    }
+    return _customViewDict;
 }
 
 @end

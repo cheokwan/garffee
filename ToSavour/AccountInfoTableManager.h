@@ -23,7 +23,8 @@ typedef NS_ENUM(NSInteger, AccountInfoTableRows) {
     AccountInfoTableRowsPhoneNumber,
 //    AccountInfoTableRowsFacebookId,
 //    AccountInfoTableRowsUserType,
-    AccountInfoTableRowsCount
+    AccountInfoTableRowsCount,
+    AccountInfoTableRowsNone
 };
 
 #import <Foundation/Foundation.h>
@@ -48,6 +49,10 @@ typedef NS_ENUM(NSInteger, AccountInfoTableRows) {
 //  return nil if N/A
 - (UIView *)accessoryViewForIndexPath:(NSIndexPath *)indexPath taget:(id)target action:(SEL)action;
 
+// return AccountInfoTableRowsNone if N/A
+- (AccountInfoTableRows)accountInfoTypeOfCustomView:(UIView *)view;
+
 - (NSString *)balanceString;
+- (NSDate *)userBirthday;
 
 @end
