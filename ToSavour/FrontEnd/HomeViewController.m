@@ -18,6 +18,11 @@
 #import "MUserInfo.h"
 #import "MOrderInfo.h"
 #import "MCouponInfo.h"
+#import <UIAlertView-Blocks/UIAlertView+Blocks.h>
+
+@interface HomeViewController()
+@property (nonatomic, strong)   UIAlertView *confirmClearCartAlertView;
+@end
 
 // TODO: fucking deadlock everywhere, figure out why
 
@@ -65,13 +70,54 @@
         _itemBadgeView = [[TSBadgeView alloc] init];
         _itemBadgeView.badgeAlignment = JSBadgeViewAlignmentTopRight;
         _itemBadgeView.badgeTextColor = [TSTheming defaultAccentColor];
-        _itemBadgeView.badgeBackgroundColor = [TSTheming defaultThemeColor];
-        _itemBadgeView.badgeStrokeColor = [TSTheming defaultThemeColor];
-        _itemBadgeView.badgeStrokeWidth = 4.0;
+        _itemBadgeView.badgeBackgroundColor = [TSTheming defaultBadgeBackgroundColor];
+        _itemBadgeView.badgeStrokeColor = [TSTheming defaultBadgeBackgroundColor];
+        _itemBadgeView.badgeStrokeWidth = 3.0;
         _itemBadgeView.badgePositionAdjustment = CGPointMake(-5.0, 8.0);
+        _itemBadgeView.badgeTextFont = [UIFont systemFontOfSize:14.0];
         _itemBadgeView.userInteractionEnabled = NO;
     }
     return _itemBadgeView;
+}
+
+- (UIAlertView *)confirmClearCartAlertView {
+    if (!_confirmClearCartAlertView) {
+        RIButtonItem *cancelButton = [RIButtonItem itemWithLabel:LS_CANCEL];
+        [cancelButton setAction:^{
+            self.confirmClearCartAlertView = nil;
+        }];
+        
+        RIButtonItem *continueButton = [RIButtonItem itemWithLabel:LS_CONTINUE];
+        [continueButton setAction:^{
+            [self addLastOrderToCart];
+            self.confirmClearCartAlertView = nil;
+        }];
+        
+        self.confirmClearCartAlertView = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Adding these new items will clear the existing items in your cart, continue?"] message:nil cancelButtonItem:cancelButton otherButtonItems:continueButton, nil];
+    }
+    return _confirmClearCartAlertView;
+}
+
+- (void)addLastOrderToCart {
+    MainTabBarController *tabBarController = [AppDelegate sharedAppDelegate].mainTabBarController;
+    CartViewController *cart = (CartViewController *)[tabBarController viewControllerAtTab:MainTabBarControllerTabCart];
+    NSAssert([cart isKindOfClass:CartViewController.class], @"getting cart from tab bar and it is not of class CartViewController");
+    
+//    for (MItemInfo *item in cart.inCartItems) {  XXXXXX
+//        [cart.pendingOrder removeItemsObject:item];
+//        [item deleteInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
+//    }
+    
+//    MOrderInfo *lastOrder = _homeControlView.cachedLastOrder;  XXXXXX
+//    NSArray *lastOrderItems = [lastOrder.items allObjects];
+//    for (MItemInfo *item in lastOrderItems) {
+//        [cart.pendingOrder addItemsObject:item];
+//    }
+    
+    MUserInfo *appUser = [MUserInfo currentAppUserInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
+    [cart updateRecipient:appUser];
+    
+    [tabBarController switchToTab:MainTabBarControllerTabCart animated:YES];
 }
 
 - (void)updateItemBadgeCount {
@@ -109,29 +155,24 @@
     } else if (sender == _homeControlView.orderNowButton) {
         MainTabBarController *tabBarController = [AppDelegate sharedAppDelegate].mainTabBarController;
         CartViewController *cart = (CartViewController *)[tabBarController viewControllerAtTab:MainTabBarControllerTabCart];
-        MUserInfo *appUser = [MUserInfo currentAppUserInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
-        if ([cart isKindOfClass:CartViewController.class]) {
+        NSAssert([cart isKindOfClass:CartViewController.class], @"getting cart from tab bar and it is not of class CartViewController");
+        
+        if (_homeControlView.cachedLastOrder) {
+            // if there was a last order, add the items to cart
+            if (cart.inCartItems.count > 0) {
+                [self.confirmClearCartAlertView show];
+            } else {
+                [self addLastOrderToCart];
+            }
+        } else {
+            // if there was no last order, order now
+            MUserInfo *appUser = [MUserInfo currentAppUserInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
             [cart updateRecipient:appUser];
+            ItemPickerViewController *itemPicker = (ItemPickerViewController *)[TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(ItemPickerViewController.class)];
+            itemPicker.delegate = cart;
+            TSNavigationController *naviController = [[TSNavigationController alloc] initWithRootViewController:itemPicker];
+            [self presentViewController:naviController animated:YES completion:nil];
         }
-        
-        ItemPickerViewController *itemPicker = (ItemPickerViewController *)[TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(ItemPickerViewController.class)];
-        itemPicker.delegate = cart;
-        TSNavigationController *naviController = [[TSNavigationController alloc] initWithRootViewController:itemPicker];
-        
-        // XXXXXX TESTING
-        NSFetchRequest *fetchRequest = [MOrderInfo fetchRequest];
-        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"status = %@", MOrderInfoStatusInCart];
-        NSError *error = nil;
-        NSArray *orders = [[AppDelegate sharedAppDelegate].managedObjectContext executeFetchRequest:fetchRequest error:&error];
-        if (error) {
-            DDLogError(@"error fetching ongoing orders: %@", error);
-        }
-        if (orders.count > 0) {
-            MOrderInfo *order = [orders firstObject];
-            itemPicker.defaultItem = [order chosenItem];
-        }
-        // XXXXXX
-        [self presentViewController:naviController animated:YES completion:nil];
     }
 }
 

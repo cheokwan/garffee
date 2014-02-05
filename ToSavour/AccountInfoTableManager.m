@@ -200,6 +200,7 @@ static AccountInfoTableManager *instance = nil;
     textField.frame = CGRectMake(0, 0, 160, 37);
     textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     textField.autocorrectionType = UITextAutocorrectionTypeNo;
+    textField.font = [UIFont systemFontOfSize:14.0];
     return textField;
 }
 

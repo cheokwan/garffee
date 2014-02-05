@@ -60,6 +60,8 @@
     _tableSwitcher.selectedSegmentIndex = 0;
     [_tableSwitcher setTintColor:[TSTheming defaultThemeColor]];
     [_tableSwitcher addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
+    [_tableSwitcher setTitle:LS_ACCOUNT forSegmentAtIndex:SegmentIndexAccountInfo];
+    [_tableSwitcher setTitle:LS_HISTORY forSegmentAtIndex:SegmentIndexOrderHistories];
     
     [self addSubview:self.avatarView];
 }

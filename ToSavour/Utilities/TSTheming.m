@@ -68,6 +68,11 @@
     return [UIColor colorWithHexString:@"EEF1F1F1"];
 }
 
++ (UIColor *)defaultBadgeBackgroundColor {
+    return [UIColor colorWithHexString:@"FF3B30"];
+//    return [UIColor colorWithHexString:@"E74C3C"];  // alizarin red
+}
+
 + (UIView *)navigationBrandNameTitleView {
     return [TSTheming navigationTitleViewWithString:BRAND_NAME];
 }

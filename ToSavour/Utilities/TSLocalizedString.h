@@ -22,6 +22,7 @@
 #define LS_ME               NSLocalizedString(@"Me", @"")
 #define LS_FRIENDS          NSLocalizedString(@"Friends", @"")
 #define LS_ACCOUNT          NSLocalizedString(@"Account", @"")
+#define LS_HISTORY          NSLocalizedString(@"History", @"")
 #define LS_DAILY_AWARD_GAME     NSLocalizedString(@"Daily Award Game", @"")
 #define LS_AWARDS               NSLocalizedString(@"Awards", @"")
 #define LS_CHALLENGE            NSLocalizedString(@"Challenge", @"")
@@ -88,5 +89,6 @@
 #define LS_PHONE                NSLocalizedString(@"Phone", @"")
 #define LS_NEVER                NSLocalizedString(@"Never", @"")
 #define LS_CLEAR_ALL            NSLocalizedString(@"Clear All", @"")
+#define LS_CONTINUE             NSLocalizedString(@"Continue", @"")
 
 #endif

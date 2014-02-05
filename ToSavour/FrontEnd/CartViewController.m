@@ -180,6 +180,7 @@ typedef enum {
     if (sender == _addOrderButton) {
         ItemPickerViewController *itemPicker = (ItemPickerViewController *)[TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(ItemPickerViewController.class)];
         itemPicker.delegate = self;
+        itemPicker.defaultItem = [self.pendingOrder chosenItem];  // XXXXXX-TEST
         TSNavigationController *naviController = [[TSNavigationController alloc] initWithRootViewController:itemPicker];
         [self presentViewController:naviController animated:YES completion:nil];
     } else if (sender == _cartHeaderView.checkoutButton) {
@@ -316,10 +317,14 @@ typedef enum {
         DDLogInfo(@"successfully submitted coupon to server");
         
         RIButtonItem *dismissButton = [RIButtonItem itemWithLabel:LS_OK];
+        [dismissButton setAction:^{
+            [self clearPendingOrder];
+            MainTabBarController *tabBarController = [AppDelegate sharedAppDelegate].mainTabBarController;
+            [tabBarController switchToTab:MainTabBarControllerTabHome animated:YES];
+        }];
         
         [_spinner hide:YES];
         [[[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Your gift has been sent to %@, thank you!", @""), self.pendingOrder.recipient.name] message:nil cancelButtonItem:dismissButton otherButtonItems:nil, nil] show];
-        [self clearPendingOrder];
     }
 }
 

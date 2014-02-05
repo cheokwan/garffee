@@ -43,7 +43,6 @@
 
 - (void)initializeView {
     _infoTable.tableHeaderView = self.accountHeaderView;
-    _infoTable.bounces = NO;
     _infoTable.delegate = self;
     _infoTable.dataSource = self;
     _accountHeaderView.delegate = self;
@@ -171,6 +170,10 @@
     }
     [self configureCell:cell atIndexPath:indexPath];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
@@ -341,6 +344,11 @@
     return YES;
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    textField.textColor = [UIColor darkTextColor];
+    return YES;
+}
+
 - (void)commitTextFieldEditAndReturn:(UITextField *)textField {
     NSManagedObjectContext *context = [AppDelegate sharedAppDelegate].managedObjectContext;
     MUserInfo *userInfo = [MUserInfo currentAppUserInfoInContext:context];
@@ -384,6 +392,13 @@
     }
     if (isValidInfo) {
         [textField resignFirstResponder];
+    } else {
+        // animate an error indication
+        [UIView animateWithDuration:0.8 animations:^{
+            textField.textColor = [UIColor redColor];
+            textField.alpha = 0.0;
+            textField.alpha = 1.0;
+        }];
     }
 }
 
@@ -454,6 +469,7 @@
 
 - (void)accountHeaderView:(AccountHeaderView *)accountHeaderView didSwitchToTableSegment:(NSInteger)segmentIndex {
     [self.infoTable reloadData];
+    [self.infoTable reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [self numberOfSectionsInTableView:_infoTable])] withRowAnimation:UITableViewRowAnimationFade];  // fake some animation
 }
 
 #pragma mark - UIImagePickerControllerDelegate

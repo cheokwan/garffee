@@ -22,5 +22,6 @@
 + (UIColor *)defaultAccentColor;
 + (UIColor *)defaultContrastColor;
 + (UIColor *)defaultBackgroundTransparentColor;
++ (UIColor *)defaultBadgeBackgroundColor;
 
 @end

@@ -70,6 +70,25 @@ typedef enum {
     CGRect newBounds = _friendsList.bounds;
     newBounds.origin.y = newBounds.origin.y + _searchBar.bounds.size.height;
     _friendsList.bounds = newBounds;
+    
+    // XXX TODO: properly fix this, for some reason the friend list contentSize got change to 0 after search
+    [self addObserver:self forKeyPath:@"self.friendsList.contentSize" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if (object == self && [keyPath isEqualToString:@"self.friendsList.contentSize"]) {
+        NSValue *newChange = change[NSKeyValueChangeNewKey];
+        CGSize newSize;
+        [newChange getValue:&newSize];
+        if (newSize.width == 0 && newSize.height == 0) {
+            NSValue *oldChange = change[NSKeyValueChangeOldKey];
+            CGSize oldSize;
+            [oldChange getValue:&oldSize];
+            
+            _friendsList.contentSize = CGSizeMake(oldSize.width, oldSize.height);
+            DDLogWarn(@"detected changing friend list contentSize to 0, setting back to old size:<%f, %f>", oldSize.width, oldSize.height);
+        }
+    }
 }
 
 - (void)viewDidLoad

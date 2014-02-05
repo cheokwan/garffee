@@ -29,7 +29,7 @@
 
 - (void)initializeView {
     _lastOrderLabel.text = LS_LAST_ORDER;
-    _orderNowButton.titleLabel.numberOfLines = 2;
+    _orderNowButton.titleLabel.numberOfLines = 3;
     _orderNowButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
     _orderNowButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     [_orderNowButton setTitle:LS_ORDER_NOW forState:UIControlStateNormal];
@@ -79,16 +79,19 @@
                 if (![_cachedLastOrder isEqual:mainLastOrder] || cachedLastOrderItemCount != mainLastOrder.items.count) {
                     self.cachedLastOrder = mainLastOrder;
                     cachedLastOrderItemCount = mainLastOrder.items.count;  // XXXXXX
-//                    _lastOrderTimeLabel.text = [[self.class dateFormatter] stringFromDate:mainLastOrder.orderedDate];  // XXXXXX
-                    _lastOrderTimeLabel.text = [[self.class dateFormatter] stringFromDate:[NSDate date]];
+//                    _lastOrderTimeLabel.text = [[self.class dateFormatter] stringFromDate:mainLastOrder.orderedDate];
+                    _lastOrderTimeLabel.text = [[self.class dateFormatter] stringFromDate:[NSDate date]];  // XXXXXX
 
                     UIImageView *lastOrderImage = [[OrderCompositeImageView alloc] initWithFrame:_lastOrderImage.frame order:mainLastOrder];
                     [_lastOrderImage removeFromSuperview];
                     self.lastOrderImage = lastOrderImage;
                     [self addSubview:_lastOrderImage];
                 }
+                [_orderNowButton setTitle:LS_ADD_TO_CART forState:UIControlStateNormal];
             } else {
                 _lastOrderTimeLabel.text = LS_NEVER;
+                [_orderNowButton setTitle:LS_ORDER_NOW forState:UIControlStateNormal];
+                _cachedLastOrder = nil;
             }
         });
     });

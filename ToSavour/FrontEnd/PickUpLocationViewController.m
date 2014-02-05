@@ -274,7 +274,9 @@
             if ([_delegate respondsToSelector:@selector(pickUpLocationViewControllerDidSubmitOrderSuccessfully:)]) {
                 [_delegate pickUpLocationViewControllerDidSubmitOrderSuccessfully:self];
             }
-            [self.navigationController popViewControllerAnimated:YES];
+            [self.navigationController popViewControllerAnimated:NO];
+            MainTabBarController *tabBarController = [AppDelegate sharedAppDelegate].mainTabBarController;
+            [tabBarController switchToTab:MainTabBarControllerTabHome animated:YES];
         }];
         
         [_spinner hide:YES];

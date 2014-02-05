@@ -99,9 +99,9 @@ typedef enum {
     [self initializeView];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
+// TODO: so damn ugly, improve this animation code
+
+- (void)animateChoiceSelection {
     // play selection animation
     NSMutableArray *cells = [NSMutableArray array];
     for (ItemPickerTableViewCell *cell in _itemTable.visibleCells) {
@@ -127,13 +127,13 @@ typedef enum {
             selectedItemIndex += 1;
         }
         [directionsLeft addObject:@(left)];
-
+        
         [cell.pickerScrollView selectItemAtIndex:selectedItemIndex animated:NO];
         
         left = !left;  // flip the direction
     }
     
-    [UIView animateWithDuration:0.5 animations:^{
+    [UIView animateWithDuration:0.3 animations:^{
         for (ItemPickerTableViewCell *cell in _itemTable.visibleCells) {
             cell.alpha = 0.0;
             cell.hidden = NO;
@@ -141,26 +141,38 @@ typedef enum {
         }
     }];
     
-    double delayInSeconds = 0.5;
+    double delayInSeconds = 0.3;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-    for (NSInteger i = 0; i < cells.count; ++i) {
-        ItemPickerTableViewCell *cell = cells[i];
-        BOOL left = YES;
-        
-        NSInteger selectedItemIndex = [cell.pickerScrollView getCurrentSelectedItemIndex];
-        // reverse animate the selection
-        if (left) {
-            selectedItemIndex += 1;
-        } else {
-            selectedItemIndex -= 1;
+        for (NSInteger i = 0; i < cells.count; ++i) {
+            ItemPickerTableViewCell *cell = cells[i];
+            BOOL left = [directionsLeft[i] boolValue];
+            
+            NSInteger selectedItemIndex = [cell.pickerScrollView getCurrentSelectedItemIndex];
+            // reverse animate the selection
+            if (left) {
+                selectedItemIndex += 1;
+            } else {
+                selectedItemIndex -= 1;
+            }
+            
+            [cell.pickerScrollView selectItemAtIndex:selectedItemIndex animated:YES];
         }
-        
-        [cell.pickerScrollView selectItemAtIndex:selectedItemIndex animated:YES];
-    }
     });
-    
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     _viewAppeared = YES;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    double delayInSeconds = 0.3;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [self animateChoiceSelection];
+    });
 }
 
 - (void)didReceiveMemoryWarning
