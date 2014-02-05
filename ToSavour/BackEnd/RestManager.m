@@ -290,6 +290,27 @@
     [self fetchManagedObjectsWithRequest:[self requestWithServiceHostType:RestManagerServiceHostApp endPoint:@"/orderhistories"] context:[AppDelegate sharedAppDelegate].managedObjectContext sourceSelector:_cmd responseDescriptors:@[[MOrderInfo defaultResponseDescriptor]] persist:YES handler:handler];
 }
 
+#pragma mark - Putting Data
+
+- (void)putUserInfo:(MUserInfo *)userInfo handler:(__weak id<RestManagerResponseHandler>)handler {
+    NSMutableURLRequest *request = [self requestWithServiceHostType:RestManagerServiceHostApp endPoint:[NSString stringWithFormat:@"/users/%@", userInfo.appID]];
+    request.HTTPMethod = @"PUT";
+    
+    RKRequestDescriptor *serialization = [RKRequestDescriptor requestDescriptorWithMapping:[MUserInfo putUserInfoMapping] objectClass:MUserInfo.class rootKeyPath:nil method:RKRequestMethodPUT];
+    NSError *error = nil;
+    NSMutableDictionary *jsonDict = [[RKObjectParameterization parametersWithObject:userInfo requestDescriptor:serialization error:&error] mutableCopy];
+    
+    if (error) {
+        DDLogError(@"JSON parameterization problem during posting order: %@", error);
+    } else {
+        request.HTTPBody = [RKMIMETypeSerialization dataFromObject:jsonDict MIMEType:RKMIMETypeJSON error:&error];
+        if (error) {
+            DDLogError(@"JSON serialization problem during posting order: %@", error);
+        }
+    }
+    [self fetchManagedObjectsWithRequest:request context:[AppDelegate sharedAppDelegate].managedObjectContext sourceSelector:_cmd responseDescriptors:@[[MUserInfo defaultResponseDescriptor]] persist:NO handler:handler];
+}
+
 #pragma mark - Posting Data
 
 - (void)postOrder:(MOrderInfo *)order handler:(__weak id<RestManagerResponseHandler>)handler {

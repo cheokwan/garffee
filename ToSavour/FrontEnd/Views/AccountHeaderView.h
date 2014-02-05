@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "AvatarView.h"
+
+typedef NS_ENUM(NSInteger, SegmentedControlerIndex) {
+    SegmentIndexAccountInfo = 0,
+    SegmentIndexOrderHistories
+};
+
 @class AccountHeaderView;
 
 @protocol AccountHeaderViewDelegate <NSObject>

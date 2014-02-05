@@ -44,6 +44,7 @@ static NSString *MUserInfoGenderFemale = @"female";
 
 @property (nonatomic, readonly) NSURL *URLForProfileImage;
 
++ (RKEntityMapping*)putUserInfoMapping;
 
 + (id)newAppUserInfoInContext:(NSManagedObjectContext *)context;
 + (id)currentAppUserInfoInContext:(NSManagedObjectContext *)context;

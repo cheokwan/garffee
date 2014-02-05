@@ -124,6 +124,10 @@
     return mapping;
 }
 
++ (RKEntityMapping*)putUserInfoMapping {
+    return [[self defaultEntityMapping] inverseMapping];
+}
+
 + (RKResponseDescriptor *)defaultResponseDescriptor {
     return [RKResponseDescriptor responseDescriptorWithMapping:[self.class defaultEntityMapping] method:RKRequestMethodAny pathPattern:nil keyPath:nil statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
 }

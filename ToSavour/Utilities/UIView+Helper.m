@@ -30,6 +30,12 @@
     return self.frame.origin.x + self.frame.size.width;
 }
 
+- (void)setFrameRight:(CGFloat)right {
+    CGRect frame = self.frame;
+    frame.origin.x = right - self.frame.size.width;
+    self.frame = frame;
+}
+
 - (CGFloat)frameBottom {
     return self.frame.origin.y + self.frame.size.height;
 }

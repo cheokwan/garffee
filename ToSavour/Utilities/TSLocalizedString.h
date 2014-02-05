@@ -81,6 +81,11 @@
 #define LS_DISTANCE_UNAVAILABLE NSLocalizedString(@"Distance Unavailable", @"")
 #define LS_RECOMMENDED_TIME     NSLocalizedString(@"Recommended Time", @"")
 #define LS_SEARCH_FRIENDS       NSLocalizedString(@"Search Friends", @"")
+#define LS_NAME                 NSLocalizedString(@"Name", @"")
+#define LS_EMAIL                NSLocalizedString(@"Email", @"")
+#define LS_SEX                  NSLocalizedString(@"Sex", @"")
+#define LS_BIRTHDAY             NSLocalizedString(@"Birthday", @"")
+#define LS_PHONE                NSLocalizedString(@"Phone", @"")
 #define LS_NEVER                NSLocalizedString(@"Never", @"")
 #define LS_CLEAR_ALL            NSLocalizedString(@"Clear All", @"")
 

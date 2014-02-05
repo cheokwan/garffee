@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "AccountHeaderView.h"
 #import "AvatarView.h"
+#import "RestManager.h"
 
-@interface AccountViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate, AccountHeaderViewDelegate, AvatarViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
+@interface AccountViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate, AccountHeaderViewDelegate, AvatarViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UITextFieldDelegate, RestManagerResponseHandler>
 
 @property (nonatomic, strong)   IBOutlet UITableView *infoTable;
 
