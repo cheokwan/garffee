@@ -58,6 +58,21 @@
     self.isKeyboardShowing = NO;
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self checkAndPutUserInfo];
+}
+
+- (void)checkAndPutUserInfo {
+    NSManagedObjectContext *context = [AppDelegate sharedAppDelegate].managedObjectContext;
+    MUserInfo *userInfo = [MUserInfo currentAppUserInfoInContext:context];
+    if (userInfo.isDirty) {
+        // trigger update service call if userInfo.isDirty
+        userInfo.isDirty = NO;
+        [[RestManager sharedInstance] putUserInfo:userInfo handler:self];
+    }
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -116,7 +131,7 @@
     if ([self tableSwitcher].selectedSegmentIndex == SegmentIndexOrderHistories) {
         numberOfRows = self.transactionHistoryFetchedResultsController.fetchedObjects.count;
     } else if ([self tableSwitcher].selectedSegmentIndex == SegmentIndexAccountInfo) {
-        numberOfRows = [[AccountInfoTableManager sharedInstance] numberOfRows:section];
+        numberOfRows = [[AccountInfoTableManager sharedInstance] numberOfRows:(int)section];
     }
     return numberOfRows;
 }
@@ -267,7 +282,6 @@
 - (void)markUserInfoDirtyAndSync:(MUserInfo*)userInfo context:(NSManagedObjectContext *)context {
     userInfo.isDirty = @(YES);
     [context save];
-    [[RestManager sharedInstance] putUserInfo:userInfo handler:self];
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate
@@ -529,13 +543,16 @@
 
 #pragma mark - RestManagerResponseHandler
 - (void)restManagerService:(SEL)selector succeededWithOperation:(NSOperation *)operation userInfo:(NSDictionary *)userInfo {
-    NSManagedObjectContext *context = [AppDelegate sharedAppDelegate].managedObjectContext;
-    MUserInfo *mUserInfo = [MUserInfo currentAppUserInfoInContext:context];
-    mUserInfo.isDirty = @(NO);
+    
 }
 
 - (void)restManagerService:(SEL)selector failedWithOperation:(NSOperation *)operation error:(NSError *)error userInfo:(NSDictionary *)userInfo {
-    //XXX-ML
+    if (selector == @selector(putUserInfo:handler:)) {
+        NSManagedObjectContext *context = [AppDelegate sharedAppDelegate].managedObjectContext;
+        MUserInfo *mUserInfo = [MUserInfo currentAppUserInfoInContext:context];
+        mUserInfo.isDirty = @(YES);
+        [[RestManager sharedInstance] putUserInfo:mUserInfo handler:self];
+    }
 }
 
 @end

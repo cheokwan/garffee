@@ -47,7 +47,7 @@
     self.games = [NSMutableArray array];
     self.serviceCallsStatus = GameServiceCallsStatusNone;
     
-    self.spinner = [MBProgressHUD showHUDAddedTo:[AppDelegate sharedAppDelegate].window animated:YES];
+    self.spinner = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     _spinner.mode = MBProgressHUDModeIndeterminate;
     _spinner.labelText = LS_LOADING;
     [self refetchGamesData];
