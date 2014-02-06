@@ -9,6 +9,10 @@
 #import "ItemGridView.h"
 #import "TSFrontEndIncludes.h"
 
+@interface ItemGridView()
+@property (nonatomic, strong) UIImageView *suggestedTag;
+@end
+
 @implementation ItemGridView
 
 - (id)initWithFrame:(CGRect)frame
@@ -52,6 +56,15 @@
     return self;
 }
 
+- (void)setIsSuggested:(BOOL)isSuggested {
+    _isSuggested = isSuggested;
+    if (_isSuggested) {
+        [self.imageView addSubview:self.suggestedTag];
+    } else {
+        [self.suggestedTag removeFromSuperview];
+    }
+}
+
 - (UILabel *)gridLabelWithText:(NSString *)text {
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0.0, self.frame.size.width - 20.0, self.frame.size.height)];
     label.userInteractionEnabled = NO;
@@ -90,6 +103,14 @@
     [button setBackgroundImage:nil forState:UIControlStateNormal];
     [button addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
     return button;
+}
+
+- (UIImageView *)suggestedTag {
+    if (!_suggestedTag) {
+        self.suggestedTag = [[UIImageView alloc] initWithFrame:CGRectMake(self.imageView.frame.size.width * 3.0 / 5.0, self.imageView.frame.size.height * 3.0 / 5.0, self.imageView.frame.size.width * 1.0 / 3.5, self.imageView.frame.size.height * 1.0 / 3.5)];
+        _suggestedTag.image = [UIImage imageNamed:@"ico_garffee"];
+    }
+    return _suggestedTag;
 }
 
 - (void)buttonPressed:(id)sender {

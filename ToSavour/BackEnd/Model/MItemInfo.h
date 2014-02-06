@@ -30,6 +30,8 @@
 @property (nonatomic, readonly) NSString *detailString;
 
 + (id)newItemInfoWithProduct:(MProductInfo *)product optionChoices:(NSArray *)choices inContext:(NSManagedObjectContext *)context;
+- (void)deleteAllSelectedOptions;
+- (void)addOptionChoices:(NSArray *)choices;
 - (void)updatePrice;
 @end
 

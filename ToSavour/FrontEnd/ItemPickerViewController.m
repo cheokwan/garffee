@@ -86,6 +86,11 @@ typedef enum {
     
     self.navigationItem.titleView = [TSTheming navigationTitleViewWithString:LS_ORDER];
     self.navigationItem.rightBarButtonItem = self.dismissButton;
+    
+    if (_editingItem) {
+        _defaultItem = _editingItem;
+        self.navigationItem.titleView = [TSTheming navigationTitleViewWithString:LS_EDIT_ITEM];
+    }
     NSInteger defaultProductIndex = [self.allProducts indexOfObject:_defaultItem.product];
     if (defaultProductIndex == NSNotFound) {
         defaultProductIndex = self.allProducts.count / 2;
@@ -339,6 +344,9 @@ typedef enum {
             MProductConfigurableOption *configurableOption = self.selectedProduct.sortedConfigurableOptions[indexPath.row];
             for (MProductOptionChoice *choice in configurableOption.sortedOptionChoices) {
                 ItemGridView *itemView = [[ItemGridView alloc] initWithFrame:itemViewFrame text:choice.name imageURL:choice.URLForImageRepresentation interactable:YES shouldReceiveNotification:YES];
+                if ([configurableOption.sortedOptionChoices indexOfObject:choice] == [configurableOption.defaultChoice intValue]) {
+                    itemView.isSuggested = YES;
+                }
                 itemView.delegate = self;
                 [itemViews addObject:itemView];
             }
@@ -360,7 +368,8 @@ typedef enum {
         case ItemPickerSectionSubmitButton: {
             itemViews = [NSMutableArray array];
             NSURL *imageURL = [NSURL URLWithString:[[MGlobalConfiguration cachedBlobHostName] stringByAppendingPathComponent:@"productimages/cup_1.png"]];  // TODO: should we get some other image?
-            self.addItemButton = [[ItemGridView alloc] initWithFrame:itemViewFrame text:LS_ADD_TO_CART imageURL:imageURL interactable:YES shouldReceiveNotification:YES];
+            NSString *buttonTitle = _editingItem ? LS_FINISH_EDIT : LS_ADD_TO_CART;
+            self.addItemButton = [[ItemGridView alloc] initWithFrame:itemViewFrame text:buttonTitle imageURL:imageURL interactable:YES shouldReceiveNotification:YES];
             _addItemButton.delegate = self;
             [itemViews addObject:_addItemButton];
             self.cachedSubmitButtonCell = itemPickerCell;
@@ -427,10 +436,19 @@ typedef enum {
             [selectedOptionChoices addObject:choice];
         }
         
-        // add item to cart
-        if ([_delegate respondsToSelector:@selector(itemPicker:didAddItem:)]) {
-            MItemInfo *newItem = [MItemInfo newItemInfoWithProduct:self.selectedProduct optionChoices:selectedOptionChoices inContext:[AppDelegate sharedAppDelegate].managedObjectContext];
-            [_delegate itemPicker:self didAddItem:newItem];
+        if (_editingItem) {
+            // edited cart item
+            [_editingItem deleteAllSelectedOptions];
+            [_editingItem addOptionChoices:selectedOptionChoices];
+            if ([_delegate respondsToSelector:@selector(itemPicker:didEditItem:)]) {
+                [_delegate itemPicker:self didEditItem:_editingItem];
+            }
+        } else {
+            // add item to cart
+            if ([_delegate respondsToSelector:@selector(itemPicker:didAddItem:)]) {
+                MItemInfo *newItem = [MItemInfo newItemInfoWithProduct:self.selectedProduct optionChoices:selectedOptionChoices inContext:[AppDelegate sharedAppDelegate].managedObjectContext];
+                [_delegate itemPicker:self didAddItem:newItem];
+            }
         }
         MainTabBarController *tabBarController = [AppDelegate sharedAppDelegate].mainTabBarController;
         [tabBarController switchToTab:MainTabBarControllerTabCart animated:NO];

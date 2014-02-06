@@ -24,6 +24,9 @@
 @property (nonatomic, strong)   MOrderInfo *pendingOrder;
 @property (nonatomic, readonly) NSArray *inCartItems;
 
+@property (nonatomic, assign)   BOOL animateViewAppearing;
+
+- (void)refreshCart:(BOOL)animated;
 - (void)updateRecipient:(MUserInfo *)recipient;
 
 @end

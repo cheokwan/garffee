@@ -76,7 +76,8 @@ typedef enum {
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self refreshCart:NO];
+    [self refreshCart:animated || _animateViewAppearing];
+    _animateViewAppearing = NO;
 }
 
 - (MOrderInfo *)pendingOrder {
@@ -180,7 +181,6 @@ typedef enum {
     if (sender == _addOrderButton) {
         ItemPickerViewController *itemPicker = (ItemPickerViewController *)[TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(ItemPickerViewController.class)];
         itemPicker.delegate = self;
-        itemPicker.defaultItem = [self.pendingOrder chosenItem];  // XXXXXX-TEST
         TSNavigationController *naviController = [[TSNavigationController alloc] initWithRootViewController:itemPicker];
         [self presentViewController:naviController animated:YES completion:nil];
     } else if (sender == _cartHeaderView.checkoutButton) {
@@ -393,6 +393,16 @@ typedef enum {
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    switch (indexPath.section) {
+        case CartSectionItems: {
+            ItemPickerViewController *itemPicker = (ItemPickerViewController *)[TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(ItemPickerViewController.class)];
+            itemPicker.delegate = self;
+            itemPicker.editingItem = self.inCartItems[indexPath.row];
+            TSNavigationController *naviController = [[TSNavigationController alloc] initWithRootViewController:itemPicker];
+            [self presentViewController:naviController animated:YES completion:nil];
+        }
+            break;
+    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -465,6 +475,10 @@ typedef enum {
         [self.pendingOrder updateRecipient:appUser];
     }
     
+    [self refreshCart:YES];
+}
+
+- (void)itemPicker:(ItemPickerViewController *)itemPicker didEditItem:(MItemInfo *)item {
     [self refreshCart:YES];
 }
 

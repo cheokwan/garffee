@@ -15,6 +15,8 @@
 
 @protocol ItemPickerViewControllerDelegate <NSObject>
 - (void)itemPicker:(ItemPickerViewController *)itemPicker didAddItem:(MItemInfo *)item;
+
+- (void)itemPicker:(ItemPickerViewController *)itemPicker didEditItem:(MItemInfo *)item;
 @end
 
 @interface ItemPickerViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, ItemPickerScrollViewDelegate, UIAlertViewDelegate, UIScrollViewDelegate, ItemGridViewDelegate>
@@ -27,5 +29,6 @@
 
 @property (nonatomic, weak)     id<ItemPickerViewControllerDelegate> delegate;
 @property (nonatomic, strong)   MItemInfo *defaultItem;
+@property (nonatomic, strong)   MItemInfo *editingItem;
 
 @end

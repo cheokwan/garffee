@@ -19,6 +19,7 @@
 #import "MOrderInfo.h"
 #import "MCouponInfo.h"
 #import <UIAlertView-Blocks/UIAlertView+Blocks.h>
+#import "NSManagedObject+DeepCopying.h"
 
 @interface HomeViewController()
 @property (nonatomic, strong)   UIAlertView *confirmClearCartAlertView;
@@ -74,7 +75,7 @@
         _itemBadgeView.badgeStrokeColor = [TSTheming defaultBadgeBackgroundColor];
         _itemBadgeView.badgeStrokeWidth = 3.0;
         _itemBadgeView.badgePositionAdjustment = CGPointMake(-5.0, 8.0);
-        _itemBadgeView.badgeTextFont = [UIFont systemFontOfSize:14.0];
+        _itemBadgeView.badgeTextFont = [UIFont systemFontOfSize:13.0];
         _itemBadgeView.userInteractionEnabled = NO;
     }
     return _itemBadgeView;
@@ -103,21 +104,26 @@
     CartViewController *cart = (CartViewController *)[tabBarController viewControllerAtTab:MainTabBarControllerTabCart];
     NSAssert([cart isKindOfClass:CartViewController.class], @"getting cart from tab bar and it is not of class CartViewController");
     
-//    for (MItemInfo *item in cart.inCartItems) {  XXXXXX
-//        [cart.pendingOrder removeItemsObject:item];
-//        [item deleteInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
-//    }
+    for (MItemInfo *item in cart.inCartItems) {
+        [cart.pendingOrder removeItemsObject:item];
+        [item deleteInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
+    }
     
-//    MOrderInfo *lastOrder = _homeControlView.cachedLastOrder;  XXXXXX
-//    NSArray *lastOrderItems = [lastOrder.items allObjects];
-//    for (MItemInfo *item in lastOrderItems) {
-//        [cart.pendingOrder addItemsObject:item];
-//    }
+    MOrderInfo *lastOrder = _homeControlView.cachedLastOrder;
+    NSArray *lastOrderItems = [lastOrder.items allObjects];
+    for (MItemInfo *item in lastOrderItems) {
+        MItemInfo *itemCopy = [item deepCopyWithZone:nil];
+        [cart.pendingOrder addItemsObject:itemCopy];
+    }
     
-    MUserInfo *appUser = [MUserInfo currentAppUserInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
-    [cart updateRecipient:appUser];
-    
-    [tabBarController switchToTab:MainTabBarControllerTabCart animated:YES];
+    double delayInSeconds = 0.3;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        MUserInfo *appUser = [MUserInfo currentAppUserInfoInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
+        [cart updateRecipient:appUser];
+        cart.animateViewAppearing = YES;
+        [tabBarController switchToTab:MainTabBarControllerTabCart animated:YES];
+    });
 }
 
 - (void)updateItemBadgeCount {

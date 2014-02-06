@@ -50,8 +50,7 @@
         NSManagedObjectContext *context = [AppDelegate sharedAppDelegate].persistentStoreManagedObjectContext;
         NSFetchRequest *fetchRequest = [MOrderInfo fetchRequest];
         NSSortDescriptor *sdOrderedDate = [[NSSortDescriptor alloc] initWithKey:@"orderedDate" ascending:NO];
-//        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"status =[c] %@", MOrderInfoStatusPickedUp];  XXXXXX
-        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"status =[c] %@", MOrderInfoStatusInCart];
+        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"status =[c] %@", MOrderInfoStatusPickedUp];
         fetchRequest.sortDescriptors = @[sdOrderedDate];
         NSError *error = nil;
         NSArray *lastOrders = [context executeFetchRequest:fetchRequest error:&error];
@@ -63,25 +62,22 @@
         MOrderInfo *lastOrder = nil;
         // XXX-SERVER-BUG: order history returns no items
         lastOrder = [lastOrders firstObject];
-//        for (MOrderInfo *order in lastOrders) {
-//            MItemInfo *item = [order.items anyObject];
-//            if ([item.product.type isCaseInsensitiveEqual:MProductInfoTypeReal]) {
-//                lastOrder = order;
-//                break;
-//            }
-//        }
+        for (MOrderInfo *order in lastOrders) {
+            MItemInfo *item = [order.items anyObject];
+            if ([item.product.type isCaseInsensitiveEqual:MProductInfoTypeReal]) {
+                lastOrder = order;
+                break;
+            }
+        }
         
         dispatch_async(dispatch_get_main_queue(), ^{
             if (lastOrder) {
                 NSManagedObjectContext *mainContext = [AppDelegate sharedAppDelegate].managedObjectContext;
                 MOrderInfo *mainLastOrder = (MOrderInfo *)[mainContext objectWithID:lastOrder.objectID];
-                static NSInteger cachedLastOrderItemCount = 0;  // XXXXXX
-                if (![_cachedLastOrder isEqual:mainLastOrder] || cachedLastOrderItemCount != mainLastOrder.items.count) {
+                if (![_cachedLastOrder isEqual:mainLastOrder]) {
                     self.cachedLastOrder = mainLastOrder;
-                    cachedLastOrderItemCount = mainLastOrder.items.count;  // XXXXXX
-//                    _lastOrderTimeLabel.text = [[self.class dateFormatter] stringFromDate:mainLastOrder.orderedDate];
-                    _lastOrderTimeLabel.text = [[self.class dateFormatter] stringFromDate:[NSDate date]];  // XXXXXX
-
+                    _lastOrderTimeLabel.text = [[self.class dateFormatter] stringFromDate:mainLastOrder.orderedDate];
+                    
                     UIImageView *lastOrderImage = [[OrderCompositeImageView alloc] initWithFrame:_lastOrderImage.frame order:mainLastOrder];
                     [_lastOrderImage removeFromSuperview];
                     self.lastOrderImage = lastOrderImage;
@@ -89,9 +85,9 @@
                 }
                 [_orderNowButton setTitle:LS_ADD_TO_CART forState:UIControlStateNormal];
             } else {
+                self.cachedLastOrder = nil;
                 _lastOrderTimeLabel.text = LS_NEVER;
                 [_orderNowButton setTitle:LS_ORDER_NOW forState:UIControlStateNormal];
-                _cachedLastOrder = nil;
             }
         });
     });

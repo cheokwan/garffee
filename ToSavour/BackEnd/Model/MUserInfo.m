@@ -8,6 +8,7 @@
 
 #import "MUserInfo.h"
 #import "RestManager.h"
+#import "MUserFacebookInfo.h"  // XXXXXX
 
 
 @implementation MUserInfo
@@ -67,6 +68,12 @@
 
 - (NSURL *)URLForProfileImage {
     if (self.profileImageURL) {
+        // XXXXXX
+        MUserFacebookInfo *user = (MUserFacebookInfo *)self;
+        if ([user isKindOfClass:MUserFacebookInfo.class] && user.fbProfileImageURL) {
+            return [NSURL URLWithString:user.fbProfileImageURL];
+        }
+        // XXXXXX
         return [NSURL URLWithString:self.profileImageURL];
     } else {
         return nil;

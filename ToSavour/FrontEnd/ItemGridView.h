@@ -22,6 +22,8 @@ static NSString *ItemGridViewDragTransitionNotificationStop = @"ItemGridViewDrag
 @property (nonatomic, strong)   UIImageView *imageView;
 @property (nonatomic, strong)   UIButton *button;
 
+@property (nonatomic, assign)   BOOL isSuggested;
+
 @property (nonatomic, weak)     id<ItemGridViewDelegate> delegate;
 
 - (id)initWithFrame:(CGRect)frame text:(NSString *)text imageURL:(NSURL *)imageURL interactable:(BOOL)interactable shouldReceiveNotification:(BOOL)shouldReceiveNotification;

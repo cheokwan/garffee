@@ -33,16 +33,28 @@
 + (id)newItemInfoWithProduct:(MProductInfo *)product optionChoices:(NSArray *)choices inContext:(NSManagedObjectContext *)context {
     MItemInfo *item = [MItemInfo newObjectInContext:context];
     item.product = product;
-    for (MProductOptionChoice *choice in choices) {
-        MItemSelectedOption *selectedOption = [MItemSelectedOption newItemSelectedOptionWithOptionChoice:choice inContext:context];
-        [item addItemSelectedOptionsObject:selectedOption];
-    }
+    [item addOptionChoices:choices];
     
     item.creationDate = [NSDate date];
     item.status = MOrderInfoStatusPending;
     item.quantity = @1;  // XXX TODO: handle quantity
     [item updatePrice];
     return item;
+}
+
+- (void)deleteAllSelectedOptions {
+    NSArray *allSelectedOptions = [self.itemSelectedOptions allObjects];
+    for (MItemSelectedOption *selectedOption in allSelectedOptions) {
+        [self removeItemSelectedOptionsObject:selectedOption];
+        [selectedOption deleteInContext:self.managedObjectContext];
+    }
+}
+
+- (void)addOptionChoices:(NSArray *)choices {
+    for (MProductOptionChoice *choice in choices) {
+        MItemSelectedOption *selectedOption = [MItemSelectedOption newItemSelectedOptionWithOptionChoice:choice inContext:self.managedObjectContext];
+        [self addItemSelectedOptionsObject:selectedOption];
+    }
 }
 
 - (NSString *)detailString {

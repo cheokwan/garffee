@@ -90,5 +90,7 @@
 #define LS_NEVER                NSLocalizedString(@"Never", @"")
 #define LS_CLEAR_ALL            NSLocalizedString(@"Clear All", @"")
 #define LS_CONTINUE             NSLocalizedString(@"Continue", @"")
+#define LS_EDIT_ITEM            NSLocalizedString(@"Edit Item", @"")
+#define LS_FINISH_EDIT          NSLocalizedString(@"Finish Edit", @"")
 
 #endif

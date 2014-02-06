@@ -39,72 +39,44 @@ static CGRect itemImageRects[ORDER_COMPOSITE_IMAGE_MAX_ITEM];
 }
 
 - (void)updateView {
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        // XXX-SERVER-BUG: order from history may not have items in them
-        //((MItemInfo *)[_order.items anyObject]).product.URLForImageRepresentation;
-        // XXXXXX TESTING
-//        NSManagedObjectContext *context = [AppDelegate sharedAppDelegate].persistentStoreManagedObjectContext;
-        NSManagedObjectContext *context = [AppDelegate sharedAppDelegate].managedObjectContext;
-        NSFetchRequest *fetchRequest = [MOrderInfo fetchRequest];
-        NSSortDescriptor *sdOrderedDate = [NSSortDescriptor sortDescriptorWithKey:@"orderedDate" ascending:NO];
-        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"status = %@", MOrderInfoStatusInCart];
-        fetchRequest.sortDescriptors = @[sdOrderedDate];
-        NSError *error = nil;
-        NSArray *orders = [context executeFetchRequest:fetchRequest error:&error];
-        if (error) {
-            DDLogError(@"error fetching products for cached images: %@", error);
+    NSMutableArray *images = [NSMutableArray array];
+    for (MItemInfo *item in _order.items) {
+        if (!item.product.localCachedImageURL) {
+            continue;
         }
-        if (orders.count == 0) {
-            double delayInSeconds = 5.0;
-            DDLogWarn(@"fetched 0 orders, going to retry in %f seconds", delayInSeconds);
-            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                [self updateView];
-            });
+        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfFile:item.product.localCachedImageURL]];
+        CGRect cropRect = CGRectInset(CGRectMake(0, 0, image.size.width, image.size.height), 15.0, 0.0);
+        
+        CGImageRef croppedImageRef = CGImageCreateWithImageInRect(image.CGImage, cropRect);
+        if (croppedImageRef) {
+            UIImage *croppedImage = [UIImage imageWithCGImage:croppedImageRef];
+            [images addObject:croppedImage];
+            CGImageRelease(croppedImageRef);
         } else {
-//            dispatch_async(dispatch_get_main_queue(), ^{
-                NSMutableArray *images = [NSMutableArray array];
-                MOrderInfo *lastOrder = [orders firstObject];
-                for (MItemInfo *item in lastOrder.items) {
-                    if (!item.product.localCachedImageURL) {
-                        continue;
-                    }
-                    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfFile:item.product.localCachedImageURL]];
-                    CGRect cropRect = CGRectInset(CGRectMake(0, 0, image.size.width, image.size.height), 15.0, 0.0);
-                    
-                    CGImageRef croppedImageRef = CGImageCreateWithImageInRect(image.CGImage, cropRect);
-                    if (croppedImageRef) {
-                        UIImage *croppedImage = [UIImage imageWithCGImage:croppedImageRef];
-                        [images addObject:croppedImage];
-                        CGImageRelease(croppedImageRef);
-                    } else {
-                        [images addObject:image];
-                    }
-                }
-                
-                CGRect drawingRect = CGRectInset(self.bounds, 0.0, 0.0);
-                [self calculateItemImageRectsBoundTo:drawingRect.size sampleImage:[images firstObject] total:images.count];
-                UIGraphicsBeginImageContext(drawingRect.size);
-                CGContextMoveToPoint(UIGraphicsGetCurrentContext(), drawingRect.origin.x, drawingRect.origin.y);
-                NSInteger numImagesToDraw = MIN(images.count, ORDER_COMPOSITE_IMAGE_MAX_ITEM);
-                for (NSInteger imageIndex = 0; imageIndex < numImagesToDraw; ++imageIndex) {
-                    CGRect imageRect = itemImageRects[imageIndex];
-//                    BOOL inFirstRow = (imageRect.origin.y == 0.0);
-                    [images[imageIndex] drawInRect:imageRect];
-                }
-                
-                UIImage *compositeImage = UIGraphicsGetImageFromCurrentImageContext();
-                UIGraphicsEndImageContext();
-                
-                self.contentMode = UIViewContentModeLeft;
-                [UIView animateWithDuration:0.3 animations:^{
-                    self.alpha = 0.0;
-                    self.image = compositeImage;
-                    self.alpha = 1.0;
-                }];
-//            });
+            [images addObject:image];
         }
-//    });
+    }
+    
+    CGRect drawingRect = CGRectInset(self.bounds, 0.0, 0.0);
+    [self calculateItemImageRectsBoundTo:drawingRect.size sampleImage:[images firstObject] total:images.count];
+    UIGraphicsBeginImageContextWithOptions(drawingRect.size, NO, [UIScreen mainScreen].scale);
+    CGContextMoveToPoint(UIGraphicsGetCurrentContext(), drawingRect.origin.x, drawingRect.origin.y);
+    NSInteger numImagesToDraw = MIN(images.count, ORDER_COMPOSITE_IMAGE_MAX_ITEM);
+    for (NSInteger imageIndex = 0; imageIndex < numImagesToDraw; ++imageIndex) {
+        CGRect imageRect = itemImageRects[imageIndex];
+        //BOOL inFirstRow = (imageRect.origin.y == 0.0);
+        [images[imageIndex] drawInRect:imageRect];
+    }
+    
+    UIImage *compositeImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    self.contentMode = UIViewContentModeLeft;
+    [UIView animateWithDuration:0.3 animations:^{
+        self.alpha = 0.0;
+        self.image = compositeImage;
+        self.alpha = 1.0;
+    }];
 }
 
 - (void)calculateItemImageRectsBoundTo:(CGSize)boundSize sampleImage:(UIImage *)sampleImage total:(NSInteger)total {
