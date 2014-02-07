@@ -29,6 +29,8 @@
 		D2219653185AACD8007528EE /* NSManagedObject+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2219652185AACD8007528EE /* NSManagedObject+Helper.m */; };
 		D232ED821886501E00BDA9F9 /* PickUpLocationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D232ED811886501E00BDA9F9 /* PickUpLocationTableViewCell.xib */; };
 		D239770318474F230002D655 /* TSLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D239770218474F230002D655 /* TSLogFormatter.m */; };
+		D23D41C418A48F4A005D7143 /* SettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D23D41C318A48F4A005D7143 /* SettingsManager.m */; };
+		D23D41C518A48F4A005D7143 /* SettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D23D41C318A48F4A005D7143 /* SettingsManager.m */; };
 		D243757518488358000009D7 /* TSSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = D243757418488358000009D7 /* TSSettings.m */; };
 		D2437577184C3498000009D7 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2437576184C3497000009D7 /* MapKit.framework */; };
 		D24667FB185F15F70089D5DB /* TutorialLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075CA1855C47200620114 /* TutorialLoginViewController.m */; };
@@ -246,6 +248,8 @@
 		D232ED811886501E00BDA9F9 /* PickUpLocationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PickUpLocationTableViewCell.xib; path = FrontEnd/XIBs/PickUpLocationTableViewCell.xib; sourceTree = "<group>"; };
 		D239770118474F230002D655 /* TSLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSLogFormatter.h; path = Utilities/TSLogFormatter.h; sourceTree = "<group>"; };
 		D239770218474F230002D655 /* TSLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSLogFormatter.m; path = Utilities/TSLogFormatter.m; sourceTree = "<group>"; };
+		D23D41C218A48F4A005D7143 /* SettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsManager.h; path = Utilities/SettingsManager.h; sourceTree = "<group>"; };
+		D23D41C318A48F4A005D7143 /* SettingsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsManager.m; path = Utilities/SettingsManager.m; sourceTree = "<group>"; };
 		D243757318488358000009D7 /* TSSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSSettings.h; path = Utilities/TSSettings.h; sourceTree = "<group>"; };
 		D243757418488358000009D7 /* TSSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSSettings.m; path = Utilities/TSSettings.m; sourceTree = "<group>"; };
 		D2437576184C3497000009D7 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -521,6 +525,8 @@
 				D2B9BAA31892835300226B54 /* UIButton+Helper.m */,
 				D2B9BAB31897914B00226B54 /* NSURL+Helper.h */,
 				D2B9BAB41897914B00226B54 /* NSURL+Helper.m */,
+				D23D41C218A48F4A005D7143 /* SettingsManager.h */,
+				D23D41C318A48F4A005D7143 /* SettingsManager.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -1100,6 +1106,7 @@
 				D2B9BAAD1897867700226B54 /* OrderCompositeImageView.m in Sources */,
 				D2EEB4CC18A339030077E5E3 /* UIImage+Resize.m in Sources */,
 				D2466803185F15F70089D5DB /* TSSettings.m in Sources */,
+				D23D41C518A48F4A005D7143 /* SettingsManager.m in Sources */,
 				D2466804185F15F70089D5DB /* AvatarView.m in Sources */,
 				D21DCE7C187AC5B7008CF011 /* FriendsListScrollView.m in Sources */,
 				D2827DDC186D882D00E4A662 /* ItemGridView.m in Sources */,
@@ -1210,6 +1217,7 @@
 				DFB85701187C355F00B08559 /* MBranch.m in Sources */,
 				DFE628B11855FB7D00E1C8FE /* AreYouReadyViewController.m in Sources */,
 				D2827DFE18755B1400E4A662 /* MUserAddressBookInfo.m in Sources */,
+				D23D41C418A48F4A005D7143 /* SettingsManager.m in Sources */,
 				DF60E759185C642F00DB10DE /* NSMutableArray+Shuffle.m in Sources */,
 				DF60E750185C0D8000DB10DE /* PhotoHuntManager.m in Sources */,
 				D2827DAD1865540100E4A662 /* MGlobalConfiguration.m in Sources */,

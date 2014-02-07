@@ -63,9 +63,13 @@
             [self changePrimitiveValue:receiverObject forKey:@"receiver"];
         }
     } else if ([key isEqualToString:@"sender"]) {
-        [self changePrimitiveValue:self.sender.appID forKey:@"senderUserID"];
+        if (self.sender.appID.length > 0) {
+            [self changePrimitiveValue:self.sender.appID forKey:@"senderUserID"];
+        }
     } else if ([key isEqualToString:@"receiver"]) {
-        [self changePrimitiveValue:self.receiver.appID forKey:@"receiverUserID"];
+        if (self.receiver.appID.length > 0) {
+            [self changePrimitiveValue:self.receiver.appID forKey:@"receiverUserID"];
+        }
     }
 }
 
@@ -100,6 +104,8 @@
                                                   }];
     mapping.identificationAttributes = @[@"id"];
     [mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"Items" toKeyPath:@"items" withMapping:[MItemInfo defaultEntityMapping]]];
+    [mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"Sender" toKeyPath:@"sender" withMapping:[MUserInfo defaultEntityMapping]]];
+    [mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"Receiver" toKeyPath:@"receiver" withMapping:[MUserInfo defaultEntityMapping]]];
     mapping.valueTransformer = [[RestManager sharedInstance] defaultDotNetValueTransformer];
     return mapping;
 }

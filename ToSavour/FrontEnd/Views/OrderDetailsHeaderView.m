@@ -18,7 +18,7 @@
     _totalLabel.textColor = [TSTheming defaultThemeColor];
     _priceLabel.textColor = [TSTheming defaultThemeColor];
     
-    _priceLabel.text = [NSString stringWithPrice:0.0];
+    _priceLabel.text = [NSString stringWithPrice:0.0 showFree:YES];
     [_orderProgressView updateStatus:@""];
 }
 
@@ -35,7 +35,7 @@
 }
 
 - (void)updatePrice:(CGFloat)newPrice {
-    self.priceLabel.text = [NSString stringWithPrice:newPrice];
+    self.priceLabel.text = [NSString stringWithPrice:newPrice showFree:YES];
 }
 
 - (void)awakeFromNib {

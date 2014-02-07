@@ -68,7 +68,7 @@ static UIEdgeInsets tableViewContentInsets;
     self.item.quantity = @(quantity);
     self.quantityLabel.text = [NSString stringWithFormat:@"%@: %d", LS_QUANTITY, [_item.quantity intValue]];
     self.quantityTextField.text = [_item.quantity stringValue];
-    self.priceLabel.text = [NSString stringWithPrice:[_item.price floatValue]];
+    self.priceLabel.text = [NSString stringWithPrice:[_item.price floatValue] showFree:YES];
 }
 
 - (void)layoutSubviews {

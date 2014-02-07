@@ -18,9 +18,13 @@
     return [self trimmedWhiteSpaces].length == 0;
 }
 
-+ (NSString *)stringWithPrice:(CGFloat)price {
++ (NSString *)stringWithPrice:(CGFloat)price showFree:(BOOL)showFree {
     static NSString *priceFormatString = @"HK: $%.1f";
-    return price == 0.0 ? LS_FREE : [NSString stringWithFormat:priceFormatString, price];
+    return price == 0.0 && showFree ? LS_FREE : [NSString stringWithFormat:priceFormatString, price];
+}
+
++ (NSString *)stringWithPrice:(CGFloat)price {
+    return [self stringWithPrice:price showFree:NO];
 }
 
 - (NSArray *)decodeCommaSeparatedString {

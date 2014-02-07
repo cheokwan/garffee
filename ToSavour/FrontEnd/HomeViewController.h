@@ -10,8 +10,9 @@
 #import "HomeControlView.h"
 #import "PromotionScrollView.h"
 #import "TSBadgeView.h"
+#import "RestManager.h"
 
-@interface HomeViewController : UIViewController<PromotionScrollViewDelegate>
+@interface HomeViewController : UIViewController<PromotionScrollViewDelegate, RestManagerResponseHandler>
 
 @property (nonatomic, strong)   IBOutlet PromotionScrollView *promotionScrollView;
 @property (nonatomic, strong)   IBOutlet HomeControlView *homeControlView;

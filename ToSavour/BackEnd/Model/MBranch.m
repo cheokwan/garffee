@@ -7,7 +7,7 @@
 //
 
 #import "MBranch.h"
-
+#import "MGlobalConfiguration.h"
 #import "RestManager.h"
 
 @implementation MBranch
@@ -23,22 +23,28 @@
 @dynamic region;
 @dynamic thumbnailURL;
 @dynamic imageURL;
+@dynamic localCachedImageURL;
 
 - (NSURL *)URLForThumbnailImage {
-    if ([self.thumbnailURL trimmedWhiteSpaces].length > 0) {
-//        return [NSURL URLWithString:self.thumbnailURL];
-        return [NSURL URLWithString:@"http://static6.businessinsider.com/image/4f5691296bb3f7920700005b/starbucks-concept-store.jpg"]; // XXXXXX
-    } else {
-        return nil;
-    }
+    return [self URLForImageRepresentation];  // XXXXXX
 }
 
 - (NSURL *)URLForImage {
-    if ([self.imageURL trimmedWhiteSpaces].length > 0) {
-        return [NSURL URLWithString:@"http://static6.businessinsider.com/image/4f5691296bb3f7920700005b/starbucks-concept-store.jpg"]; // XXXXXX
-    } else {
-        return nil;
+    return [self URLForImageRepresentation];
+}
+
+- (NSURL *)URLForImageRepresentation {
+    if (self.localCachedImageURL.length > 0) {
+        return [NSURL fileURLWithPath:self.localCachedImageURL];
+    } else if (self.resolvedImageURL.length > 0) {
+        return [NSURL URLWithString:self.resolvedImageURL];
     }
+    return nil;
+}
+
+- (NSString *)resolvedImageURL {
+//    return [[MGlobalConfiguration cachedBlobHostName] stringByAppendingPathComponent:self.imageURL];
+    return @"http://static6.businessinsider.com/image/4f5691296bb3f7920700005b/starbucks-concept-store.jpg";  // XXXXXX
 }
 
 - (NSNumber *)latitude {

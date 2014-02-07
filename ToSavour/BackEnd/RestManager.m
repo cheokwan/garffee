@@ -110,6 +110,7 @@
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:serviceURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
     request.HTTPMethod = @"GET";
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     if (serviceHostType == RestManagerServiceHostApp) {
         [request setValue:self.appToken forHTTPHeaderField:@"Authorization"];
     }

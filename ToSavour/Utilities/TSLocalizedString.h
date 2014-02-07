@@ -92,5 +92,7 @@
 #define LS_CONTINUE             NSLocalizedString(@"Continue", @"")
 #define LS_EDIT_ITEM            NSLocalizedString(@"Edit Item", @"")
 #define LS_FINISH_EDIT          NSLocalizedString(@"Finish Edit", @"")
+#define LS_SIGNING_IN           NSLocalizedString(@"Signing in", @"")
+#define LS_PLEASE_WAIT          NSLocalizedString(@"Please wait", @"")
 
 #endif

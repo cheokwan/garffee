@@ -20,6 +20,7 @@
 #import "MCouponInfo.h"
 #import <UIAlertView-Blocks/UIAlertView+Blocks.h>
 #import "NSManagedObject+DeepCopying.h"
+#import "RestManager.h"
 
 @interface HomeViewController()
 @property (nonatomic, strong)   UIAlertView *confirmClearCartAlertView;
@@ -186,6 +187,7 @@
 {
     [super viewDidLoad];
     [self initializeView];
+//    [[RestManager sharedInstance] fetchAppCouponInfo:self];  XXX TODO: move to better place, has problem with registration - fetch too prematurely
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -203,6 +205,16 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - RestManagerResponseHandler
+
+- (void)restManagerService:(SEL)selector succeededWithOperation:(NSOperation *)operation userInfo:(NSDictionary *)userInfo {
+    [self updateItemBadgeCount];
+}
+
+- (void)restManagerService:(SEL)selector failedWithOperation:(NSOperation *)operation error:(NSError *)error userInfo:(NSDictionary *)userInfo {
+    DDLogError(@"error fetching coupon on home screen: %@", error);
 }
 
 #pragma mark - PromotionScrollViewDelegate

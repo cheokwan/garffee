@@ -10,8 +10,22 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "RestManager.h"
+#import "DataFetchManager.h"
 
-@interface TutorialLoginViewController : UIViewController<UIScrollViewDelegate, FBLoginViewDelegate, RestManagerResponseHandler>
+typedef enum {
+    TutorialLoginRegistrationStageFacebookAppUser = 1,
+    TutorialLoginRegistrationStageAppUser = 2,
+    TutorialLoginRegistrationStageFacebookFriends = 3,
+    TutorialLoginRegistrationStageAppConfigurations = 4,
+    TutorialLoginRegistrationStageAppProducts = 5,
+    TutorialLoginRegistrationStageAppStoreBranches = 6,
+    TutorialLoginRegistrationStageAppOrderHistories = 7,
+    TutorialLoginRegistrationStageAppGiftCoupons = 8,
+    TutorialLoginRegistrationStageAppProductImages = 9,  // give more weight
+    TutorialLoginRegistrationStageTotal = 16
+} TutorialLoginRegistrationStage;
+
+@interface TutorialLoginViewController : UIViewController<UIScrollViewDelegate, FBLoginViewDelegate, RestManagerResponseHandler, DataFetchManagerHandler>
 
 @property (nonatomic, strong)   IBOutlet UIScrollView *tutorialScrollView;
 @property (nonatomic, strong)   IBOutlet UIPageControl *tutorialPageControl;

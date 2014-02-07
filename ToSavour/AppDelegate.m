@@ -21,6 +21,7 @@
 #import "TSNavigationController.h"
 #import "TSModelIncludes.h"
 #import "RestManager.h"
+#import "SettingsManager.h"
 
 
 @implementation AppDelegate
@@ -81,13 +82,17 @@
     BOOL fbSessionOpened = [FBSession openActiveSessionWithAllowLoginUI:NO];
     DDLogError(@"fb token: %@", [RestManager sharedInstance].facebookToken); // XXX-TEST
     
-    if (!currentUserInfo || !fbSessionOpened) {
+    BOOL registrationCompleted = [[SettingsManager readSettingsValueForKey:SettingsManagerKeyRegistrationComplete] boolValue];  // nil will be NO
+    if (!currentUserInfo || !fbSessionOpened || !registrationCompleted) {
         // user info does not present, shows the tutorial and login screen
         // and delegate navigation flow to there
         TutorialLoginViewController *tutorialLoginViewController = (TutorialLoginViewController *)[TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(TutorialLoginViewController.class)];
         if (currentUserInfo) {
             // user has previously logged in, skip to login page directly
             tutorialLoginViewController.skipTutorial = YES;
+        }
+        if (!registrationCompleted) {  // XXX-BUG: edge case, if registration was cut and user change facebook user some residual friends from old user might persist
+            [[FBSession activeSession] closeAndClearTokenInformation];
         }
         [_slidingViewController.topViewController presentViewController:tutorialLoginViewController animated:NO completion:nil];
     } else {

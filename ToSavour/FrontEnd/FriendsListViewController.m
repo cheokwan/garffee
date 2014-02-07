@@ -376,4 +376,8 @@ typedef enum {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    // XXX work around for 64-bit simulator unrecognized selector
+}
+
 @end

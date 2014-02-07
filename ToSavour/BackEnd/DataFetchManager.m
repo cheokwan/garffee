@@ -56,14 +56,14 @@
     return _allABContacts;
 }
 
-- (void)fetchAddressBookContactsInContext:(NSManagedObjectContext *)context {
+- (void)fetchAddressBookContactsInContext:(NSManagedObjectContext *)context handler:(id<DataFetchManagerHandler>)handler {
     // TODO: check if user has previously disallowed address book access, only retry a limited
     // number of times
     if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusNotDetermined ||
         ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusDenied) {
         ABAddressBookRequestAccessWithCompletion(self.addressBook, ^(bool granted, CFErrorRef error) {
             if (granted && !error) {
-                [self fetchAddressBookContactsInContext:context];
+                [self fetchAddressBookContactsInContext:context handler:handler];
             } else {
                 DDLogError(@"error in requesting access to address book, granted: %@, %@", @(granted), error);
             }
@@ -135,32 +135,42 @@
     }
 }
 
-- (void)discoverFacebookAppUsersInContext:(NSManagedObjectContext *)context {
+- (void)discoverFacebookAppUsersInContext:(NSManagedObjectContext *)context handler:(id<DataFetchManagerHandler>)handler {
     [[RestManager sharedInstance] queryFacebookContactsInContext:context handler:self];
 }
 
-- (void)discoverAddressBookAppUsersContext:(NSManagedObjectContext *)context {
+- (void)discoverAddressBookAppUsersContext:(NSManagedObjectContext *)context handler:(id<DataFetchManagerHandler>)handler {
     [[RestManager sharedInstance] queryAddressBookContactsInContext:context handler:self];
 }
 
-- (void)cacheLocalProductImages:(NSManagedObjectContext *)context {
+- (void)cacheLocalProductImages:(NSManagedObjectContext *)context handler:(id<DataFetchManagerHandler>)handler {
     NSFetchRequest *productFetchRequest = [MProductInfo fetchRequest];
     NSFetchRequest *choiceFetchRequest = [MProductOptionChoice fetchRequest];
+    NSFetchRequest *branchFetchRequest = [MBranch fetchRequest];
     NSError *error = nil;
     NSArray *products = [context executeFetchRequest:productFetchRequest error:&error];
     if (error) {
         DDLogError(@"error fetching products: %@", error);
     }
+    error = nil;
     NSArray *choices = [context executeFetchRequest:choiceFetchRequest error:&error];
     if (error) {
         DDLogError(@"error fetching option choices: %@", error);
+    }
+    error = nil;
+    NSArray *branches = [context executeFetchRequest:branchFetchRequest error:&error];
+    if (error) {
+        DDLogError(@"error fetching store branches: %@", error);
     }
     
     NSMutableArray *allItems = [NSMutableArray array];
     [allItems addObjectsFromArray:products];
     [allItems addObjectsFromArray:choices];
+    [allItems addObjectsFromArray:branches];
     [self.dummyImageViews removeAllObjects];
     
+    __block NSMutableArray *errors = [NSMutableArray array];
+    __block NSInteger errorCount = 0;
     for (id item in allItems) {
         if ([item respondsToSelector:@selector(resolvedImageURL)] &&
             [item resolvedImageURL]) {
@@ -186,10 +196,17 @@
                     }
                 } else {
                     DDLogError(@"error downloading product image at path %@: %@", [item resolvedImageURL], error);
+                    ++errorCount;
+                    [errors addObject:error];
                 }
                 [_dummyImageViews removeObject:weakImageView];
                 if (_dummyImageViews.count == 0) {
                     [context save];
+                    if (errors.count == 0 && [handler respondsToSelector:@selector(dataFetchManagerService:succeededWithUserInfo:)]) {
+                        [handler dataFetchManagerService:_cmd succeededWithUserInfo:nil];
+                    } else if (errors.count > 0 && [handler respondsToSelector:@selector(dataFetchManagerService:failedWithError:userInfo:)]) {
+                        [handler dataFetchManagerService:_cmd failedWithError:[errors firstObject] userInfo:@{@"errors": errors, @"errorCount": @(errorCount)}];
+                    }
                 }
             }];
         }

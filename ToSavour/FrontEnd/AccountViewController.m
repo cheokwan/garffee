@@ -187,10 +187,10 @@
 
 - (void)configureHistoryCell:(TransactionHistoryTableViewCell *)historyCell atIndexPath:(NSIndexPath *)indexPath {
     MOrderInfo *order = [self.transactionHistoryFetchedResultsController objectAtIndexPath:indexPath];
-    NSString *productName = ((MItemInfo *)[order.items anyObject]).product.name;
-    historyCell.titleLabel.text = productName.length > 0 ? productName : order.referenceNumber;
+    NSString *orderDetailString = [order detailString];
+    historyCell.titleLabel.text = orderDetailString.length > 0 ? orderDetailString : order.referenceNumber;
     historyCell.subtitleLabel.text = [order.orderedDate defaultStringRepresentation];
-    historyCell.priceLabel.text = [NSString stringWithPrice:[order.price floatValue]];
+    historyCell.priceLabel.text = [NSString stringWithPrice:[order.price floatValue] showFree:YES];
     return;
 }
 

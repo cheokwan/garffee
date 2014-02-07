@@ -24,6 +24,10 @@
 @property (nonatomic, retain) NSString * region;
 @property (nonatomic, retain) NSString * thumbnailURL;
 @property (nonatomic, retain) NSString * imageURL;
+@property (nonatomic, retain) NSString * localCachedImageURL;
+
+@property (nonatomic, readonly) NSString *resolvedImageURL;
+@property (nonatomic, readonly) NSURL *URLForImageRepresentation;
 
 - (NSURL *)URLForImage;
 - (NSURL *)URLForThumbnailImage;

@@ -66,6 +66,17 @@
     return self.chosenItem.product.URLForImageRepresentation;
 }
 
+- (NSString *)detailString {
+    NSMutableArray *itemNames = [NSMutableArray array];
+    NSSortDescriptor *sdCreationDate = [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES];
+    NSArray *orderItems = [self.items sortedArrayUsingDescriptors:@[sdCreationDate]];
+    for (MItemInfo *item in orderItems) {
+        [itemNames addObject:item.product.name];
+    }
+    // XXXXXX
+    return [[itemNames objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, MIN(itemNames.count, 3))]] commaSeparatedString];
+}
+
 - (void)updatePrice {
     double total = 0.0;
     for (MItemInfo *item in self.items) {

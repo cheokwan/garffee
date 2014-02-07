@@ -14,6 +14,7 @@
 
 - (BOOL)isEmpty;
 
++ (NSString *)stringWithPrice:(CGFloat)price showFree:(BOOL)showFree;
 + (NSString *)stringWithPrice:(CGFloat)price;
 
 - (NSArray *)decodeCommaSeparatedString;

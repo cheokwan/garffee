@@ -278,7 +278,7 @@ typedef enum {
             MOrderInfo *order = self.ongoingOrderFetchedResultsController.fetchedObjects[indexPath.row];
             orderCell.titleLabel.textColor = [TSTheming defaultThemeColor];
             orderCell.titleLabel.text = [NSString stringWithFormat:@"%@ %@", LS_ORDER_NO, order.referenceNumber ? order.referenceNumber : @"None"];
-            orderCell.priceLabel.text = [NSString stringWithPrice:[order.price floatValue]];
+            orderCell.priceLabel.text = [NSString stringWithPrice:[order.price floatValue] showFree:YES];
             orderCell.locationLabel.text = order.storeBranch.name;
             
             __weak OngoingOrderTableViewCell *weakOrderCell = orderCell;
