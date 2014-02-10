@@ -43,6 +43,7 @@
 
 - (void)initializeView {
     _infoTable.tableHeaderView = self.accountHeaderView;
+    _infoTable.autoresizesSubviews = NO;
     _infoTable.delegate = self;
     _infoTable.dataSource = self;
     _accountHeaderView.delegate = self;
