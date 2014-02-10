@@ -31,6 +31,12 @@
 		D239770318474F230002D655 /* TSLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D239770218474F230002D655 /* TSLogFormatter.m */; };
 		D23D41C418A48F4A005D7143 /* SettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D23D41C318A48F4A005D7143 /* SettingsManager.m */; };
 		D23D41C518A48F4A005D7143 /* SettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D23D41C318A48F4A005D7143 /* SettingsManager.m */; };
+		D23D41C718A8862F005D7143 /* TutorialPageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D23D41C618A8862F005D7143 /* TutorialPageView.xib */; };
+		D23D41C818A8862F005D7143 /* TutorialPageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D23D41C618A8862F005D7143 /* TutorialPageView.xib */; };
+		D23D41CA18A8902F005D7143 /* TutorialPageView_iphone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = D23D41C918A8902F005D7143 /* TutorialPageView_iphone4.xib */; };
+		D23D41CB18A8902F005D7143 /* TutorialPageView_iphone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = D23D41C918A8902F005D7143 /* TutorialPageView_iphone4.xib */; };
+		D23D41CE18A892D3005D7143 /* TutorialPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D23D41CD18A892D3005D7143 /* TutorialPageView.m */; };
+		D23D41CF18A892D3005D7143 /* TutorialPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D23D41CD18A892D3005D7143 /* TutorialPageView.m */; };
 		D243757518488358000009D7 /* TSSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = D243757418488358000009D7 /* TSSettings.m */; };
 		D2437577184C3498000009D7 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2437576184C3497000009D7 /* MapKit.framework */; };
 		D24667FB185F15F70089D5DB /* TutorialLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075CA1855C47200620114 /* TutorialLoginViewController.m */; };
@@ -250,6 +256,10 @@
 		D239770218474F230002D655 /* TSLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSLogFormatter.m; path = Utilities/TSLogFormatter.m; sourceTree = "<group>"; };
 		D23D41C218A48F4A005D7143 /* SettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsManager.h; path = Utilities/SettingsManager.h; sourceTree = "<group>"; };
 		D23D41C318A48F4A005D7143 /* SettingsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsManager.m; path = Utilities/SettingsManager.m; sourceTree = "<group>"; };
+		D23D41C618A8862F005D7143 /* TutorialPageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TutorialPageView.xib; path = FrontEnd/XIBs/TutorialPageView.xib; sourceTree = "<group>"; };
+		D23D41C918A8902F005D7143 /* TutorialPageView_iphone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TutorialPageView_iphone4.xib; path = FrontEnd/XIBs/TutorialPageView_iphone4.xib; sourceTree = "<group>"; };
+		D23D41CC18A892D3005D7143 /* TutorialPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialPageView.h; path = FrontEnd/Views/TutorialPageView.h; sourceTree = "<group>"; };
+		D23D41CD18A892D3005D7143 /* TutorialPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TutorialPageView.m; path = FrontEnd/Views/TutorialPageView.m; sourceTree = "<group>"; };
 		D243757318488358000009D7 /* TSSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSSettings.h; path = Utilities/TSSettings.h; sourceTree = "<group>"; };
 		D243757418488358000009D7 /* TSSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSSettings.m; path = Utilities/TSSettings.m; sourceTree = "<group>"; };
 		D2437576184C3497000009D7 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -752,6 +762,8 @@
 				D2209F4918851FA500282DAE /* OrderItemTableViewCell.xib */,
 				D232ED811886501E00BDA9F9 /* PickUpLocationTableViewCell.xib */,
 				D2FF847118912573003BF58C /* FriendsListTableViewCell.xib */,
+				D23D41C618A8862F005D7143 /* TutorialPageView.xib */,
+				D23D41C918A8902F005D7143 /* TutorialPageView_iphone4.xib */,
 			);
 			name = XIBs;
 			sourceTree = "<group>";
@@ -825,6 +837,8 @@
 				DF1E79691894DEC10012CDC0 /* AccountInfoTableViewBalanceCell.m */,
 				D2B9BAAA1897867700226B54 /* OrderCompositeImageView.h */,
 				D2B9BAAB1897867700226B54 /* OrderCompositeImageView.m */,
+				D23D41CC18A892D3005D7143 /* TutorialPageView.h */,
+				D23D41CD18A892D3005D7143 /* TutorialPageView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -975,6 +989,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D23D41C818A8862F005D7143 /* TutorialPageView.xib in Resources */,
 				D2EEB4CA18A339030077E5E3 /* README in Resources */,
 				D2466826185F15F70089D5DB /* Images.xcassets in Resources */,
 				D2466827185F15F70089D5DB /* MProductConfigurableOption.json in Resources */,
@@ -983,6 +998,7 @@
 				D2466829185F15F70089D5DB /* MProductOptionChoice.json in Resources */,
 				D2EEB4C818A339030077E5E3 /* LICENSE in Resources */,
 				D246682A185F15F70089D5DB /* InfoPlist.strings in Resources */,
+				D23D41CB18A8902F005D7143 /* TutorialPageView_iphone4.xib in Resources */,
 				D246682B185F15F70089D5DB /* Main.storyboard in Resources */,
 				D2FF847318912573003BF58C /* FriendsListTableViewCell.xib in Resources */,
 				D246682C185F15F70089D5DB /* AccountHeaderView.xib in Resources */,
@@ -996,6 +1012,7 @@
 			files = (
 				D293E4D2183DEDEB00B73795 /* Images.xcassets in Resources */,
 				D251EF16187D0B0A0012536E /* CartHeaderView.xib in Resources */,
+				D23D41CA18A8902F005D7143 /* TutorialPageView_iphone4.xib in Resources */,
 				D293EB2A185F04ED00A69034 /* MProductConfigurableOption.json in Resources */,
 				D2209F421884E7D700282DAE /* OrderDetailsHeaderView.xib in Resources */,
 				D2209F401883EE9900282DAE /* CouponDetailsHeaderView.xib in Resources */,
@@ -1011,6 +1028,7 @@
 				D2EEB4C918A339030077E5E3 /* README in Resources */,
 				D2A67A91185C21C500889114 /* AccountHeaderView.xib in Resources */,
 				D2C075B71851D33F00620114 /* MBranch.json in Resources */,
+				D23D41C718A8862F005D7143 /* TutorialPageView.xib in Resources */,
 				D2FF847218912573003BF58C /* FriendsListTableViewCell.xib in Resources */,
 				DF3075C8186D6224002D40AF /* imageNotFound.jpg in Resources */,
 			);
@@ -1130,6 +1148,7 @@
 				D2EEB4C118A3382C0077E5E3 /* NSManagedObject+DeepCopying.m in Sources */,
 				D2466814185F15F70089D5DB /* NSManagedObject+Helper.m in Sources */,
 				D2466816185F15F70089D5DB /* AccountViewController.m in Sources */,
+				D23D41CF18A892D3005D7143 /* TutorialPageView.m in Sources */,
 				D2466817185F15F70089D5DB /* TSNavigationController.m in Sources */,
 				D2466818185F15F70089D5DB /* ToSavour.xcdatamodeld in Sources */,
 				D2B9BAA51892835300226B54 /* UIButton+Helper.m in Sources */,
@@ -1211,6 +1230,7 @@
 				D2A55711184DBF4C0039A5A0 /* MapTrackingAnnotation.m in Sources */,
 				DFB3C1E718842FE2004E5454 /* BranchLocationMapViewController.m in Sources */,
 				D2827DF61875051F00E4A662 /* DataFetchManager.m in Sources */,
+				D23D41CE18A892D3005D7143 /* TutorialPageView.m in Sources */,
 				DFB3C1EA188436FC004E5454 /* MapAnnotation.m in Sources */,
 				D293E4C0183DEDEB00B73795 /* main.m in Sources */,
 				DF8F19B8187ADF1500BC9557 /* MockData.m in Sources */,

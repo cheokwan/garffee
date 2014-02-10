@@ -301,13 +301,13 @@ typedef enum {
     
     switch (indexPath.section) {
         case ItemPickerSectionProductCategoryAndName:
-            cell = _cachedProductCategoryAndNameCell;
+//            cell = _cachedProductCategoryAndNameCell;
             break;
         case ItemPickerSectionProductOptions:
             // since the options cell are dynamic, we don't do caching at this point
             break;
         case ItemPickerSectionSubmitButton:
-            cell = _cachedSubmitButtonCell;
+//            cell = _cachedSubmitButtonCell;
             break;
     }
     if (!cell) {

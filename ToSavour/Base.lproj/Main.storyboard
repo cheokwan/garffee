@@ -1013,32 +1013,27 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="4" translatesAutoresizingMaskIntoConstraints="NO" id="uzl-qJ-s7z">
-                                <rect key="frame" x="132" y="491" width="55" height="37"/>
+                                <rect key="frame" x="132" y="526" width="55" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </pageControl>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZFw-dK-O5u">
-                                <rect key="frame" x="279" y="498" width="31" height="28"/>
+                                <rect key="frame" x="279" y="533" width="31" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                 <state key="normal" title="Skip!"/>
                             </button>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AgC-5i-pjB">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="uzl-qJ-s7z" secondAttribute="centerX" constant="0.5" id="GFM-Jc-1hP"/>
                             <constraint firstAttribute="trailing" secondItem="ZFw-dK-O5u" secondAttribute="trailing" constant="10" id="NQm-Uj-w79"/>
-                            <constraint firstItem="ePI-CH-kup" firstAttribute="top" secondItem="ZFw-dK-O5u" secondAttribute="bottom" constant="42" id="WWw-jx-Saw"/>
-                            <constraint firstItem="ePI-CH-kup" firstAttribute="top" secondItem="uzl-qJ-s7z" secondAttribute="bottom" constant="40" id="jx2-HY-l3U"/>
+                            <constraint firstItem="ePI-CH-kup" firstAttribute="top" secondItem="ZFw-dK-O5u" secondAttribute="bottom" constant="7" id="WWw-jx-Saw"/>
+                            <constraint firstItem="ePI-CH-kup" firstAttribute="top" secondItem="uzl-qJ-s7z" secondAttribute="bottom" constant="5" id="jx2-HY-l3U"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="skipButton" destination="ZFw-dK-O5u" id="tDt-eN-4NQ"/>
                         <outlet property="tutorialPageControl" destination="uzl-qJ-s7z" id="Kyw-qy-Nla"/>
-                        <outlet property="tutorialScrollView" destination="AgC-5i-pjB" id="Ghz-qW-uGK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KT7-Tz-AU7" userLabel="First Responder" sceneMemberID="firstResponder"/>

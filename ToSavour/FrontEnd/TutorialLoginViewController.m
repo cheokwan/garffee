@@ -16,34 +16,25 @@
 
 @interface TutorialLoginViewController ()
 @property (nonatomic, strong) NSTimer *progressTimer;
+@property (nonatomic, assign) BOOL isScrollingLeft;
 @end
 
 @implementation TutorialLoginViewController
 @synthesize progressTimer = _progressTimer;
 
 - (void)initializeView {
-    _tutorialScrollView.delegate = self;
-    _tutorialScrollView.pagingEnabled = YES;
-    // XXX-MOCK
-    NSArray *images = @[@1,
-                        @1,
-                        @1,
-                        @1];
-    NSMutableArray *imageViews = [NSMutableArray array];
-    for (int i = 0; i < images.count; ++i) {
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 200, 320)];
-        imageView.backgroundColor = [UIColor lightGrayColor];
-        // XXX-MOCK
-        imageView.contentMode = UIViewContentModeScaleAspectFit;
-//        imageView.image = images[i];
-        [imageViews addObject:imageView];
-    }
-    self.tutorialImageViews = imageViews;
-    _tutorialPageControl.numberOfPages = _tutorialImageViews.count + 1;  // plus login screen
-    _tutorialPageControl.pageIndicatorTintColor = [[TSTheming defaultThemeColor] colorWithAlphaComponent:0.5];
-    _tutorialPageControl.currentPageIndicatorTintColor = [TSTheming defaultThemeColor];
+    NSString *nibName = [UIScreen mainScreen].bounds.size.height == 480.0 ? @"TutorialPageView_iphone4" : @"TutorialPageView";
+    self.tutorialPageView = (TutorialPageView *)[TSTheming viewWithNibName:nibName];
+    [self.view addSubview:_tutorialPageView];
+    _tutorialPageView.backgroundScrollView.delegate = self;
+    _tutorialPageView.screenshotScrollView.delegate = self;
+    _tutorialPageView.controlScrollView.delegate = self;
+    
+    _tutorialPageControl.numberOfPages = TutorialLoginTutorialPageTotal;
+    _tutorialPageControl.pageIndicatorTintColor = [[TSTheming defaultAccentColor] colorWithAlphaComponent:0.5];
+    _tutorialPageControl.currentPageIndicatorTintColor = [TSTheming defaultAccentColor];
     [_skipButton setTitle:LS_SKIP forState:UIControlStateNormal];
-    [_skipButton setTitleColor:[TSTheming defaultThemeColor] forState:UIControlStateNormal];
+    [_skipButton setTitleColor:[TSTheming defaultAccentColor] forState:UIControlStateNormal];
     [_skipButton addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
     self.facebookLoginButton = [[FBLoginView alloc] initWithReadPermissions:@[@"basic_info", @"email", @"user_birthday", @"friends_birthday"]];
     _facebookLoginButton.delegate = self;
@@ -58,27 +49,9 @@
     self.progressTimer = nil;
 }
 
-- (void)layoutView {
-    [_tutorialScrollView removeAllSubviews];
-    _tutorialScrollView.frame = _tutorialScrollView.superview.bounds;  // TODO: proper resize for scroll view with autolayout
-    CGFloat offsetX = 0;
-    for (UIImageView *imageView in _tutorialImageViews) {
-        // re-center the y of the tutorial images
-        imageView.center = CGPointMake(_tutorialScrollView.center.x + offsetX, _tutorialScrollView.center.y);
-        [_tutorialScrollView addSubview:imageView];
-        offsetX += _tutorialScrollView.bounds.size.width;
-    }
-    [self layoutLoginView];
-    self.loginView.center = CGPointMake(_tutorialScrollView.center.x + offsetX, _tutorialScrollView.center.y);
-    [_tutorialScrollView addSubview:_loginView];
-    offsetX += _tutorialScrollView.bounds.size.width;
-    
-    _tutorialScrollView.contentSize = CGSizeMake(offsetX, _tutorialScrollView.bounds.size.height);
-}
-
 - (void)layoutLoginView {
     [self.loginView removeAllSubviews];
-    _loginView.frame = CGRectMake(0, 0, _tutorialScrollView.bounds.size.width, _tutorialScrollView.bounds.size.height);
+//    _loginView.frame = CGRectMake(0, 0, _tutorialScrollView.bounds.size.width, _tutorialScrollView.bounds.size.height);  JJJ
     [_facebookLoginButton sizeToFit];
     _facebookLoginButton.center = CGPointMake(_loginView.center.x, _loginView.bounds.size.height - 50.0);
     [_loginView addSubview:_facebookLoginButton];
@@ -111,9 +84,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self layoutView];
     if (_skipTutorial) {
-        _tutorialScrollView.contentOffset = CGPointMake(_tutorialScrollView.contentSize.width - _tutorialScrollView.bounds.size.width, 0);
+//        _.contentOffset = CGPointMake(_tutorialScrollView.contentSize.width - _tutorialScrollView.bounds.size.width, 0);  JJJ
     }
 }
 
@@ -152,17 +124,18 @@
 
 - (void)buttonPressed:(id)sender {
     if (sender == _skipButton) {
-        [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionTransitionCrossDissolve|UIViewAnimationOptionAllowAnimatedContent animations:^{
-            // fade out
-            _tutorialScrollView.alpha = 0.0;
-        } completion:^(BOOL finished) {
-            // silently move to last page
-            _tutorialScrollView.contentOffset = CGPointMake(_tutorialScrollView.contentSize.width - _tutorialScrollView.bounds.size.width, 0);
-            [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionTransitionCrossDissolve|UIViewAnimationOptionAllowAnimatedContent animations:^{
-                // lastly, fade back in
-                _tutorialScrollView.alpha = 1;
-            } completion:nil];
-        }];
+//        [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionTransitionCrossDissolve|UIViewAnimationOptionAllowAnimatedContent animations:^{
+//            // fade out
+//            _tutorialScrollView.alpha = 0.0;
+//        } completion:^(BOOL finished) {
+//            // silently move to last page
+//            _tutorialScrollView.contentOffset = CGPointMake(_tutorialScrollView.contentSize.width - _tutorialScrollView.bounds.size.width, 0);
+//            [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionTransitionCrossDissolve|UIViewAnimationOptionAllowAnimatedContent animations:^{
+//                // lastly, fade back in
+//                _tutorialScrollView.alpha = 1;
+//            } completion:nil];
+//        }];
+        //JJJ
     }
 }
 
@@ -190,20 +163,53 @@
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (scrollView == _tutorialScrollView) {
-        CGFloat pageIndex = scrollView.contentOffset.x / scrollView.bounds.size.width;
-        CGFloat controlAlpha = 1.0;
-        if (pageIndex >= _tutorialPageControl.numberOfPages - 2.0) {
-            // if we are in second to last page and start to scroll, start to fade out
-            // the controls
-            CGFloat x = _tutorialPageControl.numberOfPages - pageIndex - 1.0;
-            controlAlpha = MAX(2.0 * x - 1, 0.0);
+//        CGFloat pageIndex = scrollView.contentOffset.x / scrollView.bounds.size.width;
+//        CGFloat controlAlpha = 1.0;
+//        if (pageIndex >= _tutorialPageControl.numberOfPages - 2.0) {
+//            // if we are in second to last page and start to scroll, start to fade out
+//            // the controls
+//            CGFloat x = _tutorialPageControl.numberOfPages - pageIndex - 1.0;
+//            controlAlpha = MAX(2.0 * x - 1, 0.0);
+//        }
+//        
+//        _tutorialPageControl.alpha = controlAlpha;
+//        _skipButton.alpha = controlAlpha;
+//        
+    if (scrollView == _tutorialPageView.controlScrollView) {
+        static CGPoint lastControlScrollOffset;
+        if (lastControlScrollOffset.x > _tutorialPageView.controlScrollView.contentOffset.x) {
+            self.isScrollingLeft = YES;
+        } else {
+            self.isScrollingLeft = NO;
         }
+        lastControlScrollOffset = _tutorialPageView.controlScrollView.contentOffset;
         
-        _tutorialPageControl.alpha = controlAlpha;
-        _skipButton.alpha = controlAlpha;
+        CGFloat backgroundTranslatedOffsetX = _tutorialPageView.controlScrollView.contentOffset.x / _tutorialPageView.controlBackgroundScrollRatio;
+        CGFloat foregroundTranslatedOffsetX = _tutorialPageView.controlScrollView.contentOffset.x / _tutorialPageView.controlForegroundScrollRatio;
         
-        _tutorialPageControl.currentPage = lround(pageIndex);
+        [_tutorialPageView.screenshotScrollView setContentOffset:CGPointMake(MIN(foregroundTranslatedOffsetX, _tutorialPageView.screenshotScrollView.contentSize.width), 0.0)];
+        [_tutorialPageView.backgroundScrollView setContentOffset:CGPointMake(MIN(backgroundTranslatedOffsetX, _tutorialPageView.backgroundScrollView.contentSize.width), 0.0)];
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (scrollView == _tutorialPageView.backgroundScrollView) {
+        
+    }
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    if (scrollView == _tutorialPageView.controlScrollView) {
+        CGFloat pageIndex = _tutorialPageView.screenshotScrollView.contentOffset.x / _tutorialPageView.screenshotScrollView.bounds.size.width;
+        CGFloat leftPageIndex = floor(pageIndex);
+        CGFloat targetPageIndex = self.isScrollingLeft ? leftPageIndex : leftPageIndex + 1.0;
+        
+        CGFloat controlTargetOffsetX = targetPageIndex * _tutorialPageView.screenshotScrollView.bounds.size.width * _tutorialPageView.controlForegroundScrollRatio;
+        
+        targetContentOffset->x = controlTargetOffsetX;
+        targetContentOffset->y = 0.0;
+        
+        _tutorialPageControl.currentPage = targetPageIndex;
     }
 }
 
@@ -339,6 +345,10 @@
                           cancelButtonTitle:@"OK"
                           otherButtonTitles:nil] show];
     }
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
 }
 
 @end
