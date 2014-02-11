@@ -17,6 +17,7 @@
 + (NSURL *)URLWithImageAssetNamed:(NSString *)assetName;
 + (UIView *)navigationBrandNameTitleView;
 + (UIView *)navigationTitleViewWithString:(NSString *)titleString;
++ (UIView *)navigationBrandImageTitleView;
 
 + (UIColor *)defaultThemeColor;
 + (UIColor *)defaultAccentColor;

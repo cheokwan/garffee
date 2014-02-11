@@ -110,7 +110,7 @@
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:serviceURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
     request.HTTPMethod = @"GET";
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+//    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     if (serviceHostType == RestManagerServiceHostApp) {
         [request setValue:self.appToken forHTTPHeaderField:@"Authorization"];
     }
@@ -341,7 +341,7 @@
     // XXXXXX
     for (MItemInfo *item in order.items) {
         // XXX-SERVER-BUG: need to change the orderID into nullable foreign key
-        item.orderID = @3;
+        item.orderID = @3222;
     }
     
     RKRequestDescriptor *serialization = [RKRequestDescriptor requestDescriptorWithMapping:[MOrderInfo giftCouponCreationEntityMapping] objectClass:MOrderInfo.class rootKeyPath:nil method:RKRequestMethodPOST];

@@ -23,8 +23,10 @@
 - (void)initializeView {
     _bottomBackgroundView.backgroundColor = [[TSTheming defaultThemeColor] colorWithAlphaComponent:0.7];
     _brandNameView.image = [UIImage imageNamed:@"splash_garffee"];
-    _descriptionLabel.textColor = [TSTheming defaultAccentColor];
-    _descriptionLabel.backgroundColor = [UIColor clearColor];
+    _descriptionLabel1.textColor = [TSTheming defaultAccentColor];
+    _descriptionLabel1.backgroundColor = [UIColor clearColor];
+    _descriptionLabel2.textColor = [TSTheming defaultAccentColor];
+    _descriptionLabel2.backgroundColor = [UIColor clearColor];
     
     _anchorPhoneImageView.image = [UIImage imageNamed:@"splash_iphone"];
     
@@ -66,8 +68,7 @@
     }
     _screenshotScrollView.contentSize = CGSizeMake(offsetX, _screenshotScrollView.bounds.size.height);
     
-    CGFloat controlRatio = _controlScrollView.bounds.size.width / _screenshotScrollView.bounds.size.width;
-    _controlScrollView.contentSize = CGSizeMake(_screenshotScrollView.contentSize.width * controlRatio, _controlScrollView.bounds.size.height);
+    _controlScrollView.contentSize = CGSizeMake(_controlScrollView.bounds.size.width * TutorialPageViewPageTotal, _controlScrollView.bounds.size.height);
     _controlScrollView.backgroundColor = [UIColor clearColor];
 }
 
@@ -77,7 +78,8 @@
 }
 
 - (CGFloat)controlForegroundScrollRatio {
-    return (_controlScrollView.contentSize.width - _controlScrollView.bounds.size.width) / (_screenshotScrollView.contentSize.width - _screenshotScrollView.bounds.size.width);
+//    return (_controlScrollView.contentSize.width - _controlScrollView.bounds.size.width) / (_screenshotScrollView.contentSize.width - _screenshotScrollView.bounds.size.width);
+    return (_controlScrollView.contentSize.width - _controlScrollView.bounds.size.width) / (_screenshotScrollView.contentSize.width);
 }
 
 - (CGFloat)controlBackgroundScrollRatio {

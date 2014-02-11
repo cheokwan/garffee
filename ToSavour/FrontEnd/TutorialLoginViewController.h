@@ -26,16 +26,6 @@ typedef enum {
     TutorialLoginRegistrationStageTotal = 16
 } TutorialLoginRegistrationStage;
 
-typedef enum {
-    TutorialLoginTutorialPageHome = 0,
-    TutorialLoginTutorialPageOrder,
-    TutorialLoginTutorialPageCart,
-    TutorialLoginTutorialPageStore,
-    TutorialLoginTutorialPageFriends,
-    TutorialLoginTutorialPageLogin,
-    TutorialLoginTutorialPageTotal,
-} TutorialLoginTutorialPage;
-
 
 @interface TutorialLoginViewController : UIViewController<UIScrollViewDelegate, FBLoginViewDelegate, RestManagerResponseHandler, DataFetchManagerHandler>
 

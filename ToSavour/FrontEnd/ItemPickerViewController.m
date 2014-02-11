@@ -31,11 +31,10 @@ typedef enum {
 @property (nonatomic, strong)   ItemPickerTableViewCell *itemPickerPrototypeCell;
 @property (nonatomic, assign)   UITableViewRowAnimation animationStyle;  // XXX-TEST
 
-@property (nonatomic, strong)   ItemPickerTableViewCell *cachedProductCategoryAndNameCell;
-@property (nonatomic, strong)   ItemPickerTableViewCell *cachedSubmitButtonCell;
 @property (nonatomic, strong)   ItemGridView *addItemButton;
 
 @property (nonatomic, assign)   BOOL viewAppeared;
+@property (nonatomic, strong)   NSArray *cachedSelectedItemIndexes;
 @end
 
 @implementation ItemPickerViewController
@@ -72,6 +71,17 @@ typedef enum {
     return box;
 }
 
+- (NSArray *)cachedSelectedItemIndexes {
+    if (!_cachedSelectedItemIndexes) {
+        NSMutableArray *cache = [NSMutableArray array];
+        for (NSInteger i = 0; i < self.allProducts.count; ++i) {
+            [cache addObject:[NSMutableDictionary dictionary]];
+        }
+        self.cachedSelectedItemIndexes = cache;
+    }
+    return _cachedSelectedItemIndexes;
+}
+
 - (void)initializeView {
     _itemTable.dataSource = self;
     _itemTable.delegate = self;
@@ -79,6 +89,7 @@ typedef enum {
     _itemTable.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     _itemTable.separatorColor = [TSTheming defaultAccentColor];
     _itemTable.backgroundColor = [TSTheming defaultContrastColor];
+    _itemTable.contentInset = UIEdgeInsetsMake(0.0, 0.0, self.itemPickerPrototypeCell.bounds.size.height, 0.0);
     
     [_itemTable addSubview:self.lineView];
     [self.view addSubview:self.boxView];
@@ -251,6 +262,14 @@ typedef enum {
     return _allProducts;
 }
 
+- (NSInteger)selectedProductIndex {
+    NSInteger index = NSNotFound;
+    if (self.selectedProduct) {
+        index = [self.allProducts indexOfObject:self.selectedProduct];
+    }
+    return index;
+}
+
 - (NSArray *)productsUnderCategory:(NSString *)category {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category = %@", category];
     return [self.allProducts filteredArrayUsingPredicate:predicate];
@@ -301,13 +320,12 @@ typedef enum {
     
     switch (indexPath.section) {
         case ItemPickerSectionProductCategoryAndName:
-//            cell = _cachedProductCategoryAndNameCell;
+            // can't do any caching of the cell manually, it's problematic
             break;
         case ItemPickerSectionProductOptions:
             // since the options cell are dynamic, we don't do caching at this point
             break;
         case ItemPickerSectionSubmitButton:
-//            cell = _cachedSubmitButtonCell;
             break;
     }
     if (!cell) {
@@ -335,8 +353,7 @@ typedef enum {
                 itemView.delegate = self;
                 [itemViews addObject:itemView];
             }
-            defaultChoiceIndex = [self.allProducts indexOfObject:self.selectedProduct];
-            self.cachedProductCategoryAndNameCell = itemPickerCell;
+            defaultChoiceIndex = [self selectedProductIndex];
         }
             break;
         case ItemPickerSectionProductOptions: {
@@ -363,16 +380,21 @@ typedef enum {
                 // if no index found, use the default choice
                 defaultChoiceIndex = [configurableOption.defaultChoice intValue];
             }
+            
+            // if there exist a cached user selected choice, takes first proiority
+            NSNumber *cachedChoiceIndex = self.cachedSelectedItemIndexes[[self selectedProductIndex]][indexPath];
+            if (cachedChoiceIndex) {
+                defaultChoiceIndex = [cachedChoiceIndex intValue];
+            }
         }
             break;
         case ItemPickerSectionSubmitButton: {
             itemViews = [NSMutableArray array];
-            NSURL *imageURL = [NSURL URLWithString:[[MGlobalConfiguration cachedBlobHostName] stringByAppendingPathComponent:@"productimages/cup_1.png"]];  // TODO: should we get some other image?
+            NSURL *imageURL = [TSTheming URLWithImageAssetNamed:@"add2cart@2x"];
             NSString *buttonTitle = _editingItem ? LS_FINISH_EDIT : LS_ADD_TO_CART;
             self.addItemButton = [[ItemGridView alloc] initWithFrame:itemViewFrame text:buttonTitle imageURL:imageURL interactable:YES shouldReceiveNotification:YES];
             _addItemButton.delegate = self;
             [itemViews addObject:_addItemButton];
-            self.cachedSubmitButtonCell = itemPickerCell;
         }
             break;
         default:
@@ -382,7 +404,7 @@ typedef enum {
         [itemPickerCell.pickerScrollView addItemViews:itemViews];
         itemPickerCell.pickerScrollView.occupiedIndexPath = indexPath;
         itemPickerCell.pickerScrollView.pickerDelegate = self;
-        if (defaultChoiceIndex >= 0 && defaultChoiceIndex != NSNotFound) {
+        if (defaultChoiceIndex != NSNotFound && defaultChoiceIndex >= 0 && defaultChoiceIndex < itemViews.count) {
             [itemPickerCell.pickerScrollView selectItemAtIndex:defaultChoiceIndex animated:NO];
         }
     }
@@ -414,7 +436,13 @@ typedef enum {
             [_itemTable reloadSections:[NSIndexSet indexSetWithIndex:ItemPickerSectionProductOptions] withRowAnimation:self.animationStyle];
         }
             break;
-        case ItemPickerSectionProductOptions:
+        case ItemPickerSectionProductOptions: {
+            // cache the selected option
+            NSInteger productIndex = [self selectedProductIndex];
+            if (productIndex != NSNotFound) {
+                self.cachedSelectedItemIndexes[productIndex][indexPath] = @(index);
+            }
+        }
             break;
         default:
             break;

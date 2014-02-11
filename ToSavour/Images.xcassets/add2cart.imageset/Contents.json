@@ -3,11 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "splash_bg.png"
+      "filename" : "add2cart.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "add2cart@2x.png"
     }
   ],
   "info" : {

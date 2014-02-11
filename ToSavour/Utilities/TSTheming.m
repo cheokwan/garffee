@@ -76,6 +76,13 @@
     return [TSTheming navigationTitleViewWithString:BRAND_NAME];
 }
 
++ (UIView *)navigationBrandImageTitleView {
+    UIImageView *titleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 100.0, 36.0)];
+    titleImageView.contentMode = UIViewContentModeScaleAspectFit;
+    titleImageView.image = [UIImage imageNamed:@"logo_title"];
+    return titleImageView;
+}
+
 + (UIView *)navigationTitleViewWithString:(NSString *)titleString {
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.text = titleString;

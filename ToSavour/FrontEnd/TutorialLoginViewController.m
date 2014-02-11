@@ -17,6 +17,12 @@
 @interface TutorialLoginViewController ()
 @property (nonatomic, strong) NSTimer *progressTimer;
 @property (nonatomic, assign) BOOL isScrollingLeft;
+@property (nonatomic, strong) NSArray *tutorialPageDescriptions;
+@property (nonatomic, strong) UIView *loginPageView;
+
+@property (nonatomic, strong) UILabel *loginPageDescriptionText;
+@property (nonatomic, strong) UIImageView *loginPageImageView;
+@property (nonatomic, strong) UILabel *loginPageSloganText;
 @end
 
 @implementation TutorialLoginViewController
@@ -30,9 +36,12 @@
     _tutorialPageView.screenshotScrollView.delegate = self;
     _tutorialPageView.controlScrollView.delegate = self;
     
-    _tutorialPageControl.numberOfPages = TutorialLoginTutorialPageTotal;
+    _tutorialPageControl.numberOfPages = TutorialPageViewPageTotal;
     _tutorialPageControl.pageIndicatorTintColor = [[TSTheming defaultAccentColor] colorWithAlphaComponent:0.5];
     _tutorialPageControl.currentPageIndicatorTintColor = [TSTheming defaultAccentColor];
+    _tutorialPageView.descriptionLabel1.text = self.tutorialPageDescriptions[0];
+    _tutorialPageView.descriptionLabel2.text = self.tutorialPageDescriptions[1];
+    
     [_skipButton setTitle:LS_SKIP forState:UIControlStateNormal];
     [_skipButton setTitleColor:[TSTheming defaultAccentColor] forState:UIControlStateNormal];
     [_skipButton addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -40,6 +49,51 @@
     _facebookLoginButton.delegate = self;
     [self.view bringSubviewToFront:_tutorialPageControl];
     [self.view bringSubviewToFront:_skipButton];
+    
+    [self initializeLoginPage];
+}
+
+// TODO: too much code, refactor this
+- (void)initializeLoginPage {
+//    CGRect loginPageFrame = CGRectOffset(_tutorialPageView.bounds, _tutorialPageView.controlScrollView.contentSize.width - _tutorialPageView.controlScrollView.bounds.size.width, 0.0);  slide out effect
+    CGRect loginPageFrame = _tutorialPageView.bounds;
+    self.loginPageView = [[UIView alloc] initWithFrame:loginPageFrame];
+    _loginPageView.backgroundColor = [UIColor clearColor];
+    _loginPageView.alpha = 0.0;
+    
+    [_facebookLoginButton sizeToFit];
+    _facebookLoginButton.center = CGPointMake(loginPageFrame.size.width / 2.0, loginPageFrame.size.height - 35.0);
+    _facebookLoginButton.alpha = 0.0;
+    [_tutorialPageView addSubview:_facebookLoginButton];
+    
+    self.loginPageDescriptionText = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, loginPageFrame.size.width, 20.0)];
+    _loginPageDescriptionText.text = [NSString stringWithFormat:NSLocalizedString(@"Sign up or log in to your %@ account", @""), BRAND_NAME];
+    _loginPageDescriptionText.font = [UIFont systemFontOfSize:12.0];
+    _loginPageDescriptionText.textColor = [TSTheming defaultAccentColor];
+    _loginPageDescriptionText.textAlignment = NSTextAlignmentCenter;
+    _loginPageDescriptionText.center = CGPointMake(_facebookLoginButton.center.x, _facebookLoginButton.center.y - 35.0);
+    _loginPageDescriptionText.alpha = 0.0;
+    [_tutorialPageView addSubview:_loginPageDescriptionText];
+    
+    CGFloat imageCenterY = (_tutorialPageView.bounds.size.height - _tutorialPageView.bottomBackgroundView.bounds.size.height) / 2.0;
+    self.loginPageImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 160, 160)];
+    _loginPageImageView.center = CGPointMake(_tutorialPageView.center.x, imageCenterY);
+    _loginPageImageView.image = [UIImage imageNamed:@"app_icon"];
+    _loginPageImageView.layer.masksToBounds = YES;
+    _loginPageImageView.layer.cornerRadius = 80.0;
+    _loginPageImageView.alpha = 0.0;
+    [_tutorialPageView addSubview:_loginPageImageView];
+    
+    self.loginPageSloganText = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, loginPageFrame.size.width, 30.0)];
+    _loginPageSloganText.text = [NSString stringWithFormat:NSLocalizedString(@"Start Ordering Your Cup Today", @"")];
+    _loginPageSloganText.font = [UIFont systemFontOfSize:20.0];
+    _loginPageSloganText.textColor = [TSTheming defaultAccentColor];
+    _loginPageSloganText.textAlignment = NSTextAlignmentCenter;
+    _loginPageSloganText.center = CGPointMake(_loginPageImageView.center.x, _loginPageImageView.center.y + 110.0);
+    _loginPageSloganText.alpha = 0.0;
+//    [_tutorialPageView addSubview:_loginPageSloganText];
+    
+//    [_tutorialPageView addSubview:_loginPageView];
 }
 
 - (void)dealloc {
@@ -47,27 +101,6 @@
     self.spinner = nil;
     [_progressTimer invalidate];
     self.progressTimer = nil;
-}
-
-- (void)layoutLoginView {
-    [self.loginView removeAllSubviews];
-//    _loginView.frame = CGRectMake(0, 0, _tutorialScrollView.bounds.size.width, _tutorialScrollView.bounds.size.height);  JJJ
-    [_facebookLoginButton sizeToFit];
-    _facebookLoginButton.center = CGPointMake(_loginView.center.x, _loginView.bounds.size.height - 50.0);
-    [_loginView addSubview:_facebookLoginButton];
-    UILabel *descriptionText = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, _loginView.bounds.size.width, 20.0)];
-    descriptionText.text = [NSString stringWithFormat:NSLocalizedString(@"Sign up or log in to your %@ account", @""), BRAND_NAME];
-    descriptionText.font = [UIFont systemFontOfSize:12.0];
-    descriptionText.tintColor = [UIColor blackColor];
-    descriptionText.textAlignment = NSTextAlignmentCenter;
-    descriptionText.center = CGPointMake(_facebookLoginButton.center.x, _facebookLoginButton.center.y - 40.0);
-    [_loginView addSubview:descriptionText];
-    // XXX-MOCK
-    UIImageView *loginImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 200, 320)];
-    loginImageView.backgroundColor = [UIColor lightGrayColor];
-    loginImageView.center = CGPointMake(_loginView.center.x, _loginView.center.y - 40.0);
-    [_loginView addSubview:loginImageView];
-    // XXX
 }
 
 - (void)viewDidLoad
@@ -85,15 +118,24 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     if (_skipTutorial) {
-//        _.contentOffset = CGPointMake(_tutorialScrollView.contentSize.width - _tutorialScrollView.bounds.size.width, 0);  JJJ
+        _tutorialPageView.controlScrollView.contentOffset = CGPointMake(_tutorialPageView.controlScrollView.contentSize.width - _tutorialPageView.controlScrollView.bounds.size.width, 0);
     }
 }
 
-- (UIView *)loginView {
-    if (!_loginView) {
-        self.loginView = [[UIView alloc] init];
+- (NSArray *)tutorialPageDescriptions {
+    if (!_tutorialPageDescriptions) {
+        self.tutorialPageDescriptions = @[NSLocalizedString(@"Your Own Café, Anytime, Anywhere", @""),
+                                          @"",
+                                          NSLocalizedString(@"Let Your Taste Design", @""),
+                                          NSLocalizedString(@"Your Own Perfect Cup", @""),
+                                          NSLocalizedString(@"Make Your Purchase Right From Your Phone", @""),
+                                          NSLocalizedString(@"Never Need To Wait In Line Again!", @""),
+                                          NSLocalizedString(@"Pick A Store At Your Convenience", @""),
+                                          NSLocalizedString(@"Your Order Will Be Ready Right Before You Arrive", @""),
+                                          NSLocalizedString(@"You can always buy your friends a coffee", @""),
+                                          NSLocalizedString(@"Now Anytime, Anywhere too", @"")];
     }
-    return _loginView;
+    return _tutorialPageDescriptions;
 }
 
 - (NSTimer *)progressTimer {
@@ -126,16 +168,18 @@
     if (sender == _skipButton) {
 //        [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionTransitionCrossDissolve|UIViewAnimationOptionAllowAnimatedContent animations:^{
 //            // fade out
-//            _tutorialScrollView.alpha = 0.0;
+//            _tutorialPageView.alpha = 0.0;
 //        } completion:^(BOOL finished) {
 //            // silently move to last page
-//            _tutorialScrollView.contentOffset = CGPointMake(_tutorialScrollView.contentSize.width - _tutorialScrollView.bounds.size.width, 0);
+//            _tutorialPageView.controlScrollView.contentOffset = CGPointMake(_tutorialPageView.controlScrollView.contentSize.width - _tutorialPageView.controlScrollView.bounds.size.width, 0);
 //            [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionTransitionCrossDissolve|UIViewAnimationOptionAllowAnimatedContent animations:^{
 //                // lastly, fade back in
-//                _tutorialScrollView.alpha = 1;
+//                _tutorialPageView.alpha = 1.0;
 //            } completion:nil];
 //        }];
-        //JJJ
+        
+        // rapid scroll effect
+        [_tutorialPageView.controlScrollView setContentOffset:CGPointMake(_tutorialPageView.controlScrollView.contentSize.width - _tutorialPageView.controlScrollView.bounds.size.width, 0) animated:YES];
     }
 }
 
@@ -163,18 +207,6 @@
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//        CGFloat pageIndex = scrollView.contentOffset.x / scrollView.bounds.size.width;
-//        CGFloat controlAlpha = 1.0;
-//        if (pageIndex >= _tutorialPageControl.numberOfPages - 2.0) {
-//            // if we are in second to last page and start to scroll, start to fade out
-//            // the controls
-//            CGFloat x = _tutorialPageControl.numberOfPages - pageIndex - 1.0;
-//            controlAlpha = MAX(2.0 * x - 1, 0.0);
-//        }
-//        
-//        _tutorialPageControl.alpha = controlAlpha;
-//        _skipButton.alpha = controlAlpha;
-//        
     if (scrollView == _tutorialPageView.controlScrollView) {
         static CGPoint lastControlScrollOffset;
         if (lastControlScrollOffset.x > _tutorialPageView.controlScrollView.contentOffset.x) {
@@ -187,8 +219,52 @@
         CGFloat backgroundTranslatedOffsetX = _tutorialPageView.controlScrollView.contentOffset.x / _tutorialPageView.controlBackgroundScrollRatio;
         CGFloat foregroundTranslatedOffsetX = _tutorialPageView.controlScrollView.contentOffset.x / _tutorialPageView.controlForegroundScrollRatio;
         
-        [_tutorialPageView.screenshotScrollView setContentOffset:CGPointMake(MIN(foregroundTranslatedOffsetX, _tutorialPageView.screenshotScrollView.contentSize.width), 0.0)];
-        [_tutorialPageView.backgroundScrollView setContentOffset:CGPointMake(MIN(backgroundTranslatedOffsetX, _tutorialPageView.backgroundScrollView.contentSize.width), 0.0)];
+        [_tutorialPageView.screenshotScrollView setContentOffset:CGPointMake(MIN(foregroundTranslatedOffsetX, _tutorialPageView.screenshotScrollView.contentSize.width - _tutorialPageView.screenshotScrollView.bounds.size.width), 0.0)];
+        [_tutorialPageView.backgroundScrollView setContentOffset:CGPointMake(MIN(backgroundTranslatedOffsetX, _tutorialPageView.backgroundScrollView.contentSize.width - _tutorialPageView.backgroundScrollView.bounds.size.width), 0.0)];
+        
+        
+        CGPoint pageViewCenter = CGPointMake(_tutorialPageView.bounds.size.width / 2.0, _tutorialPageView.bounds.size.height / 2.0);
+        static CGPoint originalScreenshotScrollViewCenter;
+        if (CGPointEqualToPoint(originalScreenshotScrollViewCenter, CGPointZero)) {
+            originalScreenshotScrollViewCenter = _tutorialPageView.screenshotScrollView.center;
+        }
+        CGFloat pageIndex = _tutorialPageView.controlScrollView.contentOffset.x / _tutorialPageView.controlScrollView.bounds.size.width;
+        
+        CGFloat elementOffsetX = 0.0;
+        CGFloat controlAlpha = 1.0;
+        CGFloat transitionAlpha = 1.0;
+        CGFloat phoneAlpha = 1.0;
+        CGFloat x = pageIndex - floor(pageIndex);
+        transitionAlpha = MIN(powf(2 * (x - 0.5), 2.0), 1.0);
+        
+        if (pageIndex >= TutorialPageViewPageTotal - 2.0) {
+            // if we are in second to last page and start to scroll, start to fade out
+            // the controls
+            CGFloat x = TutorialPageViewPageTotal - pageIndex - 1.0;
+            controlAlpha = MAX(2.0 * x - 1, 0.0);
+            transitionAlpha = controlAlpha;
+            
+            phoneAlpha = x;
+            
+            // slide out the various tutorial elements
+            elementOffsetX = MIN(pageIndex - (TutorialPageViewPageTotal - 2.0), 1.0) * _tutorialPageView.bounds.size.width;
+        }
+        _tutorialPageControl.alpha = controlAlpha;
+        _skipButton.alpha = controlAlpha;
+        _tutorialPageView.anchorPhoneImageView.alpha = phoneAlpha;
+        _tutorialPageView.screenshotScrollView.alpha = phoneAlpha;
+//        _tutorialPageView.brandNameView.alpha = controlAlpha;
+        _tutorialPageView.descriptionLabel1.alpha = transitionAlpha;
+        _tutorialPageView.descriptionLabel2.alpha = transitionAlpha;
+//        _loginPageView.alpha = -controlAlpha + 1.0;
+        _facebookLoginButton.alpha = -controlAlpha + 1.0;
+        _loginPageDescriptionText.alpha = -controlAlpha + 1.0;
+        _loginPageImageView.alpha = -controlAlpha + 1.0;
+        _loginPageImageView.alpha = -controlAlpha + 1.0;
+        _loginPageSloganText.alpha = -controlAlpha + 1.0;
+        
+        _tutorialPageView.anchorPhoneImageView.center = CGPointMake(pageViewCenter.x - elementOffsetX, _tutorialPageView.anchorPhoneImageView.center.y);
+        _tutorialPageView.screenshotScrollView.center = CGPointMake(originalScreenshotScrollViewCenter.x - elementOffsetX, _tutorialPageView.screenshotScrollView.center.y);
     }
 }
 
@@ -210,6 +286,18 @@
         targetContentOffset->y = 0.0;
         
         _tutorialPageControl.currentPage = targetPageIndex;
+        if (targetPageIndex >= 0 && targetPageIndex < TutorialPageViewPageLogin) {
+            if (_tutorialPageView.descriptionLabel1.alpha != 1.0) {
+                [UIView animateWithDuration:0.2 animations:^{
+                    _tutorialPageView.descriptionLabel1.alpha = 0.0;
+                    _tutorialPageView.descriptionLabel2.alpha = 0.0;
+                    _tutorialPageView.descriptionLabel1.text = self.tutorialPageDescriptions[(NSInteger)targetPageIndex * 2];
+                    _tutorialPageView.descriptionLabel2.text = self.tutorialPageDescriptions[(NSInteger)targetPageIndex * 2 + 1];
+                    _tutorialPageView.descriptionLabel1.alpha = 1.0;
+                    _tutorialPageView.descriptionLabel2.alpha = 1.0;
+                }];
+            }
+        }
     }
 }
 

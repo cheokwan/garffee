@@ -1017,7 +1017,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </pageControl>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZFw-dK-O5u">
-                                <rect key="frame" x="279" y="533" width="31" height="28"/>
+                                <rect key="frame" x="279" y="532" width="31" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                 <state key="normal" title="Skip!"/>
@@ -1027,7 +1027,7 @@
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="uzl-qJ-s7z" secondAttribute="centerX" constant="0.5" id="GFM-Jc-1hP"/>
                             <constraint firstAttribute="trailing" secondItem="ZFw-dK-O5u" secondAttribute="trailing" constant="10" id="NQm-Uj-w79"/>
-                            <constraint firstItem="ePI-CH-kup" firstAttribute="top" secondItem="ZFw-dK-O5u" secondAttribute="bottom" constant="7" id="WWw-jx-Saw"/>
+                            <constraint firstItem="ePI-CH-kup" firstAttribute="top" secondItem="ZFw-dK-O5u" secondAttribute="bottom" constant="8" id="WWw-jx-Saw"/>
                             <constraint firstItem="ePI-CH-kup" firstAttribute="top" secondItem="uzl-qJ-s7z" secondAttribute="bottom" constant="5" id="jx2-HY-l3U"/>
                         </constraints>
                     </view>
