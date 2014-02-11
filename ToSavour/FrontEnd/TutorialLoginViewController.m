@@ -55,16 +55,16 @@
 
 // TODO: too much code, refactor this
 - (void)initializeLoginPage {
-//    CGRect loginPageFrame = CGRectOffset(_tutorialPageView.bounds, _tutorialPageView.controlScrollView.contentSize.width - _tutorialPageView.controlScrollView.bounds.size.width, 0.0);  slide out effect
-    CGRect loginPageFrame = _tutorialPageView.bounds;
+    CGRect loginPageFrame = CGRectOffset(_tutorialPageView.bounds, _tutorialPageView.controlScrollView.contentSize.width - _tutorialPageView.controlScrollView.bounds.size.width, 0.0);  // slide out effect
+//    CGRect loginPageFrame = _tutorialPageView.bounds;
     self.loginPageView = [[UIView alloc] initWithFrame:loginPageFrame];
     _loginPageView.backgroundColor = [UIColor clearColor];
     _loginPageView.alpha = 0.0;
     
     [_facebookLoginButton sizeToFit];
     _facebookLoginButton.center = CGPointMake(loginPageFrame.size.width / 2.0, loginPageFrame.size.height - 35.0);
-    _facebookLoginButton.alpha = 0.0;
-    [_tutorialPageView addSubview:_facebookLoginButton];
+//    _facebookLoginButton.alpha = 0.0;
+    [_loginPageView addSubview:_facebookLoginButton];
     
     self.loginPageDescriptionText = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, loginPageFrame.size.width, 20.0)];
     _loginPageDescriptionText.text = [NSString stringWithFormat:NSLocalizedString(@"Sign up or log in to your %@ account", @""), BRAND_NAME];
@@ -72,8 +72,8 @@
     _loginPageDescriptionText.textColor = [TSTheming defaultAccentColor];
     _loginPageDescriptionText.textAlignment = NSTextAlignmentCenter;
     _loginPageDescriptionText.center = CGPointMake(_facebookLoginButton.center.x, _facebookLoginButton.center.y - 35.0);
-    _loginPageDescriptionText.alpha = 0.0;
-    [_tutorialPageView addSubview:_loginPageDescriptionText];
+//    _loginPageDescriptionText.alpha = 0.0;
+    [_loginPageView addSubview:_loginPageDescriptionText];
     
     CGFloat imageCenterY = (_tutorialPageView.bounds.size.height - _tutorialPageView.bottomBackgroundView.bounds.size.height) / 2.0;
     self.loginPageImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 160, 160)];
@@ -81,8 +81,8 @@
     _loginPageImageView.image = [UIImage imageNamed:@"app_icon"];
     _loginPageImageView.layer.masksToBounds = YES;
     _loginPageImageView.layer.cornerRadius = 80.0;
-    _loginPageImageView.alpha = 0.0;
-    [_tutorialPageView addSubview:_loginPageImageView];
+//    _loginPageImageView.alpha = 0.0;
+    [_loginPageView addSubview:_loginPageImageView];
     
     self.loginPageSloganText = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, loginPageFrame.size.width, 30.0)];
     _loginPageSloganText.text = [NSString stringWithFormat:NSLocalizedString(@"Start Ordering Your Cup Today", @"")];
@@ -90,10 +90,10 @@
     _loginPageSloganText.textColor = [TSTheming defaultAccentColor];
     _loginPageSloganText.textAlignment = NSTextAlignmentCenter;
     _loginPageSloganText.center = CGPointMake(_loginPageImageView.center.x, _loginPageImageView.center.y + 110.0);
-    _loginPageSloganText.alpha = 0.0;
+//    _loginPageSloganText.alpha = 0.0;
 //    [_tutorialPageView addSubview:_loginPageSloganText];
     
-//    [_tutorialPageView addSubview:_loginPageView];
+    [_tutorialPageView.controlScrollView addSubview:_loginPageView];
 }
 
 - (void)dealloc {
@@ -256,12 +256,12 @@
 //        _tutorialPageView.brandNameView.alpha = controlAlpha;
         _tutorialPageView.descriptionLabel1.alpha = transitionAlpha;
         _tutorialPageView.descriptionLabel2.alpha = transitionAlpha;
-//        _loginPageView.alpha = -controlAlpha + 1.0;
-        _facebookLoginButton.alpha = -controlAlpha + 1.0;
-        _loginPageDescriptionText.alpha = -controlAlpha + 1.0;
-        _loginPageImageView.alpha = -controlAlpha + 1.0;
-        _loginPageImageView.alpha = -controlAlpha + 1.0;
-        _loginPageSloganText.alpha = -controlAlpha + 1.0;
+        _loginPageView.alpha = -phoneAlpha + 1.0;
+//        _facebookLoginButton.alpha = -controlAlpha + 1.0;
+//        _loginPageDescriptionText.alpha = -controlAlpha + 1.0;
+//        _loginPageImageView.alpha = -controlAlpha + 1.0;
+//        _loginPageImageView.alpha = -controlAlpha + 1.0;
+//        _loginPageSloganText.alpha = -controlAlpha + 1.0;
         
         _tutorialPageView.anchorPhoneImageView.center = CGPointMake(pageViewCenter.x - elementOffsetX, _tutorialPageView.anchorPhoneImageView.center.y);
         _tutorialPageView.screenshotScrollView.center = CGPointMake(originalScreenshotScrollViewCenter.x - elementOffsetX, _tutorialPageView.screenshotScrollView.center.y);
