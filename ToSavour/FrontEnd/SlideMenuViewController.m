@@ -57,7 +57,11 @@ typedef enum {
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [[RestManager sharedInstance] fetchAppCouponInfo:self];
+    if (_isFetchNeeded) {
+        [[RestManager sharedInstance] fetchAppCouponInfo:self];
+        [[RestManager sharedInstance] fetchAppPendingOrderStatus:self];
+        self.isFetchNeeded = NO;
+    }
     [_tableView reloadData];
 }
 
@@ -76,13 +80,17 @@ typedef enum {
 
 - (void)restManagerService:(SEL)selector succeededWithOperation:(NSOperation *)operation userInfo:(NSDictionary *)userInfo {
     if (selector == @selector(fetchAppCouponInfo:)) {
-        [_tableView reloadSections:[NSIndexSet indexSetWithIndex:SlideMenuSectionGift] withRowAnimation:UITableViewRowAnimationNone];
+        [_tableView reloadSections:[NSIndexSet indexSetWithIndex:SlideMenuSectionGift] withRowAnimation:UITableViewRowAnimationFade];
+    } else if (selector == @selector(fetchAppPendingOrderStatus:)) {
+        [_tableView reloadSections:[NSIndexSet indexSetWithIndex:SlideMenuSectionMyOrder] withRowAnimation:UITableViewRowAnimationFade];
     }
 }
 
 - (void)restManagerService:(SEL)selector failedWithOperation:(NSOperation *)operation error:(NSError *)error userInfo:(NSDictionary *)userInfo {
     if (selector == @selector(fetchAppCouponInfo:)) {
         DDLogError(@"error fetching coupon info: %@", error);
+    } else if (selector == @selector(fetchAppPendingOrderStatus:)) {
+        DDLogError(@"error fetching pending order status: %@", error);
     }
 }
 

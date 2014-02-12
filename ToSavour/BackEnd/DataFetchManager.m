@@ -17,6 +17,7 @@
 @property (nonatomic, assign)   CFArrayRef allABContacts;
 
 @property (nonatomic, strong)   NSMutableArray *dummyImageViews;
+@property (nonatomic, strong)   NSMutableDictionary *fetchSelectorRetriesMap;
 @end
 
 @implementation DataFetchManager
@@ -54,6 +55,13 @@
         self.allABContacts = ABAddressBookCopyArrayOfAllPeople(_addressBook);
     }
     return _allABContacts;
+}
+
+- (NSMutableDictionary *)fetchSelectorRetriesMap {
+    if (!_fetchSelectorRetriesMap) {
+        self.fetchSelectorRetriesMap = [NSMutableDictionary dictionary];
+    }
+    return _fetchSelectorRetriesMap;
 }
 
 - (void)fetchAddressBookContactsInContext:(NSManagedObjectContext *)context handler:(id<DataFetchManagerHandler>)handler {
@@ -213,6 +221,11 @@
     }
 }
 
+- (void)performRestManagerFetch:(SEL)fetchSelector retries:(NSInteger)retries {
+    self.fetchSelectorRetriesMap[NSStringFromSelector(fetchSelector)] = @(retries - 1);
+    [[RestManager sharedInstance] performSelector:fetchSelector withObject:self];  // TODO: wtf is this compiler warning
+}
+
 #pragma mark - RestManagerResponseHandler
 
 - (void)restManagerService:(SEL)selector succeededWithOperation:(NSOperation *)operation userInfo:(NSDictionary *)userInfo {
@@ -264,6 +277,11 @@
             }
             [[AppDelegate sharedAppDelegate].managedObjectContext save];
         }
+    } else {
+        DDLogInfo(@"succefully perform RestManager fetch: %@", NSStringFromSelector(selector));
+        if (self.fetchSelectorRetriesMap[NSStringFromSelector(selector)]) {
+            [self.fetchSelectorRetriesMap removeObjectForKey:NSStringFromSelector(selector)];
+        }
     }
 }
 
@@ -272,6 +290,15 @@
         DDLogError(@"failed to query app friends with facebook contacts: %@", error);
     } else if (selector == @selector(queryAddressBookContactsInContext:handler:)) {
         DDLogError(@"failed to query app friends with address book contacts: %@", error);
+    } else {
+        DDLogWarn(@"failed to perform RestManager fetch: %@ - %@", NSStringFromSelector(selector), error);
+        NSNumber *retriesCount = self.fetchSelectorRetriesMap[NSStringFromSelector(selector)];
+        if (retriesCount && [retriesCount intValue] > 0) {
+            DDLogWarn(@"retrying %@ for %@ more time", NSStringFromSelector(selector), retriesCount);
+            [self performRestManagerFetch:selector retries:[retriesCount intValue]];
+        } else if ([retriesCount intValue] <= 0) {
+            [self.fetchSelectorRetriesMap removeObjectForKey:NSStringFromSelector(selector)];
+        }
     }
 }
 

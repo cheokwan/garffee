@@ -15,6 +15,7 @@
 #import "ItemPickerViewController.h"
 #import "UIView+Helpers.h"
 #import "FriendsListScrollView.h"
+#import "SlideMenuViewController.h"
 #import "MUserInfo.h"
 #import "MOrderInfo.h"
 #import "MCouponInfo.h"
@@ -45,13 +46,33 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.itemBagButton];
     self.navigationItem.titleView = [TSTheming navigationBrandNameTitleView];
     
+    BOOL is4InchScreen = [UIScreen mainScreen].bounds.size.height == 568.0;
+    
+    self.containerScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+    _containerScrollView.showsHorizontalScrollIndicator = NO;
+    _containerScrollView.showsVerticalScrollIndicator = NO;
+    _containerScrollView.bounces = NO;
+    _containerScrollView.scrollEnabled = !is4InchScreen;
+    
     HomeControlView *controlView = (HomeControlView *)[TSTheming viewWithNibName:NSStringFromClass(HomeControlView.class) owner:self];
     controlView.frame = self.homeControlView.frame;
+    [_homeControlView removeFromSuperview];
     self.homeControlView = controlView;
-    [self.view addSubview:_homeControlView];
     [_homeControlView.orderNowButton addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [_containerScrollView addSubview:_homeControlView];
+
+    PromotionScrollView *promoView = [[PromotionScrollView alloc] initWithFrame:_promotionScrollView.frame];
+    promoView.frame = self.promotionScrollView.frame;
+    [_promotionScrollView removeFromSuperview];
+    self.promotionScrollView = promoView;
+    [_promotionScrollView awakeFromNib];
+    [_containerScrollView addSubview:_promotionScrollView];
+    _promotionScrollView.delegate = self;
     
-    self.promotionScrollView.delegate = self;
+    _containerScrollView.contentSize = CGSizeMake(_containerScrollView.bounds.size.width, _homeControlView.bounds.size.height + _promotionScrollView.bounds.size.height);
+    _containerScrollView.contentInset = UIEdgeInsetsMake(64.0, 0.0, 49.0, 0.0);
+    _containerScrollView.contentOffset = CGPointMake(0.0, -64.0);
+    [self.view addSubview:_containerScrollView];
 }
 
 - (UIButton *)itemBagButton {
@@ -153,6 +174,7 @@
     if (sender == _itemBagButton) {
         static BOOL slided = NO;
         if (!slided) {
+            [AppDelegate sharedAppDelegate].slideMenuViewController.isFetchNeeded = YES;
             [[AppDelegate sharedAppDelegate].slidingViewController anchorTopViewToLeftAnimated:YES];
         } else {
             [self updateItemBadgeCount];

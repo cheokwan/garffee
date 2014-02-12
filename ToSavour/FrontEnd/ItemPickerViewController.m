@@ -35,7 +35,10 @@ typedef enum {
 
 @property (nonatomic, assign)   BOOL viewAppeared;
 @property (nonatomic, strong)   NSArray *cachedSelectedItemIndexes;
+@property (nonatomic, strong)   NSMutableDictionary *cachedItemViews;
 @end
+
+// TODO: all the logic too fucking complicated, refactor
 
 @implementation ItemPickerViewController
 
@@ -80,6 +83,13 @@ typedef enum {
         self.cachedSelectedItemIndexes = cache;
     }
     return _cachedSelectedItemIndexes;
+}
+
+- (NSMutableDictionary *)cachedItemViews {
+    if (!_cachedItemViews) {
+        _cachedItemViews = [NSMutableDictionary dictionary];
+    }
+    return _cachedItemViews;
 }
 
 - (void)initializeView {
@@ -188,6 +198,8 @@ typedef enum {
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         [self animateChoiceSelection];
+        // pre-generate the checkout button table view cell
+        [self tableView:_itemTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:ItemPickerSectionSubmitButton]];
     });
 }
 
@@ -347,25 +359,35 @@ typedef enum {
     CGRect itemViewFrame = CGRectMake(0, 0, itemPickerCell.pickerScrollView.itemViewDimension, itemPickerCell.pickerScrollView.itemViewDimension);
     switch (indexPath.section) {
         case ItemPickerSectionProductCategoryAndName: {
-            itemViews = [NSMutableArray array];
-            for (MProductInfo *product in self.allProducts) {
-                ItemGridView *itemView = [[ItemGridView alloc] initWithFrame:itemViewFrame text:product.name imageURL:product.URLForImageRepresentation interactable:YES shouldReceiveNotification:YES];
-                itemView.delegate = self;
-                [itemViews addObject:itemView];
+            if (self.cachedItemViews[indexPath]) {
+                itemViews = self.cachedItemViews[indexPath];
+            } else {
+                itemViews = [NSMutableArray array];
+                for (MProductInfo *product in self.allProducts) {
+                    ItemGridView *itemView = [[ItemGridView alloc] initWithFrame:itemViewFrame text:product.name imageURL:product.URLForImageRepresentation interactable:YES shouldReceiveNotification:YES];
+                    itemView.delegate = self;
+                    [itemViews addObject:itemView];
+                }
+                self.cachedItemViews[indexPath] = itemViews;
             }
             defaultChoiceIndex = [self selectedProductIndex];
         }
             break;
         case ItemPickerSectionProductOptions: {
-            itemViews = [NSMutableArray array];
             MProductConfigurableOption *configurableOption = self.selectedProduct.sortedConfigurableOptions[indexPath.row];
-            for (MProductOptionChoice *choice in configurableOption.sortedOptionChoices) {
-                ItemGridView *itemView = [[ItemGridView alloc] initWithFrame:itemViewFrame text:choice.name imageURL:choice.URLForImageRepresentation interactable:YES shouldReceiveNotification:YES];
-                if ([configurableOption.sortedOptionChoices indexOfObject:choice] == [configurableOption.defaultChoice intValue]) {
-                    itemView.isSuggested = YES;
+            if (self.cachedItemViews[indexPath]) {
+                itemViews = self.cachedItemViews[indexPath];
+            } else {
+                itemViews = [NSMutableArray array];
+                for (MProductOptionChoice *choice in configurableOption.sortedOptionChoices) {
+                    ItemGridView *itemView = [[ItemGridView alloc] initWithFrame:itemViewFrame text:choice.name imageURL:choice.URLForImageRepresentation interactable:YES shouldReceiveNotification:YES];
+                    if ([configurableOption.sortedOptionChoices indexOfObject:choice] == [configurableOption.defaultChoice intValue]) {
+                        itemView.isSuggested = YES;
+                    }
+                    itemView.delegate = self;
+                    [itemViews addObject:itemView];
                 }
-                itemView.delegate = self;
-                [itemViews addObject:itemView];
+                self.cachedItemViews[indexPath] = itemViews;
             }
             if ([_defaultItem.product isEqual:self.selectedProduct]) {
                 // search through the default item to find a selected option choice
@@ -389,12 +411,17 @@ typedef enum {
         }
             break;
         case ItemPickerSectionSubmitButton: {
-            itemViews = [NSMutableArray array];
-            NSURL *imageURL = [TSTheming URLWithImageAssetNamed:@"add2cart@2x"];
-            NSString *buttonTitle = _editingItem ? LS_FINISH_EDIT : LS_ADD_TO_CART;
-            self.addItemButton = [[ItemGridView alloc] initWithFrame:itemViewFrame text:buttonTitle imageURL:imageURL interactable:YES shouldReceiveNotification:YES];
-            _addItemButton.delegate = self;
-            [itemViews addObject:_addItemButton];
+            if (self.cachedItemViews[indexPath]) {
+                itemViews = self.cachedItemViews[indexPath];
+            } else {
+                itemViews = [NSMutableArray array];
+                NSURL *imageURL = [TSTheming URLWithImageAssetNamed:@"add2cart@2x"];
+                NSString *buttonTitle = _editingItem ? LS_FINISH_EDIT : LS_ADD_TO_CART;
+                self.addItemButton = [[ItemGridView alloc] initWithFrame:itemViewFrame text:buttonTitle imageURL:imageURL interactable:YES shouldReceiveNotification:YES];
+                _addItemButton.delegate = self;
+                [itemViews addObject:_addItemButton];
+                self.cachedItemViews[indexPath] = itemViews;
+            }
         }
             break;
         default:
@@ -433,6 +460,11 @@ typedef enum {
     switch (indexPath.section) {
         case ItemPickerSectionProductCategoryAndName: {
             self.selectedProduct = self.allProducts[index];
+            for (NSIndexPath *key in self.cachedItemViews.allKeys) {
+                if (key.section == ItemPickerSectionProductOptions) {
+                    [self.cachedItemViews removeObjectForKey:key];
+                }
+            }
             [_itemTable reloadSections:[NSIndexSet indexSetWithIndex:ItemPickerSectionProductOptions] withRowAnimation:self.animationStyle];
         }
             break;
@@ -468,6 +500,8 @@ typedef enum {
             // edited cart item
             [_editingItem deleteAllSelectedOptions];
             [_editingItem addOptionChoices:selectedOptionChoices];
+            _editingItem.product = self.selectedProduct;
+            _editingItem.productID = self.selectedProduct.id;
             if ([_delegate respondsToSelector:@selector(itemPicker:didEditItem:)]) {
                 [_delegate itemPicker:self didEditItem:_editingItem];
             }

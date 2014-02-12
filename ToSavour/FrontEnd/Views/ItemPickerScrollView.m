@@ -61,7 +61,9 @@
     }
     CGFloat offsetX = self.sideMargin;
     for (UIView *view in itemViews) {
+        view.transform = CGAffineTransformIdentity;
         view.frame = CGRectMake(offsetX, 0, self.itemViewDimension, self.itemViewDimension);
+        view.transform = CGAffineTransformMakeScale(1.0, 1.0);
         [self addSubview:view];
         offsetX += self.itemViewDimension;
     }

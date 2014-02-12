@@ -70,8 +70,8 @@
     self.mainTabBarController = (MainTabBarController *)[TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(MainTabBarController.class)];
     _slidingViewController.topViewController = _mainTabBarController;
     
-    SlideMenuViewController *slideMenu = (SlideMenuViewController *)[TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(SlideMenuViewController.class)];
-    TSNavigationController *slideMenuNaviController = [[TSNavigationController alloc] initWithRootViewController:slideMenu];
+    self.slideMenuViewController = (SlideMenuViewController *)[TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(SlideMenuViewController.class)];
+    TSNavigationController *slideMenuNaviController = [[TSNavigationController alloc] initWithRootViewController:_slideMenuViewController];
     slideMenuNaviController.navigationBarHidden = YES;
     _slidingViewController.underRightViewController = slideMenuNaviController;
     
@@ -97,7 +97,7 @@
         [_slidingViewController.topViewController presentViewController:tutorialLoginViewController animated:NO completion:nil];
     } else {
         // re-fetch user info again for updated app token
-        [[RestManager sharedInstance] fetchAppUserInfo:nil];
+        [[DataFetchManager sharedInstance] performRestManagerFetch:@selector(fetchAppUserInfo:) retries:3];
     }
     return YES;
 }

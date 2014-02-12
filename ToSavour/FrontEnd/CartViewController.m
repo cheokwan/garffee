@@ -72,6 +72,13 @@ typedef enum {
     self.navigationItem.titleView = [TSTheming navigationTitleViewWithString:LS_CART];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.addOrderButton];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.editCartButton];
+    
+    _placeholderCartImageView.contentMode = UIViewContentModeScaleAspectFit;
+    _placeholderCartImageView.image = [UIImage imageNamed:@"ico_no_item_cart"];
+    _placeholderDescriptionView.text = NSLocalizedString(@"Your Shopping Cart is empty. Need a coffee or sandwich?", @"");
+    _placeholderOrderNowButton.tintColor = [TSTheming defaultThemeColor];
+    [_placeholderOrderNowButton setTitle:LS_ORDER_NOW forState:UIControlStateNormal];
+    [_placeholderOrderNowButton addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -178,7 +185,7 @@ typedef enum {
 }
 
 - (void)buttonPressed:(id)sender {
-    if (sender == _addOrderButton) {
+    if (sender == _addOrderButton || sender == _placeholderOrderNowButton) {
         ItemPickerViewController *itemPicker = (ItemPickerViewController *)[TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(ItemPickerViewController.class)];
         itemPicker.delegate = self;
         TSNavigationController *naviController = [[TSNavigationController alloc] initWithRootViewController:itemPicker];
@@ -289,8 +296,23 @@ typedef enum {
     
     [_itemList reloadSections:[NSIndexSet indexSetWithIndex:CartSectionItems] withRowAnimation: animated ? UITableViewRowAnimationFade : UITableViewRowAnimationNone];
     
+    [self togglePlaceholderView];
+    
     // update cart tab badge
     [[AppDelegate sharedAppDelegate].mainTabBarController updateCartTabBadge:self.tabBarItem];
+}
+
+- (void)togglePlaceholderView {
+    // always animate for showing, not animate for hiding for now
+    if (self.inCartItems.count > 0) {
+        self.placeholderView.alpha = 0.0;
+        self.itemList.alpha = 1.0;
+    } else {
+        [UIView animateWithDuration:0.3 animations:^{
+            self.placeholderView.alpha = 1.0;
+            self.itemList.alpha = 0.0;
+        }];
+    }
 }
 
 - (void)updateRecipient:(MUserInfo *)recipient {

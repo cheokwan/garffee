@@ -291,6 +291,28 @@
     [self fetchManagedObjectsWithRequest:[self requestWithServiceHostType:RestManagerServiceHostApp endPoint:@"/orderhistories"] context:[AppDelegate sharedAppDelegate].managedObjectContext sourceSelector:_cmd responseDescriptors:@[[MOrderInfo defaultResponseDescriptor]] persist:YES handler:handler];
 }
 
+- (void)fetchAppPendingOrderStatus:(__weak id<RestManagerResponseHandler>)handler {
+    NSFetchRequest *fetchRequest = [MOrderInfo fetchRequest];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"status IN[c] %@", @[MOrderInfoStatusPending, MOrderInfoStatusInProgress, MOrderInfoStatusFinished]];
+    NSError *error = nil;
+    NSArray *ongoingOrders = [[AppDelegate sharedAppDelegate].managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    if (error) {
+        DDLogError(@"error fetching ongong orders while fetching remote order status: %@", error);
+        if ([handler respondsToSelector:@selector(restManagerService:failedWithOperation:error:userInfo:)]) {
+            [handler restManagerService:_cmd failedWithOperation:nil error:error userInfo:nil];
+        }
+    }
+    
+    for (MOrderInfo *order in ongoingOrders) {
+        if ([order.id longValue] > 0) {
+            NSMutableURLRequest *request = [self requestWithServiceHostType:RestManagerServiceHostApp endPoint:[NSString stringWithFormat:@"/orders/%@", [order.id stringValue]]];
+            [self fetchManagedObjectsWithRequest:request context:[AppDelegate sharedAppDelegate].managedObjectContext sourceSelector:_cmd responseDescriptors:@[[MOrderInfo defaultResponseDescriptor]] persist:YES handler:handler];
+        } else {
+            DDLogWarn(@"ongoing order has no order id: %@", order);
+        }
+    }
+}
+
 #pragma mark - Putting Data
 
 - (void)putUserInfo:(MUserInfo *)userInfo handler:(__weak id<RestManagerResponseHandler>)handler {

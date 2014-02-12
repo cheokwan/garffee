@@ -17,6 +17,11 @@
 
 @property (nonatomic, strong)   IBOutlet UITableView *itemList;
 @property (nonatomic, strong)   IBOutlet CartHeaderView *cartHeaderView;
+@property (nonatomic, strong)   IBOutlet UIView *placeholderView;
+@property (nonatomic, strong)   IBOutlet UIImageView *placeholderCartImageView;
+@property (nonatomic, strong)   IBOutlet UILabel *placeholderDescriptionView;
+@property (nonatomic, strong)   IBOutlet UIButton *placeholderOrderNowButton;
+
 @property (nonatomic, strong)   UIButton *addOrderButton;
 @property (nonatomic, strong)   UIButton *editCartButton;
 @property (nonatomic, strong)   UIButton *clearAllButton;

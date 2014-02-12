@@ -33,26 +33,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8fH-hF-dry" userLabel="HomeControlView" customClass="HomeControlView">
-                                <rect key="frame" x="0.0" y="269" width="320" height="250"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8fH-hF-dry" userLabel="HomeControlView" customClass="HomeControlView">
+                                <rect key="frame" x="0.0" y="205" width="320" height="250"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tPp-HL-1gn">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="250"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </scrollView>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="250" id="Dyo-Z5-K41"/>
-                                    <constraint firstAttribute="width" constant="320" id="l6w-Jk-tDm"/>
-                                </constraints>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qRe-el-KiA" customClass="PromotionScrollView">
-                                <rect key="frame" x="0.0" y="64" width="320" height="205"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="205"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="dIw-HY-r1i" firstAttribute="top" secondItem="8fH-hF-dry" secondAttribute="bottom" id="SP9-Ci-md8"/>
-                            <constraint firstItem="8fH-hF-dry" firstAttribute="leading" secondItem="Lk9-CK-vOd" secondAttribute="leading" id="gqW-DV-1Uh"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="0LV-x4-NJH"/>
                     <connections>
@@ -340,6 +338,47 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5tF-n4-Vcz" userLabel="Placeholder View">
+                                <rect key="frame" x="0.0" y="149" width="320" height="370"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1gz-bc-etc">
+                                        <rect key="frame" x="60" y="60" width="200" height="250"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2p9-Kx-wwR">
+                                                <rect key="frame" x="40" y="195" width="120" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                                <state key="normal" title="Order Now!">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                            </button>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Your Shopping Cart is empty. Need a coffee or sandwich!?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="fOX-zG-AhF" userLabel="Label - Placeholder description">
+                                                <rect key="frame" x="0.0" y="140" width="200" height="50"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ico_no_item_cart" translatesAutoresizingMaskIntoConstraints="NO" id="7d7-26-lXv">
+                                                <rect key="frame" x="40" y="35" width="120" height="94"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="250" id="P2T-Ei-MFi"/>
+                                            <constraint firstAttribute="width" constant="200" id="cbn-W0-0UM"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="centerY" secondItem="1gz-bc-etc" secondAttribute="centerY" id="ggE-Xg-GY6"/>
+                                    <constraint firstAttribute="centerX" secondItem="1gz-bc-etc" secondAttribute="centerX" id="pLh-rj-mKl"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3gm-uT-ucq" customClass="CartHeaderView">
                                 <rect key="frame" x="0.0" y="64" width="320" height="85"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -366,10 +405,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="5tF-n4-Vcz" secondAttribute="trailing" id="3MQ-8U-dcg"/>
+                            <constraint firstItem="5tF-n4-Vcz" firstAttribute="leading" secondItem="5hC-8Y-fDF" secondAttribute="leading" id="E0Z-yO-BLK"/>
                             <constraint firstAttribute="trailing" secondItem="M3B-Hq-9gH" secondAttribute="trailing" id="KAg-RQ-moy"/>
                             <constraint firstItem="vMN-ip-BAw" firstAttribute="top" secondItem="M3B-Hq-9gH" secondAttribute="bottom" id="LDt-hi-mTC"/>
                             <constraint firstItem="M3B-Hq-9gH" firstAttribute="leading" secondItem="5hC-8Y-fDF" secondAttribute="leading" id="Q1W-1M-iK3"/>
                             <constraint firstItem="M3B-Hq-9gH" firstAttribute="top" secondItem="ePw-PA-zq5" secondAttribute="bottom" id="QGd-Wk-E3I"/>
+                            <constraint firstItem="5tF-n4-Vcz" firstAttribute="top" secondItem="3gm-uT-ucq" secondAttribute="bottom" id="TeJ-P9-DNm"/>
+                            <constraint firstItem="vMN-ip-BAw" firstAttribute="top" secondItem="5tF-n4-Vcz" secondAttribute="bottom" id="f67-oM-3Z7"/>
                             <constraint firstAttribute="trailing" secondItem="3gm-uT-ucq" secondAttribute="trailing" id="oBb-g1-zzb"/>
                             <constraint firstItem="3gm-uT-ucq" firstAttribute="leading" secondItem="5hC-8Y-fDF" secondAttribute="leading" id="qhL-8f-wkc"/>
                             <constraint firstItem="3gm-uT-ucq" firstAttribute="top" secondItem="ePw-PA-zq5" secondAttribute="bottom" id="yY4-Et-tCr"/>
@@ -379,6 +422,10 @@
                     <connections>
                         <outlet property="cartHeaderView" destination="3gm-uT-ucq" id="g11-IG-dw9"/>
                         <outlet property="itemList" destination="M3B-Hq-9gH" id="9oO-UP-aug"/>
+                        <outlet property="placeholderCartImageView" destination="7d7-26-lXv" id="XzY-VK-NHX"/>
+                        <outlet property="placeholderDescriptionView" destination="fOX-zG-AhF" id="QQW-zN-gRe"/>
+                        <outlet property="placeholderOrderNowButton" destination="2p9-Kx-wwR" id="Pks-BU-48t"/>
+                        <outlet property="placeholderView" destination="5tF-n4-Vcz" id="5m9-pk-UYx"/>
                         <segue destination="2aX-JZ-I5p" kind="push" id="hUs-bL-abV"/>
                     </connections>
                 </viewController>
@@ -1127,6 +1174,7 @@
         <image name="btn_time_add" width="30" height="30"/>
         <image name="btn_time_del" width="30" height="30"/>
         <image name="ico_location" width="20" height="20"/>
+        <image name="ico_no_item_cart" width="61" height="47"/>
         <image name="ico_time" width="20" height="20"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

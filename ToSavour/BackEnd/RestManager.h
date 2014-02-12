@@ -41,6 +41,7 @@ static const NSString *appAPIBaseURLString = @"http://f34e2b0b303842659d3e58ed6d
 - (void)fetchBranches:(__weak id<RestManagerResponseHandler>)handler;
 - (void)fetchAppCouponInfo:(__weak id<RestManagerResponseHandler>)handler;
 - (void)fetchAppOrderHistories:(__weak id<RestManagerResponseHandler>)handler;
+- (void)fetchAppPendingOrderStatus:(__weak id<RestManagerResponseHandler>)handler;
 
 - (void)putUserInfo:(MUserInfo *)userInfo handler:(__weak id<RestManagerResponseHandler>)handler;
 - (void)postOrder:(MOrderInfo *)order handler:(__weak id<RestManagerResponseHandler>)handler;

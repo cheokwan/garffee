@@ -16,6 +16,7 @@
 
 @property (nonatomic, strong)   IBOutlet PromotionScrollView *promotionScrollView;
 @property (nonatomic, strong)   IBOutlet HomeControlView *homeControlView;
+@property (nonatomic, strong)   UIScrollView *containerScrollView;
 @property (nonatomic, strong, readonly) UIButton *itemBagButton;
 @property (nonatomic, strong, readonly) TSBadgeView *itemBadgeView;
 

@@ -9,11 +9,13 @@
 #import <UIKit/UIKit.h>
 #import <ECSlidingViewController/ECSlidingViewController.h>
 #import "MainTabBarController.h"
+#import "SlideMenuViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (nonatomic, strong) ECSlidingViewController *slidingViewController;
 @property (nonatomic, strong) MainTabBarController *mainTabBarController;
+@property (nonatomic, strong) SlideMenuViewController *slideMenuViewController;
 
 @property (strong, nonatomic) UIWindow *window;
 

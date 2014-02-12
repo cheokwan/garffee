@@ -11,5 +11,6 @@
 @interface SlideMenuViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, UIBarPositioningDelegate, NSFetchedResultsControllerDelegate, RestManagerResponseHandler>
 
 @property (nonatomic, strong)   IBOutlet UITableView *tableView;
+@property (nonatomic, assign)   BOOL isFetchNeeded;
 
 @end

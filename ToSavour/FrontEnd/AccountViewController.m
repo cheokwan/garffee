@@ -15,6 +15,7 @@
 #import "MItemInfo.h"
 #import "MProductInfo.h"
 #import "AccountInfoTableManager.h"
+#import "DataFetchManager.h"
 #import <UIView+Helpers/UIView+Helpers.h>
 
 @interface AccountViewController ()
@@ -56,6 +57,7 @@
     [super viewDidLoad];
     [self initializeView];
     self.isKeyboardShowing = NO;
+    [[DataFetchManager sharedInstance] performRestManagerFetch:@selector(fetchAppOrderHistories:) retries:3];
 }
 
 - (void)didReceiveMemoryWarning

@@ -22,4 +22,6 @@
 - (void)discoverAddressBookAppUsersContext:(NSManagedObjectContext *)context handler:(id<DataFetchManagerHandler>)handler;
 - (void)cacheLocalProductImages:(NSManagedObjectContext *)context handler:(id<DataFetchManagerHandler>)handler;
 
+- (void)performRestManagerFetch:(SEL)fetchSelector retries:(NSInteger)retries;
+
 @end
