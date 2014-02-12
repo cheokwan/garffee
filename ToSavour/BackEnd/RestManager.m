@@ -316,6 +316,9 @@
 #pragma mark - Putting Data
 
 - (void)putUserInfo:(MUserInfo *)userInfo handler:(__weak id<RestManagerResponseHandler>)handler {
+    userInfo.isDirty = NO;
+    [userInfo.managedObjectContext save];
+    
     NSMutableURLRequest *request = [self requestWithServiceHostType:RestManagerServiceHostApp endPoint:[NSString stringWithFormat:@"/users/%@", userInfo.appID]];
     request.HTTPMethod = @"PUT";
     
