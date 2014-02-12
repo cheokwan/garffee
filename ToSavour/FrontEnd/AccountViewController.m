@@ -17,6 +17,9 @@
 #import "AccountInfoTableManager.h"
 #import "DataFetchManager.h"
 #import <UIView+Helpers/UIView+Helpers.h>
+#import <UIAlertView-Blocks/UIAlertView+Blocks.h>
+#import <FacebookSDK/FacebookSDK.h>  // XXXXXX
+#import "TutorialLoginViewController.h"  // XXXXXX
 
 @interface AccountViewController ()
 @property (nonatomic, strong)   AccountInfoTableViewCell *accountInfoPrototypeCell;
@@ -29,6 +32,8 @@
 @property (nonatomic, strong)   UIToolbar *inputToolbar;
 @property (nonatomic, strong)   UIBarButtonItem *doneButton, *cancelButton;
 @property (nonatomic, strong)   UIDatePicker *birthdayDatePicker;
+
+@property (nonatomic, strong)   UIAlertView *logoutAlertView;  // XXXXXX
 @end
 
 @implementation AccountViewController
@@ -542,6 +547,23 @@
 }
 
 - (void)accessoryButtonPressedInAvatarView:(AvatarView *)avatarView {
+    // XXXXXX for testing logout
+    RIButtonItem *cancelButton = [RIButtonItem itemWithLabel:LS_CANCEL];
+    [cancelButton setAction:^{
+        self.logoutAlertView = nil;
+    }];
+    RIButtonItem *confirmButton = [RIButtonItem itemWithLabel:LS_CONFIRM];
+    [confirmButton setAction:^{
+        [[FBSession activeSession] closeAndClearTokenInformation];
+        
+        TutorialLoginViewController *tutorialLoginViewController = (TutorialLoginViewController *)[TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(TutorialLoginViewController.class)];
+        tutorialLoginViewController.skipTutorial = YES;
+        tutorialLoginViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        [self presentViewController:tutorialLoginViewController animated:YES completion:nil];
+        self.logoutAlertView = nil;
+    }];
+    self.logoutAlertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Are you sure you want to logout?", @"") message:nil cancelButtonItem:cancelButton otherButtonItems:confirmButton, nil];
+    [_logoutAlertView show];
 }
 
 #pragma mark - RestManagerResponseHandler
