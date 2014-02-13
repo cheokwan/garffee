@@ -110,13 +110,13 @@
             self.confirmClearCartAlertView = nil;
         }];
         
-        RIButtonItem *continueButton = [RIButtonItem itemWithLabel:LS_CONTINUE];
+        RIButtonItem *continueButton = [RIButtonItem itemWithLabel:LS_CLEAR];
         [continueButton setAction:^{
             [self addLastOrderToCart];
             self.confirmClearCartAlertView = nil;
         }];
         
-        self.confirmClearCartAlertView = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Adding these new items will clear the existing items in your cart, continue?"] message:nil cancelButtonItem:cancelButton otherButtonItems:continueButton, nil];
+        self.confirmClearCartAlertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Adding these new items will clear the existing items in your cart, continue?", @"") message:nil cancelButtonItem:cancelButton otherButtonItems:continueButton, nil];
     }
     return _confirmClearCartAlertView;
 }
@@ -124,7 +124,6 @@
 - (void)addLastOrderToCart {
     MainTabBarController *tabBarController = [AppDelegate sharedAppDelegate].mainTabBarController;
     CartViewController *cart = (CartViewController *)[tabBarController viewControllerAtTab:MainTabBarControllerTabCart];
-    NSAssert([cart isKindOfClass:CartViewController.class], @"getting cart from tab bar and it is not of class CartViewController");
     
     for (MItemInfo *item in cart.inCartItems) {
         [cart.pendingOrder removeItemsObject:item];
@@ -135,6 +134,10 @@
     NSArray *lastOrderItems = [lastOrder.items allObjects];
     for (MItemInfo *item in lastOrderItems) {
         MItemInfo *itemCopy = [item deepCopyWithZone:nil];
+        itemCopy.couponID = nil;
+        itemCopy.coupon = nil;
+        itemCopy.orderID = nil;
+        itemCopy.order = nil;
         [cart.pendingOrder addItemsObject:itemCopy];
     }
     
@@ -184,7 +187,6 @@
     } else if (sender == _homeControlView.orderNowButton) {
         MainTabBarController *tabBarController = [AppDelegate sharedAppDelegate].mainTabBarController;
         CartViewController *cart = (CartViewController *)[tabBarController viewControllerAtTab:MainTabBarControllerTabCart];
-        NSAssert([cart isKindOfClass:CartViewController.class], @"getting cart from tab bar and it is not of class CartViewController");
         
         if (_homeControlView.cachedLastOrder) {
             // if there was a last order, add the items to cart

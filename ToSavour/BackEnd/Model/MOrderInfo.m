@@ -102,20 +102,24 @@
         NSFetchRequest *fetchRequest = [MBranch fetchRequest];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"branchId = %@", self.storeBranchID];
         NSManagedObject *branchObject = [self.managedObjectContext fetchUniqueObject:fetchRequest];
-        if (!self.storeBranch && branchObject && [branchObject isKindOfClass:MBranch.class]) {
+        if (branchObject && [branchObject isKindOfClass:MBranch.class]) {
             [self changePrimitiveValue:branchObject forKey:@"storeBranch"];
         }
     } else if ([key isEqualToString:@"userID"]) {
         NSFetchRequest *fetchRequest = [MUserInfo fetchRequest];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"appID = %@", self.userID];
         NSManagedObject *userObject = [self.managedObjectContext fetchUniqueObject:fetchRequest];
-        if (!self.recipient && userObject && [userObject isKindOfClass:MUserInfo.class]) {
+        if (userObject && [userObject isKindOfClass:MUserInfo.class]) {
             [self changePrimitiveValue:userObject forKey:@"recipient"];
         }
     } else if ([key isEqualToString:@"storeBranch"]) {
-        [self changePrimitiveValue:self.storeBranch.branchId forKey:@"storeBranchID"];
+        if (self.storeBranch.branchId) {
+            [self changePrimitiveValue:self.storeBranch.branchId forKey:@"storeBranchID"];
+        }
     } else if ([key isEqualToString:@"recipient"]) {
-        [self changePrimitiveValue:self.recipient.appID forKey:@"userID"];
+        if (self.recipient.appID.length > 0) {
+            [self changePrimitiveValue:self.recipient.appID forKey:@"userID"];
+        }
     }
 }
 

@@ -52,14 +52,14 @@
         NSFetchRequest *fetchRequest = [MUserInfo fetchRequest];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"appID = %@", self.senderUserID];
         NSManagedObject *senderObject = [self.managedObjectContext fetchUniqueObject:fetchRequest];
-        if (!self.sender && senderObject && [senderObject isKindOfClass:MUserInfo.class]) {
+        if (senderObject && [senderObject isKindOfClass:MUserInfo.class]) {
             [self changePrimitiveValue:senderObject forKey:@"sender"];
         }
     } else if ([key isEqualToString:@"receiverUserID"]) {
         NSFetchRequest *fetchRequest = [MUserInfo fetchRequest];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"appID = %@", self.receiverUserID];
         NSManagedObject *receiverObject = [self.managedObjectContext fetchUniqueObject:fetchRequest];
-        if (!self.receiver && receiverObject && [receiverObject isKindOfClass:MUserInfo.class]) {
+        if (receiverObject && [receiverObject isKindOfClass:MUserInfo.class]) {
             [self changePrimitiveValue:receiverObject forKey:@"receiver"];
         }
     } else if ([key isEqualToString:@"sender"]) {

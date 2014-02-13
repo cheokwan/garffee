@@ -94,5 +94,6 @@
 #define LS_FINISH_EDIT          NSLocalizedString(@"Finish Edit", @"")
 #define LS_SIGNING_IN           NSLocalizedString(@"Signing in", @"")
 #define LS_PLEASE_WAIT          NSLocalizedString(@"Please wait", @"")
+#define LS_CLEAR                NSLocalizedString(@"Clear", @"")
 
 #endif

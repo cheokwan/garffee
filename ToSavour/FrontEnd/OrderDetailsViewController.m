@@ -55,6 +55,9 @@ typedef enum {
     [_orderDetailsList registerNib:nib forCellReuseIdentifier:NSStringFromClass(OrderItemTableViewCell.class)];
     nib = [UINib nibWithNibName:NSStringFromClass(PickUpLocationTableViewCell.class) bundle:[NSBundle mainBundle]];
     [_orderDetailsList registerNib:nib forCellReuseIdentifier:NSStringFromClass(PickUpLocationTableViewCell.class)];
+    
+    _orderDetailsList.contentInset = UIEdgeInsetsMake(_headerView.frame.size.height, 0.0, 0.0, 0.0);
+    _orderDetailsList.scrollIndicatorInsets = _orderDetailsList.contentInset;
 }
 
 - (void)viewDidLoad
@@ -203,7 +206,7 @@ typedef enum {
             OrderItemTableViewCell *orderItemCell = (OrderItemTableViewCell *)cell;
             MItemInfo *itemInfo = self.orderItems[indexPath.row];
             [orderItemCell configureWithItem:itemInfo];
-            orderItemCell.selectionStyle = UITableViewCellSelectionStyleNone;
+//            orderItemCell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
             break;
     }

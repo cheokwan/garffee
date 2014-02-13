@@ -37,6 +37,8 @@
 		D23D41CB18A8902F005D7143 /* TutorialPageView_iphone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = D23D41C918A8902F005D7143 /* TutorialPageView_iphone4.xib */; };
 		D23D41CE18A892D3005D7143 /* TutorialPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D23D41CD18A892D3005D7143 /* TutorialPageView.m */; };
 		D23D41CF18A892D3005D7143 /* TutorialPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D23D41CD18A892D3005D7143 /* TutorialPageView.m */; };
+		D23D41D118AC7AA1005D7143 /* MCouponInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = D23D41D018AC7AA1005D7143 /* MCouponInfo.json */; };
+		D23D41D218AC7AA1005D7143 /* MCouponInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = D23D41D018AC7AA1005D7143 /* MCouponInfo.json */; };
 		D243757518488358000009D7 /* TSSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = D243757418488358000009D7 /* TSSettings.m */; };
 		D2437577184C3498000009D7 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2437576184C3497000009D7 /* MapKit.framework */; };
 		D24667FB185F15F70089D5DB /* TutorialLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075CA1855C47200620114 /* TutorialLoginViewController.m */; };
@@ -260,6 +262,7 @@
 		D23D41C918A8902F005D7143 /* TutorialPageView_iphone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TutorialPageView_iphone4.xib; path = FrontEnd/XIBs/TutorialPageView_iphone4.xib; sourceTree = "<group>"; };
 		D23D41CC18A892D3005D7143 /* TutorialPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialPageView.h; path = FrontEnd/Views/TutorialPageView.h; sourceTree = "<group>"; };
 		D23D41CD18A892D3005D7143 /* TutorialPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TutorialPageView.m; path = FrontEnd/Views/TutorialPageView.m; sourceTree = "<group>"; };
+		D23D41D018AC7AA1005D7143 /* MCouponInfo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = MCouponInfo.json; path = Resource/MCouponInfo.json; sourceTree = "<group>"; };
 		D243757318488358000009D7 /* TSSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSSettings.h; path = Utilities/TSSettings.h; sourceTree = "<group>"; };
 		D243757418488358000009D7 /* TSSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSSettings.m; path = Utilities/TSSettings.m; sourceTree = "<group>"; };
 		D2437576184C3497000009D7 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -771,6 +774,7 @@
 		D2C075B51851D23800620114 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				D23D41D018AC7AA1005D7143 /* MCouponInfo.json */,
 				DF3075C7186D6224002D40AF /* imageNotFound.jpg */,
 				D293EB27185F04ED00A69034 /* MProductConfigurableOption.json */,
 				D293EB28185F04ED00A69034 /* MProductInfo.json */,
@@ -992,6 +996,7 @@
 				D23D41C818A8862F005D7143 /* TutorialPageView.xib in Resources */,
 				D2EEB4CA18A339030077E5E3 /* README in Resources */,
 				D2466826185F15F70089D5DB /* Images.xcassets in Resources */,
+				D23D41D218AC7AA1005D7143 /* MCouponInfo.json in Resources */,
 				D2466827185F15F70089D5DB /* MProductConfigurableOption.json in Resources */,
 				D21DCE74187A7A6E008CF011 /* HomeControlView.xib in Resources */,
 				D2466828185F15F70089D5DB /* MProductInfo.json in Resources */,
@@ -1021,6 +1026,7 @@
 				D293EB2C185F04ED00A69034 /* MProductOptionChoice.json in Resources */,
 				D293E4BE183DEDEB00B73795 /* InfoPlist.strings in Resources */,
 				D232ED821886501E00BDA9F9 /* PickUpLocationTableViewCell.xib in Resources */,
+				D23D41D118AC7AA1005D7143 /* MCouponInfo.json in Resources */,
 				D2209F4A18851FA500282DAE /* OrderItemTableViewCell.xib in Resources */,
 				D21DCE73187A7A6E008CF011 /* HomeControlView.xib in Resources */,
 				DFE628A518558AD600E1C8FE /* DailyGameStoryboard.storyboard in Resources */,

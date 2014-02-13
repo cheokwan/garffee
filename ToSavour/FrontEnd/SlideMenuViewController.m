@@ -80,9 +80,9 @@ typedef enum {
 
 - (void)restManagerService:(SEL)selector succeededWithOperation:(NSOperation *)operation userInfo:(NSDictionary *)userInfo {
     if (selector == @selector(fetchAppCouponInfo:)) {
-        [_tableView reloadSections:[NSIndexSet indexSetWithIndex:SlideMenuSectionGift] withRowAnimation:UITableViewRowAnimationFade];
+        [_tableView reloadSections:[NSIndexSet indexSetWithIndex:SlideMenuSectionGift] withRowAnimation:UITableViewRowAnimationNone];
     } else if (selector == @selector(fetchAppPendingOrderStatus:)) {
-        [_tableView reloadSections:[NSIndexSet indexSetWithIndex:SlideMenuSectionMyOrder] withRowAnimation:UITableViewRowAnimationFade];
+        [_tableView reloadSections:[NSIndexSet indexSetWithIndex:SlideMenuSectionMyOrder] withRowAnimation:UITableViewRowAnimationNone];
     }
 }
 

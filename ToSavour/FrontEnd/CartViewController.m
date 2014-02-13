@@ -61,6 +61,7 @@ typedef enum {
     UINib *nib = [UINib nibWithNibName:NSStringFromClass(OrderItemTableViewCell.class) bundle:[NSBundle mainBundle]];
     [_itemList registerNib:nib forCellReuseIdentifier:NSStringFromClass(OrderItemTableViewCell.class)];
     _itemList.contentInset = UIEdgeInsetsMake(_cartHeaderView.frame.size.height, 0.0, 0.0, 0.0);
+    _itemList.scrollIndicatorInsets = _itemList.contentInset;
     
     CartHeaderView *cartHeader = (CartHeaderView *)[TSTheming viewWithNibName:NSStringFromClass(CartHeaderView.class) owner:self];
     cartHeader.frame = self.cartHeaderView.frame;

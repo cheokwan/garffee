@@ -11,6 +11,11 @@
 #import <QuartzCore/QuartzCore.h>
 #import "CartViewController.h"
 #import "TSNavigationController.h"
+#import "HomeViewController.h"
+#import "BranchListViewController.h"
+#import "CartViewController.h"
+#import "FriendsListViewController.h"
+#import "AccountViewController.h"
 
 @interface MainTabBarController ()
 
@@ -99,6 +104,33 @@
         viewController = self.viewControllers[tab];
         if ([viewController isKindOfClass:UINavigationController.class]) {
             viewController = ((UINavigationController *)viewController).viewControllers[0];
+            switch (tab) {
+                case MainTabBarControllerTabHome:
+                    if (![viewController isKindOfClass:HomeViewController.class]) {
+                        viewController = nil;
+                    }
+                    break;
+                case MainTabBarControllerTabStore:
+                    if (![viewController isKindOfClass:BranchListViewController.class]) {
+                        viewController = nil;
+                    }
+                    break;
+                case MainTabBarControllerTabCart:
+                    if (![viewController isKindOfClass:CartViewController.class]) {
+                        viewController = nil;
+                    }
+                    break;
+                case MainTabBarControllerTabFriends:
+                    if (![viewController isKindOfClass:FriendsListViewController.class]) {
+                        viewController = nil;
+                    }
+                    break;
+                case MainTabBarControllerTabAccount:
+                    if (![viewController isKindOfClass:AccountViewController.class]) {
+                        viewController = nil;
+                    }
+                    break;
+            }
         }
     }
     return viewController;

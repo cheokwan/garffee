@@ -32,20 +32,24 @@
         NSFetchRequest *fetchRequest = [MItemInfo fetchRequest];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"id = %@", self.itemID];
         NSManagedObject *itemObject = [self.managedObjectContext fetchUniqueObject:fetchRequest];
-        if (!self.item && itemObject && [itemObject isKindOfClass:MItemInfo.class]) {
+        if (itemObject && [itemObject isKindOfClass:MItemInfo.class]) {
             [self changePrimitiveValue:itemObject forKey:@"item"];
         }
     } else if ([key isEqualToString:@"optionChoiceID"]) {
         NSFetchRequest *fetchRequest = [MProductOptionChoice fetchRequest];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"id = %@", self.optionChoiceID];
         NSManagedObject *choiceObject = [self.managedObjectContext fetchUniqueObject:fetchRequest];
-        if (!self.productOptionChoice && choiceObject && [choiceObject isKindOfClass:MProductOptionChoice.class]) {
+        if (choiceObject && [choiceObject isKindOfClass:MProductOptionChoice.class]) {
             [self changePrimitiveValue:choiceObject forKey:@"productOptionChoice"];
         }
     } else if ([key isEqualToString:@"item"]) {
-        [self changePrimitiveValue:self.item.id forKey:@"itemID"];
+        if (self.item.id) {
+            [self changePrimitiveValue:self.item.id forKey:@"itemID"];
+        }
     } else if ([key isEqualToString:@"productOptionChoice"]) {
-        [self changePrimitiveValue:self.productOptionChoice.id forKey:@"optionChoiceID"];
+        if (self.productOptionChoice.id) {
+            [self changePrimitiveValue:self.productOptionChoice.id forKey:@"optionChoiceID"];
+        }
     }
 }
 

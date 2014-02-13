@@ -87,29 +87,35 @@
         NSFetchRequest *fetchRequest = [MProductInfo fetchRequest];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"id = %@", self.productID];
         NSManagedObject *productObject = [self.managedObjectContext fetchUniqueObject:fetchRequest];
-        if (!self.product && productObject && [productObject isKindOfClass:MProductInfo.class]) {
+        if (productObject && [productObject isKindOfClass:MProductInfo.class]) {
             [self changePrimitiveValue:productObject forKey:@"product"];
         }
     } else if ([key isEqualToString:@"orderID"]) {
         NSFetchRequest *fetchRequest = [MOrderInfo fetchRequest];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"id = %@", self.orderID];
         NSManagedObject *orderObject = [self.managedObjectContext fetchUniqueObject:fetchRequest];
-        if (!self.order && orderObject && [orderObject isKindOfClass:MOrderInfo.class]) {
+        if (orderObject && [orderObject isKindOfClass:MOrderInfo.class]) {
             [self changePrimitiveValue:orderObject forKey:@"order"];
         }
     } else if ([key isEqualToString:@"couponID"]) {
         NSFetchRequest *fetchRequest = [MCouponInfo fetchRequest];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"id = %@", self.couponID];
         NSManagedObject *couponObject = [self.managedObjectContext fetchUniqueObject:fetchRequest];
-        if (!self.coupon && couponObject && [couponObject isKindOfClass:MCouponInfo.class]) {
+        if (couponObject && [couponObject isKindOfClass:MCouponInfo.class]) {
             [self changePrimitiveValue:couponObject forKey:@"coupon"];
         }
     } else if ([key isEqualToString:@"product"]) {
-        [self changePrimitiveValue:self.product.id forKey:@"productID"];
+        if (self.product.id) {
+            [self changePrimitiveValue:self.product.id forKey:@"productID"];
+        }
     } else if ([key isEqualToString:@"order"]) {
-        [self changePrimitiveValue:self.order.id forKey:@"orderID"];
+        if (self.order.id) {
+            [self changePrimitiveValue:self.order.id forKey:@"orderID"];
+        }
     } else if ([key isEqualToString:@"coupon"]) {
-        [self changePrimitiveValue:self.coupon.id forKey:@"couponID"];
+        if (self.coupon.id) {
+            [self changePrimitiveValue:self.coupon.id forKey:@"couponID"];
+        }
     } else if ([key isEqualToString:@"quantity"]) {
         if (self.itemSelectedOptions.count > 0) {
             // XXX-SERVER-BUG  update price when server returns no item selected options set it to 0

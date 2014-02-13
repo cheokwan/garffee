@@ -22,6 +22,7 @@
 #import "TSModelIncludes.h"
 #import "RestManager.h"
 #import "SettingsManager.h"
+#import <Reachability/Reachability.h>
 
 
 @implementation AppDelegate
@@ -99,6 +100,16 @@
         // re-fetch user info again for updated app token
         [[DataFetchManager sharedInstance] performRestManagerFetch:@selector(fetchAppUserInfo:) retries:3];
     }
+    
+    // Reachability - TODO: make this more elaborate, WIFI/3G/airplane mode, snooze duration
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    reachability.unreachableBlock = ^(Reachability *reach) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Internet connection lost, please enable WIFI or cellular data to continue using %@", @""), BRAND_NAME] message:nil delegate:nil cancelButtonTitle:LS_OK otherButtonTitles:nil, nil] show];
+        });
+    };
+    [reachability startNotifier];
+    
     return YES;
 }
 
@@ -156,6 +167,7 @@
     DDLogInfo(@"entering background");
     
     [[TimeTracker sharedInstance] scheduleInBackground];  // XXX-FIX schedule location timer in bg
+    [self.managedObjectContext saveToPersistentStore];
     
     DDLogInfo(@"entered background");
 }
@@ -213,7 +225,7 @@
     NSString *storePath = [RKApplicationDataDirectory() stringByAppendingPathComponent:@"ToSavour.sqlite"];
     RKManagedObjectImporter *importer = [[RKManagedObjectImporter alloc] initWithManagedObjectModel:self.managedObjectModel storePath:storePath];
     importer.resetsStoreBeforeImporting = NO;
-    NSArray *modelResources = @[MProductInfo.class];
+    NSArray *modelResources = @[MCouponInfo.class];
     BOOL success = NO;
     NSError *error = nil;
     for (Class class in modelResources) {
