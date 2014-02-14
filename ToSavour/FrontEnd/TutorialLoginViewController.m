@@ -189,6 +189,7 @@
     [SettingsManager writeSettingsValue:@(YES) forKey:SettingsManagerKeyRegistrationComplete];
     [[AppDelegate sharedAppDelegate].managedObjectContext saveToPersistentStore];
     _facebookLoginButton.delegate = nil;
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     
     [MBProgressHUD hideAllHUDsForView:[AppDelegate sharedAppDelegate].window animated:NO];
     self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
@@ -392,12 +393,13 @@
     DDLogInfo(@"fetched user facebook info");
     
     // user just logged into facebook, start a spinner and do the initial fetch
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     self.spinner = [MBProgressHUD showHUDAddedTo:[AppDelegate sharedAppDelegate].window animated:YES];
     _spinner.mode = MBProgressHUDModeAnnularDeterminate;
     _spinner.labelText = LS_SIGNING_IN;
     _spinner.detailsLabelText = LS_PLEASE_WAIT;
     _spinner.progress = (float)TutorialLoginRegistrationStageFacebookAppUser / TutorialLoginRegistrationStageTotal;
-    [self.progressTimer fire];  // start a timer for faking approximate progress
+//    [self.progressTimer fire];  // start a timer for faking approximate progress
     [[RestManager sharedInstance] fetchFacebookAppUserInfo:self];
 }
 

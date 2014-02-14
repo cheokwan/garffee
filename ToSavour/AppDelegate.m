@@ -105,7 +105,11 @@
     Reachability *reachability = [Reachability reachabilityForInternetConnection];
     reachability.unreachableBlock = ^(Reachability *reach) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [[[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Internet connection lost, please enable WIFI or cellular data to continue using %@", @""), BRAND_NAME] message:nil delegate:nil cancelButtonTitle:LS_OK otherButtonTitles:nil, nil] show];
+            static NSTimeInterval lastSnoozeTime = 0;
+            if ([[NSDate date] timeIntervalSinceReferenceDate] - lastSnoozeTime > 300) {  // 5 minutes
+                [[[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Internet connection lost, please enable WIFI or cellular data to continue using %@", @""), BRAND_NAME] message:nil delegate:nil cancelButtonTitle:LS_OK otherButtonTitles:nil, nil] show];
+            }
+            lastSnoozeTime = [[NSDate date] timeIntervalSinceReferenceDate];
         });
     };
     [reachability startNotifier];

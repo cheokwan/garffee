@@ -185,8 +185,10 @@
             UIImageView *imageView = [[UIImageView alloc] init];
             [_dummyImageViews addObject:imageView];  // retain the imageView
             
+            NSURL *imageURL = [item localCachedImageURL] ? [NSURL fileURLWithPath:[item localCachedImageURL]] : [NSURL URLWithString:[item resolvedImageURL]];  // XXXXXX disable second time image fetch for now
+            
             __weak UIImageView *weakImageView = imageView;
-            [imageView setImageWithURL:[NSURL URLWithString:[item resolvedImageURL]] placeholderImage:nil options:0 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+            [imageView setImageWithURL:imageURL placeholderImage:nil options:0 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
                 NSData *imageData = nil;
                 if (image) {
                     if ([[[item resolvedImageURL] lowercaseString] hasSuffix:@".jpg"]) {

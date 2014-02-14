@@ -23,7 +23,7 @@ typedef enum {
     TutorialLoginRegistrationStageAppOrderHistories = 7,
     TutorialLoginRegistrationStageAppGiftCoupons = 8,
     TutorialLoginRegistrationStageAppProductImages = 9,  // give more weight
-    TutorialLoginRegistrationStageTotal = 16
+    TutorialLoginRegistrationStageTotal = 12
 } TutorialLoginRegistrationStage;
 
 
