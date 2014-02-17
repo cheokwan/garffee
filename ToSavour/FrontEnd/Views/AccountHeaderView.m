@@ -63,6 +63,8 @@
     [_tableSwitcher setTitle:LS_ACCOUNT forSegmentAtIndex:SegmentIndexAccountInfo];
     [_tableSwitcher setTitle:LS_HISTORY forSegmentAtIndex:SegmentIndexOrderHistories];
     
+    [_settingsButton setImage:[UIImage imageNamed:@"ico_settings"] forState:UIControlStateNormal];
+    
     [self addSubview:self.avatarView];
 }
 

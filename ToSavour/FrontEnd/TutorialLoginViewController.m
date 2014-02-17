@@ -192,6 +192,7 @@
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     
     [MBProgressHUD hideAllHUDsForView:[AppDelegate sharedAppDelegate].window animated:NO];
+    [[AppDelegate sharedAppDelegate].mainTabBarController switchToTab:MainTabBarControllerTabHome animated:NO];
     self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     [self dismissViewControllerAnimated:YES completion:nil];
 }

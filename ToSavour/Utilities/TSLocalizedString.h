@@ -95,5 +95,17 @@
 #define LS_SIGNING_IN           NSLocalizedString(@"Signing in", @"")
 #define LS_PLEASE_WAIT          NSLocalizedString(@"Please wait", @"")
 #define LS_CLEAR                NSLocalizedString(@"Clear", @"")
+#define LS_PUSH_NOTIFICATIONS   NSLocalizedString(@"Push Notifications", @"")
+#define LS_RECEIVE_ALERTS       NSLocalizedString(@"Receive Alerts", @"")
+#define LS_ABOUT_US             NSLocalizedString(@"About Us", @"")
+#define LS_TERMS_OF_SERVICE     NSLocalizedString(@"Terms of Service", @"")
+#define LS_PRIVACY_POLICY       NSLocalizedString(@"Privacy Policy", @"")
+#define LS_FAQ                  NSLocalizedString(@"FAQ", @"")
+#define LS_LANGUAGE             NSLocalizedString(@"Language", @"")
+#define LS_LOGOUT               NSLocalizedString(@"Logout", @"")
+#define LS_LOGGING_OUT          NSLocalizedString(@"Logging out", @"")
+#define LS_DEBUG                NSLocalizedString(@"Debug", @"")
+#define LS_SETTINGS             NSLocalizedString(@"Settings", @"")
+#define LS_TRANSACTION_HISTORY  NSLocalizedString(@"Transaction History", @"")
 
 #endif

@@ -149,6 +149,8 @@
 		D2A67A94185C26E100889114 /* AccountHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A67A93185C26E100889114 /* AccountHeaderView.m */; };
 		D2A67A97185C487A00889114 /* AccountInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A67A96185C487A00889114 /* AccountInfoTableViewCell.m */; };
 		D2A67A9A185C48B100889114 /* TransactionHistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A67A99185C48B100889114 /* TransactionHistoryTableViewCell.m */; };
+		D2A9092818B1BEA1008FF6B1 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A9092718B1BEA1008FF6B1 /* SettingsViewController.m */; };
+		D2A9092918B1BEA1008FF6B1 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A9092718B1BEA1008FF6B1 /* SettingsViewController.m */; };
 		D2AC13C4187C3B9B00D81CA6 /* MCouponInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2AC13C3187C3B9B00D81CA6 /* MCouponInfo.m */; };
 		D2AC13C5187C3B9B00D81CA6 /* MCouponInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2AC13C3187C3B9B00D81CA6 /* MCouponInfo.m */; };
 		D2B9BAA41892835300226B54 /* UIButton+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2B9BAA31892835300226B54 /* UIButton+Helper.m */; };
@@ -361,6 +363,8 @@
 		D2A67A96185C487A00889114 /* AccountInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AccountInfoTableViewCell.m; path = FrontEnd/Views/AccountInfoTableViewCell.m; sourceTree = "<group>"; };
 		D2A67A98185C48B100889114 /* TransactionHistoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TransactionHistoryTableViewCell.h; path = FrontEnd/Views/TransactionHistoryTableViewCell.h; sourceTree = "<group>"; };
 		D2A67A99185C48B100889114 /* TransactionHistoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TransactionHistoryTableViewCell.m; path = FrontEnd/Views/TransactionHistoryTableViewCell.m; sourceTree = "<group>"; };
+		D2A9092618B1BEA1008FF6B1 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsViewController.h; path = FrontEnd/SettingsViewController.h; sourceTree = "<group>"; };
+		D2A9092718B1BEA1008FF6B1 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsViewController.m; path = FrontEnd/SettingsViewController.m; sourceTree = "<group>"; };
 		D2AC13C2187C3B9B00D81CA6 /* MCouponInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MCouponInfo.h; path = BackEnd/Model/MCouponInfo.h; sourceTree = "<group>"; };
 		D2AC13C3187C3B9B00D81CA6 /* MCouponInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MCouponInfo.m; path = BackEnd/Model/MCouponInfo.m; sourceTree = "<group>"; };
 		D2B9BAA21892835300226B54 /* UIButton+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIButton+Helper.h"; path = "Utilities/UIButton+Helper.h"; sourceTree = "<group>"; };
@@ -680,6 +684,8 @@
 				DFB3C1E618842FE2004E5454 /* BranchLocationMapViewController.m */,
 				DF1E79651894C05F0012CDC0 /* AccountInfoTableManager.h */,
 				DF1E79661894C05F0012CDC0 /* AccountInfoTableManager.m */,
+				D2A9092618B1BEA1008FF6B1 /* SettingsViewController.h */,
+				D2A9092718B1BEA1008FF6B1 /* SettingsViewController.m */,
 			);
 			name = FrontEnd;
 			sourceTree = "<group>";
@@ -1129,6 +1135,7 @@
 				D2466802185F15F70089D5DB /* AccountHeaderView.m in Sources */,
 				D2B9BAAD1897867700226B54 /* OrderCompositeImageView.m in Sources */,
 				D2EEB4CC18A339030077E5E3 /* UIImage+Resize.m in Sources */,
+				D2A9092918B1BEA1008FF6B1 /* SettingsViewController.m in Sources */,
 				D2466803185F15F70089D5DB /* TSSettings.m in Sources */,
 				D23D41C518A48F4A005D7143 /* SettingsManager.m in Sources */,
 				D2466804185F15F70089D5DB /* AvatarView.m in Sources */,
@@ -1173,6 +1180,7 @@
 				D2827DE9187288C700E4A662 /* MUserFacebookInfo.m in Sources */,
 				D2209F451884EAF500282DAE /* OrderDetailsHeaderView.m in Sources */,
 				D2827DD318694E4C00E4A662 /* MOrderInfo.m in Sources */,
+				D2A9092818B1BEA1008FF6B1 /* SettingsViewController.m in Sources */,
 				DFB3C1E418814A97004E5454 /* BranchListViewController.m in Sources */,
 				D2827DDB186D882D00E4A662 /* ItemGridView.m in Sources */,
 				DF60E74D185B47BA00DB10DE /* PhotoHuntGridButton.m in Sources */,

@@ -18,8 +18,7 @@
 #import "DataFetchManager.h"
 #import <UIView+Helpers/UIView+Helpers.h>
 #import <UIAlertView-Blocks/UIAlertView+Blocks.h>
-#import <FacebookSDK/FacebookSDK.h>  // XXXXXX
-#import "TutorialLoginViewController.h"  // XXXXXX
+#import "SettingsViewController.h"
 
 @interface AccountViewController ()
 @property (nonatomic, strong)   AccountInfoTableViewCell *accountInfoPrototypeCell;
@@ -32,8 +31,6 @@
 @property (nonatomic, strong)   UIToolbar *inputToolbar;
 @property (nonatomic, strong)   UIBarButtonItem *doneButton, *cancelButton;
 @property (nonatomic, strong)   UIDatePicker *birthdayDatePicker;
-
-@property (nonatomic, strong)   UIAlertView *logoutAlertView;  // XXXXXX
 @end
 
 @implementation AccountViewController
@@ -54,6 +51,7 @@
     _infoTable.dataSource = self;
     _accountHeaderView.delegate = self;
     _accountHeaderView.avatarView.delegate = self;
+    [_accountHeaderView.settingsButton addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.titleView = [TSTheming navigationTitleViewWithString:LS_ACCOUNT];
     self.tableViewContentInsets = UIEdgeInsetsZero;
 }
@@ -127,8 +125,10 @@
 #pragma mark - UITableViewDelegate, UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    NSInteger numberOfSection = 1;
-    if ([self tableSwitcher].selectedSegmentIndex == SegmentIndexAccountInfo) {
+    NSInteger numberOfSection = 0;
+    if ([self tableSwitcher].selectedSegmentIndex == SegmentIndexOrderHistories) {
+        numberOfSection = AccountViewControllerHistorySectionTotal;
+    } else if ([self tableSwitcher].selectedSegmentIndex == SegmentIndexAccountInfo) {
         numberOfSection = [[AccountInfoTableManager sharedInstance] numberOfSections];
     }
     return numberOfSection;
@@ -137,7 +137,11 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSInteger numberOfRows = 0;
     if ([self tableSwitcher].selectedSegmentIndex == SegmentIndexOrderHistories) {
-        numberOfRows = self.transactionHistoryFetchedResultsController.fetchedObjects.count;
+        if (section == AccountViewControllerHistorySectionBalance) {
+            return 1;
+        } else if (section == AccountViewControllerHistorySectionHistory) {
+            numberOfRows = self.transactionHistoryFetchedResultsController.fetchedObjects.count;
+        }
     } else if ([self tableSwitcher].selectedSegmentIndex == SegmentIndexAccountInfo) {
         numberOfRows = [[AccountInfoTableManager sharedInstance] numberOfRows:(int)section];
     }
@@ -147,7 +151,11 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat height = 0.0f;
     if ([self tableSwitcher].selectedSegmentIndex == SegmentIndexOrderHistories) {
-        height = self.transactionHistoryPrototypeCell.frameSizeHeight;
+        if (indexPath.section == AccountViewControllerHistorySectionBalance) {
+            height = self.balancePrototypeCell.frameSizeHeight;
+        } else if (indexPath.section == AccountViewControllerHistorySectionHistory) {
+            height = self.transactionHistoryPrototypeCell.frameSizeHeight;
+        }
     } else if ([self tableSwitcher].selectedSegmentIndex == SegmentIndexAccountInfo) {
         if (indexPath.section == AccountInfoTableSectionsBalance) {
             height = self.balancePrototypeCell.frameSizeHeight;
@@ -156,6 +164,44 @@
         }
     }
     return height;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    CGFloat height = 0.0;
+    if ([self tableSwitcher].selectedSegmentIndex == SegmentIndexOrderHistories &&
+        section == AccountViewControllerHistorySectionHistory) {
+        height = 20.0;
+    }
+    return height;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *headerView = nil;
+    if ([self tableSwitcher].selectedSegmentIndex == SegmentIndexOrderHistories &&
+        section == AccountViewControllerHistorySectionHistory) {
+        UIView *containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 20.0)];
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:self.transactionHistoryPrototypeCell.titleLabel.frame];
+        UILabel *detailsLabel = [[UILabel alloc] initWithFrame:self.transactionHistoryPrototypeCell.priceLabel.frame];
+        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0.0, containerView.frame.size.height - 0.3, containerView.frame.size.width, 0.3)];
+        lineView.backgroundColor = [UIColor lightGrayColor];
+        
+        titleLabel.frame = CGRectMake(titleLabel.frame.origin.x, -3.0, titleLabel.frame.size.width, 20.0);
+        detailsLabel.frame = CGRectMake(detailsLabel.frame.origin.x, -3.0, detailsLabel.frame.size.width, 20.0);
+        titleLabel.font = [UIFont systemFontOfSize:13.0];
+        detailsLabel.font = [UIFont systemFontOfSize:13.0];
+        titleLabel.textAlignment = NSTextAlignmentLeft;
+        detailsLabel.textAlignment = NSTextAlignmentRight;
+        
+        titleLabel.text = LS_TRANSACTION_HISTORY;
+        detailsLabel.text = @"HKD";
+        
+        [containerView addSubview:titleLabel];
+        [containerView addSubview:detailsLabel];
+        [containerView addSubview:lineView];
+        
+        headerView = containerView;
+    }
+    return headerView;
 }
 
 - (AccountInfoTableViewCell *)accountInfoPrototypeCell {
@@ -182,7 +228,11 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = nil;
     if ([self tableSwitcher].selectedSegmentIndex == SegmentIndexOrderHistories) {
-        cell = [_infoTable dequeueReusableCellWithIdentifier:NSStringFromClass(TransactionHistoryTableViewCell.class) forIndexPath:indexPath];
+        if (indexPath.section == AccountViewControllerHistorySectionBalance) {
+            cell = [_infoTable dequeueReusableCellWithIdentifier:NSStringFromClass(AccountInfoTableViewBalanceCell.class) forIndexPath:indexPath];
+        } else if (indexPath.section == AccountViewControllerHistorySectionHistory) {
+            cell = [_infoTable dequeueReusableCellWithIdentifier:NSStringFromClass(TransactionHistoryTableViewCell.class) forIndexPath:indexPath];
+        }
     } else if ([self tableSwitcher].selectedSegmentIndex == SegmentIndexAccountInfo) {
         if (indexPath.section == AccountInfoTableSectionsBalance) {
             cell = [_infoTable dequeueReusableCellWithIdentifier:NSStringFromClass(AccountInfoTableViewBalanceCell.class) forIndexPath:indexPath];
@@ -209,11 +259,15 @@
 }
 
 - (void)configureHistoryCell:(TransactionHistoryTableViewCell *)historyCell atIndexPath:(NSIndexPath *)indexPath {
-    MOrderInfo *order = [self.transactionHistoryFetchedResultsController objectAtIndexPath:indexPath];
-    NSString *orderDetailString = [order detailString];
-    historyCell.titleLabel.text = orderDetailString.length > 0 ? orderDetailString : order.referenceNumber;
-    historyCell.subtitleLabel.text = [order.orderedDate defaultStringRepresentation];
-    historyCell.priceLabel.text = [NSString stringWithPrice:[order.price floatValue] showFree:YES];
+    if (indexPath.section == AccountViewControllerHistorySectionBalance) {
+        [self configureAccountCell:historyCell atIndexPath:indexPath];
+    } else if (indexPath.section == AccountViewControllerHistorySectionHistory) {
+        MOrderInfo *order = [self.transactionHistoryFetchedResultsController objectAtIndexPath:indexPath];
+        NSString *orderDetailString = [order detailString];
+        historyCell.titleLabel.text = orderDetailString.length > 0 ? orderDetailString : order.referenceNumber;
+        historyCell.subtitleLabel.text = [order.orderedDate defaultStringRepresentation];
+        historyCell.priceLabel.text = [NSString stringWithPrice:[order.price floatValue] showFree:YES];
+    }
     return;
 }
 
@@ -284,6 +338,8 @@
             self.activeResponder = nil;
             [self.infoTable reloadData];
         }
+    } else if (sender == _accountHeaderView.settingsButton) {
+        [self performSegueWithIdentifier:@"PushSettingsViewController" sender:_accountHeaderView.settingsButton];
     }
 }
 
@@ -547,23 +603,6 @@
 }
 
 - (void)accessoryButtonPressedInAvatarView:(AvatarView *)avatarView {
-    // XXXXXX for testing logout
-    RIButtonItem *cancelButton = [RIButtonItem itemWithLabel:LS_CANCEL];
-    [cancelButton setAction:^{
-        self.logoutAlertView = nil;
-    }];
-    RIButtonItem *confirmButton = [RIButtonItem itemWithLabel:LS_CONFIRM];
-    [confirmButton setAction:^{
-        [[FBSession activeSession] closeAndClearTokenInformation];
-        
-        TutorialLoginViewController *tutorialLoginViewController = (TutorialLoginViewController *)[TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(TutorialLoginViewController.class)];
-        tutorialLoginViewController.skipTutorial = YES;
-        tutorialLoginViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        [self presentViewController:tutorialLoginViewController animated:YES completion:nil];
-        self.logoutAlertView = nil;
-    }];
-    self.logoutAlertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Are you sure you want to logout?", @"") message:nil cancelButtonItem:cancelButton otherButtonItems:confirmButton, nil];
-    [_logoutAlertView show];
 }
 
 #pragma mark - RestManagerResponseHandler

@@ -26,6 +26,7 @@ typedef NS_ENUM(NSInteger, SegmentedControlerIndex) {
 @property (nonatomic, strong)   IBOutlet AvatarView *avatarView;
 @property (nonatomic, strong)   IBOutlet UILabel *nameLabel;
 @property (nonatomic, strong)   IBOutlet UISegmentedControl *tableSwitcher;
+@property (nonatomic, strong)   IBOutlet UIButton *settingsButton;
 @property (nonatomic, weak)     id<AccountHeaderViewDelegate> delegate;
 
 @end

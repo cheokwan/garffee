@@ -35,6 +35,13 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MDG-Yu-EN0">
+                    <rect key="frame" x="280" y="145" width="30" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" image="ico_settings">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
@@ -43,8 +50,12 @@
                 <outlet property="avatarView" destination="dvA-52-AcI" id="dy9-Zm-ls1"/>
                 <outlet property="backgroundImageView" destination="RZ0-Ld-NZz" id="MUA-CV-fDG"/>
                 <outlet property="nameLabel" destination="rrL-yh-ni2" id="7hG-nh-egu"/>
+                <outlet property="settingsButton" destination="MDG-Yu-EN0" id="8ak-ac-RDR"/>
                 <outlet property="tableSwitcher" destination="yeM-M3-J23" id="0AN-2L-THj"/>
             </connections>
         </view>
     </objects>
+    <resources>
+        <image name="ico_settings" width="30" height="30"/>
+    </resources>
 </document>
