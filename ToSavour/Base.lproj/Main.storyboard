@@ -633,6 +633,57 @@
             </objects>
             <point key="canvasLocation" x="2242" y="2926"/>
         </scene>
+        <!--Debug View Controller-->
+        <scene sceneID="AUF-Va-bhO">
+            <objects>
+                <tableViewController storyboardIdentifier="DebugViewController" id="IgK-et-9rZ" customClass="DebugViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="fLr-8z-wcK">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection id="GX4-ON-C6B">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="9yD-iQ-jkP">
+                                        <rect key="frame" x="0.0" y="99" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9yD-iQ-jkP" id="Sft-b9-LhE">
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="3Sc-30-wl1" kind="push" identifier="PushMapTrackingViewController" id="6Q0-6v-Jy0"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="69l-WR-9h0">
+                                        <rect key="frame" x="0.0" y="143" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="69l-WR-9h0" id="158-BX-8Uj">
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="653-Rg-K96" kind="push" identifier="PushSoundwaveTestViewController" id="EEs-0A-aON"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="IgK-et-9rZ" id="nEO-kO-E57"/>
+                            <outlet property="delegate" destination="IgK-et-9rZ" id="W9H-hO-ZPi"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="hWO-tj-71S"/>
+                    <connections>
+                        <outlet property="mapTrackingDebugCell" destination="9yD-iQ-jkP" id="Ste-E7-BxJ"/>
+                        <outlet property="soundwaveTestDebugCell" destination="69l-WR-9h0" id="woL-cy-uWi"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h0G-w5-nRR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2866" y="5217"/>
+        </scene>
         <!--Map Tracking View Controller-->
         <scene sceneID="TcQ-nx-tBK">
             <objects>
@@ -710,7 +761,60 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rcv-Hx-7iz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2892" y="5217"/>
+            <point key="canvasLocation" x="3344" y="5217"/>
+        </scene>
+        <!--Soundwave Test View Controller-->
+        <scene sceneID="JhK-oE-e7u">
+            <objects>
+                <viewController storyboardIdentifier="SoundwaveTestViewController" id="653-Rg-K96" customClass="SoundwaveTestViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="MRN-MN-526"/>
+                        <viewControllerLayoutGuide type="bottom" id="Kei-5j-8eD"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="9Jo-Xi-8VE">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ajx-Qs-h4F" userLabel="Button - Play/Pause">
+                                <rect key="frame" x="270" y="469" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="aDq-J3-9Y5"/>
+                                    <constraint firstAttribute="width" constant="40" id="xPw-MF-mi3"/>
+                                </constraints>
+                                <state key="normal" image="PlayIcon">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C6u-Ag-IVR" userLabel="Label - Display">
+                                <rect key="frame" x="60" y="359" width="200" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="22X-ZA-KHb"/>
+                                    <constraint firstAttribute="width" constant="200" id="GTB-9o-5Rh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="C6u-Ag-IVR" secondAttribute="centerX" id="02J-p8-yDn"/>
+                            <constraint firstAttribute="trailing" secondItem="ajx-Qs-h4F" secondAttribute="trailing" constant="10" id="Fua-qq-Nod"/>
+                            <constraint firstItem="Kei-5j-8eD" firstAttribute="top" secondItem="ajx-Qs-h4F" secondAttribute="bottom" constant="10" id="MpW-Lj-rpP"/>
+                            <constraint firstItem="Kei-5j-8eD" firstAttribute="top" secondItem="C6u-Ag-IVR" secondAttribute="bottom" constant="120" id="pwz-HG-DHk"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="FW6-5A-Zzv"/>
+                    <connections>
+                        <outlet property="displayLabel" destination="C6u-Ag-IVR" id="xjh-lL-OVD"/>
+                        <outlet property="recordButton" destination="ajx-Qs-h4F" id="E1T-A1-fVw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1eh-FL-xs0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3344" y="5906"/>
         </scene>
         <!--Navigation Controller - Account!-->
         <scene sceneID="cXu-xe-WAx">
@@ -1283,7 +1387,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="3Sc-30-wl1" kind="push" identifier="PushMapTrackingViewController" id="udA-ry-ucm"/>
+                                            <segue destination="IgK-et-9rZ" kind="push" identifier="PushDebugViewController" id="Dty-x1-9vh"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>

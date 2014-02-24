@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		C745B082CE144F8095231522 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C23BC4E3A4EF498CB2E1D08C /* libPods.a */; };
+		D2062BE118B71C3E00D22C7E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2062BE018B71C3E00D22C7E /* AudioToolbox.framework */; };
+		D2062BE418B75BFC00D22C7E /* SoundwaveRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = D2062BE318B75BFC00D22C7E /* SoundwaveRecorder.m */; };
+		D2062BE518B75BFC00D22C7E /* SoundwaveRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = D2062BE318B75BFC00D22C7E /* SoundwaveRecorder.m */; };
 		D214BE071862DAF000812BA5 /* RestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D214BE061862DAF000812BA5 /* RestManager.m */; };
 		D21DCE73187A7A6E008CF011 /* HomeControlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D21DCE72187A7A6E008CF011 /* HomeControlView.xib */; };
 		D21DCE74187A7A6E008CF011 /* HomeControlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D21DCE72187A7A6E008CF011 /* HomeControlView.xib */; };
@@ -90,6 +93,11 @@
 		D2466840186036BB0089D5DB /* CartHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D246683F186036BB0089D5DB /* CartHeaderView.m */; };
 		D246684318603C800089D5DB /* CartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D246684218603C800089D5DB /* CartViewController.m */; };
 		D2466849186062DC0089D5DB /* NSString+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2466848186062DC0089D5DB /* NSString+Helper.m */; };
+		D251CC6718BB12FF00093ACE /* DebugViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D251CC6618BB12FF00093ACE /* DebugViewController.m */; };
+		D251CC6818BB12FF00093ACE /* DebugViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D251CC6618BB12FF00093ACE /* DebugViewController.m */; };
+		D251CC6B18BB155200093ACE /* SoundwaveTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D251CC6A18BB155200093ACE /* SoundwaveTestViewController.m */; };
+		D251CC6C18BB155200093ACE /* SoundwaveTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D251CC6A18BB155200093ACE /* SoundwaveTestViewController.m */; };
+		D251CC6E18BB59BA00093ACE /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D251CC6D18BB59BA00093ACE /* Accelerate.framework */; };
 		D251EF14187D0A130012536E /* OngoingOrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D251EF13187D0A130012536E /* OngoingOrderTableViewCell.m */; };
 		D251EF16187D0B0A0012536E /* CartHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D251EF15187D0B0A0012536E /* CartHeaderView.xib */; };
 		D251EF19187D0BBE0012536E /* GiftTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D251EF18187D0BBE0012536E /* GiftTableViewCell.m */; };
@@ -225,6 +233,9 @@
 /* Begin PBXFileReference section */
 		257842E4F2DE434C98166E63 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		C23BC4E3A4EF498CB2E1D08C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2062BE018B71C3E00D22C7E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		D2062BE218B75BFC00D22C7E /* SoundwaveRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SoundwaveRecorder.h; path = BackEnd/Libraries/SoundwaveProcessing/SoundwaveRecorder.h; sourceTree = "<group>"; };
+		D2062BE318B75BFC00D22C7E /* SoundwaveRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SoundwaveRecorder.m; path = BackEnd/Libraries/SoundwaveProcessing/SoundwaveRecorder.m; sourceTree = "<group>"; };
 		D214BE051862DAF000812BA5 /* RestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RestManager.h; path = BackEnd/RestManager.h; sourceTree = "<group>"; };
 		D214BE061862DAF000812BA5 /* RestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RestManager.m; path = BackEnd/RestManager.m; sourceTree = "<group>"; };
 		D21DCE72187A7A6E008CF011 /* HomeControlView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HomeControlView.xib; path = FrontEnd/XIBs/HomeControlView.xib; sourceTree = "<group>"; };
@@ -276,6 +287,11 @@
 		D246684218603C800089D5DB /* CartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CartViewController.m; path = FrontEnd/CartViewController.m; sourceTree = "<group>"; };
 		D2466847186062DC0089D5DB /* NSString+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Helper.h"; path = "Utilities/NSString+Helper.h"; sourceTree = "<group>"; };
 		D2466848186062DC0089D5DB /* NSString+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Helper.m"; path = "Utilities/NSString+Helper.m"; sourceTree = "<group>"; };
+		D251CC6518BB12FF00093ACE /* DebugViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DebugViewController.h; path = FrontEnd/DebugViewController.h; sourceTree = "<group>"; };
+		D251CC6618BB12FF00093ACE /* DebugViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DebugViewController.m; path = FrontEnd/DebugViewController.m; sourceTree = "<group>"; };
+		D251CC6918BB155200093ACE /* SoundwaveTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SoundwaveTestViewController.h; path = FrontEnd/SoundwaveTestViewController.h; sourceTree = "<group>"; };
+		D251CC6A18BB155200093ACE /* SoundwaveTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SoundwaveTestViewController.m; path = FrontEnd/SoundwaveTestViewController.m; sourceTree = "<group>"; };
+		D251CC6D18BB59BA00093ACE /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		D251EF12187D0A130012536E /* OngoingOrderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OngoingOrderTableViewCell.h; path = FrontEnd/Views/OngoingOrderTableViewCell.h; sourceTree = "<group>"; };
 		D251EF13187D0A130012536E /* OngoingOrderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OngoingOrderTableViewCell.m; path = FrontEnd/Views/OngoingOrderTableViewCell.m; sourceTree = "<group>"; };
 		D251EF15187D0B0A0012536E /* CartHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CartHeaderView.xib; path = FrontEnd/XIBs/CartHeaderView.xib; sourceTree = "<group>"; };
@@ -483,6 +499,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D251CC6E18BB59BA00093ACE /* Accelerate.framework in Frameworks */,
+				D2062BE118B71C3E00D22C7E /* AudioToolbox.framework in Frameworks */,
 				D2827DF31875046B00E4A662 /* AddressBook.framework in Frameworks */,
 				D2827DB81867F92100E4A662 /* Security.framework in Frameworks */,
 				D2A67A82185ACA8A00889114 /* QuartzCore.framework in Frameworks */,
@@ -510,6 +528,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D2062BD918B71B6B00D22C7E /* SoundwaveProcessing */ = {
+			isa = PBXGroup;
+			children = (
+				D2062BE218B75BFC00D22C7E /* SoundwaveRecorder.h */,
+				D2062BE318B75BFC00D22C7E /* SoundwaveRecorder.m */,
+			);
+			name = SoundwaveProcessing;
+			sourceTree = "<group>";
+		};
 		D23976FF184745860002D655 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -551,6 +578,7 @@
 		D287CE5D188D5168001D0C42 /* LIbraries */ = {
 			isa = PBXGroup;
 			children = (
+				D2062BD918B71B6B00D22C7E /* SoundwaveProcessing */,
 				D2EEB4C218A338AE0077E5E3 /* UIImage+Resize */,
 				D2EEB4BE18A3382C0077E5E3 /* NSManagedObject+DeepCopying.h */,
 				D2EEB4BF18A3382C0077E5E3 /* NSManagedObject+DeepCopying.m */,
@@ -583,6 +611,8 @@
 		D293E4B0183DEDEB00B73795 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D251CC6D18BB59BA00093ACE /* Accelerate.framework */,
+				D2062BE018B71C3E00D22C7E /* AudioToolbox.framework */,
 				D2827DF21875046B00E4A662 /* AddressBook.framework */,
 				D2827DB71867F92100E4A662 /* Security.framework */,
 				D2A67A81185ACA8A00889114 /* QuartzCore.framework */,
@@ -686,6 +716,8 @@
 				DF1E79661894C05F0012CDC0 /* AccountInfoTableManager.m */,
 				D2A9092618B1BEA1008FF6B1 /* SettingsViewController.h */,
 				D2A9092718B1BEA1008FF6B1 /* SettingsViewController.m */,
+				D251CC6918BB155200093ACE /* SoundwaveTestViewController.h */,
+				D251CC6A18BB155200093ACE /* SoundwaveTestViewController.m */,
 			);
 			name = FrontEnd;
 			sourceTree = "<group>";
@@ -722,6 +754,8 @@
 			children = (
 				D2A36A8C18504ADE004D3D99 /* TSNavigationController.h */,
 				D2A36A8D18504ADE004D3D99 /* TSNavigationController.m */,
+				D251CC6518BB12FF00093ACE /* DebugViewController.h */,
+				D251CC6618BB12FF00093ACE /* DebugViewController.m */,
 			);
 			name = CustomUI;
 			sourceTree = "<group>";
@@ -1124,6 +1158,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2062BE518B75BFC00D22C7E /* SoundwaveRecorder.m in Sources */,
 				D24667FB185F15F70089D5DB /* TutorialLoginViewController.m in Sources */,
 				D24667FC185F15F70089D5DB /* MapTrackingViewController.m in Sources */,
 				D24667FD185F15F70089D5DB /* TSLogFormatter.m in Sources */,
@@ -1140,6 +1175,7 @@
 				D23D41C518A48F4A005D7143 /* SettingsManager.m in Sources */,
 				D2466804185F15F70089D5DB /* AvatarView.m in Sources */,
 				D21DCE7C187AC5B7008CF011 /* FriendsListScrollView.m in Sources */,
+				D251CC6C18BB155200093ACE /* SoundwaveTestViewController.m in Sources */,
 				D2827DDC186D882D00E4A662 /* ItemGridView.m in Sources */,
 				D2466805185F15F70089D5DB /* MUserInfo.m in Sources */,
 				D2466807185F15F70089D5DB /* ItemPickerViewController.m in Sources */,
@@ -1161,6 +1197,7 @@
 				D2EEB4C118A3382C0077E5E3 /* NSManagedObject+DeepCopying.m in Sources */,
 				D2466814185F15F70089D5DB /* NSManagedObject+Helper.m in Sources */,
 				D2466816185F15F70089D5DB /* AccountViewController.m in Sources */,
+				D251CC6818BB12FF00093ACE /* DebugViewController.m in Sources */,
 				D23D41CF18A892D3005D7143 /* TutorialPageView.m in Sources */,
 				D2466817185F15F70089D5DB /* TSNavigationController.m in Sources */,
 				D2466818185F15F70089D5DB /* ToSavour.xcdatamodeld in Sources */,
@@ -1179,6 +1216,7 @@
 			files = (
 				D2827DE9187288C700E4A662 /* MUserFacebookInfo.m in Sources */,
 				D2209F451884EAF500282DAE /* OrderDetailsHeaderView.m in Sources */,
+				D251CC6718BB12FF00093ACE /* DebugViewController.m in Sources */,
 				D2827DD318694E4C00E4A662 /* MOrderInfo.m in Sources */,
 				D2A9092818B1BEA1008FF6B1 /* SettingsViewController.m in Sources */,
 				DFB3C1E418814A97004E5454 /* BranchListViewController.m in Sources */,
@@ -1226,9 +1264,11 @@
 				D251EF1E187D11C80012536E /* OrderProgressView.m in Sources */,
 				DF0D5751188820D8001C3A9D /* BranchDetailsTableViewController.m in Sources */,
 				D2B9BAAC1897867700226B54 /* OrderCompositeImageView.m in Sources */,
+				D2062BE418B75BFC00D22C7E /* SoundwaveRecorder.m in Sources */,
 				DFED33BE188D4A1300E9C9C2 /* BranchDetailsAddressCell.m in Sources */,
 				D2721690187BC99D00958E3B /* LineView.m in Sources */,
 				DFBDA14C1856111500BF3755 /* PhotoHuntViewController.m in Sources */,
+				D251CC6B18BB155200093ACE /* SoundwaveTestViewController.m in Sources */,
 				DF0D574E18881FE1001C3A9D /* BranchDetailsImageCell.m in Sources */,
 				D2A67A97185C487A00889114 /* AccountInfoTableViewCell.m in Sources */,
 				DF1E796A1894DEC10012CDC0 /* AccountInfoTableViewBalanceCell.m in Sources */,
