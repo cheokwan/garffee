@@ -11,6 +11,7 @@
 #import "TSSettings.h"
 #import "AppDelegate.h"
 #import "MapTrackingAnnotation.h"  // XXX-TEMP
+#import "SoundwaveRecorder.h"  // JJJ
 
 // combine CoreLocation, BLE iBeacon, UltraSound locationing, Wifi fingerprinting/probing,
 // motion activity, user reporting etc in approximating user arrival time
@@ -115,13 +116,24 @@
 }
 
 - (void)scheduleInBackground {
-    if (self.trackerState == TimeTrackerStateStopped) {
-        return;
-    }
+//    if (self.trackerState == TimeTrackerStateStopped) {
+//        return;
+//    } JJJ
     DDLogInfo(@"location service available: %d", [[TSSettings sharedInstance] isLocationServiceAvailable]);
     DDLogInfo(@"APNS available: %d", [[TSSettings sharedInstance] isAPNSAvailable]);
     DDLogInfo(@"background fetch available: %d", [[TSSettings sharedInstance] isBackgroundRefreshAvailable]);
     
+    __block UIBackgroundTaskIdentifier enterBackgroundBgTaskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            DDLogInfo(@"background task going to expire");
+            [[UIApplication sharedApplication] endBackgroundTask:enterBackgroundBgTaskId];
+            enterBackgroundBgTaskId = UIBackgroundTaskInvalid;
+            DDLogInfo(@"background task expired");
+        });
+    }];
+    DDLogInfo(@"b4 entering background, bg time remaining: %f", [[UIApplication sharedApplication] backgroundTimeRemaining]);
+    
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
     
     [_timer invalidate];
     [self dropPin:MapTrackingAnnotationTypeActivity title:@"Starting Background Update"];
@@ -131,9 +143,11 @@
 }
 
 - (void)backToForeground {
-    if (self.trackerState == TimeTrackerStateStopped) {
-        return;
-    }
+//    if (self.trackerState == TimeTrackerStateStopped) {
+//        return;
+//    } JJJ
+    [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
+    
     [_timer invalidate];
     
     [self dropPin:MapTrackingAnnotationTypeActivity title:@"Stopping Background Update"];
@@ -150,6 +164,10 @@
     _locationManager.distanceFilter = 100;
     
     [self logStuff:@"LS"];
+    
+    if (![SoundwaveRecorder sharedInstance].isRecording) {
+        [[SoundwaveRecorder sharedInstance] startRecording];
+    }
 }
 
 - (void)handleBackgroundFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler code:(NSString *)code {

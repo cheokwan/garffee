@@ -22,7 +22,6 @@
 - (id)init {
     self = [super init];
     if (self) {
-        _recording = NO;
         [self setUpAudioFormat];
         [self setUpRecordQueue];
         [self setUpRecordQueueBuffers];
@@ -39,22 +38,23 @@ static void recordCallBack(
     const AudioStreamPacketDescription *inPacketDesc) {
     
     SoundwaveRecorder *recorder = (__bridge SoundwaveRecorder *)inUserData;
-    if (!recorder.recording) {
-        return;
-    }
     
     if (inNumPackets > 0) {
         NSData *audioData = [NSData dataWithBytes:inBuffer->mAudioData length:inBuffer->mAudioDataByteSize];
         if ([recorder.delegate respondsToSelector:@selector(soundwaveRecorder:didReceiveAudioData:)]) {
             [recorder.delegate soundwaveRecorder:recorder didReceiveAudioData:audioData];
         }
+        fprintf(stderr, "recorder callback fired: %f", [[NSDate date] timeIntervalSinceReferenceDate]);  //JJJ
     }
-    AudioQueueEnqueueBuffer(
-                            inAudioQueue,   // AudioQueueRef
-                            inBuffer,       // AudioQueueBufferRef
-                            0,              // inNumPacketDescs
-                            NULL            // AudioStreamPacketDescription
-                            );
+    OSStatus status = AudioQueueEnqueueBuffer(
+                                              inAudioQueue,   // AudioQueueRef
+                                              inBuffer,       // AudioQueueBufferRef
+                                              0,              // inNumPacketDescs
+                                              NULL            // AudioStreamPacketDescription
+                                              );
+    if (status != noErr) {
+        fprintf(stderr, "error in enqueuing buffer during audio queue callback, error status: %d", (int)status);
+    }
 }
 
 - (void)setUpAudioFormat {
@@ -72,60 +72,96 @@ static void recordCallBack(
 }
 
 - (void)setUpRecordQueue {
-    AudioQueueNewInput(
-                       &audioFormat,            // AudioStreamBasicDescription
-                       recordCallBack,          // AudioQueueInputCallback
-                       (__bridge void *)self,   // inUserData
-                       CFRunLoopGetMain(),      // inCallbackRunLoop
-                       NULL,                    // inCallbackRunLoopMode
-                       0,                       // inFlags
-                       &recordQueue             // outAQ
-                       );
+    OSStatus status = AudioQueueNewInput(
+                                         &audioFormat,            // AudioStreamBasicDescription
+                                         recordCallBack,          // AudioQueueInputCallback
+                                         (__bridge void *)self,   // inUserData
+                                         CFRunLoopGetMain(),      // inCallbackRunLoop
+                                         NULL,                    // inCallbackRunLoopMode
+                                         0,                       // inFlags
+                                         &recordQueue             // outAQ
+                                         );
+    if (status != noErr) {
+        DDLogError(@"error in setting up audio queue, error status: %d", (int)status);
+    }
 }
 
 - (void)setUpRecordQueueBuffers {
     for (int i = 0; i < kSoundwaveRecorderNumBuffers; ++i) {
-        AudioQueueAllocateBuffer(
-                                 recordQueue,           // AudioQueueRef
-                                 bufferByteSize,        // inBufferByteSize
-                                 &recordQueueBuffers[i] // AudioQueueBufferRef
-                                 );
+        OSStatus status = AudioQueueAllocateBuffer(
+                                                   recordQueue,           // AudioQueueRef
+                                                   bufferByteSize,        // inBufferByteSize
+                                                   &recordQueueBuffers[i] // AudioQueueBufferRef
+                                                   );
+        if (status != noErr) {
+            DDLogError(@"error in allocating buffer for audio queue, error status: %d", (int)status);
+        }
     }
 }
 
 - (void)primeRecordQueueBuffers {
     for (int i = 0; i < kSoundwaveRecorderNumBuffers; ++i) {
-        AudioQueueEnqueueBuffer(
-                                recordQueue,            // AudioQueueRef
-                                recordQueueBuffers[i],  // AudioQueueBufferRef
-                                0,                      // inNumPacketDescs
-                                NULL                    // AudioStreamPacketDescription
-                                );
+        OSStatus status = AudioQueueEnqueueBuffer(
+                                                  recordQueue,            // AudioQueueRef
+                                                  recordQueueBuffers[i],  // AudioQueueBufferRef
+                                                  0,                      // inNumPacketDescs
+                                                  NULL                    // AudioStreamPacketDescription
+                                                  );
+        if (status != noErr) {
+            DDLogError(@"error in enqueuing buffer in audio queue, error status: %d", (int)status);
+        }
     }
 }
 
+- (BOOL)isRecording {
+    UInt32 propertyIsRunning = 0;
+    UInt32 propertyDataSize = sizeof(UInt32);
+    AudioQueueGetProperty(
+                          recordQueue,                      // AudioQueueRef
+                          kAudioQueueProperty_IsRunning,    // AudioQueuePropertyID
+                          &propertyIsRunning,               // outData
+                          &propertyDataSize                 // ioDataSize
+                          );
+    return propertyIsRunning != 0;
+}
+
 - (void)startRecording {
-    _recording = YES;
+    if (self.isRecording) {
+        return;
+    }
+    
     [self primeRecordQueueBuffers];
-    AudioQueueStart(
-                    recordQueue,    // AudioQueueRef
-                    NULL            // AudioTimeStamp
-                    );
+    OSStatus status = AudioQueueStart(
+                                      recordQueue,    // AudioQueueRef
+                                      NULL            // AudioTimeStamp
+                                      );
+    if (status != noErr) {
+        DDLogError(@"error in starting audio queue, error status: %d", (int)status);
+    }
 }
 
 - (void)stopRecording {
-    _recording = NO;
-    AudioQueueStop(
-                   recordQueue,     // AudioQueueRef
-                   true             // inImmediate
-                   );
+    if (!self.isRecording) {
+        return;
+    }
+    
+    OSStatus status = AudioQueueStop(
+                                     recordQueue,     // AudioQueueRef
+                                     true             // inImmediate
+                                     );
+    if (status != noErr) {
+        DDLogError(@"error in stopping audio queue, error status: %d", (int)status);
+    }
 }
 
 - (void)dealloc {
-    AudioQueueDispose(
-                      recordQueue,  // AudioQueueRef
-                      true          // inImmediate
-                      );
+    OSStatus status = AudioQueueDispose(
+                                        recordQueue,  // AudioQueueRef
+                                        true          // inImmediate
+                                        );
+    if (status != noErr) {
+        DDLogError(@"error in disposing audio queue, error status: %d", (int)status);
+    }
 }
 
 @end

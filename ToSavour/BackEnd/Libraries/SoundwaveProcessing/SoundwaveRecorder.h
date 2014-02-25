@@ -24,7 +24,7 @@ static const int kSoundwaveRecorderNumBuffers = 3;
     UInt32 bufferNumPackets;
 }
 
-@property (nonatomic, assign)   BOOL recording;
+@property (nonatomic, readonly) BOOL isRecording;
 @property (nonatomic, weak)     id<SoundwaveRecorderDelegate> delegate;
 
 + (instancetype)sharedInstance;

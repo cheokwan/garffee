@@ -60,7 +60,7 @@
 }
 
 - (void)stopIfRecording {
-    if ([SoundwaveRecorder sharedInstance].recording && [SoundwaveRecorder sharedInstance].delegate == self) {
+    if ([SoundwaveRecorder sharedInstance].isRecording && [SoundwaveRecorder sharedInstance].delegate == self) {
         [[SoundwaveRecorder sharedInstance] stopRecording];
         [SoundwaveRecorder sharedInstance].delegate = nil;
         self.isRecording = NO;
@@ -69,7 +69,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self stopIfRecording];
+//    [self stopIfRecording];
 }
 
 - (void)didReceiveMemoryWarning
