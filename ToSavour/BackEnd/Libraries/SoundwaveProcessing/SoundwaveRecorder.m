@@ -9,6 +9,7 @@
 #import "SoundwaveRecorder.h"
 
 @implementation SoundwaveRecorder
+@synthesize bufferNumPackets;
 
 + (instancetype)sharedInstance {
     static id instance = nil;
@@ -38,13 +39,15 @@ static void recordCallBack(
     const AudioStreamPacketDescription *inPacketDesc) {
     
     SoundwaveRecorder *recorder = (__bridge SoundwaveRecorder *)inUserData;
+    if (!recorder.isRecording) {
+        return;
+    }
     
     if (inNumPackets > 0) {
         NSData *audioData = [NSData dataWithBytes:inBuffer->mAudioData length:inBuffer->mAudioDataByteSize];
         if ([recorder.delegate respondsToSelector:@selector(soundwaveRecorder:didReceiveAudioData:)]) {
             [recorder.delegate soundwaveRecorder:recorder didReceiveAudioData:audioData];
         }
-        fprintf(stderr, "recorder callback fired: %f", [[NSDate date] timeIntervalSinceReferenceDate]);  //JJJ
     }
     OSStatus status = AudioQueueEnqueueBuffer(
                                               inAudioQueue,   // AudioQueueRef
@@ -61,13 +64,13 @@ static void recordCallBack(
     audioFormat.mFormatID = kAudioFormatLinearPCM;
     audioFormat.mSampleRate = 44100.0;
     audioFormat.mChannelsPerFrame = 1;
-    audioFormat.mBitsPerChannel = 16;
+    audioFormat.mBitsPerChannel = 32;
     audioFormat.mFramesPerPacket = 1;
-    audioFormat.mBytesPerFrame = audioFormat.mChannelsPerFrame * sizeof(SInt16);
+    audioFormat.mBytesPerFrame = audioFormat.mChannelsPerFrame * sizeof(Float32);
     audioFormat.mBytesPerPacket = audioFormat.mFramesPerPacket * audioFormat.mBytesPerFrame;
-    audioFormat.mFormatFlags = kLinearPCMFormatFlagIsBigEndian | kLinearPCMFormatFlagIsSignedInteger | kLinearPCMFormatFlagIsPacked;
+    audioFormat.mFormatFlags = kLinearPCMFormatFlagIsFloat | kLinearPCMFormatFlagIsPacked | kAudioFormatFlagsNativeEndian;
     
-    bufferNumPackets = 2048;    // FFT requires num packets to be power of 2
+    bufferNumPackets = 4096;    // FFT requires num packets to be power of 2
     bufferByteSize = bufferNumPackets * audioFormat.mBytesPerPacket;
 }
 

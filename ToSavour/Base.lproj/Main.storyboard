@@ -786,7 +786,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C6u-Ag-IVR" userLabel="Label - Display">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="amp" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C6u-Ag-IVR" userLabel="Label - Display">
                                 <rect key="frame" x="60" y="359" width="200" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
@@ -797,19 +797,85 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="18000" minValue="18000" maxValue="21000" translatesAutoresizingMaskIntoConstraints="NO" id="MwG-sO-RiE">
+                                <rect key="frame" x="18" y="476" width="244" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="IpR-dG-7PO"/>
+                                    <constraint firstAttribute="height" constant="33" id="OnD-XS-z8P"/>
+                                </constraints>
+                            </slider>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Target Frequency:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ogL-Z6-eSp">
+                                <rect key="frame" x="20" y="432" width="280" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="Kak-Ju-Jhg"/>
+                                    <constraint firstAttribute="width" constant="280" id="Ori-Zt-75S"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Detecting target frequency +- 25 Hz" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tsM-9Y-s1N">
+                                <rect key="frame" x="20" y="450" width="200" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="H9F-t6-pdY"/>
+                                    <constraint firstAttribute="height" constant="21" id="KXy-fM-4Dd"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="low" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DK7-JW-nxy">
+                                <rect key="frame" x="60" y="338" width="80" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="4Xj-UT-1JQ"/>
+                                    <constraint firstAttribute="width" constant="80" id="ZCO-Aa-Umk"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="high" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nAD-UJ-6fx">
+                                <rect key="frame" x="180" y="338" width="80" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="7WQ-4x-WfV"/>
+                                    <constraint firstAttribute="width" constant="80" id="ypK-aR-KR9"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="C6u-Ag-IVR" secondAttribute="centerX" id="02J-p8-yDn"/>
+                            <constraint firstItem="tsM-9Y-s1N" firstAttribute="leading" secondItem="9Jo-Xi-8VE" secondAttribute="leading" constant="20" id="7cA-oo-RLO"/>
+                            <constraint firstItem="Kei-5j-8eD" firstAttribute="top" secondItem="ogL-Z6-eSp" secondAttribute="bottom" constant="66" id="CxO-Eq-ubi"/>
                             <constraint firstAttribute="trailing" secondItem="ajx-Qs-h4F" secondAttribute="trailing" constant="10" id="Fua-qq-Nod"/>
+                            <constraint firstItem="C6u-Ag-IVR" firstAttribute="top" secondItem="DK7-JW-nxy" secondAttribute="bottom" id="JWg-wU-e7e"/>
                             <constraint firstItem="Kei-5j-8eD" firstAttribute="top" secondItem="ajx-Qs-h4F" secondAttribute="bottom" constant="10" id="MpW-Lj-rpP"/>
+                            <constraint firstItem="ogL-Z6-eSp" firstAttribute="leading" secondItem="9Jo-Xi-8VE" secondAttribute="leading" constant="20" id="aDk-dO-4Ps"/>
+                            <constraint firstItem="Kei-5j-8eD" firstAttribute="top" secondItem="MwG-sO-RiE" secondAttribute="bottom" constant="10" id="aTa-0W-FkN"/>
+                            <constraint firstItem="MwG-sO-RiE" firstAttribute="leading" secondItem="9Jo-Xi-8VE" secondAttribute="leading" constant="20" id="blu-pI-26o"/>
+                            <constraint firstItem="Kei-5j-8eD" firstAttribute="top" secondItem="tsM-9Y-s1N" secondAttribute="bottom" constant="48" id="l4d-M0-k90"/>
+                            <constraint firstItem="DK7-JW-nxy" firstAttribute="leading" secondItem="C6u-Ag-IVR" secondAttribute="leading" id="lHa-Fr-L0G"/>
+                            <constraint firstItem="C6u-Ag-IVR" firstAttribute="trailing" secondItem="nAD-UJ-6fx" secondAttribute="trailing" id="lKQ-Ip-SGk"/>
+                            <constraint firstItem="C6u-Ag-IVR" firstAttribute="top" secondItem="nAD-UJ-6fx" secondAttribute="bottom" id="pM9-21-bKC"/>
                             <constraint firstItem="Kei-5j-8eD" firstAttribute="top" secondItem="C6u-Ag-IVR" secondAttribute="bottom" constant="120" id="pwz-HG-DHk"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="FW6-5A-Zzv"/>
                     <connections>
+                        <outlet property="displayFrequencyBinHighLabel" destination="nAD-UJ-6fx" id="3jI-o4-aH4"/>
+                        <outlet property="displayFrequencyBinLowLabel" destination="DK7-JW-nxy" id="b7V-G8-Lo2"/>
                         <outlet property="displayLabel" destination="C6u-Ag-IVR" id="xjh-lL-OVD"/>
                         <outlet property="recordButton" destination="ajx-Qs-h4F" id="E1T-A1-fVw"/>
+                        <outlet property="targetFrequencyLabel" destination="ogL-Z6-eSp" id="cVM-Pd-LoJ"/>
+                        <outlet property="targetFrequencySlider" destination="MwG-sO-RiE" id="sDa-NR-wq9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1eh-FL-xs0" userLabel="First Responder" sceneMemberID="firstResponder"/>

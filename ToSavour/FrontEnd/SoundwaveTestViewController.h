@@ -8,11 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import "SoundwaveRecorder.h"
+#import "SoundwaveAnalyzer.h"
 
 @interface SoundwaveTestViewController : UIViewController<SoundwaveRecorderDelegate>
 
 @property (nonatomic, strong)   IBOutlet UIButton *recordButton;
 @property (nonatomic, strong)   IBOutlet UILabel *displayLabel;
+@property (nonatomic, strong)   IBOutlet UISlider *targetFrequencySlider;
+@property (nonatomic, strong)   IBOutlet UILabel *targetFrequencyLabel;
+@property (nonatomic, strong)   IBOutlet UILabel *displayFrequencyBinLowLabel;
+@property (nonatomic, strong)   IBOutlet UILabel *displayFrequencyBinHighLabel;
+
 @property (nonatomic, assign)   BOOL isRecording;
+@property (nonatomic, strong)   SoundwaveAnalyzer *analyzer;
 
 @end
