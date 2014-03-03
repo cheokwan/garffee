@@ -9,6 +9,9 @@
 #import "SoundwaveAnalyzer.h"
 
 @implementation SoundwaveAnalyzer
+@synthesize fftLength = fftLength;
+@synthesize outputData = outputData;
+@synthesize sampleRate = sampleRate;
 
 - (id)init {
     self = [super init];

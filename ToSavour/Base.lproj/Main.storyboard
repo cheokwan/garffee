@@ -828,7 +828,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="low" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DK7-JW-nxy">
-                                <rect key="frame" x="60" y="338" width="80" height="21"/>
+                                <rect key="frame" x="60" y="399" width="80" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="4Xj-UT-1JQ"/>
@@ -839,7 +839,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="high" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nAD-UJ-6fx">
-                                <rect key="frame" x="180" y="338" width="80" height="21"/>
+                                <rect key="frame" x="180" y="399" width="80" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="7WQ-4x-WfV"/>
@@ -849,23 +849,57 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sqH-bl-r5b" userLabel="Image View - Heat Map">
+                                <rect key="frame" x="0.0" y="64" width="320" height="280"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="v92-fU-wDo"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nDo-OM-TBI" userLabel="Image View - 19000 Mark">
+                                <rect key="frame" x="178" y="64" width="2" height="2"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SH7-ex-ytR" userLabel="Image View - 18000 Mark">
+                                <rect key="frame" x="131" y="64" width="2" height="2"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IXB-9Y-39g" userLabel="Image View - 20000 Mark">
+                                <rect key="frame" x="224" y="64" width="2" height="2"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Yr-jV-SsN" userLabel="Image View - 21000 Mark">
+                                <rect key="frame" x="271" y="64" width="2" height="2"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="C6u-Ag-IVR" secondAttribute="centerX" id="02J-p8-yDn"/>
                             <constraint firstItem="tsM-9Y-s1N" firstAttribute="leading" secondItem="9Jo-Xi-8VE" secondAttribute="leading" constant="20" id="7cA-oo-RLO"/>
+                            <constraint firstItem="C6u-Ag-IVR" firstAttribute="top" secondItem="sqH-bl-r5b" secondAttribute="bottom" constant="15" id="9d1-e7-IR1"/>
                             <constraint firstItem="Kei-5j-8eD" firstAttribute="top" secondItem="ogL-Z6-eSp" secondAttribute="bottom" constant="66" id="CxO-Eq-ubi"/>
                             <constraint firstAttribute="trailing" secondItem="ajx-Qs-h4F" secondAttribute="trailing" constant="10" id="Fua-qq-Nod"/>
-                            <constraint firstItem="C6u-Ag-IVR" firstAttribute="top" secondItem="DK7-JW-nxy" secondAttribute="bottom" id="JWg-wU-e7e"/>
                             <constraint firstItem="Kei-5j-8eD" firstAttribute="top" secondItem="ajx-Qs-h4F" secondAttribute="bottom" constant="10" id="MpW-Lj-rpP"/>
+                            <constraint firstItem="nAD-UJ-6fx" firstAttribute="top" secondItem="C6u-Ag-IVR" secondAttribute="bottom" id="aCs-Ov-YZE"/>
                             <constraint firstItem="ogL-Z6-eSp" firstAttribute="leading" secondItem="9Jo-Xi-8VE" secondAttribute="leading" constant="20" id="aDk-dO-4Ps"/>
                             <constraint firstItem="Kei-5j-8eD" firstAttribute="top" secondItem="MwG-sO-RiE" secondAttribute="bottom" constant="10" id="aTa-0W-FkN"/>
                             <constraint firstItem="MwG-sO-RiE" firstAttribute="leading" secondItem="9Jo-Xi-8VE" secondAttribute="leading" constant="20" id="blu-pI-26o"/>
+                            <constraint firstItem="sqH-bl-r5b" firstAttribute="top" secondItem="MRN-MN-526" secondAttribute="bottom" id="cmv-NZ-hLk"/>
                             <constraint firstItem="Kei-5j-8eD" firstAttribute="top" secondItem="tsM-9Y-s1N" secondAttribute="bottom" constant="48" id="l4d-M0-k90"/>
                             <constraint firstItem="DK7-JW-nxy" firstAttribute="leading" secondItem="C6u-Ag-IVR" secondAttribute="leading" id="lHa-Fr-L0G"/>
                             <constraint firstItem="C6u-Ag-IVR" firstAttribute="trailing" secondItem="nAD-UJ-6fx" secondAttribute="trailing" id="lKQ-Ip-SGk"/>
-                            <constraint firstItem="C6u-Ag-IVR" firstAttribute="top" secondItem="nAD-UJ-6fx" secondAttribute="bottom" id="pM9-21-bKC"/>
+                            <constraint firstItem="sqH-bl-r5b" firstAttribute="leading" secondItem="9Jo-Xi-8VE" secondAttribute="leading" id="mWx-em-Kdm"/>
                             <constraint firstItem="Kei-5j-8eD" firstAttribute="top" secondItem="C6u-Ag-IVR" secondAttribute="bottom" constant="120" id="pwz-HG-DHk"/>
+                            <constraint firstItem="DK7-JW-nxy" firstAttribute="top" secondItem="C6u-Ag-IVR" secondAttribute="bottom" id="w6b-cY-B2r"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="FW6-5A-Zzv"/>
@@ -873,6 +907,7 @@
                         <outlet property="displayFrequencyBinHighLabel" destination="nAD-UJ-6fx" id="3jI-o4-aH4"/>
                         <outlet property="displayFrequencyBinLowLabel" destination="DK7-JW-nxy" id="b7V-G8-Lo2"/>
                         <outlet property="displayLabel" destination="C6u-Ag-IVR" id="xjh-lL-OVD"/>
+                        <outlet property="heatMapImage" destination="sqH-bl-r5b" id="UPK-ER-o08"/>
                         <outlet property="recordButton" destination="ajx-Qs-h4F" id="E1T-A1-fVw"/>
                         <outlet property="targetFrequencyLabel" destination="ogL-Z6-eSp" id="cVM-Pd-LoJ"/>
                         <outlet property="targetFrequencySlider" destination="MwG-sO-RiE" id="sDa-NR-wq9"/>

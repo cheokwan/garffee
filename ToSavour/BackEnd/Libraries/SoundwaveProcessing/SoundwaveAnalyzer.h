@@ -26,6 +26,10 @@ typedef struct {
     Float32         sampleRate;
 }
 
+@property (nonatomic, assign)   UInt32 fftLength;
+@property (nonatomic, assign)   Float32 *outputData;
+@property (nonatomic, assign)   Float32 sampleRate;
+
 - (void)initializeFFT:(UInt32)numOfFrames;
 - (BOOL)computeFFT:(NSData *)inSamples;
 - (FrequencyInfo)findTargetFrequencyLow:(Float32)freqLow high:(Float32)freqHigh;

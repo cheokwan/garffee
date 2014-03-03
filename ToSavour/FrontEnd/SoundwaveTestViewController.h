@@ -19,6 +19,14 @@
 @property (nonatomic, strong)   IBOutlet UILabel *displayFrequencyBinLowLabel;
 @property (nonatomic, strong)   IBOutlet UILabel *displayFrequencyBinHighLabel;
 
+// heat map image
+@property (nonatomic, strong)   IBOutlet UIImageView *heatMapImage;
+@property (nonatomic, assign)   int heatMapRows;
+@property (nonatomic, assign)   int heatMapColumns;
+@property (nonatomic, assign)   int heatMapCurrentRow;
+@property (nonatomic, assign)   int heatMapFrequencyBinLow;
+@property (nonatomic, assign)   int heatMapFrequencyBinHigh;
+
 @property (nonatomic, assign)   BOOL isRecording;
 @property (nonatomic, strong)   SoundwaveAnalyzer *analyzer;
 
