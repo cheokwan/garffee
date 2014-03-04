@@ -701,7 +701,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LogCell" textLabel="WFt-qa-Jdg" detailTextLabel="T8b-I7-E0o" style="IBUITableViewCellStyleSubtitle" id="eYT-3m-Ae0">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MapTrackingLogCell" textLabel="WFt-qa-Jdg" detailTextLabel="T8b-I7-E0o" style="IBUITableViewCellStyleSubtitle" id="eYT-3m-Ae0">
                                         <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eYT-3m-Ae0" id="EbA-XB-dIf">
@@ -902,12 +902,17 @@
                             <constraint firstItem="DK7-JW-nxy" firstAttribute="top" secondItem="C6u-Ag-IVR" secondAttribute="bottom" id="w6b-cY-B2r"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="FW6-5A-Zzv"/>
+                    <navigationItem key="navigationItem" id="FW6-5A-Zzv">
+                        <barButtonItem key="rightBarButtonItem" systemItem="organize" id="1rh-fy-9fJ">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="displayFrequencyBinHighLabel" destination="nAD-UJ-6fx" id="3jI-o4-aH4"/>
                         <outlet property="displayFrequencyBinLowLabel" destination="DK7-JW-nxy" id="b7V-G8-Lo2"/>
                         <outlet property="displayLabel" destination="C6u-Ag-IVR" id="xjh-lL-OVD"/>
                         <outlet property="heatMapImage" destination="sqH-bl-r5b" id="UPK-ER-o08"/>
+                        <outlet property="logButton" destination="1rh-fy-9fJ" id="LcL-JW-Yah"/>
                         <outlet property="recordButton" destination="ajx-Qs-h4F" id="E1T-A1-fVw"/>
                         <outlet property="targetFrequencyLabel" destination="ogL-Z6-eSp" id="cVM-Pd-LoJ"/>
                         <outlet property="targetFrequencySlider" destination="MwG-sO-RiE" id="sDa-NR-wq9"/>
@@ -916,6 +921,51 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1eh-FL-xs0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3344" y="5906"/>
+        </scene>
+        <!--Soundwave Log View Controller-->
+        <scene sceneID="3eM-Pf-OZP">
+            <objects>
+                <tableViewController storyboardIdentifier="SoundwaveLogViewController" id="D2d-u3-Pz4" customClass="SoundwaveLogViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="c1A-Lz-N5m">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SoundwaveLogCell" textLabel="5IK-Oa-Bg1" detailTextLabel="pTZ-71-Heb" style="IBUITableViewCellStyleSubtitle" id="K37-Si-CaD">
+                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="K37-Si-CaD" id="ao6-zM-mGc">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5IK-Oa-Bg1">
+                                            <rect key="frame" x="15" y="7" width="28" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pTZ-71-Heb">
+                                            <rect key="frame" x="15" y="24" width="36" height="12"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="D2d-u3-Pz4" id="NUS-yV-2yk"/>
+                            <outlet property="delegate" destination="D2d-u3-Pz4" id="0dI-N7-Pe1"/>
+                        </connections>
+                    </tableView>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2K0-wf-6je" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3751" y="5906"/>
         </scene>
         <!--Navigation Controller - Account!-->
         <scene sceneID="cXu-xe-WAx">

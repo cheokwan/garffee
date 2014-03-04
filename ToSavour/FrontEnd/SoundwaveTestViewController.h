@@ -18,6 +18,7 @@
 @property (nonatomic, strong)   IBOutlet UILabel *targetFrequencyLabel;
 @property (nonatomic, strong)   IBOutlet UILabel *displayFrequencyBinLowLabel;
 @property (nonatomic, strong)   IBOutlet UILabel *displayFrequencyBinHighLabel;
+@property (nonatomic, strong)   IBOutlet UIBarButtonItem *logButton;
 
 // heat map image
 @property (nonatomic, strong)   IBOutlet UIImageView *heatMapImage;

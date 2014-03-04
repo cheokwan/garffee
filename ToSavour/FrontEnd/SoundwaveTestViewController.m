@@ -8,10 +8,15 @@
 
 #import "SoundwaveTestViewController.h"
 #import "SoundwaveRecorder.h"
+#import "SoundwaveLogViewController.h"
+#import "TSFrontEndIncludes.h"
+#import "TSNavigationController.h"
+#import "MFrequencyInfo.h"
 
 @interface SoundwaveTestViewController ()
 @property (nonatomic, readonly) NSInteger targetFrequency;
 @property (nonatomic, assign)   Float32 *heatMapCircularFrameBuffer;
+@property (nonatomic, assign)   UInt16 *heatMapWindowCounts;
 @property (nonatomic, assign)   CGColorSpaceRef heatMapColorSpace;
 @property (nonatomic, assign)   CGDataProviderRef heatMapDataProvider;
 @end
@@ -40,6 +45,8 @@
     _heatMapFrequencyBinHigh = MIN(ceilf(22050.0 * _analyzer.fftLength / _analyzer.sampleRate), _analyzer.fftLength);
     _heatMapCircularFrameBuffer = malloc(sizeof(Float32) * _heatMapRows * _heatMapColumns);
     memset(_heatMapCircularFrameBuffer, 0x00, sizeof(Float32) * _heatMapRows * _heatMapColumns);
+    _heatMapWindowCounts = malloc(sizeof(UInt16) * _heatMapColumns);
+    memset(_heatMapWindowCounts, 0, sizeof(UInt16) * _heatMapColumns);
     
     _heatMapColorSpace = CGColorSpaceCreateDeviceRGB();
     _heatMapDataProvider = CGDataProviderCreateDirect(_heatMapCircularFrameBuffer,                        // info
@@ -70,6 +77,7 @@
 
 - (void)initializeView {
     self.isRecording = NO;
+    self.navigationItem.titleView = [TSTheming navigationTitleViewWithString:@"Soundwave"];
     [_recordButton addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
     _displayLabel.font = [UIFont systemFontOfSize:18.0];
     _displayLabel.textAlignment = NSTextAlignmentCenter;
@@ -77,11 +85,15 @@
     
     [_targetFrequencySlider addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
     [self updateTargetFrequencyLabel];
+    
+    [_logButton setTarget:self];
+    [_logButton setAction:@selector(buttonPressed:)];
 }
 
 - (void)buttonPressed:(id)sender {
     if (sender == _recordButton) {
         if (!_isRecording) {
+            memset(_heatMapWindowCounts, 0, sizeof(UInt16) * _heatMapColumns);
             [[SoundwaveRecorder sharedInstance] startRecording];
             [SoundwaveRecorder sharedInstance].delegate = self;
         } else {
@@ -89,6 +101,10 @@
             [SoundwaveRecorder sharedInstance].delegate = nil;
         }
         self.isRecording = !_isRecording;
+    } else if (sender == _logButton) {
+        SoundwaveLogViewController *logViewController = (SoundwaveLogViewController *)[TSTheming viewControllerWithStoryboardIdentifier:NSStringFromClass(SoundwaveLogViewController.class)];
+        TSNavigationController *naviController = [[TSNavigationController alloc] initWithRootViewController:logViewController];
+        [self presentViewController:naviController animated:YES completion:nil];
     }
 }
 
@@ -119,6 +135,7 @@
 - (void)dealloc {
     [self stopIfRecording];
     free(_heatMapCircularFrameBuffer);
+    free(_heatMapWindowCounts);
     CGColorSpaceRelease(_heatMapColorSpace);
     CGDataProviderRelease(_heatMapDataProvider);
 }
@@ -219,6 +236,23 @@ CGDataProviderDirectCallbacks providerCallbacks =
                 averageSum += fabs(_analyzer.outputData[k]);
             }
             Float32 normalizedMagnitude = MIN(MAX((averageSum / averageWindow) / normalMax, noiseThreshold), 1.0);
+            
+            Float32 normalizedCountThreshold = 0.01;
+            if (normalizedMagnitude > normalizedCountThreshold) {
+                ++_heatMapWindowCounts[i];
+            } else {
+                // basically AIMD
+                _heatMapWindowCounts[i] /= 2;
+            }
+            if (_heatMapWindowCounts[i] == 50) {
+                MFrequencyInfo *freqInfo = [MFrequencyInfo newObjectInContext:[AppDelegate sharedAppDelegate].persistentStoreManagedObjectContext];
+                freqInfo.timestamp = [NSDate date];
+                freqInfo.frequencyBinLow = @(j * _analyzer.sampleRate / _analyzer.fftLength);
+                freqInfo.frequencyBinHigh = @((j + averageWindow) * _analyzer.sampleRate / _analyzer.fftLength);
+                freqInfo.normalizedMagnitude = @(normalizedMagnitude);
+                [[AppDelegate sharedAppDelegate].persistentStoreManagedObjectContext save];
+            }
+            
             CGFloat red, green, blue, alpha;
             [self colorForValue:normalizedMagnitude red:&red green:&green blue:&blue alpha:&alpha];
             

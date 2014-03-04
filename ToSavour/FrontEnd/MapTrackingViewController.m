@@ -46,7 +46,7 @@
     [_switcher addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
     self.buttonDropPin = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(buttonPressed:)];
     self.navigationItem.rightBarButtonItem = _buttonDropPin;
-    self.navigationItem.titleView = [TSTheming navigationBrandNameTitleView];
+    self.navigationItem.titleView = [TSTheming navigationTitleViewWithString:@"Map Tracking"];
 }
 
 - (void)viewDidLoad
@@ -258,7 +258,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = nil;
     if (indexPath.section == 0) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"LogCell" forIndexPath:indexPath];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"MapTrackingLogCell" forIndexPath:indexPath];
         [self configureCell:cell atIndexPath:indexPath];
     }
     return cell;

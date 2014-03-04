@@ -124,6 +124,10 @@
 		D2827DFB187540BD00E4A662 /* NSArray+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DF9187540BD00E4A662 /* NSArray+Helper.m */; };
 		D2827DFE18755B1400E4A662 /* MUserAddressBookInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DFD18755B1400E4A662 /* MUserAddressBookInfo.m */; };
 		D2827DFF18755B1400E4A662 /* MUserAddressBookInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DFD18755B1400E4A662 /* MUserAddressBookInfo.m */; };
+		D2857BD318C58B1E0013F915 /* SoundwaveLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2857BD218C58B1E0013F915 /* SoundwaveLogViewController.m */; };
+		D2857BD418C58B1E0013F915 /* SoundwaveLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2857BD218C58B1E0013F915 /* SoundwaveLogViewController.m */; };
+		D2857BD718C598E60013F915 /* MFrequencyInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2857BD618C598E60013F915 /* MFrequencyInfo.m */; };
+		D2857BD818C598E60013F915 /* MFrequencyInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2857BD618C598E60013F915 /* MFrequencyInfo.m */; };
 		D293E4B2183DEDEB00B73795 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4B1183DEDEB00B73795 /* Foundation.framework */; };
 		D293E4B4183DEDEB00B73795 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4B3183DEDEB00B73795 /* CoreGraphics.framework */; };
 		D293E4B6183DEDEB00B73795 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D293E4B5183DEDEB00B73795 /* UIKit.framework */; };
@@ -331,6 +335,10 @@
 		D2827DF9187540BD00E4A662 /* NSArray+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+Helper.m"; path = "Utilities/NSArray+Helper.m"; sourceTree = "<group>"; };
 		D2827DFC18755B1400E4A662 /* MUserAddressBookInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUserAddressBookInfo.h; path = BackEnd/Model/MUserAddressBookInfo.h; sourceTree = "<group>"; };
 		D2827DFD18755B1400E4A662 /* MUserAddressBookInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUserAddressBookInfo.m; path = BackEnd/Model/MUserAddressBookInfo.m; sourceTree = "<group>"; };
+		D2857BD118C58B1E0013F915 /* SoundwaveLogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SoundwaveLogViewController.h; path = FrontEnd/SoundwaveLogViewController.h; sourceTree = "<group>"; };
+		D2857BD218C58B1E0013F915 /* SoundwaveLogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SoundwaveLogViewController.m; path = FrontEnd/SoundwaveLogViewController.m; sourceTree = "<group>"; };
+		D2857BD518C598E60013F915 /* MFrequencyInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MFrequencyInfo.h; path = ToSavour/BackEnd/Model/MFrequencyInfo.h; sourceTree = "<group>"; };
+		D2857BD618C598E60013F915 /* MFrequencyInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MFrequencyInfo.m; path = ToSavour/BackEnd/Model/MFrequencyInfo.m; sourceTree = "<group>"; };
 		D293E4AE183DEDEB00B73795 /* Garffee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Garffee.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D293E4B1183DEDEB00B73795 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D293E4B3183DEDEB00B73795 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -595,6 +603,8 @@
 		D293E4A5183DEDEB00B73795 = {
 			isa = PBXGroup;
 			children = (
+				D2857BD518C598E60013F915 /* MFrequencyInfo.h */,
+				D2857BD618C598E60013F915 /* MFrequencyInfo.m */,
 				D293E4B9183DEDEB00B73795 /* ToSavour */,
 				D293E4DF183DEDEB00B73795 /* ToSavourTests */,
 				D293E4B0183DEDEB00B73795 /* Frameworks */,
@@ -724,6 +734,8 @@
 				D2A9092718B1BEA1008FF6B1 /* SettingsViewController.m */,
 				D251CC6918BB155200093ACE /* SoundwaveTestViewController.h */,
 				D251CC6A18BB155200093ACE /* SoundwaveTestViewController.m */,
+				D2857BD118C58B1E0013F915 /* SoundwaveLogViewController.h */,
+				D2857BD218C58B1E0013F915 /* SoundwaveLogViewController.m */,
 			);
 			name = FrontEnd;
 			sourceTree = "<group>";
@@ -1166,6 +1178,7 @@
 			files = (
 				D2062BE518B75BFC00D22C7E /* SoundwaveRecorder.m in Sources */,
 				D24667FB185F15F70089D5DB /* TutorialLoginViewController.m in Sources */,
+				D2857BD818C598E60013F915 /* MFrequencyInfo.m in Sources */,
 				D24667FC185F15F70089D5DB /* MapTrackingViewController.m in Sources */,
 				D24667FD185F15F70089D5DB /* TSLogFormatter.m in Sources */,
 				D24667FE185F15F70089D5DB /* MProductInfo.m in Sources */,
@@ -1214,6 +1227,7 @@
 				D2466819185F15F70089D5DB /* FriendsListTableViewCell.m in Sources */,
 				D246681A185F15F70089D5DB /* UIView+Helper.m in Sources */,
 				D2827DFF18755B1400E4A662 /* MUserAddressBookInfo.m in Sources */,
+				D2857BD418C58B1E0013F915 /* SoundwaveLogViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1229,6 +1243,7 @@
 				DFB3C1E418814A97004E5454 /* BranchListViewController.m in Sources */,
 				D2827DDB186D882D00E4A662 /* ItemGridView.m in Sources */,
 				DF60E74D185B47BA00DB10DE /* PhotoHuntGridButton.m in Sources */,
+				D2857BD318C58B1E0013F915 /* SoundwaveLogViewController.m in Sources */,
 				DF1C88D21875967800400283 /* PickUpLocationViewController.m in Sources */,
 				D2C075CB1855C47200620114 /* TutorialLoginViewController.m in Sources */,
 				DF26BEB518653FC400598CA0 /* TSGamePlayHistory.m in Sources */,
@@ -1270,6 +1285,7 @@
 				D2209F4D1885212600282DAE /* OrderItemTableViewCell.m in Sources */,
 				D2B9BAB51897914B00226B54 /* NSURL+Helper.m in Sources */,
 				D251EF1E187D11C80012536E /* OrderProgressView.m in Sources */,
+				D2857BD718C598E60013F915 /* MFrequencyInfo.m in Sources */,
 				DF0D5751188820D8001C3A9D /* BranchDetailsTableViewController.m in Sources */,
 				D2B9BAAC1897867700226B54 /* OrderCompositeImageView.m in Sources */,
 				D2062BE418B75BFC00D22C7E /* SoundwaveRecorder.m in Sources */,

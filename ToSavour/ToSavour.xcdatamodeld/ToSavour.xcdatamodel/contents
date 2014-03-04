@@ -39,6 +39,12 @@
         <relationship name="receiver" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MUserInfo" syncable="YES"/>
         <relationship name="sender" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MUserInfo" syncable="YES"/>
     </entity>
+    <entity name="MFrequencyInfo" representedClassName="MFrequencyInfo" syncable="YES">
+        <attribute name="frequencyBinHigh" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="frequencyBinLow" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="normalizedMagnitude" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" syncable="YES"/>
+    </entity>
     <entity name="MGlobalConfiguration" representedClassName="MGlobalConfiguration" syncable="YES">
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="key" optional="YES" attributeType="String" syncable="YES"/>
@@ -163,5 +169,6 @@
         <element name="MUserAddressBookInfo" positionX="0" positionY="0" width="0" height="0"/>
         <element name="MUserFacebookInfo" positionX="0" positionY="0" width="0" height="0"/>
         <element name="MUserInfo" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MFrequencyInfo" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>
