@@ -39,6 +39,10 @@
     _soundwaveTestDebugCell.textLabel.text = @"Soundwave";
     _soundwaveTestDebugCell.detailTextLabel.text = nil;
     _soundwaveTestDebugCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    
+    _bluetoothBeaconTestDebugCell.textLabel.text = @"Bluetooth Beacon";
+    _bluetoothBeaconTestDebugCell.detailTextLabel.text = nil;
+    _bluetoothBeaconTestDebugCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 }
 
 - (void)didReceiveMemoryWarning

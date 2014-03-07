@@ -12,5 +12,6 @@
 
 @property (nonatomic, strong)   IBOutlet UITableViewCell *mapTrackingDebugCell;
 @property (nonatomic, strong)   IBOutlet UITableViewCell *soundwaveTestDebugCell;
+@property (nonatomic, strong)   IBOutlet UITableViewCell *bluetoothBeaconTestDebugCell;
 
 @end

@@ -180,6 +180,9 @@
 		D2C075CB1855C47200620114 /* TutorialLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075CA1855C47200620114 /* TutorialLoginViewController.m */; };
 		D2C075D01857245E00620114 /* UIView+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075CF1857245E00620114 /* UIView+Helper.m */; };
 		D2C075D31858092800620114 /* MUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C075D21858092800620114 /* MUserInfo.m */; };
+		D2C5AC1118C9DCE9001F2BA3 /* BluetoothBeaconTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C5AC1018C9DCE9001F2BA3 /* BluetoothBeaconTestViewController.m */; };
+		D2C5AC1218C9DCE9001F2BA3 /* BluetoothBeaconTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C5AC1018C9DCE9001F2BA3 /* BluetoothBeaconTestViewController.m */; };
+		D2C5AC1418C9DDE7001F2BA3 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2C5AC1318C9DDE7001F2BA3 /* CoreBluetooth.framework */; };
 		D2C9168C185EEC7500452891 /* MItemInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C9168B185EEC7500452891 /* MItemInfo.m */; };
 		D2C9168F185EEC9000452891 /* MItemSelectedOption.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C9168E185EEC9000452891 /* MItemSelectedOption.m */; };
 		D2C91695185EECBA00452891 /* MProductInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C91694185EECBA00452891 /* MProductInfo.m */; };
@@ -337,8 +340,8 @@
 		D2827DFD18755B1400E4A662 /* MUserAddressBookInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUserAddressBookInfo.m; path = BackEnd/Model/MUserAddressBookInfo.m; sourceTree = "<group>"; };
 		D2857BD118C58B1E0013F915 /* SoundwaveLogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SoundwaveLogViewController.h; path = FrontEnd/SoundwaveLogViewController.h; sourceTree = "<group>"; };
 		D2857BD218C58B1E0013F915 /* SoundwaveLogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SoundwaveLogViewController.m; path = FrontEnd/SoundwaveLogViewController.m; sourceTree = "<group>"; };
-		D2857BD518C598E60013F915 /* MFrequencyInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MFrequencyInfo.h; path = ToSavour/BackEnd/Model/MFrequencyInfo.h; sourceTree = "<group>"; };
-		D2857BD618C598E60013F915 /* MFrequencyInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MFrequencyInfo.m; path = ToSavour/BackEnd/Model/MFrequencyInfo.m; sourceTree = "<group>"; };
+		D2857BD518C598E60013F915 /* MFrequencyInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MFrequencyInfo.h; path = BackEnd/Model/MFrequencyInfo.h; sourceTree = "<group>"; };
+		D2857BD618C598E60013F915 /* MFrequencyInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MFrequencyInfo.m; path = BackEnd/Model/MFrequencyInfo.m; sourceTree = "<group>"; };
 		D293E4AE183DEDEB00B73795 /* Garffee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Garffee.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D293E4B1183DEDEB00B73795 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D293E4B3183DEDEB00B73795 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -414,6 +417,9 @@
 		D2C075CF1857245E00620114 /* UIView+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+Helper.m"; path = "Utilities/UIView+Helper.m"; sourceTree = "<group>"; };
 		D2C075D11858092800620114 /* MUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUserInfo.h; path = BackEnd/Model/MUserInfo.h; sourceTree = "<group>"; };
 		D2C075D21858092800620114 /* MUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUserInfo.m; path = BackEnd/Model/MUserInfo.m; sourceTree = "<group>"; };
+		D2C5AC0F18C9DCE9001F2BA3 /* BluetoothBeaconTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BluetoothBeaconTestViewController.h; path = FrontEnd/BluetoothBeaconTestViewController.h; sourceTree = "<group>"; };
+		D2C5AC1018C9DCE9001F2BA3 /* BluetoothBeaconTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BluetoothBeaconTestViewController.m; path = FrontEnd/BluetoothBeaconTestViewController.m; sourceTree = "<group>"; };
+		D2C5AC1318C9DDE7001F2BA3 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		D2C9168A185EEC7500452891 /* MItemInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MItemInfo.h; path = BackEnd/Model/MItemInfo.h; sourceTree = "<group>"; };
 		D2C9168B185EEC7500452891 /* MItemInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MItemInfo.m; path = BackEnd/Model/MItemInfo.m; sourceTree = "<group>"; };
 		D2C9168D185EEC9000452891 /* MItemSelectedOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MItemSelectedOption.h; path = BackEnd/Model/MItemSelectedOption.h; sourceTree = "<group>"; };
@@ -511,6 +517,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2C5AC1418C9DDE7001F2BA3 /* CoreBluetooth.framework in Frameworks */,
 				D251CC6E18BB59BA00093ACE /* Accelerate.framework in Frameworks */,
 				D2062BE118B71C3E00D22C7E /* AudioToolbox.framework in Frameworks */,
 				D2827DF31875046B00E4A662 /* AddressBook.framework in Frameworks */,
@@ -603,8 +610,6 @@
 		D293E4A5183DEDEB00B73795 = {
 			isa = PBXGroup;
 			children = (
-				D2857BD518C598E60013F915 /* MFrequencyInfo.h */,
-				D2857BD618C598E60013F915 /* MFrequencyInfo.m */,
 				D293E4B9183DEDEB00B73795 /* ToSavour */,
 				D293E4DF183DEDEB00B73795 /* ToSavourTests */,
 				D293E4B0183DEDEB00B73795 /* Frameworks */,
@@ -627,6 +632,7 @@
 		D293E4B0183DEDEB00B73795 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D2C5AC1318C9DDE7001F2BA3 /* CoreBluetooth.framework */,
 				D251CC6D18BB59BA00093ACE /* Accelerate.framework */,
 				D2062BE018B71C3E00D22C7E /* AudioToolbox.framework */,
 				D2827DF21875046B00E4A662 /* AddressBook.framework */,
@@ -736,6 +742,8 @@
 				D251CC6A18BB155200093ACE /* SoundwaveTestViewController.m */,
 				D2857BD118C58B1E0013F915 /* SoundwaveLogViewController.h */,
 				D2857BD218C58B1E0013F915 /* SoundwaveLogViewController.m */,
+				D2C5AC0F18C9DCE9001F2BA3 /* BluetoothBeaconTestViewController.h */,
+				D2C5AC1018C9DCE9001F2BA3 /* BluetoothBeaconTestViewController.m */,
 			);
 			name = FrontEnd;
 			sourceTree = "<group>";
@@ -781,6 +789,8 @@
 		D2A55702184DB5ED0039A5A0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D2857BD518C598E60013F915 /* MFrequencyInfo.h */,
+				D2857BD618C598E60013F915 /* MFrequencyInfo.m */,
 				D2AC13C2187C3B9B00D81CA6 /* MCouponInfo.h */,
 				D2AC13C3187C3B9B00D81CA6 /* MCouponInfo.m */,
 				D2827DFC18755B1400E4A662 /* MUserAddressBookInfo.h */,
@@ -1219,6 +1229,7 @@
 				D251CC6818BB12FF00093ACE /* DebugViewController.m in Sources */,
 				D251CC7218BC9D8A00093ACE /* SoundwaveAnalyzer.m in Sources */,
 				D23D41CF18A892D3005D7143 /* TutorialPageView.m in Sources */,
+				D2C5AC1218C9DCE9001F2BA3 /* BluetoothBeaconTestViewController.m in Sources */,
 				D2466817185F15F70089D5DB /* TSNavigationController.m in Sources */,
 				D2466818185F15F70089D5DB /* ToSavour.xcdatamodeld in Sources */,
 				D2B9BAA51892835300226B54 /* UIButton+Helper.m in Sources */,
@@ -1322,6 +1333,7 @@
 				D2A36A911850684A004D3D99 /* MainTabBarController.m in Sources */,
 				D21DCE77187A830D008CF011 /* HomeControlView.m in Sources */,
 				D2A36A86185046B2004D3D99 /* TSTheming.m in Sources */,
+				D2C5AC1118C9DCE9001F2BA3 /* BluetoothBeaconTestViewController.m in Sources */,
 				D2C9168F185EEC9000452891 /* MItemSelectedOption.m in Sources */,
 				DF60E756185C455200DB10DE /* PhotoHuntImageView.m in Sources */,
 				D2209F481884EFD400282DAE /* OrderDetailsViewController.m in Sources */,

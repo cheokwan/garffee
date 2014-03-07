@@ -666,6 +666,17 @@
                                             <segue destination="653-Rg-K96" kind="push" identifier="PushSoundwaveTestViewController" id="EEs-0A-aON"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="aP1-ub-Qll">
+                                        <rect key="frame" x="0.0" y="187" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aP1-ub-Qll" id="Iup-vD-zVp">
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="HYp-Gv-2Fa" kind="push" id="ctA-RI-Ho1"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -676,6 +687,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="hWO-tj-71S"/>
                     <connections>
+                        <outlet property="bluetoothBeaconTestDebugCell" destination="aP1-ub-Qll" id="aLL-57-QaG"/>
                         <outlet property="mapTrackingDebugCell" destination="9yD-iQ-jkP" id="Ste-E7-BxJ"/>
                         <outlet property="soundwaveTestDebugCell" destination="69l-WR-9h0" id="woL-cy-uWi"/>
                     </connections>
@@ -762,6 +774,53 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rcv-Hx-7iz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3344" y="5217"/>
+        </scene>
+        <!--Bluetooth Beacon Test View Controller-->
+        <scene sceneID="Apy-lQ-Mxh">
+            <objects>
+                <viewController id="HYp-Gv-2Fa" customClass="BluetoothBeaconTestViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="AUU-he-cei"/>
+                        <viewControllerLayoutGuide type="bottom" id="Jth-aw-fcH"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="z7U-p8-36m">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="UUID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ict-Cg-Cyh">
+                                <rect key="frame" x="10" y="84" width="300" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Status" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4vx-LQ-2Qe">
+                                <rect key="frame" x="10" y="145" width="300" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pnc-fQ-6eq">
+                                <rect key="frame" x="60" y="467" width="200" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Broadcast">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="zVS-0i-viw"/>
+                    <connections>
+                        <outlet property="broadcastButton" destination="pnc-fQ-6eq" id="C3U-hj-Z3s"/>
+                        <outlet property="statusLabel" destination="4vx-LQ-2Qe" id="O7E-5c-xfc"/>
+                        <outlet property="uuidLabel" destination="Ict-Cg-Cyh" id="sDm-0L-D9u"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uhb-o6-4mo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3350" y="6618"/>
         </scene>
         <!--Soundwave Test View Controller-->
         <scene sceneID="JhK-oE-e7u">

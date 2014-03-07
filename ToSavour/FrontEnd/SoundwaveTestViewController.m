@@ -244,7 +244,7 @@ CGDataProviderDirectCallbacks providerCallbacks =
                 // basically AIMD
                 _heatMapWindowCounts[i] /= 2;
             }
-            if (_heatMapWindowCounts[i] == 50) {
+            if (_heatMapWindowCounts[i] == 30) {
                 MFrequencyInfo *freqInfo = [MFrequencyInfo newObjectInContext:[AppDelegate sharedAppDelegate].persistentStoreManagedObjectContext];
                 freqInfo.timestamp = [NSDate date];
                 freqInfo.frequencyBinLow = @(j * _analyzer.sampleRate / _analyzer.fftLength);
@@ -259,7 +259,7 @@ CGDataProviderDirectCallbacks providerCallbacks =
             int offsetI = i + _heatMapCurrentRow * _heatMapColumns;
             int nextLineOffsetI = (offsetI + _heatMapColumns) % (_heatMapRows * _heatMapColumns);
             _heatMapCircularFrameBuffer[offsetI] = ((UInt32)(red * 255) << 16) + ((UInt32)(green * 255) << 8) + ((UInt32)(blue * 255));
-            _heatMapCircularFrameBuffer[nextLineOffsetI] = (255 << 8) + 255;  // draw a yellow scan line
+            _heatMapCircularFrameBuffer[nextLineOffsetI] = 255;  // draw a scan line
         }
         _heatMapCurrentRow = (_heatMapCurrentRow + 1) % _heatMapRows;
         
@@ -274,7 +274,7 @@ CGDataProviderDirectCallbacks providerCallbacks =
                                                32,                     // bitsPerPixel
                                                _heatMapColumns * 4,    // bytesPerRow
                                                _heatMapColorSpace,     // CGColorSpaceRef
-                                               kCGImageAlphaNone | kCGBitmapByteOrder32Host,  // CGBitmapInfo
+                                               kCGImageAlphaNoneSkipFirst | kCGBitmapByteOrder32Host,  // CGBitmapInfo
                                                _heatMapDataProvider,   // CGDataProviderRef
                                                0,                      // decode
                                                false,                  // shouldInterpolate

@@ -180,10 +180,13 @@
     if ([self tableSwitcher].selectedSegmentIndex == SegmentIndexOrderHistories &&
         section == AccountViewControllerHistorySectionHistory) {
         UIView *containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 20.0)];
+        containerView.backgroundColor = [UIColor whiteColor];
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:self.transactionHistoryPrototypeCell.titleLabel.frame];
         UILabel *detailsLabel = [[UILabel alloc] initWithFrame:self.transactionHistoryPrototypeCell.priceLabel.frame];
-        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0.0, containerView.frame.size.height - 0.3, containerView.frame.size.width, 0.3)];
-        lineView.backgroundColor = [UIColor lightGrayColor];
+        UIView *lineBottom = [[UIView alloc] initWithFrame:CGRectMake(0.0, containerView.frame.size.height - 0.3, containerView.frame.size.width, 0.3)];
+        lineBottom.backgroundColor = [UIColor lightGrayColor];
+        UIView *lineTop = [[UIView alloc] initWithFrame:CGRectMake(0.0, -0.3, containerView.frame.size.width, 0.3)];  // for blocking a hideous gray line that appears out of nowhere when a cell is selected
+        lineTop.backgroundColor = [UIColor whiteColor];
         
         titleLabel.frame = CGRectMake(titleLabel.frame.origin.x, -3.0, titleLabel.frame.size.width, 20.0);
         detailsLabel.frame = CGRectMake(detailsLabel.frame.origin.x, -3.0, detailsLabel.frame.size.width, 20.0);
@@ -197,7 +200,8 @@
         
         [containerView addSubview:titleLabel];
         [containerView addSubview:detailsLabel];
-        [containerView addSubview:lineView];
+        [containerView addSubview:lineBottom];
+        [containerView addSubview:lineTop];
         
         headerView = containerView;
     }
@@ -262,7 +266,7 @@
     if (indexPath.section == AccountViewControllerHistorySectionBalance) {
         [self configureAccountCell:historyCell atIndexPath:indexPath];
     } else if (indexPath.section == AccountViewControllerHistorySectionHistory) {
-        MOrderInfo *order = [self.transactionHistoryFetchedResultsController objectAtIndexPath:indexPath];
+        MOrderInfo *order = [self.transactionHistoryFetchedResultsController.fetchedObjects objectAtIndex:indexPath.row];
         NSString *orderDetailString = [order detailString];
         historyCell.titleLabel.text = orderDetailString.length > 0 ? orderDetailString : order.referenceNumber;
         historyCell.subtitleLabel.text = [order.orderedDate defaultStringRepresentation];
