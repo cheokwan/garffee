@@ -34,12 +34,12 @@
     [_broadcastButton addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
     self.broadcastBeaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:_uuid major:1 minor:1 identifier:_regionIdentifier];
-    self.monitorBeaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:_uuid identifier:_regionIdentifier];
+    self.monitorBeaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:_uuid major:1 minor:1 identifier:_regionIdentifier];
     self.uuidLabel.text = _broadcastBeaconRegion.proximityUUID.UUIDString;
     
     self.beaconPeripheralData = [_broadcastBeaconRegion peripheralDataWithMeasuredPower:nil];  // default power
 //    if ([CBPeripheralManager authorizationStatus] == CBPeripheralManagerAuthorizationStatusAuthorized) {
-        self.peripheralManager = [[CBPeripheralManager alloc] initWithDelegate:self queue:nil options:nil];
+    self.peripheralManager = [[CBPeripheralManager alloc] initWithDelegate:self queue:nil options:nil];
 //    }
     
     self.locationManager = [[CLLocationManager alloc] init];
@@ -54,6 +54,7 @@
 
 - (void)dealloc {
     [_peripheralManager stopAdvertising];
+    [_locationManager stopRangingBeaconsInRegion:_monitorBeaconRegion];
     _peripheralManager.delegate = nil;
     _locationManager.delegate = nil;
 }
@@ -73,7 +74,7 @@
     switch (peripheral.state) {
         case CBPeripheralManagerStatePoweredOn: {
             DDLogInfo(@"CBPeripheralManagerStatePoweredOn");
-            [_peripheralManager startAdvertising:_beaconPeripheralData];
+//            [_peripheralManager startAdvertising:_beaconPeripheralData];
         }
             break;
         case CBPeripheralManagerStatePoweredOff: {

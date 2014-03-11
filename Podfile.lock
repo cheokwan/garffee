@@ -9,6 +9,8 @@ PODS:
   - CocoaLumberjack/Core (1.8.0)
   - CocoaLumberjack/Extensions (1.8.0):
     - CocoaLumberjack/Core
+  - CrashlyticsLumberjack (1.0.1):
+    - CocoaLumberjack/Core
   - ECSlidingViewController (2.0.0)
   - Facebook-iOS-SDK (3.12.0)
   - ISO8601DateFormatterValueTransformer (0.5.0):
@@ -49,6 +51,7 @@ PODS:
 DEPENDENCIES:
   - ChatHeads
   - CocoaLumberjack
+  - CrashlyticsLumberjack
   - ECSlidingViewController
   - Facebook-iOS-SDK
   - JSBadgeView
@@ -66,6 +69,7 @@ SPEC CHECKSUMS:
   CAAnimationBlocks: b70f877c5b92734abef270152187d3287d84e8f8
   ChatHeads: 8220d1108b9f7a0b1a7371e063071a264a6662ef
   CocoaLumberjack: 6ed94046d2ca7fde03a73b3d01b8cfc56574b314
+  CrashlyticsLumberjack: 8ee2adbd0f815d8b111e5f72cd82d39b08430ebc
   ECSlidingViewController: 9a30cf3c446e39de70128299663fde097d8f3f88
   Facebook-iOS-SDK: c09f7d80db5c48170ff834bc03ebe774c49d1f5b
   ISO8601DateFormatterValueTransformer: d0af1f50a9df42db72d7418db31938b8473e0af8

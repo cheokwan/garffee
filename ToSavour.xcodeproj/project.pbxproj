@@ -167,6 +167,8 @@
 		D2A9092918B1BEA1008FF6B1 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A9092718B1BEA1008FF6B1 /* SettingsViewController.m */; };
 		D2AC13C4187C3B9B00D81CA6 /* MCouponInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2AC13C3187C3B9B00D81CA6 /* MCouponInfo.m */; };
 		D2AC13C5187C3B9B00D81CA6 /* MCouponInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2AC13C3187C3B9B00D81CA6 /* MCouponInfo.m */; };
+		D2B49B7618CEAE140002EA45 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2B49B7518CEAE140002EA45 /* Crashlytics.framework */; };
+		D2B49B7718CEAE140002EA45 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2B49B7518CEAE140002EA45 /* Crashlytics.framework */; };
 		D2B9BAA41892835300226B54 /* UIButton+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2B9BAA31892835300226B54 /* UIButton+Helper.m */; };
 		D2B9BAA51892835300226B54 /* UIButton+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2B9BAA31892835300226B54 /* UIButton+Helper.m */; };
 		D2B9BAAC1897867700226B54 /* OrderCompositeImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2B9BAAB1897867700226B54 /* OrderCompositeImageView.m */; };
@@ -398,6 +400,7 @@
 		D2A9092718B1BEA1008FF6B1 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsViewController.m; path = FrontEnd/SettingsViewController.m; sourceTree = "<group>"; };
 		D2AC13C2187C3B9B00D81CA6 /* MCouponInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MCouponInfo.h; path = BackEnd/Model/MCouponInfo.h; sourceTree = "<group>"; };
 		D2AC13C3187C3B9B00D81CA6 /* MCouponInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MCouponInfo.m; path = BackEnd/Model/MCouponInfo.m; sourceTree = "<group>"; };
+		D2B49B7518CEAE140002EA45 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		D2B9BAA21892835300226B54 /* UIButton+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIButton+Helper.h"; path = "Utilities/UIButton+Helper.h"; sourceTree = "<group>"; };
 		D2B9BAA31892835300226B54 /* UIButton+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIButton+Helper.m"; path = "Utilities/UIButton+Helper.m"; sourceTree = "<group>"; };
 		D2B9BAAA1897867700226B54 /* OrderCompositeImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrderCompositeImageView.h; path = FrontEnd/Views/OrderCompositeImageView.h; sourceTree = "<group>"; };
@@ -503,6 +506,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D246681D185F15F70089D5DB /* QuartzCore.framework in Frameworks */,
+				D2B49B7718CEAE140002EA45 /* Crashlytics.framework in Frameworks */,
 				D246681E185F15F70089D5DB /* MapKit.framework in Frameworks */,
 				D246681F185F15F70089D5DB /* CoreLocation.framework in Frameworks */,
 				D2466820185F15F70089D5DB /* CoreGraphics.framework in Frameworks */,
@@ -523,6 +527,7 @@
 				D2827DF31875046B00E4A662 /* AddressBook.framework in Frameworks */,
 				D2827DB81867F92100E4A662 /* Security.framework in Frameworks */,
 				D2A67A82185ACA8A00889114 /* QuartzCore.framework in Frameworks */,
+				D2B49B7618CEAE140002EA45 /* Crashlytics.framework in Frameworks */,
 				D2437577184C3498000009D7 /* MapKit.framework in Frameworks */,
 				D293E4F818435DC100B73795 /* CoreLocation.framework in Frameworks */,
 				D293E4B4183DEDEB00B73795 /* CoreGraphics.framework in Frameworks */,
@@ -632,6 +637,7 @@
 		D293E4B0183DEDEB00B73795 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D2B49B7518CEAE140002EA45 /* Crashlytics.framework */,
 				D2C5AC1318C9DDE7001F2BA3 /* CoreBluetooth.framework */,
 				D251CC6D18BB59BA00093ACE /* Accelerate.framework */,
 				D2062BE018B71C3E00D22C7E /* AudioToolbox.framework */,
@@ -991,6 +997,7 @@
 				D293E4AB183DEDEB00B73795 /* Frameworks */,
 				D293E4AC183DEDEB00B73795 /* Resources */,
 				B8CA3D1D877345679604D11D /* Copy Pods Resources */,
+				D2B49B7418CEAD360002EA45 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1178,6 +1185,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		D2B49B7418CEAD360002EA45 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Crashlytics.framework/run 17a5054321b54f792a7a0e23ba40f02cfaa73054 5d51e0812c4d600d51569f82c8de38e230c720deda5177ac8bc0d6f033e7506d";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1406,6 +1426,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/jasonwan/workspace/git/tosavour_ios/ToSavour-iOS",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ToSavour/ToSavour-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1429,6 +1453,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/jasonwan/workspace/git/tosavour_ios/ToSavour-iOS",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ToSavour/ToSavour-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1526,6 +1554,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/jasonwan/workspace/git/tosavour_ios/ToSavour-iOS",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ToSavour/ToSavour-Prefix.pch";
 				INFOPLIST_FILE = "ToSavour/ToSavour-Info.plist";
@@ -1544,6 +1576,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/jasonwan/workspace/git/tosavour_ios/ToSavour-iOS",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ToSavour/ToSavour-Prefix.pch";
 				INFOPLIST_FILE = "ToSavour/ToSavour-Info.plist";

@@ -23,6 +23,8 @@
 #import "RestManager.h"
 #import "SettingsManager.h"
 #import <Reachability/Reachability.h>
+#import <Crashlytics/Crashlytics.h>
+#import <CrashlyticsLumberjack/CrashlyticsLogger.h>
 
 
 @implementation AppDelegate
@@ -36,7 +38,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    // Crashlytics
+    [Crashlytics startWithAPIKey:@"17a5054321b54f792a7a0e23ba40f02cfaa73054"];
     
     // Configure CocoaLumberjack logging framework
     DDFileLogger *fileLogger = [[DDFileLogger alloc] init];
@@ -51,6 +54,7 @@
     [DDLog addLogger:fileLogger];
     [DDLog addLogger:[DDASLLogger sharedInstance]];
     [DDLog addLogger:[DDTTYLogger sharedInstance]];
+    [DDLog addLogger:[CrashlyticsLogger sharedInstance]];
     
     DDLogDebug(@"");
     

@@ -11,7 +11,6 @@
 #import "TSSettings.h"
 #import "AppDelegate.h"
 #import "MapTrackingAnnotation.h"  // XXX-TEMP
-#import "SoundwaveRecorder.h"  // JJJ
 
 // combine CoreLocation, BLE iBeacon, UltraSound locationing, Wifi fingerprinting/probing,
 // motion activity, user reporting etc in approximating user arrival time
@@ -164,10 +163,6 @@
     _locationManager.distanceFilter = 100;
     
     [self logStuff:@"LS"];
-    
-    if (![SoundwaveRecorder sharedInstance].isRecording) {
-        [[SoundwaveRecorder sharedInstance] startRecording];
-    }
 }
 
 - (void)handleBackgroundFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler code:(NSString *)code {
