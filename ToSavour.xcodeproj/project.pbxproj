@@ -107,6 +107,40 @@
 		D251EF21187D364E0012536E /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D251EF20187D364E0012536E /* NSDate+Helper.m */; };
 		D272168D187BA7F000958E3B /* PromotionScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = D272168C187BA7F000958E3B /* PromotionScrollView.m */; };
 		D2721690187BC99D00958E3B /* LineView.m in Sources */ = {isa = PBXBuildFile; fileRef = D272168F187BC99D00958E3B /* LineView.m */; };
+		D273849F18D024ED00F5B363 /* AccountInfoTableManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D273849C18D024ED00F5B363 /* AccountInfoTableManager.m */; };
+		D27384A018D024ED00F5B363 /* AccountInfoTableManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D273849C18D024ED00F5B363 /* AccountInfoTableManager.m */; };
+		D27384A118D024ED00F5B363 /* TSGameServiceCalls.m in Sources */ = {isa = PBXBuildFile; fileRef = D273849E18D024ED00F5B363 /* TSGameServiceCalls.m */; };
+		D27384A218D024ED00F5B363 /* TSGameServiceCalls.m in Sources */ = {isa = PBXBuildFile; fileRef = D273849E18D024ED00F5B363 /* TSGameServiceCalls.m */; };
+		D27384A918D0252600F5B363 /* TSGame.m in Sources */ = {isa = PBXBuildFile; fileRef = D27384A418D0252600F5B363 /* TSGame.m */; };
+		D27384AA18D0252600F5B363 /* TSGame.m in Sources */ = {isa = PBXBuildFile; fileRef = D27384A418D0252600F5B363 /* TSGame.m */; };
+		D27384AB18D0252600F5B363 /* TSGameDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D27384A618D0252600F5B363 /* TSGameDownloadManager.m */; };
+		D27384AC18D0252700F5B363 /* TSGameDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D27384A618D0252600F5B363 /* TSGameDownloadManager.m */; };
+		D27384AD18D0252700F5B363 /* TSGamePlayHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = D27384A818D0252600F5B363 /* TSGamePlayHistory.m */; };
+		D27384AE18D0252700F5B363 /* TSGamePlayHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = D27384A818D0252600F5B363 /* TSGamePlayHistory.m */; };
+		D27384B518D0256300F5B363 /* AreYouReadyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D27384B018D0256300F5B363 /* AreYouReadyViewController.m */; };
+		D27384B618D0256300F5B363 /* AreYouReadyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D27384B018D0256300F5B363 /* AreYouReadyViewController.m */; };
+		D27384B718D0256300F5B363 /* ChooseGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D27384B218D0256300F5B363 /* ChooseGameViewController.m */; };
+		D27384B818D0256300F5B363 /* ChooseGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D27384B218D0256300F5B363 /* ChooseGameViewController.m */; };
+		D27384B918D0256300F5B363 /* PhotoHuntViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D27384B418D0256300F5B363 /* PhotoHuntViewController.m */; };
+		D27384BA18D0256300F5B363 /* PhotoHuntViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D27384B418D0256300F5B363 /* PhotoHuntViewController.m */; };
+		D27384BD18D0259D00F5B363 /* BranchListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D27384BC18D0259D00F5B363 /* BranchListViewController.m */; };
+		D27384BE18D0259D00F5B363 /* BranchListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D27384BC18D0259D00F5B363 /* BranchListViewController.m */; };
+		D27384C318D025C900F5B363 /* AccountInfoTableViewBalanceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D27384C018D025C900F5B363 /* AccountInfoTableViewBalanceCell.m */; };
+		D27384C418D025C900F5B363 /* AccountInfoTableViewBalanceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D27384C018D025C900F5B363 /* AccountInfoTableViewBalanceCell.m */; };
+		D27384C518D025C900F5B363 /* BranchDetailsAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D27384C218D025C900F5B363 /* BranchDetailsAddressCell.m */; };
+		D27384C618D025C900F5B363 /* BranchDetailsAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D27384C218D025C900F5B363 /* BranchDetailsAddressCell.m */; };
+		D27384C918D0265900F5B363 /* NSMutableArray+Shuffle.m in Sources */ = {isa = PBXBuildFile; fileRef = D27384C818D0265900F5B363 /* NSMutableArray+Shuffle.m */; };
+		D27384CA18D0265900F5B363 /* NSMutableArray+Shuffle.m in Sources */ = {isa = PBXBuildFile; fileRef = D27384C818D0265900F5B363 /* NSMutableArray+Shuffle.m */; };
+		D27384CD18D0269B00F5B363 /* PhotoHuntManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D27384CC18D0269B00F5B363 /* PhotoHuntManager.m */; };
+		D27384CE18D0269B00F5B363 /* PhotoHuntManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D27384CC18D0269B00F5B363 /* PhotoHuntManager.m */; };
+		D27384D518D0270200F5B363 /* CountDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D27384D018D0270200F5B363 /* CountDownButton.m */; };
+		D27384D618D0270200F5B363 /* CountDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D27384D018D0270200F5B363 /* CountDownButton.m */; };
+		D27384D718D0270200F5B363 /* PhotoHuntGridButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D27384D218D0270200F5B363 /* PhotoHuntGridButton.m */; };
+		D27384D818D0270200F5B363 /* PhotoHuntGridButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D27384D218D0270200F5B363 /* PhotoHuntGridButton.m */; };
+		D27384D918D0270200F5B363 /* PhotoHuntImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D27384D418D0270200F5B363 /* PhotoHuntImageView.m */; };
+		D27384DA18D0270200F5B363 /* PhotoHuntImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D27384D418D0270200F5B363 /* PhotoHuntImageView.m */; };
+		D27384DD18D0277A00F5B363 /* DailyGameStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D27384DB18D0277A00F5B363 /* DailyGameStoryboard.storyboard */; };
+		D27384DE18D0277A00F5B363 /* DailyGameStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D27384DB18D0277A00F5B363 /* DailyGameStoryboard.storyboard */; };
 		D2827DAD1865540100E4A662 /* MGlobalConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DAC1865540100E4A662 /* MGlobalConfiguration.m */; };
 		D2827DB31867DB8800E4A662 /* MProductConfigurableOption.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DB21867DB8800E4A662 /* MProductConfigurableOption.m */; };
 		D2827DB61867E64000E4A662 /* MProductOptionChoice.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DB51867E64000E4A662 /* MProductOptionChoice.m */; };
@@ -203,32 +237,14 @@
 		DF0D5751188820D8001C3A9D /* BranchDetailsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF0D5750188820D8001C3A9D /* BranchDetailsTableViewController.m */; };
 		DF1C88D21875967800400283 /* PickUpLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF1C88D11875967800400283 /* PickUpLocationViewController.m */; };
 		DF1C88D51875A82800400283 /* PickUpLocationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DF1C88D41875A82800400283 /* PickUpLocationTableViewCell.m */; };
-		DF1E79671894C05F0012CDC0 /* AccountInfoTableManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DF1E79661894C05F0012CDC0 /* AccountInfoTableManager.m */; };
-		DF1E796A1894DEC10012CDC0 /* AccountInfoTableViewBalanceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DF1E79691894DEC10012CDC0 /* AccountInfoTableViewBalanceCell.m */; };
-		DF26BEB518653FC400598CA0 /* TSGamePlayHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = DF26BEB418653FC400598CA0 /* TSGamePlayHistory.m */; };
 		DF3075C8186D6224002D40AF /* imageNotFound.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DF3075C7186D6224002D40AF /* imageNotFound.jpg */; };
-		DF60E74D185B47BA00DB10DE /* PhotoHuntGridButton.m in Sources */ = {isa = PBXBuildFile; fileRef = DF60E74C185B47BA00DB10DE /* PhotoHuntGridButton.m */; };
-		DF60E750185C0D8000DB10DE /* PhotoHuntManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DF60E74F185C0D8000DB10DE /* PhotoHuntManager.m */; };
-		DF60E756185C455200DB10DE /* PhotoHuntImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = DF60E755185C455200DB10DE /* PhotoHuntImageView.m */; };
-		DF60E759185C642F00DB10DE /* NSMutableArray+Shuffle.m in Sources */ = {isa = PBXBuildFile; fileRef = DF60E758185C642F00DB10DE /* NSMutableArray+Shuffle.m */; };
-		DF852709185EDDBC0087E247 /* TSGame.m in Sources */ = {isa = PBXBuildFile; fileRef = DF852708185EDDBC0087E247 /* TSGame.m */; };
-		DF85270C185EDE450087E247 /* TSGameDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DF85270B185EDE450087E247 /* TSGameDownloadManager.m */; };
-		DF8F19B8187ADF1500BC9557 /* MockData.m in Sources */ = {isa = PBXBuildFile; fileRef = DF8F19B7187ADF1500BC9557 /* MockData.m */; };
 		DF9DB5401861D3DA00FD315E /* TSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = DF9DB53F1861D3DA00FD315E /* TSZipArchive.m */; };
 		DFB3C1E1187D84C4004E5454 /* TSBranchServiceCalls.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB3C1E0187D84C4004E5454 /* TSBranchServiceCalls.m */; };
-		DFB3C1E418814A97004E5454 /* BranchListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB3C1E318814A97004E5454 /* BranchListViewController.m */; };
 		DFB3C1E718842FE2004E5454 /* BranchLocationMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB3C1E618842FE2004E5454 /* BranchLocationMapViewController.m */; };
 		DFB3C1EA188436FC004E5454 /* MapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB3C1E9188436FC004E5454 /* MapAnnotation.m */; };
 		DFB85701187C355F00B08559 /* MBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB85700187C355F00B08559 /* MBranch.m */; };
-		DFBDA14C1856111500BF3755 /* PhotoHuntViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFBDA14B1856111500BF3755 /* PhotoHuntViewController.m */; };
-		DFE628A518558AD600E1C8FE /* DailyGameStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DFE628A418558AD600E1C8FE /* DailyGameStoryboard.storyboard */; };
-		DFE628A81855992800E1C8FE /* ChooseGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFE628A71855992800E1C8FE /* ChooseGameViewController.m */; };
-		DFE628AD1855AF2C00E1C8FE /* TSGameServiceCalls.m in Sources */ = {isa = PBXBuildFile; fileRef = DFE628AC1855AF2C00E1C8FE /* TSGameServiceCalls.m */; };
-		DFE628B11855FB7D00E1C8FE /* AreYouReadyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFE628B01855FB7D00E1C8FE /* AreYouReadyViewController.m */; };
-		DFE628B41855FE0D00E1C8FE /* CountDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = DFE628B31855FE0C00E1C8FE /* CountDownButton.m */; };
 		DFED33B8188D49B900E9C9C2 /* BranchDetailsNameCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DFED33B7188D49B900E9C9C2 /* BranchDetailsNameCell.m */; };
 		DFED33BB188D49E400E9C9C2 /* BranchDetailsNormalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DFED33BA188D49E400E9C9C2 /* BranchDetailsNormalCell.m */; };
-		DFED33BE188D4A1300E9C9C2 /* BranchDetailsAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DFED33BD188D4A1300E9C9C2 /* BranchDetailsAddressCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -318,6 +334,39 @@
 		D272168C187BA7F000958E3B /* PromotionScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PromotionScrollView.m; path = FrontEnd/Views/PromotionScrollView.m; sourceTree = "<group>"; };
 		D272168E187BC99D00958E3B /* LineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LineView.h; path = FrontEnd/Views/LineView.h; sourceTree = "<group>"; };
 		D272168F187BC99D00958E3B /* LineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LineView.m; path = FrontEnd/Views/LineView.m; sourceTree = "<group>"; };
+		D273849B18D024ED00F5B363 /* AccountInfoTableManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AccountInfoTableManager.h; path = BackEnd/AccountInfoTableManager.h; sourceTree = "<group>"; };
+		D273849C18D024ED00F5B363 /* AccountInfoTableManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AccountInfoTableManager.m; path = BackEnd/AccountInfoTableManager.m; sourceTree = "<group>"; };
+		D273849D18D024ED00F5B363 /* TSGameServiceCalls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSGameServiceCalls.h; path = BackEnd/TSGameServiceCalls.h; sourceTree = "<group>"; };
+		D273849E18D024ED00F5B363 /* TSGameServiceCalls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSGameServiceCalls.m; path = BackEnd/TSGameServiceCalls.m; sourceTree = "<group>"; };
+		D27384A318D0252600F5B363 /* TSGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSGame.h; path = BackEnd/TSGame.h; sourceTree = "<group>"; };
+		D27384A418D0252600F5B363 /* TSGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSGame.m; path = BackEnd/TSGame.m; sourceTree = "<group>"; };
+		D27384A518D0252600F5B363 /* TSGameDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSGameDownloadManager.h; path = BackEnd/TSGameDownloadManager.h; sourceTree = "<group>"; };
+		D27384A618D0252600F5B363 /* TSGameDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSGameDownloadManager.m; path = BackEnd/TSGameDownloadManager.m; sourceTree = "<group>"; };
+		D27384A718D0252600F5B363 /* TSGamePlayHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSGamePlayHistory.h; path = BackEnd/TSGamePlayHistory.h; sourceTree = "<group>"; };
+		D27384A818D0252600F5B363 /* TSGamePlayHistory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSGamePlayHistory.m; path = BackEnd/TSGamePlayHistory.m; sourceTree = "<group>"; };
+		D27384AF18D0256300F5B363 /* AreYouReadyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AreYouReadyViewController.h; path = FrontEnd/AreYouReadyViewController.h; sourceTree = "<group>"; };
+		D27384B018D0256300F5B363 /* AreYouReadyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AreYouReadyViewController.m; path = FrontEnd/AreYouReadyViewController.m; sourceTree = "<group>"; };
+		D27384B118D0256300F5B363 /* ChooseGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChooseGameViewController.h; path = FrontEnd/ChooseGameViewController.h; sourceTree = "<group>"; };
+		D27384B218D0256300F5B363 /* ChooseGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChooseGameViewController.m; path = FrontEnd/ChooseGameViewController.m; sourceTree = "<group>"; };
+		D27384B318D0256300F5B363 /* PhotoHuntViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhotoHuntViewController.h; path = FrontEnd/PhotoHuntViewController.h; sourceTree = "<group>"; };
+		D27384B418D0256300F5B363 /* PhotoHuntViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhotoHuntViewController.m; path = FrontEnd/PhotoHuntViewController.m; sourceTree = "<group>"; };
+		D27384BB18D0259D00F5B363 /* BranchListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BranchListViewController.h; path = FrontEnd/BranchListViewController.h; sourceTree = "<group>"; };
+		D27384BC18D0259D00F5B363 /* BranchListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BranchListViewController.m; path = FrontEnd/BranchListViewController.m; sourceTree = "<group>"; };
+		D27384BF18D025C900F5B363 /* AccountInfoTableViewBalanceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AccountInfoTableViewBalanceCell.h; path = FrontEnd/Views/AccountInfoTableViewBalanceCell.h; sourceTree = "<group>"; };
+		D27384C018D025C900F5B363 /* AccountInfoTableViewBalanceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AccountInfoTableViewBalanceCell.m; path = FrontEnd/Views/AccountInfoTableViewBalanceCell.m; sourceTree = "<group>"; };
+		D27384C118D025C900F5B363 /* BranchDetailsAddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BranchDetailsAddressCell.h; path = FrontEnd/Views/BranchDetailsAddressCell.h; sourceTree = "<group>"; };
+		D27384C218D025C900F5B363 /* BranchDetailsAddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BranchDetailsAddressCell.m; path = FrontEnd/Views/BranchDetailsAddressCell.m; sourceTree = "<group>"; };
+		D27384C718D0265900F5B363 /* NSMutableArray+Shuffle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableArray+Shuffle.h"; path = "Utilities/NSMutableArray+Shuffle.h"; sourceTree = "<group>"; };
+		D27384C818D0265900F5B363 /* NSMutableArray+Shuffle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableArray+Shuffle.m"; path = "Utilities/NSMutableArray+Shuffle.m"; sourceTree = "<group>"; };
+		D27384CB18D0269B00F5B363 /* PhotoHuntManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhotoHuntManager.h; path = BackEnd/PhotoHuntManager.h; sourceTree = "<group>"; };
+		D27384CC18D0269B00F5B363 /* PhotoHuntManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhotoHuntManager.m; path = BackEnd/PhotoHuntManager.m; sourceTree = "<group>"; };
+		D27384CF18D0270200F5B363 /* CountDownButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CountDownButton.h; path = FrontEnd/Views/CountDownButton.h; sourceTree = "<group>"; };
+		D27384D018D0270200F5B363 /* CountDownButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CountDownButton.m; path = FrontEnd/Views/CountDownButton.m; sourceTree = "<group>"; };
+		D27384D118D0270200F5B363 /* PhotoHuntGridButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhotoHuntGridButton.h; path = FrontEnd/Views/PhotoHuntGridButton.h; sourceTree = "<group>"; };
+		D27384D218D0270200F5B363 /* PhotoHuntGridButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhotoHuntGridButton.m; path = FrontEnd/Views/PhotoHuntGridButton.m; sourceTree = "<group>"; };
+		D27384D318D0270200F5B363 /* PhotoHuntImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhotoHuntImageView.h; path = FrontEnd/Views/PhotoHuntImageView.h; sourceTree = "<group>"; };
+		D27384D418D0270200F5B363 /* PhotoHuntImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhotoHuntImageView.m; path = FrontEnd/Views/PhotoHuntImageView.m; sourceTree = "<group>"; };
+		D27384DC18D0277A00F5B363 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/DailyGameStoryboard.storyboard; sourceTree = "<group>"; };
 		D2827DAB1865540100E4A662 /* MGlobalConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGlobalConfiguration.h; path = BackEnd/Model/MGlobalConfiguration.h; sourceTree = "<group>"; };
 		D2827DAC1865540100E4A662 /* MGlobalConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGlobalConfiguration.m; path = BackEnd/Model/MGlobalConfiguration.m; sourceTree = "<group>"; };
 		D2827DB11867DB8800E4A662 /* MProductConfigurableOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MProductConfigurableOption.h; path = BackEnd/Model/MProductConfigurableOption.h; sourceTree = "<group>"; };
@@ -447,57 +496,22 @@
 		DF1C88D11875967800400283 /* PickUpLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PickUpLocationViewController.m; path = FrontEnd/PickUpLocationViewController.m; sourceTree = "<group>"; };
 		DF1C88D31875A82800400283 /* PickUpLocationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PickUpLocationTableViewCell.h; path = FrontEnd/Views/PickUpLocationTableViewCell.h; sourceTree = "<group>"; };
 		DF1C88D41875A82800400283 /* PickUpLocationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PickUpLocationTableViewCell.m; path = FrontEnd/Views/PickUpLocationTableViewCell.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		DF1E79651894C05F0012CDC0 /* AccountInfoTableManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountInfoTableManager.h; sourceTree = "<group>"; };
-		DF1E79661894C05F0012CDC0 /* AccountInfoTableManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountInfoTableManager.m; sourceTree = "<group>"; };
-		DF1E79681894DEC10012CDC0 /* AccountInfoTableViewBalanceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountInfoTableViewBalanceCell.h; sourceTree = "<group>"; };
-		DF1E79691894DEC10012CDC0 /* AccountInfoTableViewBalanceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountInfoTableViewBalanceCell.m; sourceTree = "<group>"; };
-		DF26BEB318653FC400598CA0 /* TSGamePlayHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSGamePlayHistory.h; sourceTree = "<group>"; };
-		DF26BEB418653FC400598CA0 /* TSGamePlayHistory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSGamePlayHistory.m; sourceTree = "<group>"; };
 		DF3075C7186D6224002D40AF /* imageNotFound.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = imageNotFound.jpg; path = Resource/imageNotFound.jpg; sourceTree = "<group>"; };
-		DF60E74B185B47BA00DB10DE /* PhotoHuntGridButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoHuntGridButton.h; sourceTree = "<group>"; };
-		DF60E74C185B47BA00DB10DE /* PhotoHuntGridButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoHuntGridButton.m; sourceTree = "<group>"; };
-		DF60E74E185C0D8000DB10DE /* PhotoHuntManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoHuntManager.h; sourceTree = "<group>"; };
-		DF60E74F185C0D8000DB10DE /* PhotoHuntManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PhotoHuntManager.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		DF60E754185C455200DB10DE /* PhotoHuntImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoHuntImageView.h; sourceTree = "<group>"; };
-		DF60E755185C455200DB10DE /* PhotoHuntImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoHuntImageView.m; sourceTree = "<group>"; };
-		DF60E757185C642F00DB10DE /* NSMutableArray+Shuffle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Shuffle.h"; sourceTree = "<group>"; };
-		DF60E758185C642F00DB10DE /* NSMutableArray+Shuffle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Shuffle.m"; sourceTree = "<group>"; };
-		DF852707185EDDBC0087E247 /* TSGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSGame.h; sourceTree = "<group>"; };
-		DF852708185EDDBC0087E247 /* TSGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSGame.m; sourceTree = "<group>"; };
-		DF85270A185EDE450087E247 /* TSGameDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSGameDownloadManager.h; sourceTree = "<group>"; };
-		DF85270B185EDE450087E247 /* TSGameDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSGameDownloadManager.m; sourceTree = "<group>"; };
-		DF8F19B6187ADF1500BC9557 /* MockData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MockData.h; sourceTree = "<group>"; };
-		DF8F19B7187ADF1500BC9557 /* MockData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MockData.m; sourceTree = "<group>"; };
 		DF9DB53D1861CA6200FD315E /* TSLocalizedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSLocalizedString.h; path = Utilities/TSLocalizedString.h; sourceTree = "<group>"; };
 		DF9DB53E1861D3DA00FD315E /* TSZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSZipArchive.h; path = Utilities/TSZipArchive.h; sourceTree = "<group>"; };
 		DF9DB53F1861D3DA00FD315E /* TSZipArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSZipArchive.m; path = Utilities/TSZipArchive.m; sourceTree = "<group>"; };
 		DFB3C1DF187D84C4004E5454 /* TSBranchServiceCalls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSBranchServiceCalls.h; path = BackEnd/TSBranchServiceCalls.h; sourceTree = "<group>"; };
 		DFB3C1E0187D84C4004E5454 /* TSBranchServiceCalls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSBranchServiceCalls.m; path = BackEnd/TSBranchServiceCalls.m; sourceTree = "<group>"; };
-		DFB3C1E218814A97004E5454 /* BranchListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BranchListViewController.h; sourceTree = "<group>"; };
-		DFB3C1E318814A97004E5454 /* BranchListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BranchListViewController.m; sourceTree = "<group>"; };
 		DFB3C1E518842FE2004E5454 /* BranchLocationMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BranchLocationMapViewController.h; path = FrontEnd/BranchLocationMapViewController.h; sourceTree = "<group>"; };
 		DFB3C1E618842FE2004E5454 /* BranchLocationMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BranchLocationMapViewController.m; path = FrontEnd/BranchLocationMapViewController.m; sourceTree = "<group>"; };
 		DFB3C1E8188436FC004E5454 /* MapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapAnnotation.h; path = BackEnd/MapAnnotation.h; sourceTree = "<group>"; };
 		DFB3C1E9188436FC004E5454 /* MapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapAnnotation.m; path = BackEnd/MapAnnotation.m; sourceTree = "<group>"; };
 		DFB856FF187C355F00B08559 /* MBranch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBranch.h; path = BackEnd/Model/MBranch.h; sourceTree = "<group>"; };
 		DFB85700187C355F00B08559 /* MBranch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBranch.m; path = BackEnd/Model/MBranch.m; sourceTree = "<group>"; };
-		DFBDA14A1856111500BF3755 /* PhotoHuntViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoHuntViewController.h; sourceTree = "<group>"; };
-		DFBDA14B1856111500BF3755 /* PhotoHuntViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PhotoHuntViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		DFE628A418558AD600E1C8FE /* DailyGameStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DailyGameStoryboard.storyboard; sourceTree = "<group>"; };
-		DFE628A61855992800E1C8FE /* ChooseGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseGameViewController.h; sourceTree = "<group>"; };
-		DFE628A71855992800E1C8FE /* ChooseGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ChooseGameViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		DFE628AB1855AF2C00E1C8FE /* TSGameServiceCalls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSGameServiceCalls.h; sourceTree = "<group>"; };
-		DFE628AC1855AF2C00E1C8FE /* TSGameServiceCalls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TSGameServiceCalls.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		DFE628AF1855FB7D00E1C8FE /* AreYouReadyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AreYouReadyViewController.h; sourceTree = "<group>"; };
-		DFE628B01855FB7D00E1C8FE /* AreYouReadyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AreYouReadyViewController.m; sourceTree = "<group>"; };
-		DFE628B21855FE0C00E1C8FE /* CountDownButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountDownButton.h; sourceTree = "<group>"; };
-		DFE628B31855FE0C00E1C8FE /* CountDownButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountDownButton.m; sourceTree = "<group>"; };
 		DFED33B6188D49B900E9C9C2 /* BranchDetailsNameCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BranchDetailsNameCell.h; path = FrontEnd/Views/BranchDetailsNameCell.h; sourceTree = "<group>"; };
 		DFED33B7188D49B900E9C9C2 /* BranchDetailsNameCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BranchDetailsNameCell.m; path = FrontEnd/Views/BranchDetailsNameCell.m; sourceTree = "<group>"; };
 		DFED33B9188D49E400E9C9C2 /* BranchDetailsNormalCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BranchDetailsNormalCell.h; path = FrontEnd/Views/BranchDetailsNormalCell.h; sourceTree = "<group>"; };
 		DFED33BA188D49E400E9C9C2 /* BranchDetailsNormalCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BranchDetailsNormalCell.m; path = FrontEnd/Views/BranchDetailsNormalCell.m; sourceTree = "<group>"; };
-		DFED33BC188D4A1300E9C9C2 /* BranchDetailsAddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BranchDetailsAddressCell.h; sourceTree = "<group>"; };
-		DFED33BD188D4A1300E9C9C2 /* BranchDetailsAddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BranchDetailsAddressCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -566,6 +580,8 @@
 		D23976FF184745860002D655 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				D27384C718D0265900F5B363 /* NSMutableArray+Shuffle.h */,
+				D27384C818D0265900F5B363 /* NSMutableArray+Shuffle.m */,
 				DF9DB53D1861CA6200FD315E /* TSLocalizedString.h */,
 				D2219651185AACD8007528EE /* NSManagedObject+Helper.h */,
 				D2219652185AACD8007528EE /* NSManagedObject+Helper.m */,
@@ -576,8 +592,6 @@
 				D2A36A84185046B2004D3D99 /* TSTheming.h */,
 				D2A36A85185046B2004D3D99 /* TSTheming.m */,
 				D2A36A8718504743004D3D99 /* Defines.h */,
-				DF60E757185C642F00DB10DE /* NSMutableArray+Shuffle.h */,
-				DF60E758185C642F00DB10DE /* NSMutableArray+Shuffle.m */,
 				D2C075CE1857245E00620114 /* UIView+Helper.h */,
 				D2C075CF1857245E00620114 /* UIView+Helper.m */,
 				D2219654185AAD5C007528EE /* TSFrontEndIncludes.h */,
@@ -666,7 +680,7 @@
 				D293E4C2183DEDEB00B73795 /* AppDelegate.h */,
 				D293E4C3183DEDEB00B73795 /* AppDelegate.m */,
 				D293E4C5183DEDEB00B73795 /* Main.storyboard */,
-				DFE628A418558AD600E1C8FE /* DailyGameStoryboard.storyboard */,
+				D27384DB18D0277A00F5B363 /* DailyGameStoryboard.storyboard */,
 				D293E4D1183DEDEB00B73795 /* Images.xcassets */,
 				D293E4C8183DEDEB00B73795 /* ToSavour.xcdatamodeld */,
 				D293E4BA183DEDEB00B73795 /* Supporting Files */,
@@ -706,12 +720,12 @@
 		D293E4EF183DF20D00B73795 /* FrontEnd */ = {
 			isa = PBXGroup;
 			children = (
+				D27384BB18D0259D00F5B363 /* BranchListViewController.h */,
+				D27384BC18D0259D00F5B363 /* BranchListViewController.m */,
 				DFE628AE1855FB5A00E1C8FE /* DailyAwardGame */,
 				D2A67A8F185C218300889114 /* XIBs */,
 				D2C075B81852CA4700620114 /* Views */,
 				D2A36A8818504A12004D3D99 /* CustomUI */,
-				DFB3C1E218814A97004E5454 /* BranchListViewController.h */,
-				DFB3C1E318814A97004E5454 /* BranchListViewController.m */,
 				DF0D574F188820D8001C3A9D /* BranchDetailsTableViewController.h */,
 				DF0D5750188820D8001C3A9D /* BranchDetailsTableViewController.m */,
 				D293E4F0183DF24000B73795 /* SlideMenuViewController.h */,
@@ -740,8 +754,6 @@
 				D2209F471884EFD400282DAE /* OrderDetailsViewController.m */,
 				DFB3C1E518842FE2004E5454 /* BranchLocationMapViewController.h */,
 				DFB3C1E618842FE2004E5454 /* BranchLocationMapViewController.m */,
-				DF1E79651894C05F0012CDC0 /* AccountInfoTableManager.h */,
-				DF1E79661894C05F0012CDC0 /* AccountInfoTableManager.m */,
 				D2A9092618B1BEA1008FF6B1 /* SettingsViewController.h */,
 				D2A9092718B1BEA1008FF6B1 /* SettingsViewController.m */,
 				D251CC6918BB155200093ACE /* SoundwaveTestViewController.h */,
@@ -757,13 +769,17 @@
 		D293E4F3184356D300B73795 /* BackEnd */ = {
 			isa = PBXGroup;
 			children = (
+				D27384CB18D0269B00F5B363 /* PhotoHuntManager.h */,
+				D27384CC18D0269B00F5B363 /* PhotoHuntManager.m */,
+				D273849B18D024ED00F5B363 /* AccountInfoTableManager.h */,
+				D273849C18D024ED00F5B363 /* AccountInfoTableManager.m */,
+				D273849D18D024ED00F5B363 /* TSGameServiceCalls.h */,
+				D273849E18D024ED00F5B363 /* TSGameServiceCalls.m */,
 				D287CE5D188D5168001D0C42 /* LIbraries */,
 				DF852706185EDDAA0087E247 /* DailyAwardGame */,
 				D2A55702184DB5ED0039A5A0 /* Model */,
 				D293E4F4184357B400B73795 /* TimeTracker.h */,
 				D293E4F5184357B400B73795 /* TimeTracker.m */,
-				DFE628AB1855AF2C00E1C8FE /* TSGameServiceCalls.h */,
-				DFE628AC1855AF2C00E1C8FE /* TSGameServiceCalls.m */,
 				D221964718598E0B007528EE /* RKMappableEntity.h */,
 				D214BE051862DAF000812BA5 /* RestManager.h */,
 				D214BE061862DAF000812BA5 /* RestManager.m */,
@@ -771,8 +787,6 @@
 				D2827DBA1867F9DC00E4A662 /* SecurityManager.m */,
 				D2827DF41875051F00E4A662 /* DataFetchManager.h */,
 				D2827DF51875051F00E4A662 /* DataFetchManager.m */,
-				DF8F19B6187ADF1500BC9557 /* MockData.h */,
-				DF8F19B7187ADF1500BC9557 /* MockData.m */,
 				DFB3C1DF187D84C4004E5454 /* TSBranchServiceCalls.h */,
 				DFB3C1E0187D84C4004E5454 /* TSBranchServiceCalls.m */,
 				DFB3C1E8188436FC004E5454 /* MapAnnotation.h */,
@@ -861,6 +875,16 @@
 		D2C075B81852CA4700620114 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D27384CF18D0270200F5B363 /* CountDownButton.h */,
+				D27384D018D0270200F5B363 /* CountDownButton.m */,
+				D27384D118D0270200F5B363 /* PhotoHuntGridButton.h */,
+				D27384D218D0270200F5B363 /* PhotoHuntGridButton.m */,
+				D27384D318D0270200F5B363 /* PhotoHuntImageView.h */,
+				D27384D418D0270200F5B363 /* PhotoHuntImageView.m */,
+				D27384BF18D025C900F5B363 /* AccountInfoTableViewBalanceCell.h */,
+				D27384C018D025C900F5B363 /* AccountInfoTableViewBalanceCell.m */,
+				D27384C118D025C900F5B363 /* BranchDetailsAddressCell.h */,
+				D27384C218D025C900F5B363 /* BranchDetailsAddressCell.m */,
 				D2209F4B1885212600282DAE /* OrderItemTableViewCell.h */,
 				D2209F4C1885212600282DAE /* OrderItemTableViewCell.m */,
 				D2C075BC1852CACB00620114 /* ItemPickerTableViewCell.h */,
@@ -909,10 +933,6 @@
 				DFED33B7188D49B900E9C9C2 /* BranchDetailsNameCell.m */,
 				DFED33B9188D49E400E9C9C2 /* BranchDetailsNormalCell.h */,
 				DFED33BA188D49E400E9C9C2 /* BranchDetailsNormalCell.m */,
-				DFED33BC188D4A1300E9C9C2 /* BranchDetailsAddressCell.h */,
-				DFED33BD188D4A1300E9C9C2 /* BranchDetailsAddressCell.m */,
-				DF1E79681894DEC10012CDC0 /* AccountInfoTableViewBalanceCell.h */,
-				DF1E79691894DEC10012CDC0 /* AccountInfoTableViewBalanceCell.m */,
 				D2B9BAAA1897867700226B54 /* OrderCompositeImageView.h */,
 				D2B9BAAB1897867700226B54 /* OrderCompositeImageView.m */,
 				D23D41CC18A892D3005D7143 /* TutorialPageView.h */,
@@ -935,12 +955,12 @@
 		DF852706185EDDAA0087E247 /* DailyAwardGame */ = {
 			isa = PBXGroup;
 			children = (
-				DF852707185EDDBC0087E247 /* TSGame.h */,
-				DF852708185EDDBC0087E247 /* TSGame.m */,
-				DF85270A185EDE450087E247 /* TSGameDownloadManager.h */,
-				DF85270B185EDE450087E247 /* TSGameDownloadManager.m */,
-				DF26BEB318653FC400598CA0 /* TSGamePlayHistory.h */,
-				DF26BEB418653FC400598CA0 /* TSGamePlayHistory.m */,
+				D27384A318D0252600F5B363 /* TSGame.h */,
+				D27384A418D0252600F5B363 /* TSGame.m */,
+				D27384A518D0252600F5B363 /* TSGameDownloadManager.h */,
+				D27384A618D0252600F5B363 /* TSGameDownloadManager.m */,
+				D27384A718D0252600F5B363 /* TSGamePlayHistory.h */,
+				D27384A818D0252600F5B363 /* TSGamePlayHistory.m */,
 			);
 			name = DailyAwardGame;
 			sourceTree = "<group>";
@@ -948,20 +968,12 @@
 		DFE628AE1855FB5A00E1C8FE /* DailyAwardGame */ = {
 			isa = PBXGroup;
 			children = (
-				DFE628A61855992800E1C8FE /* ChooseGameViewController.h */,
-				DFE628A71855992800E1C8FE /* ChooseGameViewController.m */,
-				DFE628AF1855FB7D00E1C8FE /* AreYouReadyViewController.h */,
-				DFE628B01855FB7D00E1C8FE /* AreYouReadyViewController.m */,
-				DFE628B21855FE0C00E1C8FE /* CountDownButton.h */,
-				DFE628B31855FE0C00E1C8FE /* CountDownButton.m */,
-				DFBDA14A1856111500BF3755 /* PhotoHuntViewController.h */,
-				DFBDA14B1856111500BF3755 /* PhotoHuntViewController.m */,
-				DF60E74B185B47BA00DB10DE /* PhotoHuntGridButton.h */,
-				DF60E74C185B47BA00DB10DE /* PhotoHuntGridButton.m */,
-				DF60E74E185C0D8000DB10DE /* PhotoHuntManager.h */,
-				DF60E74F185C0D8000DB10DE /* PhotoHuntManager.m */,
-				DF60E754185C455200DB10DE /* PhotoHuntImageView.h */,
-				DF60E755185C455200DB10DE /* PhotoHuntImageView.m */,
+				D27384AF18D0256300F5B363 /* AreYouReadyViewController.h */,
+				D27384B018D0256300F5B363 /* AreYouReadyViewController.m */,
+				D27384B118D0256300F5B363 /* ChooseGameViewController.h */,
+				D27384B218D0256300F5B363 /* ChooseGameViewController.m */,
+				D27384B318D0256300F5B363 /* PhotoHuntViewController.h */,
+				D27384B418D0256300F5B363 /* PhotoHuntViewController.m */,
 			);
 			name = DailyAwardGame;
 			sourceTree = "<group>";
@@ -1079,6 +1091,7 @@
 				D2EEB4C818A339030077E5E3 /* LICENSE in Resources */,
 				D246682A185F15F70089D5DB /* InfoPlist.strings in Resources */,
 				D23D41CB18A8902F005D7143 /* TutorialPageView_iphone4.xib in Resources */,
+				D27384DE18D0277A00F5B363 /* DailyGameStoryboard.storyboard in Resources */,
 				D246682B185F15F70089D5DB /* Main.storyboard in Resources */,
 				D2FF847318912573003BF58C /* FriendsListTableViewCell.xib in Resources */,
 				D246682C185F15F70089D5DB /* AccountHeaderView.xib in Resources */,
@@ -1104,7 +1117,7 @@
 				D23D41D118AC7AA1005D7143 /* MCouponInfo.json in Resources */,
 				D2209F4A18851FA500282DAE /* OrderItemTableViewCell.xib in Resources */,
 				D21DCE73187A7A6E008CF011 /* HomeControlView.xib in Resources */,
-				DFE628A518558AD600E1C8FE /* DailyGameStoryboard.storyboard in Resources */,
+				D27384DD18D0277A00F5B363 /* DailyGameStoryboard.storyboard in Resources */,
 				D293E4C7183DEDEB00B73795 /* Main.storyboard in Resources */,
 				D2EEB4C918A339030077E5E3 /* README in Resources */,
 				D2A67A91185C21C500889114 /* AccountHeaderView.xib in Resources */,
@@ -1220,19 +1233,25 @@
 				D2B9BAAD1897867700226B54 /* OrderCompositeImageView.m in Sources */,
 				D2EEB4CC18A339030077E5E3 /* UIImage+Resize.m in Sources */,
 				D2A9092918B1BEA1008FF6B1 /* SettingsViewController.m in Sources */,
+				D27384A018D024ED00F5B363 /* AccountInfoTableManager.m in Sources */,
+				D27384C618D025C900F5B363 /* BranchDetailsAddressCell.m in Sources */,
 				D2466803185F15F70089D5DB /* TSSettings.m in Sources */,
 				D23D41C518A48F4A005D7143 /* SettingsManager.m in Sources */,
 				D2466804185F15F70089D5DB /* AvatarView.m in Sources */,
 				D21DCE7C187AC5B7008CF011 /* FriendsListScrollView.m in Sources */,
+				D27384AC18D0252700F5B363 /* TSGameDownloadManager.m in Sources */,
 				D251CC6C18BB155200093ACE /* SoundwaveTestViewController.m in Sources */,
+				D27384AE18D0252700F5B363 /* TSGamePlayHistory.m in Sources */,
 				D2827DDC186D882D00E4A662 /* ItemGridView.m in Sources */,
 				D2466805185F15F70089D5DB /* MUserInfo.m in Sources */,
 				D2466807185F15F70089D5DB /* ItemPickerViewController.m in Sources */,
 				D2466808185F15F70089D5DB /* MItemInfo.m in Sources */,
+				D27384CE18D0269B00F5B363 /* PhotoHuntManager.m in Sources */,
 				D2466809185F15F70089D5DB /* FriendsListViewController.m in Sources */,
 				D246680A185F15F70089D5DB /* ItemPickerScrollView.m in Sources */,
 				D246680B185F15F70089D5DB /* HomeViewController.m in Sources */,
 				D2AC13C5187C3B9B00D81CA6 /* MCouponInfo.m in Sources */,
+				D27384B618D0256300F5B363 /* AreYouReadyViewController.m in Sources */,
 				D246680C185F15F70089D5DB /* AccountInfoTableViewCell.m in Sources */,
 				D246680D185F15F70089D5DB /* SlideMenuViewController.m in Sources */,
 				D246680E185F15F70089D5DB /* ItemPickerTableViewCell.m in Sources */,
@@ -1244,8 +1263,10 @@
 				D2466813185F15F70089D5DB /* MItemSelectedOption.m in Sources */,
 				D2827DFB187540BD00E4A662 /* NSArray+Helper.m in Sources */,
 				D2EEB4C118A3382C0077E5E3 /* NSManagedObject+DeepCopying.m in Sources */,
+				D27384BE18D0259D00F5B363 /* BranchListViewController.m in Sources */,
 				D2466814185F15F70089D5DB /* NSManagedObject+Helper.m in Sources */,
 				D2466816185F15F70089D5DB /* AccountViewController.m in Sources */,
+				D27384C418D025C900F5B363 /* AccountInfoTableViewBalanceCell.m in Sources */,
 				D251CC6818BB12FF00093ACE /* DebugViewController.m in Sources */,
 				D251CC7218BC9D8A00093ACE /* SoundwaveAnalyzer.m in Sources */,
 				D23D41CF18A892D3005D7143 /* TutorialPageView.m in Sources */,
@@ -1253,10 +1274,18 @@
 				D2466817185F15F70089D5DB /* TSNavigationController.m in Sources */,
 				D2466818185F15F70089D5DB /* ToSavour.xcdatamodeld in Sources */,
 				D2B9BAA51892835300226B54 /* UIButton+Helper.m in Sources */,
+				D27384D818D0270200F5B363 /* PhotoHuntGridButton.m in Sources */,
+				D27384B818D0256300F5B363 /* ChooseGameViewController.m in Sources */,
 				D2B9BAB61897914B00226B54 /* NSURL+Helper.m in Sources */,
 				D2827DD418694E4C00E4A662 /* MOrderInfo.m in Sources */,
+				D27384BA18D0256300F5B363 /* PhotoHuntViewController.m in Sources */,
 				D2466819185F15F70089D5DB /* FriendsListTableViewCell.m in Sources */,
+				D27384D618D0270200F5B363 /* CountDownButton.m in Sources */,
 				D246681A185F15F70089D5DB /* UIView+Helper.m in Sources */,
+				D27384DA18D0270200F5B363 /* PhotoHuntImageView.m in Sources */,
+				D27384AA18D0252600F5B363 /* TSGame.m in Sources */,
+				D27384CA18D0265900F5B363 /* NSMutableArray+Shuffle.m in Sources */,
+				D27384A218D024ED00F5B363 /* TSGameServiceCalls.m in Sources */,
 				D2827DFF18755B1400E4A662 /* MUserAddressBookInfo.m in Sources */,
 				D2857BD418C58B1E0013F915 /* SoundwaveLogViewController.m in Sources */,
 			);
@@ -1271,18 +1300,19 @@
 				D251CC6718BB12FF00093ACE /* DebugViewController.m in Sources */,
 				D2827DD318694E4C00E4A662 /* MOrderInfo.m in Sources */,
 				D2A9092818B1BEA1008FF6B1 /* SettingsViewController.m in Sources */,
-				DFB3C1E418814A97004E5454 /* BranchListViewController.m in Sources */,
+				D27384AB18D0252600F5B363 /* TSGameDownloadManager.m in Sources */,
 				D2827DDB186D882D00E4A662 /* ItemGridView.m in Sources */,
-				DF60E74D185B47BA00DB10DE /* PhotoHuntGridButton.m in Sources */,
+				D27384A118D024ED00F5B363 /* TSGameServiceCalls.m in Sources */,
 				D2857BD318C58B1E0013F915 /* SoundwaveLogViewController.m in Sources */,
 				DF1C88D21875967800400283 /* PickUpLocationViewController.m in Sources */,
 				D2C075CB1855C47200620114 /* TutorialLoginViewController.m in Sources */,
-				DF26BEB518653FC400598CA0 /* TSGamePlayHistory.m in Sources */,
+				D27384CD18D0269B00F5B363 /* PhotoHuntManager.m in Sources */,
 				D251EF14187D0A130012536E /* OngoingOrderTableViewCell.m in Sources */,
 				D2A556FB184C37F60039A5A0 /* MapTrackingViewController.m in Sources */,
 				DF1C88D51875A82800400283 /* PickUpLocationTableViewCell.m in Sources */,
 				D2827DBB1867F9DC00E4A662 /* SecurityManager.m in Sources */,
 				D2EEB4C018A3382C0077E5E3 /* NSManagedObject+DeepCopying.m in Sources */,
+				D273849F18D024ED00F5B363 /* AccountInfoTableManager.m in Sources */,
 				DF9DB5401861D3DA00FD315E /* TSZipArchive.m in Sources */,
 				D239770318474F230002D655 /* TSLogFormatter.m in Sources */,
 				D2AC13C4187C3B9B00D81CA6 /* MCouponInfo.m in Sources */,
@@ -1297,6 +1327,7 @@
 				D251EF21187D364E0012536E /* NSDate+Helper.m in Sources */,
 				D243757518488358000009D7 /* TSSettings.m in Sources */,
 				D2B9BAA41892835300226B54 /* UIButton+Helper.m in Sources */,
+				D27384B918D0256300F5B363 /* PhotoHuntViewController.m in Sources */,
 				D214BE071862DAF000812BA5 /* RestManager.m in Sources */,
 				D2A67A88185B0EC000889114 /* AvatarView.m in Sources */,
 				D2C075D31858092800620114 /* MUserInfo.m in Sources */,
@@ -1310,65 +1341,62 @@
 				D251CC7118BC9D8A00093ACE /* SoundwaveAnalyzer.m in Sources */,
 				D2466849186062DC0089D5DB /* NSString+Helper.m in Sources */,
 				D2C075C418533B6A00620114 /* ItemPickerScrollView.m in Sources */,
+				D27384AD18D0252700F5B363 /* TSGamePlayHistory.m in Sources */,
 				D2209F3C18801D9800282DAE /* CouponDetailsViewController.m in Sources */,
 				D2A36A941850AA6C004D3D99 /* HomeViewController.m in Sources */,
-				DFE628A81855992800E1C8FE /* ChooseGameViewController.m in Sources */,
 				D2209F4D1885212600282DAE /* OrderItemTableViewCell.m in Sources */,
 				D2B9BAB51897914B00226B54 /* NSURL+Helper.m in Sources */,
 				D251EF1E187D11C80012536E /* OrderProgressView.m in Sources */,
 				D2857BD718C598E60013F915 /* MFrequencyInfo.m in Sources */,
 				DF0D5751188820D8001C3A9D /* BranchDetailsTableViewController.m in Sources */,
 				D2B9BAAC1897867700226B54 /* OrderCompositeImageView.m in Sources */,
+				D27384C518D025C900F5B363 /* BranchDetailsAddressCell.m in Sources */,
 				D2062BE418B75BFC00D22C7E /* SoundwaveRecorder.m in Sources */,
-				DFED33BE188D4A1300E9C9C2 /* BranchDetailsAddressCell.m in Sources */,
 				D2721690187BC99D00958E3B /* LineView.m in Sources */,
-				DFBDA14C1856111500BF3755 /* PhotoHuntViewController.m in Sources */,
+				D27384D718D0270200F5B363 /* PhotoHuntGridButton.m in Sources */,
+				D27384D918D0270200F5B363 /* PhotoHuntImageView.m in Sources */,
 				D251CC6B18BB155200093ACE /* SoundwaveTestViewController.m in Sources */,
 				DF0D574E18881FE1001C3A9D /* BranchDetailsImageCell.m in Sources */,
 				D2A67A97185C487A00889114 /* AccountInfoTableViewCell.m in Sources */,
-				DF1E796A1894DEC10012CDC0 /* AccountInfoTableViewBalanceCell.m in Sources */,
 				D21DCE7B187AC5B7008CF011 /* FriendsListScrollView.m in Sources */,
+				D27384C318D025C900F5B363 /* AccountInfoTableViewBalanceCell.m in Sources */,
 				D293E4F2183DF24000B73795 /* SlideMenuViewController.m in Sources */,
-				DF85270C185EDE450087E247 /* TSGameDownloadManager.m in Sources */,
-				DFE628AD1855AF2C00E1C8FE /* TSGameServiceCalls.m in Sources */,
 				D272168D187BA7F000958E3B /* PromotionScrollView.m in Sources */,
 				D2C075BE1852CACB00620114 /* ItemPickerTableViewCell.m in Sources */,
-				DFE628B41855FE0D00E1C8FE /* CountDownButton.m in Sources */,
 				D2FF84CD187E91FA00D3A21C /* TSBadgeView.m in Sources */,
 				DFB3C1E1187D84C4004E5454 /* TSBranchServiceCalls.m in Sources */,
+				D27384B718D0256300F5B363 /* ChooseGameViewController.m in Sources */,
 				D2A55711184DBF4C0039A5A0 /* MapTrackingAnnotation.m in Sources */,
 				DFB3C1E718842FE2004E5454 /* BranchLocationMapViewController.m in Sources */,
 				D2827DF61875051F00E4A662 /* DataFetchManager.m in Sources */,
 				D23D41CE18A892D3005D7143 /* TutorialPageView.m in Sources */,
 				DFB3C1EA188436FC004E5454 /* MapAnnotation.m in Sources */,
+				D27384B518D0256300F5B363 /* AreYouReadyViewController.m in Sources */,
 				D293E4C0183DEDEB00B73795 /* main.m in Sources */,
-				DF8F19B8187ADF1500BC9557 /* MockData.m in Sources */,
 				DFB85701187C355F00B08559 /* MBranch.m in Sources */,
-				DFE628B11855FB7D00E1C8FE /* AreYouReadyViewController.m in Sources */,
 				D2827DFE18755B1400E4A662 /* MUserAddressBookInfo.m in Sources */,
 				D23D41C418A48F4A005D7143 /* SettingsManager.m in Sources */,
-				DF60E759185C642F00DB10DE /* NSMutableArray+Shuffle.m in Sources */,
-				DF60E750185C0D8000DB10DE /* PhotoHuntManager.m in Sources */,
 				D2827DAD1865540100E4A662 /* MGlobalConfiguration.m in Sources */,
 				D2A36A911850684A004D3D99 /* MainTabBarController.m in Sources */,
+				D27384A918D0252600F5B363 /* TSGame.m in Sources */,
 				D21DCE77187A830D008CF011 /* HomeControlView.m in Sources */,
 				D2A36A86185046B2004D3D99 /* TSTheming.m in Sources */,
 				D2C5AC1118C9DCE9001F2BA3 /* BluetoothBeaconTestViewController.m in Sources */,
 				D2C9168F185EEC9000452891 /* MItemSelectedOption.m in Sources */,
-				DF60E756185C455200DB10DE /* PhotoHuntImageView.m in Sources */,
+				D27384BD18D0259D00F5B363 /* BranchListViewController.m in Sources */,
 				D2209F481884EFD400282DAE /* OrderDetailsViewController.m in Sources */,
 				D2219653185AACD8007528EE /* NSManagedObject+Helper.m in Sources */,
 				D246684318603C800089D5DB /* CartViewController.m in Sources */,
 				D2A67A8E185B467400889114 /* AccountViewController.m in Sources */,
 				D2A36A8E18504ADE004D3D99 /* TSNavigationController.m in Sources */,
-				DF1E79671894C05F0012CDC0 /* AccountInfoTableManager.m in Sources */,
 				D2827DB61867E64000E4A662 /* MProductOptionChoice.m in Sources */,
 				D251EF19187D0BBE0012536E /* GiftTableViewCell.m in Sources */,
 				D293E4CA183DEDEB00B73795 /* ToSavour.xcdatamodeld in Sources */,
-				DF852709185EDDBC0087E247 /* TSGame.m in Sources */,
 				D22196501859C24C007528EE /* FriendsListTableViewCell.m in Sources */,
 				D2466840186036BB0089D5DB /* CartHeaderView.m in Sources */,
 				D2C075D01857245E00620114 /* UIView+Helper.m in Sources */,
+				D27384C918D0265900F5B363 /* NSMutableArray+Shuffle.m in Sources */,
+				D27384D518D0270200F5B363 /* CountDownButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1391,6 +1419,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		D27384DB18D0277A00F5B363 /* DailyGameStoryboard.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D27384DC18D0277A00F5B363 /* Base */,
+			);
+			name = DailyGameStoryboard.storyboard;
+			sourceTree = "<group>";
+		};
 		D293E4BC183DEDEB00B73795 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
