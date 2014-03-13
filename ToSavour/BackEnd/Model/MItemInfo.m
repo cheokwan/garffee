@@ -37,7 +37,7 @@
     
     item.creationDate = [NSDate date];
     item.status = MOrderInfoStatusPending;
-    item.quantity = @1;  // XXX TODO: handle quantity
+    item.quantity = @1;  // TODO: handle quantity
     [item updatePrice];
     return item;
 }
@@ -64,7 +64,7 @@
     for (MItemSelectedOption *option in options) {
         [optionNames addObject:option.productOptionChoice.name];
     }
-    // XXXXXX
+    // XXX-TEMP: default to showing 2 option names temporarily, pending product decision
     return [[optionNames objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, MIN(optionNames.count, 2))]] commaSeparatedString];
 }
 

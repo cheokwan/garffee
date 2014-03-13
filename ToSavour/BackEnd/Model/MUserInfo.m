@@ -8,7 +8,7 @@
 
 #import "MUserInfo.h"
 #import "RestManager.h"
-#import "MUserFacebookInfo.h"  // XXXXXX
+#import "MUserFacebookInfo.h"
 
 
 @implementation MUserInfo
@@ -68,12 +68,11 @@
 
 - (NSURL *)URLForProfileImage {
     if (self.profileImageURL) {
-        // XXXXXX
+        // XXX-STUB: now always using facebook profile picture, TODO: may need to support custom profile picture
         MUserFacebookInfo *user = (MUserFacebookInfo *)self;
         if ([user isKindOfClass:MUserFacebookInfo.class] && user.fbProfileImageURL) {
             return [NSURL URLWithString:user.fbProfileImageURL];
         }
-        // XXXXXX
         return [NSURL URLWithString:self.profileImageURL];
     } else {
         return nil;

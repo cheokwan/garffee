@@ -85,7 +85,7 @@
     
     MUserInfo *currentUserInfo = [MUserInfo currentAppUserInfoInContext:self.managedObjectContext];
     BOOL fbSessionOpened = [FBSession openActiveSessionWithAllowLoginUI:NO];
-    DDLogError(@"fb token: %@", [RestManager sharedInstance].facebookToken); // XXX-TEST
+//    DDLogDebug(@"fb token: %@", [RestManager sharedInstance].facebookToken);  // sensitive information
     
     BOOL registrationCompleted = [[SettingsManager readSettingsValueForKey:SettingsManagerKeyRegistrationComplete] boolValue];  // nil will be NO
     if (!currentUserInfo || !fbSessionOpened || !registrationCompleted) {
@@ -155,7 +155,7 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     BOOL handled = [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
-    DDLogInfo(@"facebook login handled: %@", @(handled));  // XXX-TEST
+    DDLogInfo(@"facebook login handled: %@", @(handled));
     return handled;
 }
 
@@ -174,7 +174,7 @@
     
     DDLogInfo(@"entering background");
     
-    [[TimeTracker sharedInstance] scheduleInBackground];  // XXX-FIX schedule location timer in bg
+    [[TimeTracker sharedInstance] scheduleInBackground];
     [self.managedObjectContext saveToPersistentStore];
     
     DDLogInfo(@"entered background");
@@ -184,7 +184,7 @@
 {
     DDLogDebug(@"");
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-    [[TimeTracker sharedInstance] backToForeground];  // XXX-FIX
+    [[TimeTracker sharedInstance] backToForeground];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application

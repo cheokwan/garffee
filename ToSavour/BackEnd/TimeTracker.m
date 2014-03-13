@@ -10,7 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import "TSSettings.h"
 #import "AppDelegate.h"
-#import "MapTrackingAnnotation.h"  // XXX-TEMP
+#import "MapTrackingAnnotation.h"
 
 // combine CoreLocation, BLE iBeacon, UltraSound locationing, Wifi fingerprinting/probing,
 // motion activity, user reporting etc in approximating user arrival time
@@ -22,11 +22,9 @@
 @property (nonatomic, strong)   CLLocation *destinationLocation;
 @property (nonatomic, strong)   CLLocation *lastUpdatedLocation;
 
-// XXX-FIX
 @property (nonatomic, strong)   NSTimer *timer;
 @property (nonatomic, assign)   NSInteger showCount;
 @property (nonatomic, assign)   __block UIBackgroundTaskIdentifier bgTaskId;
-// XXX
 
 @end
 
@@ -74,9 +72,9 @@
     self.lastUpdatedLocation = nil;
     _showCount = 0;
     
-    _locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;  // XXX-TEMP TODO: figure out best accuracy or make it dynamic
-    _locationManager.distanceFilter = 100;  // meters, TODO: make it dynamic
-    _locationManager.pausesLocationUpdatesAutomatically = YES;  // XXX-FIX YES or NO?
+    _locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+    _locationManager.distanceFilter = 100;  // meters
+    _locationManager.pausesLocationUpdatesAutomatically = YES;
     _locationManager.activityType = CLActivityTypeAutomotiveNavigation;  // TODO: make it dynamic
 }
 
@@ -85,13 +83,12 @@
     
     if ([[TSSettings sharedInstance] isLocationServiceAvailable]) {
         self.destinationLocation = [[CLLocation alloc] initWithCoordinate:destinationCoordinate altitude:0.0 horizontalAccuracy:0.0 verticalAccuracy:0.0 timestamp:[NSDate date]];
-        _showCount = 1;  // XXX-TEST
+        _showCount = 1;
         
         [self dropPin:MapTrackingAnnotationTypeActivity title:@"Strated Tracking"];
         
         _locationManager.delegate = self;
-        [_locationManager allowDeferredLocationUpdatesUntilTraveled:100 timeout:60];  // XXX-FIX find out if useful
-        //    [_locationManager disallowDeferredLocationUpdates];
+//        [_locationManager allowDeferredLocationUpdatesUntilTraveled:100 timeout:60];
         [_locationManager startUpdatingLocation];
         _trackerState = TimeTrackerStateStarted;
         DDLogInfo(@"started tracking location");
@@ -110,14 +107,10 @@
     [self dropPin:MapTrackingAnnotationTypeActivity title:@"Stopped Tracking"];
 }
 
-- (NSTimeInterval)latestApproxArrivalTime {
-    return 0.0;  // XXX-FIX
-}
-
 - (void)scheduleInBackground {
-//    if (self.trackerState == TimeTrackerStateStopped) {
-//        return;
-//    } JJJ
+    if (self.trackerState == TimeTrackerStateStopped) {
+        return;
+    }
     DDLogInfo(@"location service available: %d", [[TSSettings sharedInstance] isLocationServiceAvailable]);
     DDLogInfo(@"APNS available: %d", [[TSSettings sharedInstance] isAPNSAvailable]);
     DDLogInfo(@"background fetch available: %d", [[TSSettings sharedInstance] isBackgroundRefreshAvailable]);
@@ -142,9 +135,9 @@
 }
 
 - (void)backToForeground {
-//    if (self.trackerState == TimeTrackerStateStopped) {
-//        return;
-//    } JJJ
+    if (self.trackerState == TimeTrackerStateStopped) {
+        return;
+    }
     [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
     
     [_timer invalidate];
@@ -190,7 +183,7 @@
     });
 }
 
-- (void)logStuff:(NSString *)code {  // XXX-TEMP
+- (void)logStuff:(NSString *)code {
     NSDate *now = [NSDate date];
     NSTimeInterval bgRemTime = [[UIApplication sharedApplication] backgroundTimeRemaining];
     
@@ -205,7 +198,7 @@
     
     noti.applicationIconBadgeNumber = _showCount;
     noti.soundName = nil;
-//    [[UIApplication sharedApplication] scheduleLocalNotification:noti];
+//    [[UIApplication sharedApplication] scheduleLocalNotification:noti];  // uncomment to show local notification for background location event updates
     
     [self dropPin:MapTrackingAnnotationTypeActivity title:[NSString stringWithFormat:@"Background Event %@", code]];
     _showCount++;
@@ -228,12 +221,10 @@
 #pragma mark - CLLocationManagerDelegate
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    DDLogInfo(@"didUpdateLocations: %@", locations);  // XXX-FIX
-    
     self.lastUpdatedLocation = [locations lastObject];
     NSDate *updateTime = _lastUpdatedLocation.timestamp;
     NSTimeInterval howRecent = [updateTime timeIntervalSinceNow];
-    DDLogInfo(@"location updated in: %f", howRecent);
+    DDLogInfo(@"updated locations: %@, in %f", locations, howRecent);
     
     [self dropPin:MapTrackingAnnotationTypeUpdate title:nil];
     _showCount++;

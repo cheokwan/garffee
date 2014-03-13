@@ -211,7 +211,6 @@
 {
     [super viewDidLoad];
     [self initializeView];
-//    [[RestManager sharedInstance] fetchAppCouponInfo:self];  XXX TODO: move to better place, has problem with registration - fetch too prematurely
 }
 
 - (void)viewWillAppear:(BOOL)animated {

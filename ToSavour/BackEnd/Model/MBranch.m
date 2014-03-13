@@ -26,7 +26,7 @@
 @dynamic localCachedImageURL;
 
 - (NSURL *)URLForThumbnailImage {
-    return [self URLForImageRepresentation];  // XXXXXX
+    return [self URLForImageRepresentation];  // TODO: replace with a real thumbnail image
 }
 
 - (NSURL *)URLForImage {
@@ -44,15 +44,18 @@
 
 - (NSString *)resolvedImageURL {
 //    return [[MGlobalConfiguration cachedBlobHostName] stringByAppendingPathComponent:self.imageURL];
-    return @"http://static6.businessinsider.com/image/4f5691296bb3f7920700005b/starbucks-concept-store.jpg";  // XXXXXX
+    // XXX-STUB: stub for branch image, TODO: remove when server returns sane data
+    return @"http://static6.businessinsider.com/image/4f5691296bb3f7920700005b/starbucks-concept-store.jpg";
 }
 
 - (NSNumber *)latitude {
-    return @(22.281847);  // XXXXXX
+//    return self.latitude;
+    return @(22.281847);  // XXX-STUB: stub for branch latitude, TODO: remove when server returns sane data
 }
 
 - (NSNumber *)longitude {
-    return @(114.185103);  // XXXXXX
+//    return self.longitude;
+    return @(114.185103);  // XXX-STUB: stub for branch longitude, TODO: remove when server returns sane data
 }
 
 # pragma mark - RKMappableEntity

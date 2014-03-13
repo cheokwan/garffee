@@ -19,14 +19,13 @@ typedef enum {
 @interface TimeTracker : NSObject <CLLocationManagerDelegate>
 
 @property (nonatomic, readonly) TimeTrackerState trackerState;
-@property (nonatomic, readonly) NSTimeInterval latestApproxArrivalTime;
-@property (nonatomic, weak)     MKMapView *delegateMapView;  // XXX-TEMP
+@property (nonatomic, weak)     MKMapView *delegateMapView;
 
 + (TimeTracker *)sharedInstance;
 - (void)startTrackingWithDestinationCoordinate:(CLLocationCoordinate2D)destinationCoordinate;
 - (void)stopTracking;
-- (void)scheduleInBackground; // XXX-FIX
-- (void)backToForeground; // XXX-FIX
-- (void)handleBackgroundFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler code:(NSString *)code;  // XXX-FIX
+- (void)scheduleInBackground;
+- (void)backToForeground;
+- (void)handleBackgroundFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler code:(NSString *)code;
 
 @end

@@ -306,7 +306,7 @@ typedef enum {
             GiftTableViewCell *giftCell = (GiftTableViewCell *)cell;
             MCouponInfo *coupon  = self.couponFetchedResultsController.fetchedObjects[indexPath.row];
             giftCell.titleLabel.text = [NSString stringWithFormat:@"%@ %@", LS_REF_NO, coupon.referenceCode];
-            giftCell.detailLabel.text = [coupon.creationDate defaultStringRepresentation];  // XXX-TEST
+            giftCell.detailLabel.text = [coupon.creationDate defaultStringRepresentation];
             giftCell.giftSenderLabel.text = [NSString stringWithFormat:@"%@ %@", LS_GIFT_FROM, [coupon issuerName]];
             
             __weak GiftTableViewCell *weakGiftCell = giftCell;

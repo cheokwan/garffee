@@ -185,7 +185,7 @@
             UIImageView *imageView = [[UIImageView alloc] init];
             [_dummyImageViews addObject:imageView];  // retain the imageView
             
-            NSURL *imageURL = [item localCachedImageURL] ? [NSURL fileURLWithPath:[item localCachedImageURL]] : [NSURL URLWithString:[item resolvedImageURL]];  // XXXXXX disable second time image fetch for now
+            NSURL *imageURL = [item localCachedImageURL] ? [NSURL fileURLWithPath:[item localCachedImageURL]] : [NSURL URLWithString:[item resolvedImageURL]];  // disable second time image fetch for now, if image already cached in storage, don't download again
             
             __weak UIImageView *weakImageView = imageView;
             [imageView setImageWithURL:imageURL placeholderImage:nil options:0 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {

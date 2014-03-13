@@ -29,7 +29,7 @@ typedef enum {
 
 @interface ItemPickerViewController ()
 @property (nonatomic, strong)   ItemPickerTableViewCell *itemPickerPrototypeCell;
-@property (nonatomic, assign)   UITableViewRowAnimation animationStyle;  // XXX-TEST
+@property (nonatomic, assign)   UITableViewRowAnimation animationStyle;
 
 @property (nonatomic, strong)   ItemGridView *addItemButton;
 

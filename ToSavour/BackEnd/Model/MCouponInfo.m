@@ -43,7 +43,8 @@
         return item.product.URLForImageRepresentation;
     }
 //    return nil;
-    return [NSURL URLWithString:@"http://1.bp.blogspot.com/-4TqWQzfscLY/Up4veCapg1I/AAAAAAAAPT8/UBX9a5WlbiE/s1600/Red-Holiday-Gift.png"];  // XXXXXX
+    // XXX-STUB: stub for a placeholder image when no coupon image found, TODO: remove this
+    return [NSURL URLWithString:@"http://1.bp.blogspot.com/-4TqWQzfscLY/Up4veCapg1I/AAAAAAAAPT8/UBX9a5WlbiE/s1600/Red-Holiday-Gift.png"];
 }
 
 - (void)changeValue:(id)value forKey:(NSString *)key {

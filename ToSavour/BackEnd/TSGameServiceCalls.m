@@ -21,7 +21,6 @@
     static dispatch_once_t token = 0;
     __strong static TSGameServiceCalls *instance = nil;
     dispatch_once(&token, ^{
-        RKLogConfigureByName("RestKit/Network", RKLogLevelTrace);  // XXX-TEST
         instance = [[TSGameServiceCalls alloc] init];
     });
     return instance;

@@ -141,6 +141,8 @@
 		D27384DA18D0270200F5B363 /* PhotoHuntImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D27384D418D0270200F5B363 /* PhotoHuntImageView.m */; };
 		D27384DD18D0277A00F5B363 /* DailyGameStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D27384DB18D0277A00F5B363 /* DailyGameStoryboard.storyboard */; };
 		D27384DE18D0277A00F5B363 /* DailyGameStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D27384DB18D0277A00F5B363 /* DailyGameStoryboard.storyboard */; };
+		D277FAE918D1BC6B0091EC0B /* SessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D277FAE818D1BC6B0091EC0B /* SessionManager.m */; };
+		D277FAEA18D1BC6B0091EC0B /* SessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D277FAE818D1BC6B0091EC0B /* SessionManager.m */; };
 		D2827DAD1865540100E4A662 /* MGlobalConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DAC1865540100E4A662 /* MGlobalConfiguration.m */; };
 		D2827DB31867DB8800E4A662 /* MProductConfigurableOption.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DB21867DB8800E4A662 /* MProductConfigurableOption.m */; };
 		D2827DB61867E64000E4A662 /* MProductOptionChoice.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DB51867E64000E4A662 /* MProductOptionChoice.m */; };
@@ -367,6 +369,8 @@
 		D27384D318D0270200F5B363 /* PhotoHuntImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhotoHuntImageView.h; path = FrontEnd/Views/PhotoHuntImageView.h; sourceTree = "<group>"; };
 		D27384D418D0270200F5B363 /* PhotoHuntImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhotoHuntImageView.m; path = FrontEnd/Views/PhotoHuntImageView.m; sourceTree = "<group>"; };
 		D27384DC18D0277A00F5B363 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/DailyGameStoryboard.storyboard; sourceTree = "<group>"; };
+		D277FAE718D1BC6B0091EC0B /* SessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SessionManager.h; path = BackEnd/SessionManager.h; sourceTree = "<group>"; };
+		D277FAE818D1BC6B0091EC0B /* SessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SessionManager.m; path = BackEnd/SessionManager.m; sourceTree = "<group>"; };
 		D2827DAB1865540100E4A662 /* MGlobalConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGlobalConfiguration.h; path = BackEnd/Model/MGlobalConfiguration.h; sourceTree = "<group>"; };
 		D2827DAC1865540100E4A662 /* MGlobalConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGlobalConfiguration.m; path = BackEnd/Model/MGlobalConfiguration.m; sourceTree = "<group>"; };
 		D2827DB11867DB8800E4A662 /* MProductConfigurableOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MProductConfigurableOption.h; path = BackEnd/Model/MProductConfigurableOption.h; sourceTree = "<group>"; };
@@ -791,6 +795,8 @@
 				DFB3C1E0187D84C4004E5454 /* TSBranchServiceCalls.m */,
 				DFB3C1E8188436FC004E5454 /* MapAnnotation.h */,
 				DFB3C1E9188436FC004E5454 /* MapAnnotation.m */,
+				D277FAE718D1BC6B0091EC0B /* SessionManager.h */,
+				D277FAE818D1BC6B0091EC0B /* SessionManager.m */,
 			);
 			name = BackEnd;
 			sourceTree = "<group>";
@@ -1259,6 +1265,7 @@
 				D2466810185F15F70089D5DB /* main.m in Sources */,
 				D2466811185F15F70089D5DB /* MainTabBarController.m in Sources */,
 				D2827DF71875051F00E4A662 /* DataFetchManager.m in Sources */,
+				D277FAEA18D1BC6B0091EC0B /* SessionManager.m in Sources */,
 				D2466812185F15F70089D5DB /* TSTheming.m in Sources */,
 				D2466813185F15F70089D5DB /* MItemSelectedOption.m in Sources */,
 				D2827DFB187540BD00E4A662 /* NSArray+Helper.m in Sources */,
@@ -1384,6 +1391,7 @@
 				D2C5AC1118C9DCE9001F2BA3 /* BluetoothBeaconTestViewController.m in Sources */,
 				D2C9168F185EEC9000452891 /* MItemSelectedOption.m in Sources */,
 				D27384BD18D0259D00F5B363 /* BranchListViewController.m in Sources */,
+				D277FAE918D1BC6B0091EC0B /* SessionManager.m in Sources */,
 				D2209F481884EFD400282DAE /* OrderDetailsViewController.m in Sources */,
 				D2219653185AACD8007528EE /* NSManagedObject+Helper.m in Sources */,
 				D246684318603C800089D5DB /* CartViewController.m in Sources */,

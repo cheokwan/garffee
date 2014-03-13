@@ -73,10 +73,10 @@
             self.accessoryImageURL = [TSTheming URLWithImageAssetNamed:@"ico_fb@2x"];
         } else if (([user.userType intValue] ^ MUserInfoUserTypeAddressBookUser) == 0) {
             // if exclusively an address book user
-            self.accessoryImageURL = [TSTheming URLWithImageAssetNamed:@"ico_profile_phone@2x"];  // XXX-TEST
+            self.accessoryImageURL = [TSTheming URLWithImageAssetNamed:@"ico_profile_phone@2x"];  // XXX-STUB: pending product decision
         } else if ([user.userType intValue] & MUserInfoUserTypeAppNativeUser) {
             // if app native user
-            self.accessoryImageURL = [TSTheming URLWithImageAssetNamed:@"ico_garffee@2x"];  // XXX-TEST
+            self.accessoryImageURL = [TSTheming URLWithImageAssetNamed:@"ico_garffee@2x"];  // XXX-STUB: pending product decision
         }
         self.isInteractable = interactable;
         [self initializeView];

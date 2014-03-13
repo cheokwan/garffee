@@ -37,7 +37,7 @@
 }
 
 + (MOrderInfo *)existingOrNewOrderInfoInContext:(NSManagedObjectContext *)context {
-    MOrderInfo *order = (MOrderInfo *)[MOrderInfo existingOrNewObjectInContext:context withPredicate:[NSPredicate predicateWithFormat:@"status =[c] %@", MOrderInfoStatusInCart]];  // XXX-TEST
+    MOrderInfo *order = (MOrderInfo *)[MOrderInfo existingOrNewObjectInContext:context withPredicate:[NSPredicate predicateWithFormat:@"status =[c] %@", MOrderInfoStatusInCart]];
     order.status = MOrderInfoStatusInCart;
     [order updatePrice];
     return order;
@@ -45,7 +45,7 @@
 
 - (void)deleteInContext:(NSManagedObjectContext *)context {
     [super deleteInContext:context];
-    // assert object has been deleted  XXX-TEST
+    // assert object has been deleted
     NSFetchRequest *fetchRequest;
     NSArray *fetchResults;
     fetchRequest = [MOrderInfo fetchRequest];
@@ -55,7 +55,7 @@
 //    fetchRequest = [MItemInfo fetchRequest];
 //    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"id = %@", @0];
 //    fetchResults = [context executeFetchRequest:fetchRequest error:nil];
-//    NSAssert(fetchResults.count == 0, @"zombie MItemInfo found: %@", fetchResults);  // XXX-TODO sending coupon for some reason will trigger this assert, figure out why
+//    NSAssert(fetchResults.count == 0, @"zombie MItemInfo found: %@", fetchResults);  // TODO: sending coupon for some reason will trigger this assert, figure out why
 //    fetchRequest = [MItemSelectedOption fetchRequest];
 //    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"id = %@", @0];
 //    fetchResults = [context executeFetchRequest:fetchRequest error:nil];
@@ -73,7 +73,7 @@
     for (MItemInfo *item in orderItems) {
         [itemNames addObject:item.product.name];
     }
-    // XXXXXX
+    // XXX-TEMP: default to showing 3 item names temporarily, pending product decision
     return [[itemNames objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, MIN(itemNames.count, 3))]] commaSeparatedString];
 }
 

@@ -361,7 +361,7 @@
         NSSortDescriptor *sdOrderedDate = [[NSSortDescriptor alloc] initWithKey:@"orderedDate" ascending:NO];
         fetchRequest.sortDescriptors = @[sdOrderedDate];
         fetchRequest.fetchBatchSize = 20;
-        self.transactionHistoryFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[AppDelegate sharedAppDelegate].managedObjectContext sectionNameKeyPath:nil cacheName:nil];  // XXX-FIX cache name
+        self.transactionHistoryFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[AppDelegate sharedAppDelegate].managedObjectContext sectionNameKeyPath:nil cacheName:nil];
         _transactionHistoryFetchedResultsController.delegate = self;
         
         NSError *error = nil;

@@ -15,10 +15,10 @@
 }
 
 - (void)initializeView {
+    // XXX-STUB: stub for promotional images, TODO: replace with real service call
     NSArray *promotionImageURLs = @[[TSTheming URLWithImageAssetNamed:@"promo_1"],
                                     [TSTheming URLWithImageAssetNamed:@"promo_2"],
                                     [TSTheming URLWithImageAssetNamed:@"promo_3"]];
-    // XXX-MOCK
     
     self.promotionScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
     _promotionScrollView.showsHorizontalScrollIndicator = NO;

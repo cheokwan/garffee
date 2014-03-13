@@ -21,7 +21,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         dateFormatter = [[NSDateFormatter alloc] init];
-        NSString *formatString = [NSDateFormatter dateFormatFromTemplate:@"EdMMMy hh:mm" options:0 locale:[NSLocale localeWithLocaleIdentifier:@"en_US"]];  // XXX TODO: change to current locale after localizing the whole app
+        NSString *formatString = [NSDateFormatter dateFormatFromTemplate:@"EdMMMy hh:mm" options:0 locale:[NSLocale localeWithLocaleIdentifier:@"en_US"]];  // TODO: change to current locale after localizing the whole app
         [dateFormatter setDateFormat:formatString];
     });
     return dateFormatter;

@@ -383,7 +383,6 @@
 - (void)loginViewShowingLoggedInUser:(FBLoginView *)loginView {
     DDLogInfo(@"user is logged into facebook");
     self.view.hidden = YES;
-    // XXX-BUG what if user skips the permission request
 }
 
 - (void)loginViewShowingLoggedOutUser:(FBLoginView *)loginView {

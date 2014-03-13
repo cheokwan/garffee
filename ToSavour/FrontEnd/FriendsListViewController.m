@@ -9,7 +9,7 @@
 #import "FriendsListViewController.h"
 #import "FriendsListTableViewCell.h"
 #import "TSFrontEndIncludes.h"
-#import <FacebookSDK/FacebookSDK.h>  // XXX-TEST
+#import <FacebookSDK/FacebookSDK.h>
 #import "AvatarView.h"
 #import "MUserInfo.h"
 #import "CartViewController.h"
@@ -71,7 +71,7 @@ typedef enum {
     newBounds.origin.y = newBounds.origin.y + _searchBar.bounds.size.height;
     _friendsList.bounds = newBounds;
     
-    // XXX TODO: properly fix this, for some reason the friend list contentSize got change to 0 after search
+    // TODO: properly fix this, for some reason the friend list contentSize got change to 0 after search
     [self addObserver:self forKeyPath:@"self.friendsList.contentSize" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
 }
 
@@ -291,7 +291,7 @@ typedef enum {
         friendInfo = indexPath.row < self.searchResults.count ? self.searchResults[indexPath.row] : nil;
     }
     friendCell.title.text = friendInfo.name;
-    friendCell.subtitle.text = [friendInfo.birthday defaultStringRepresentation];  // XXX-TEST
+    friendCell.subtitle.text = [friendInfo.birthday defaultStringRepresentation];  // XXX-STUB: showing birthday for now, replace with the intended detail string
     
     [friendCell.avatarView removeFromSuperview];
     friendCell.avatarView = [[AvatarView alloc] initWithFrame:friendCell.avatarView.frame user:friendInfo showAccessoryImage:YES interactable:NO];
@@ -317,7 +317,7 @@ typedef enum {
         NSSortDescriptor *sdName = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
         fetchRequest.sortDescriptors = @[sdUserType, sdName];
         fetchRequest.fetchBatchSize = 20;
-        self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[AppDelegate sharedAppDelegate].managedObjectContext sectionNameKeyPath:@"userType" cacheName:nil];  // XXX-FIX cache name
+        self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[AppDelegate sharedAppDelegate].managedObjectContext sectionNameKeyPath:@"userType" cacheName:nil];
         _fetchedResultsController.delegate = self;
         
         NSError *error = nil;

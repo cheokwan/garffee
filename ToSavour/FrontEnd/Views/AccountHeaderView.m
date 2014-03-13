@@ -47,8 +47,8 @@
     
     [_avatarView removeFromSuperview];
     self.avatarView = [[AvatarView alloc] initWithFrame:self.avatarView.frame user:user showAccessoryImage:YES interactable:YES];
-    _avatarView.avatarButton.imageView.layer.borderColor = [UIColor whiteColor].CGColor;  // XXX-TEST
-    _avatarView.avatarButton.imageView.layer.borderWidth = 2.0;  // XXX-TEST
+    _avatarView.avatarButton.imageView.layer.borderColor = [UIColor whiteColor].CGColor;
+    _avatarView.avatarButton.imageView.layer.borderWidth = 2.0;
     
     UIImage *testImage = [UIImage imageNamed:@"AvatarBackground"];
     testImage = [testImage resizedImageToFitInSize:self.backgroundImageView.frame.size scaleIfSmaller:YES];

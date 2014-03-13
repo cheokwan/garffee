@@ -27,7 +27,7 @@
     static dispatch_once_t token = 0;
     __strong static id instance = nil;
     dispatch_once(&token, ^{
-        RKLogConfigureByName("RestKit/Network", RKLogLevelTrace);  // XXX-TEST
+//        RKLogConfigureByName("RestKit/Network", RKLogLevelTrace);  // uncomment for verbose RestKit network trace
         instance = [[self alloc] init];
     });
     return instance;
@@ -363,7 +363,6 @@
     NSMutableURLRequest *request = [self requestWithServiceHostType:RestManagerServiceHostApp endPoint:@"/coupons"];
     request.HTTPMethod = @"POST";
     
-    // XXXXXX
     for (MItemInfo *item in order.items) {
         // XXX-SERVER-BUG: need to change the orderID into nullable foreign key
         item.orderID = @3222;
