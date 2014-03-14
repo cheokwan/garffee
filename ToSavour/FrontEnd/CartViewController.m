@@ -31,7 +31,6 @@ typedef enum {
 @property (nonatomic, strong)   UIAlertView *confirmClearAlertView;
 @end
 
-// TODO: control logic too complicated, need refactor
 
 @implementation CartViewController
 
@@ -223,7 +222,6 @@ typedef enum {
 
 - (void)refreshButtons:(BOOL)animated {
     // update add order button
-    // TODO: too ugly, refactor these animated code
     if (_itemList.isEditing) {
         if (animated) {
             [_addOrderButton hideDisable:animated];

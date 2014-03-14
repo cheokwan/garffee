@@ -53,7 +53,6 @@
     [self initializeLoginPage];
 }
 
-// TODO: too much code, refactor this
 - (void)initializeLoginPage {
     CGRect loginPageFrame = CGRectOffset(_tutorialPageView.bounds, _tutorialPageView.controlScrollView.contentSize.width - _tutorialPageView.controlScrollView.bounds.size.width, 0.0);  // slide out effect
 //    CGRect loginPageFrame = _tutorialPageView.bounds;
@@ -166,6 +165,7 @@
 
 - (void)buttonPressed:(id)sender {
     if (sender == _skipButton) {
+        // fade out fade in effect
 //        [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionTransitionCrossDissolve|UIViewAnimationOptionAllowAnimatedContent animations:^{
 //            // fade out
 //            _tutorialPageView.alpha = 0.0;
@@ -185,7 +185,8 @@
 
 - (void)dismissAfterLoggedIn {
     [_progressTimer invalidate];
-    _spinner.progress = (float)TutorialLoginRegistrationStageTotal / TutorialLoginRegistrationStageTotal;
+    _spinner.progress = (float)SessionManagerLoginStageTotal / SessionManagerLoginStageTotal;
+    [SessionManager sharedInstance].delegate = nil;
     [SettingsManager writeSettingsValue:@(YES) forKey:SettingsManagerKeyRegistrationComplete];
     [[AppDelegate sharedAppDelegate].managedObjectContext saveToPersistentStore];
     _facebookLoginButton.delegate = nil;
@@ -199,8 +200,9 @@
 
 - (void)redirectOnError {
     // force user to go through facebook login process again to retry
-    [[FBSession activeSession] closeAndClearTokenInformation];
     [_progressTimer invalidate];
+    [[FBSession activeSession] closeAndClearTokenInformation];
+    [SessionManager sharedInstance].delegate = nil;
     [MBProgressHUD hideAllHUDsForView:[AppDelegate sharedAppDelegate].window animated:YES];
     self.view.hidden = NO;
     [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Registration Error", @"") message:NSLocalizedString(@"We cannot complete the registration process due to some unexpected error. Please try again later", @"") delegate:self cancelButtonTitle:LS_OK otherButtonTitles:nil] show];
@@ -303,80 +305,20 @@
     }
 }
 
-#pragma mark - RestManagerResponseHandler
+#pragma mark - SessionManagerDelegate
 
-- (void)restManagerService:(SEL)selector succeededWithOperation:(NSOperation *)operation userInfo:(NSDictionary *)userInfo {
-    DDLogInfo(@"registration REST operation succeeded: %@ - %@", NSStringFromSelector(selector), userInfo);
-    
-    // TODO: need some way to recover if this china of fetches was interrupted by crash e.g.
-    if (selector == @selector(fetchFacebookAppUserInfo:)) {
-        // fetched facebook info, now move onto fetching app user info with
-        // facebook credentials
-        MUserFacebookInfo *facebookAppUser = [[userInfo objectForKey:@"mappingResult"] firstObject];
-        if (facebookAppUser) {
-            facebookAppUser.isAppUser = @YES;
-            [[AppDelegate sharedAppDelegate].managedObjectContext save];
-            [[RestManager sharedInstance] fetchAppUserInfo:self];
-            [[DataFetchManager sharedInstance] fetchAddressBookContactsInContext:[AppDelegate sharedAppDelegate].managedObjectContext handler:nil];
-            _spinner.progress = (float)TutorialLoginRegistrationStageAppUser / TutorialLoginRegistrationStageTotal;
-        } else {
-            DDLogError(@"unable to retrieve the mapped facebook user info");
-            [self redirectOnError];
-        }
-    }
-    if (selector == @selector(fetchAppUserInfo:)) {
-        [[RestManager sharedInstance] fetchFacebookFriendsInfo:self];
-        _spinner.progress = (float)TutorialLoginRegistrationStageFacebookFriends / TutorialLoginRegistrationStageTotal;
-    }
-    if (selector == @selector(fetchFacebookFriendsInfo:)) {
-        // successfully logged in and registered user info, now fetch app configs
-        [[RestManager sharedInstance] fetchAppConfigurations:self];
-        [[DataFetchManager sharedInstance] discoverFacebookAppUsersInContext:[AppDelegate sharedAppDelegate].managedObjectContext handler:nil];
-        [[DataFetchManager sharedInstance] discoverAddressBookAppUsersContext:[AppDelegate sharedAppDelegate].managedObjectContext handler:nil];
-        _spinner.progress = (float)TutorialLoginRegistrationStageAppConfigurations / TutorialLoginRegistrationStageTotal;
-    }
-    // TODO: make following calls parallel
-    if (selector == @selector(fetchAppConfigurations:)) {
-        // successfully fetched app configs, now fetch products info
-        [[RestManager sharedInstance] fetchAppProductInfo:self];
-        _spinner.progress = (float)TutorialLoginRegistrationStageAppProducts / TutorialLoginRegistrationStageTotal;
-    }
-    if (selector == @selector(fetchAppProductInfo:)) {
-        [[RestManager sharedInstance] fetchBranches:self];
-        _spinner.progress = (float)TutorialLoginRegistrationStageAppStoreBranches / TutorialLoginRegistrationStageTotal;
-    }
-    if (selector == @selector(fetchBranches:)) {
-        [[RestManager sharedInstance] fetchAppOrderHistories:self];
-        _spinner.progress = (float)TutorialLoginRegistrationStageAppOrderHistories / TutorialLoginRegistrationStageTotal;
-    }
-    if (selector == @selector(fetchAppOrderHistories:)) {
-        [[RestManager sharedInstance] fetchAppCouponInfo:self];
-        _spinner.progress = (float)TutorialLoginRegistrationStageAppGiftCoupons / TutorialLoginRegistrationStageTotal;
-    }
-    if (selector == @selector(fetchAppCouponInfo:)) {
-        [[DataFetchManager sharedInstance] cacheLocalProductImages:[AppDelegate sharedAppDelegate].managedObjectContext handler:self];
-        _spinner.progress = (float)TutorialLoginRegistrationStageAppProductImages / TutorialLoginRegistrationStageTotal;
-    }
+- (void)sessionManagerDidUpdateLoginProgress:(CGFloat)progress {
+    _spinner.progress = progress;
 }
 
-- (void)restManagerService:(SEL)selector failedWithOperation:(NSOperation *)operation error:(NSError *)error userInfo:(NSDictionary *)userInfo {
-    DDLogError(@"error in registration REST operation: %@, %@ - %@", NSStringFromSelector(selector), error, userInfo);
+- (void)sessionManagerDidLoginSuccessfully {
+    [self dismissAfterLoggedIn];
+}
+
+- (void)sessionManagerDidFailToLoginWithError:(NSError *)error {
     [self redirectOnError];
 }
 
-#pragma mark - DataFetchManagerHandler
-
-- (void)dataFetchManagerService:(SEL)selector succeededWithUserInfo:(NSDictionary *)userInfo {
-    DDLogInfo(@"registration data fetch operation succeeded: %@ - %@", NSStringFromSelector(selector), userInfo);
-    // successfully fetched everything, now dismiss the login view
-    [self dismissAfterLoggedIn];
-}
-
-- (void)dataFetchManagerService:(SEL)selector failedWithError:(NSError *)error userInfo:(NSDictionary *)userInfo {
-    DDLogError(@"error in registration data fetch operation: %@, %@ - %@", NSStringFromSelector(selector), error, userInfo);
-    // still dismiss for now although there were errors fetching one or more images
-    [self dismissAfterLoggedIn];
-}
 
 #pragma mark - FBLoginViewDelegate
 
@@ -398,9 +340,11 @@
     _spinner.mode = MBProgressHUDModeAnnularDeterminate;
     _spinner.labelText = LS_SIGNING_IN;
     _spinner.detailsLabelText = LS_PLEASE_WAIT;
-    _spinner.progress = (float)TutorialLoginRegistrationStageFacebookAppUser / TutorialLoginRegistrationStageTotal;
+    _spinner.progress = (float)SessionManagerLoginStageFacebookAppUser / SessionManagerLoginStageTotal;
 //    [self.progressTimer fire];  // start a timer for faking approximate progress
-    [[RestManager sharedInstance] fetchFacebookAppUserInfo:self];
+    
+    [SessionManager sharedInstance].delegate = self;
+    [[SessionManager sharedInstance] loginWithFacebookCredentials];
 }
 
 - (void)loginView:(FBLoginView *)loginView handleError:(NSError *)error {

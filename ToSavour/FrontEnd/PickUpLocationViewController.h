@@ -10,7 +10,6 @@
 
 #import "PickUpLocationTableViewCell.h"
 #import "MOrderInfo.h"
-#import "TSBranchServiceCalls.h"
 
 @class PickUpLocationViewController;
 

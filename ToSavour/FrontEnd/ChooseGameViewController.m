@@ -138,10 +138,10 @@
 - (void)refetchGamesData {
     if (_configurationHost) {
         self.serviceCallsStatus = GameServiceCallsStatusGameList;
-        [((TSGameServiceCalls *)[TSGameServiceCalls sharedInstance]) fetchGameList:self];
+        [((RestManagerGameService *)[RestManagerGameService sharedInstance]) fetchGameList:self];
     } else {
         self.serviceCallsStatus = GameServiceCallsStatusConfiguration;
-        [((TSGameServiceCalls *)[TSGameServiceCalls sharedInstance]) fetchConfiguration:self];
+        [((RestManagerGameService *)[RestManagerGameService sharedInstance]) fetchConfiguration:self];
     }
 }
 
@@ -380,7 +380,7 @@
         [self initializeScrollView];
         [self gameChanged];
         self.serviceCallsStatus = GameServiceCallsStatusGameHistories;
-        [[TSGameServiceCalls sharedInstance] fetchGameHistories:self];
+        [[RestManagerGameService sharedInstance] fetchGameHistories:self];
     } else if (selector == @selector(fetchConfiguration:)) {
         NSData *data = userInfo[@"responseObject"];
         if (data) {
@@ -397,7 +397,7 @@
             }
             if (_configurationHost) {
                 self.serviceCallsStatus = GameServiceCallsStatusGameList;
-                [((TSGameServiceCalls *)[TSGameServiceCalls sharedInstance]) fetchGameList:self];
+                [((RestManagerGameService *)[RestManagerGameService sharedInstance]) fetchGameList:self];
             } else {
                 DDLogError(@"no configuration host is found");
             }

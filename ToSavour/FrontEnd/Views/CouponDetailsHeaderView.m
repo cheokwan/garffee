@@ -11,9 +11,6 @@
 #import "CartHeaderView.h"
 
 
-// TODO: refactor cart header view to be more generic so we
-// don't need to hack it
-
 @implementation CouponDetailsHeaderView
 
 - (void)initializeView {

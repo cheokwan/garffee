@@ -52,7 +52,7 @@
     return fetchRequest;
 }
 
-+ (void)removeALlObjectsInContext:(NSManagedObjectContext *)context {
++ (void)removeAllObjectsInContext:(NSManagedObjectContext *)context {
     NSFetchRequest *fetchRequest = [self.class fetchRequest];
     fetchRequest.includesPropertyValues = NO;  // only fetch the managedObjectID
     fetchRequest.includesPendingChanges = YES;

@@ -80,7 +80,6 @@ static CGRect itemImageRects[ORDER_COMPOSITE_IMAGE_MAX_ITEM];
 }
 
 - (void)calculateItemImageRectsBoundTo:(CGSize)boundSize sampleImage:(UIImage *)sampleImage total:(NSInteger)total {
-    // TODO: make this smarter
     CGFloat sampleHeightWidthRatio = sampleImage.size.height / sampleImage.size.width;
     NSInteger numToDraw = MIN(total, ORDER_COMPOSITE_IMAGE_MAX_ITEM);
     
@@ -100,11 +99,11 @@ static CGRect itemImageRects[ORDER_COMPOSITE_IMAGE_MAX_ITEM];
             itemImageRects[i] = itemRect;
         }
     } else {
-        // just do maximum two rows for now... TODO...
+        // just do maximum two rows for now...
         NSInteger numInFirstRow = ceil(numToDraw / 2.0);
         NSInteger numInSecondRow = numToDraw - numInFirstRow;
         
-        // if we have too much items, then we are fucked... choose the MAX wisely TODO...
+        // if we have too much items, then we are fucked... choose the MAX wisely...
         CGFloat firstRowItemHeight = 0.7 * boundSize.height;
         CGFloat secondRowItemHeight = 0.8 * boundSize.height;
         

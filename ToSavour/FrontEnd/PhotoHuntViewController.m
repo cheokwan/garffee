@@ -12,7 +12,7 @@
 #import <UIView+Helpers/UIView+Helpers.h>
 #import "UIView+Helper.h"
 #import "TSTheming.h"
-#import "TSGameServiceCalls.h"
+#import "RestManagerGameService.h"
 
 typedef enum {
     ImageViewENumNone           = 0,
@@ -102,7 +102,7 @@ typedef enum {
 
 #pragma mark - game logic
 - (void)startGame {
-    [[TSGameServiceCalls sharedInstance] postGameStart:self game:_gameManager.game];
+    [[RestManagerGameService sharedInstance] postGameStart:self game:_gameManager.game];
     _gameState = GameStateStarted;
     [self updateFoundChangesLabel];
     [self startTimer];
@@ -147,7 +147,7 @@ typedef enum {
     _gameState = GameStateEnded;
     TSGamePlayHistory *history = _gameManager.history;
     history.result = @"lose";
-    [[TSGameServiceCalls sharedInstance] updateGameResult:self gameHistory:history];
+    [[RestManagerGameService sharedInstance] updateGameResult:self gameHistory:history];
 }
 
 - (void)winGame {
@@ -158,7 +158,7 @@ typedef enum {
     [_winAlertView show];
     TSGamePlayHistory *history = _gameManager.history;
     history.result = @"win";
-    [[TSGameServiceCalls sharedInstance] updateGameResult:self gameHistory:history];
+    [[RestManagerGameService sharedInstance] updateGameResult:self gameHistory:history];
 }
 
 - (void)dismissSelf {
@@ -169,7 +169,7 @@ typedef enum {
 }
 
 - (void)updateFoundChangesLabel {
-    _foundChangesLabel.text = [NSString stringWithFormat:@"%d/%d", [_gameManager numberOfChangesFound], [_gameManager totalNumberOfChanges]];
+    _foundChangesLabel.text = [NSString stringWithFormat:@"%lu/%lu", [_gameManager numberOfChangesFound], [_gameManager totalNumberOfChanges]];
 }
 
 #pragma mark - PhotoHuntImageViewDelegate

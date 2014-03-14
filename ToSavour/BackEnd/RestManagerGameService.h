@@ -1,5 +1,5 @@
 //
-//  TSGameServiceCalls.h
+//  RestManagerGameService.h
 //  ToSavour
 //
 //  Created by LAU Leung Yan on 9/12/13.
@@ -12,9 +12,9 @@
 #import "TSGame.h"
 #import "TSGamePlayHistory.h"
 
-@interface TSGameServiceCalls : RestManager
+@interface RestManagerGameService : RestManager
 
-+ (TSGameServiceCalls *)sharedInstance;
++ (RestManagerGameService *)sharedInstance;
 
 - (void)fetchConfiguration:(__weak id<RestManagerResponseHandler>)handler;
 - (void)fetchGameList:(__weak id<RestManagerResponseHandler>)handler;
@@ -22,8 +22,6 @@
 - (void)postGameStart:(__weak id<RestManagerResponseHandler>)handler game:(TSGame *)game;
 - (void)updateGameResult:(__weak id<RestManagerResponseHandler>)handler gameHistory:(TSGamePlayHistory *)gameHistory;
 
-//XXX-ML Debug
-- (void)removeAllGameHistories;
-//XXX-ML
+- (void)removeAllGameHistories;  // XXX-DEBUG: for debug purpose
 
 @end

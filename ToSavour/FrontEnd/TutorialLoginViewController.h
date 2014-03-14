@@ -10,24 +10,10 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "TutorialPageView.h"
-#import "RestManager.h"
-#import "DataFetchManager.h"
-
-typedef enum {
-    TutorialLoginRegistrationStageFacebookAppUser = 1,
-    TutorialLoginRegistrationStageAppUser = 2,
-    TutorialLoginRegistrationStageFacebookFriends = 3,
-    TutorialLoginRegistrationStageAppConfigurations = 4,
-    TutorialLoginRegistrationStageAppProducts = 5,
-    TutorialLoginRegistrationStageAppStoreBranches = 6,
-    TutorialLoginRegistrationStageAppOrderHistories = 7,
-    TutorialLoginRegistrationStageAppGiftCoupons = 8,
-    TutorialLoginRegistrationStageAppProductImages = 9,  // give more weight
-    TutorialLoginRegistrationStageTotal = 12
-} TutorialLoginRegistrationStage;
+#import "SessionManager.h"
 
 
-@interface TutorialLoginViewController : UIViewController<UIScrollViewDelegate, FBLoginViewDelegate, RestManagerResponseHandler, DataFetchManagerHandler>
+@interface TutorialLoginViewController : UIViewController<UIScrollViewDelegate, FBLoginViewDelegate, SessionManagerDelegate>
 
 @property (nonatomic, strong)   TutorialPageView *tutorialPageView;
 @property (nonatomic, strong)   IBOutlet UIPageControl *tutorialPageControl;

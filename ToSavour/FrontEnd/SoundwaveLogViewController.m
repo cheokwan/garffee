@@ -64,7 +64,7 @@
     if (sender == _dismissButton) {
         [self dismissViewControllerAnimated:YES completion:nil];
     } else if (sender == _trashButton) {
-        [MFrequencyInfo removeALlObjectsInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
+        [MFrequencyInfo removeAllObjectsInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
         [[AppDelegate sharedAppDelegate].managedObjectContext saveToPersistentStore];
     }
 }

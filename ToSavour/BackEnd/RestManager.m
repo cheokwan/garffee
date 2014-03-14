@@ -58,7 +58,8 @@
         if (tokenData) {
             _appToken = [[NSString alloc] initWithData:tokenData encoding:NSUTF8StringEncoding];
         } else {
-            // TODO: handle if tokenData is not found
+            DDLogWarn(@"failed to retrieve app token");
+            [self fetchAppUserInfo:nil];  // trigger a user info re-fetch to update app token
         }
     }
     return _appToken;
@@ -383,7 +384,7 @@
         }
     }
     
-    // TODO: we don't need to store the returned coupon
+    // TODO: we don't actually need to store the returned coupon
     [self fetchManagedObjectsWithRequest:request context:[AppDelegate sharedAppDelegate].managedObjectContext sourceSelector:_cmd responseDescriptors:@[[MCouponInfo defaultResponseDescriptor]] persist:YES handler:handler];
 }
 
@@ -482,6 +483,14 @@
     DDLogDebug(@"query phone contacts JSON body: %@", jsonString);
     
     [self fetchObjectWithRequest:request sourceSelector:_cmd responseDescriptors:@[[KVPair defaultResponseDescriptor]] handler:handler];
+}
+
+- (void)queryEstimatedTimeForBranch:(MBranch *)branch handler:(__weak id<RestManagerResponseHandler>)handler {
+    // XXX-STUB: stub for branch estimated time network call, TODO: replace with real call
+    NSInteger estimatedTimeInMinute = 10;
+    if ([handler respondsToSelector:@selector(restManagerService:succeededWithOperation:userInfo:)]) {
+        [handler restManagerService:_cmd succeededWithOperation:nil userInfo:@{@"estimatedTime": @(estimatedTimeInMinute)}];
+    }
 }
 
 @end

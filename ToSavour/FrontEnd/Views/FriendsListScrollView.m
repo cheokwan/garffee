@@ -60,7 +60,6 @@
             DDLogError(@"error fetching friends in scroll view: %@", error);
         }
         if (friends.count == 0) {
-            // TODO: better handle this
             double delayInSeconds = 1.0;
 //            DDLogWarn(@"fetched 0 friends, going to retry in %f seconds", delayInSeconds);
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));

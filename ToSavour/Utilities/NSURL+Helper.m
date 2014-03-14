@@ -46,7 +46,7 @@
         NSString *filePath = [self.path stringByAppendingPathComponent:fileName];
         NSInteger collisionCount = 1;
         while ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
-            filePath = [[self.path stringByAppendingPathComponent:fileName] stringByAppendingString:[NSString stringWithFormat:@"-%d", collisionCount]];
+            filePath = [[self.path stringByAppendingPathComponent:fileName] stringByAppendingString:[@(collisionCount) stringValue]];
             ++collisionCount;
         }
         return [NSURL fileURLWithPath:filePath isDirectory:NO];

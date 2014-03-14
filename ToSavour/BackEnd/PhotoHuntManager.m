@@ -103,9 +103,9 @@
     self.changesValidDict = [NSMutableDictionary dictionary];
     NSMutableArray *keys = [dict.allKeys mutableCopy];
     [keys shuffle];
-    int numberOfValidChanges = MIN(keys.count, _game.validNumberOfChanges);
-    for (int i=0; i<numberOfValidChanges; i++) {
-        _changesValidDict[[keys objectAtIndex:i]] = @(YES);
+    NSUInteger numberOfValidChanges = MIN(keys.count, _game.validNumberOfChanges);
+    for (int i = 0; i < numberOfValidChanges; i++) {
+        _changesValidDict[keys[i]] = @(YES);
     }
     return dict;
 }
@@ -162,11 +162,11 @@
 }
 
 #pragma mark - UI related
-- (int)totalNumberOfChanges {
+- (NSUInteger)totalNumberOfChanges {
     return _changesValidDict.allKeys.count;
 }
 
-- (int)numberOfChangesFound {
+- (NSUInteger)numberOfChangesFound {
     return _foundChanges.count;
 }
 

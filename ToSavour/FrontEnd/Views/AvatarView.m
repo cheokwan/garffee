@@ -56,7 +56,7 @@
         self.avatarImageURL = avatarImageURL;
         self.accessoryImageURL = accessoryImageURL;
         self.isInteractable = interactable;
-        [self initializeView];  // TODO: generalize to other init methods
+        [self initializeView];
     }
     return self;
 }

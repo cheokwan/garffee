@@ -71,11 +71,11 @@ typedef enum {
     newBounds.origin.y = newBounds.origin.y + _searchBar.bounds.size.height;
     _friendsList.bounds = newBounds;
     
-    // TODO: properly fix this, for some reason the friend list contentSize got change to 0 after search
     [self addObserver:self forKeyPath:@"self.friendsList.contentSize" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    // XXX-WORKAROUND: for some reason the friend list contentSize got change to 0 after search
     if (object == self && [keyPath isEqualToString:@"self.friendsList.contentSize"]) {
         NSValue *newChange = change[NSKeyValueChangeNewKey];
         CGSize newSize;
@@ -377,7 +377,7 @@ typedef enum {
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    // XXX work around for 64-bit simulator unrecognized selector
+    // XXX work around for 64-bit simulator unrecognized selector, don't remove
 }
 
 @end

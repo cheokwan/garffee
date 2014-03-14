@@ -13,7 +13,7 @@
 #import "CountDownButton.h"
 #import "PhotoHuntManager.h"
 #import "PhotoHuntViewController.h"
-#import "TSGameServiceCalls.h"
+#import "RestManagerGameService.h"
 #import "RestManager.h"
 
 #define COUNT_DOWN_INTERVAL     1.0f

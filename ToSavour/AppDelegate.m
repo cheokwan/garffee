@@ -25,6 +25,7 @@
 #import <Reachability/Reachability.h>
 #import <Crashlytics/Crashlytics.h>
 #import <CrashlyticsLumberjack/CrashlyticsLogger.h>
+#import "SessionManager.h"
 
 
 @implementation AppDelegate
@@ -96,8 +97,8 @@
             // user has previously logged in, skip to login page directly
             tutorialLoginViewController.skipTutorial = YES;
         }
-        if (!registrationCompleted) {  // XXX-BUG: edge case, if registration was cut and user change facebook user some residual friends from old user might persist
-            [[FBSession activeSession] closeAndClearTokenInformation];
+        if (!registrationCompleted) {
+            [[SessionManager sharedInstance] logoutAndClearDatabase];
         }
         [_slidingViewController.topViewController presentViewController:tutorialLoginViewController animated:NO completion:nil];
     } else {

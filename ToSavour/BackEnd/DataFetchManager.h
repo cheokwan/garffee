@@ -14,6 +14,15 @@
 - (void)dataFetchManagerService:(SEL)selector failedWithError:(NSError *)error userInfo:(NSDictionary *)userInfo;
 @end
 
+
+/**
+ *  DataFetchManager
+ *
+ *  - Performs local but potentially time-consuming data fetch/store operations
+ *  - Wrapper against RestManager provided REST operations to include retries capability
+ *  - On success, the callback handler method dataFetchManagerService:succeededWithUserInfo: will be called
+ *  - On failure, the callback handler method dataFetchManagerService:failedWithError:userInfo: will be called
+ */
 @interface DataFetchManager : NSObject<RestManagerResponseHandler>
 
 + (instancetype)sharedInstance;

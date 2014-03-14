@@ -109,8 +109,6 @@
 		D2721690187BC99D00958E3B /* LineView.m in Sources */ = {isa = PBXBuildFile; fileRef = D272168F187BC99D00958E3B /* LineView.m */; };
 		D273849F18D024ED00F5B363 /* AccountInfoTableManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D273849C18D024ED00F5B363 /* AccountInfoTableManager.m */; };
 		D27384A018D024ED00F5B363 /* AccountInfoTableManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D273849C18D024ED00F5B363 /* AccountInfoTableManager.m */; };
-		D27384A118D024ED00F5B363 /* TSGameServiceCalls.m in Sources */ = {isa = PBXBuildFile; fileRef = D273849E18D024ED00F5B363 /* TSGameServiceCalls.m */; };
-		D27384A218D024ED00F5B363 /* TSGameServiceCalls.m in Sources */ = {isa = PBXBuildFile; fileRef = D273849E18D024ED00F5B363 /* TSGameServiceCalls.m */; };
 		D27384A918D0252600F5B363 /* TSGame.m in Sources */ = {isa = PBXBuildFile; fileRef = D27384A418D0252600F5B363 /* TSGame.m */; };
 		D27384AA18D0252600F5B363 /* TSGame.m in Sources */ = {isa = PBXBuildFile; fileRef = D27384A418D0252600F5B363 /* TSGame.m */; };
 		D27384AB18D0252600F5B363 /* TSGameDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D27384A618D0252600F5B363 /* TSGameDownloadManager.m */; };
@@ -143,6 +141,8 @@
 		D27384DE18D0277A00F5B363 /* DailyGameStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D27384DB18D0277A00F5B363 /* DailyGameStoryboard.storyboard */; };
 		D277FAE918D1BC6B0091EC0B /* SessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D277FAE818D1BC6B0091EC0B /* SessionManager.m */; };
 		D277FAEA18D1BC6B0091EC0B /* SessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D277FAE818D1BC6B0091EC0B /* SessionManager.m */; };
+		D277FAED18D2F5F60091EC0B /* RestManagerGameService.m in Sources */ = {isa = PBXBuildFile; fileRef = D277FAEC18D2F5F60091EC0B /* RestManagerGameService.m */; };
+		D277FAEE18D2F5F60091EC0B /* RestManagerGameService.m in Sources */ = {isa = PBXBuildFile; fileRef = D277FAEC18D2F5F60091EC0B /* RestManagerGameService.m */; };
 		D2827DAD1865540100E4A662 /* MGlobalConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DAC1865540100E4A662 /* MGlobalConfiguration.m */; };
 		D2827DB31867DB8800E4A662 /* MProductConfigurableOption.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DB21867DB8800E4A662 /* MProductConfigurableOption.m */; };
 		D2827DB61867E64000E4A662 /* MProductOptionChoice.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DB51867E64000E4A662 /* MProductOptionChoice.m */; };
@@ -241,9 +241,7 @@
 		DF1C88D51875A82800400283 /* PickUpLocationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DF1C88D41875A82800400283 /* PickUpLocationTableViewCell.m */; };
 		DF3075C8186D6224002D40AF /* imageNotFound.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DF3075C7186D6224002D40AF /* imageNotFound.jpg */; };
 		DF9DB5401861D3DA00FD315E /* TSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = DF9DB53F1861D3DA00FD315E /* TSZipArchive.m */; };
-		DFB3C1E1187D84C4004E5454 /* TSBranchServiceCalls.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB3C1E0187D84C4004E5454 /* TSBranchServiceCalls.m */; };
 		DFB3C1E718842FE2004E5454 /* BranchLocationMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB3C1E618842FE2004E5454 /* BranchLocationMapViewController.m */; };
-		DFB3C1EA188436FC004E5454 /* MapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB3C1E9188436FC004E5454 /* MapAnnotation.m */; };
 		DFB85701187C355F00B08559 /* MBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB85700187C355F00B08559 /* MBranch.m */; };
 		DFED33B8188D49B900E9C9C2 /* BranchDetailsNameCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DFED33B7188D49B900E9C9C2 /* BranchDetailsNameCell.m */; };
 		DFED33BB188D49E400E9C9C2 /* BranchDetailsNormalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DFED33BA188D49E400E9C9C2 /* BranchDetailsNormalCell.m */; };
@@ -338,8 +336,6 @@
 		D272168F187BC99D00958E3B /* LineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LineView.m; path = FrontEnd/Views/LineView.m; sourceTree = "<group>"; };
 		D273849B18D024ED00F5B363 /* AccountInfoTableManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AccountInfoTableManager.h; path = BackEnd/AccountInfoTableManager.h; sourceTree = "<group>"; };
 		D273849C18D024ED00F5B363 /* AccountInfoTableManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AccountInfoTableManager.m; path = BackEnd/AccountInfoTableManager.m; sourceTree = "<group>"; };
-		D273849D18D024ED00F5B363 /* TSGameServiceCalls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSGameServiceCalls.h; path = BackEnd/TSGameServiceCalls.h; sourceTree = "<group>"; };
-		D273849E18D024ED00F5B363 /* TSGameServiceCalls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSGameServiceCalls.m; path = BackEnd/TSGameServiceCalls.m; sourceTree = "<group>"; };
 		D27384A318D0252600F5B363 /* TSGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSGame.h; path = BackEnd/TSGame.h; sourceTree = "<group>"; };
 		D27384A418D0252600F5B363 /* TSGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSGame.m; path = BackEnd/TSGame.m; sourceTree = "<group>"; };
 		D27384A518D0252600F5B363 /* TSGameDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSGameDownloadManager.h; path = BackEnd/TSGameDownloadManager.h; sourceTree = "<group>"; };
@@ -371,6 +367,8 @@
 		D27384DC18D0277A00F5B363 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/DailyGameStoryboard.storyboard; sourceTree = "<group>"; };
 		D277FAE718D1BC6B0091EC0B /* SessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SessionManager.h; path = BackEnd/SessionManager.h; sourceTree = "<group>"; };
 		D277FAE818D1BC6B0091EC0B /* SessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SessionManager.m; path = BackEnd/SessionManager.m; sourceTree = "<group>"; };
+		D277FAEB18D2F5F60091EC0B /* RestManagerGameService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RestManagerGameService.h; path = BackEnd/RestManagerGameService.h; sourceTree = "<group>"; };
+		D277FAEC18D2F5F60091EC0B /* RestManagerGameService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RestManagerGameService.m; path = BackEnd/RestManagerGameService.m; sourceTree = "<group>"; };
 		D2827DAB1865540100E4A662 /* MGlobalConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGlobalConfiguration.h; path = BackEnd/Model/MGlobalConfiguration.h; sourceTree = "<group>"; };
 		D2827DAC1865540100E4A662 /* MGlobalConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGlobalConfiguration.m; path = BackEnd/Model/MGlobalConfiguration.m; sourceTree = "<group>"; };
 		D2827DB11867DB8800E4A662 /* MProductConfigurableOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MProductConfigurableOption.h; path = BackEnd/Model/MProductConfigurableOption.h; sourceTree = "<group>"; };
@@ -504,12 +502,8 @@
 		DF9DB53D1861CA6200FD315E /* TSLocalizedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSLocalizedString.h; path = Utilities/TSLocalizedString.h; sourceTree = "<group>"; };
 		DF9DB53E1861D3DA00FD315E /* TSZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSZipArchive.h; path = Utilities/TSZipArchive.h; sourceTree = "<group>"; };
 		DF9DB53F1861D3DA00FD315E /* TSZipArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSZipArchive.m; path = Utilities/TSZipArchive.m; sourceTree = "<group>"; };
-		DFB3C1DF187D84C4004E5454 /* TSBranchServiceCalls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSBranchServiceCalls.h; path = BackEnd/TSBranchServiceCalls.h; sourceTree = "<group>"; };
-		DFB3C1E0187D84C4004E5454 /* TSBranchServiceCalls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSBranchServiceCalls.m; path = BackEnd/TSBranchServiceCalls.m; sourceTree = "<group>"; };
 		DFB3C1E518842FE2004E5454 /* BranchLocationMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BranchLocationMapViewController.h; path = FrontEnd/BranchLocationMapViewController.h; sourceTree = "<group>"; };
 		DFB3C1E618842FE2004E5454 /* BranchLocationMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BranchLocationMapViewController.m; path = FrontEnd/BranchLocationMapViewController.m; sourceTree = "<group>"; };
-		DFB3C1E8188436FC004E5454 /* MapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapAnnotation.h; path = BackEnd/MapAnnotation.h; sourceTree = "<group>"; };
-		DFB3C1E9188436FC004E5454 /* MapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapAnnotation.m; path = BackEnd/MapAnnotation.m; sourceTree = "<group>"; };
 		DFB856FF187C355F00B08559 /* MBranch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBranch.h; path = BackEnd/Model/MBranch.h; sourceTree = "<group>"; };
 		DFB85700187C355F00B08559 /* MBranch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBranch.m; path = BackEnd/Model/MBranch.m; sourceTree = "<group>"; };
 		DFED33B6188D49B900E9C9C2 /* BranchDetailsNameCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BranchDetailsNameCell.h; path = FrontEnd/Views/BranchDetailsNameCell.h; sourceTree = "<group>"; };
@@ -773,12 +767,12 @@
 		D293E4F3184356D300B73795 /* BackEnd */ = {
 			isa = PBXGroup;
 			children = (
+				D277FAEB18D2F5F60091EC0B /* RestManagerGameService.h */,
+				D277FAEC18D2F5F60091EC0B /* RestManagerGameService.m */,
 				D27384CB18D0269B00F5B363 /* PhotoHuntManager.h */,
 				D27384CC18D0269B00F5B363 /* PhotoHuntManager.m */,
 				D273849B18D024ED00F5B363 /* AccountInfoTableManager.h */,
 				D273849C18D024ED00F5B363 /* AccountInfoTableManager.m */,
-				D273849D18D024ED00F5B363 /* TSGameServiceCalls.h */,
-				D273849E18D024ED00F5B363 /* TSGameServiceCalls.m */,
 				D287CE5D188D5168001D0C42 /* LIbraries */,
 				DF852706185EDDAA0087E247 /* DailyAwardGame */,
 				D2A55702184DB5ED0039A5A0 /* Model */,
@@ -791,10 +785,6 @@
 				D2827DBA1867F9DC00E4A662 /* SecurityManager.m */,
 				D2827DF41875051F00E4A662 /* DataFetchManager.h */,
 				D2827DF51875051F00E4A662 /* DataFetchManager.m */,
-				DFB3C1DF187D84C4004E5454 /* TSBranchServiceCalls.h */,
-				DFB3C1E0187D84C4004E5454 /* TSBranchServiceCalls.m */,
-				DFB3C1E8188436FC004E5454 /* MapAnnotation.h */,
-				DFB3C1E9188436FC004E5454 /* MapAnnotation.m */,
 				D277FAE718D1BC6B0091EC0B /* SessionManager.h */,
 				D277FAE818D1BC6B0091EC0B /* SessionManager.m */,
 			);
@@ -1246,6 +1236,7 @@
 				D2466804185F15F70089D5DB /* AvatarView.m in Sources */,
 				D21DCE7C187AC5B7008CF011 /* FriendsListScrollView.m in Sources */,
 				D27384AC18D0252700F5B363 /* TSGameDownloadManager.m in Sources */,
+				D277FAEE18D2F5F60091EC0B /* RestManagerGameService.m in Sources */,
 				D251CC6C18BB155200093ACE /* SoundwaveTestViewController.m in Sources */,
 				D27384AE18D0252700F5B363 /* TSGamePlayHistory.m in Sources */,
 				D2827DDC186D882D00E4A662 /* ItemGridView.m in Sources */,
@@ -1292,7 +1283,6 @@
 				D27384DA18D0270200F5B363 /* PhotoHuntImageView.m in Sources */,
 				D27384AA18D0252600F5B363 /* TSGame.m in Sources */,
 				D27384CA18D0265900F5B363 /* NSMutableArray+Shuffle.m in Sources */,
-				D27384A218D024ED00F5B363 /* TSGameServiceCalls.m in Sources */,
 				D2827DFF18755B1400E4A662 /* MUserAddressBookInfo.m in Sources */,
 				D2857BD418C58B1E0013F915 /* SoundwaveLogViewController.m in Sources */,
 			);
@@ -1309,7 +1299,6 @@
 				D2A9092818B1BEA1008FF6B1 /* SettingsViewController.m in Sources */,
 				D27384AB18D0252600F5B363 /* TSGameDownloadManager.m in Sources */,
 				D2827DDB186D882D00E4A662 /* ItemGridView.m in Sources */,
-				D27384A118D024ED00F5B363 /* TSGameServiceCalls.m in Sources */,
 				D2857BD318C58B1E0013F915 /* SoundwaveLogViewController.m in Sources */,
 				DF1C88D21875967800400283 /* PickUpLocationViewController.m in Sources */,
 				D2C075CB1855C47200620114 /* TutorialLoginViewController.m in Sources */,
@@ -1322,6 +1311,7 @@
 				D273849F18D024ED00F5B363 /* AccountInfoTableManager.m in Sources */,
 				DF9DB5401861D3DA00FD315E /* TSZipArchive.m in Sources */,
 				D239770318474F230002D655 /* TSLogFormatter.m in Sources */,
+				D277FAED18D2F5F60091EC0B /* RestManagerGameService.m in Sources */,
 				D2AC13C4187C3B9B00D81CA6 /* MCouponInfo.m in Sources */,
 				D2EEB4CB18A339030077E5E3 /* UIImage+Resize.m in Sources */,
 				D2827DB31867DB8800E4A662 /* MProductConfigurableOption.m in Sources */,
@@ -1371,13 +1361,11 @@
 				D272168D187BA7F000958E3B /* PromotionScrollView.m in Sources */,
 				D2C075BE1852CACB00620114 /* ItemPickerTableViewCell.m in Sources */,
 				D2FF84CD187E91FA00D3A21C /* TSBadgeView.m in Sources */,
-				DFB3C1E1187D84C4004E5454 /* TSBranchServiceCalls.m in Sources */,
 				D27384B718D0256300F5B363 /* ChooseGameViewController.m in Sources */,
 				D2A55711184DBF4C0039A5A0 /* MapTrackingAnnotation.m in Sources */,
 				DFB3C1E718842FE2004E5454 /* BranchLocationMapViewController.m in Sources */,
 				D2827DF61875051F00E4A662 /* DataFetchManager.m in Sources */,
 				D23D41CE18A892D3005D7143 /* TutorialPageView.m in Sources */,
-				DFB3C1EA188436FC004E5454 /* MapAnnotation.m in Sources */,
 				D27384B518D0256300F5B363 /* AreYouReadyViewController.m in Sources */,
 				D293E4C0183DEDEB00B73795 /* main.m in Sources */,
 				DFB85701187C355F00B08559 /* MBranch.m in Sources */,

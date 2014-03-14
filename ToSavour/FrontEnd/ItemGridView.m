@@ -83,7 +83,7 @@
     imageView.userInteractionEnabled = NO;
     imageView.contentMode = UIViewContentModeScaleAspectFit;
     __weak UIImageView *weakImageView = imageView;
-    // TODO: set placeholder
+    // TODO: set placeholder image, pending product decision
     [imageView setImageWithURL:url placeholderImage:nil options:0 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
         if (image) {
             // set the image to be larger so it is still clear when it is scaled up

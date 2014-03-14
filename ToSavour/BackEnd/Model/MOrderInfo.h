@@ -15,7 +15,6 @@
 @class MBranch, MItemInfo, MUserInfo;
 
 static NSString *MOrderInfoStatusInCart     = @"incart";
-//static NSString *MOrderInfoStatusSubmitted  = @"submitted";   // TODO: probably don't need this state
 static NSString *MOrderInfoStatusPending    = @"pending";
 static NSString *MOrderInfoStatusInProgress = @"inprogress";
 static NSString *MOrderInfoStatusFinished   = @"finished";

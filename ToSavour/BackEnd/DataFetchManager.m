@@ -107,7 +107,6 @@
             continue;
         }
         // canonize the phone numbers and store them
-        // TODO: generate in setters
         NSMutableArray *canonPhones = [NSMutableArray array];
         [phones enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             NSString *number = (NSString *)obj;
@@ -225,7 +224,7 @@
 
 - (void)performRestManagerFetch:(SEL)fetchSelector retries:(NSInteger)retries {
     self.fetchSelectorRetriesMap[NSStringFromSelector(fetchSelector)] = @(retries - 1);
-    [[RestManager sharedInstance] performSelector:fetchSelector withObject:self];  // TODO: wtf is this compiler warning
+    [[RestManager sharedInstance] performSelector:fetchSelector withObject:self];  // wtf is this compiler warning
 }
 
 #pragma mark - RestManagerResponseHandler
@@ -234,7 +233,6 @@
     if (selector == @selector(queryFacebookContactsInContext:handler:)) {
         RKMappingResult *mappingResult = userInfo[@"mappingResult"];
         if ([mappingResult isKindOfClass:RKMappingResult.class]) {
-            // TODO: do it background maybe
             NSArray *mappedObjects = [mappingResult array];
             DDLogInfo(@"successfully query app friends with facebook contacts, %d returned", (int)mappedObjects.count);
             for (KVPair *pair in mappedObjects) {
@@ -258,7 +256,6 @@
     } else if (selector == @selector(queryAddressBookContactsInContext:handler:)) {
         RKMappingResult *mappingResult = userInfo[@"mappingResult"];
         if ([mappingResult isKindOfClass:RKMappingResult.class]) {
-            // TODO: do it background maybe
             NSArray *mappedObjects = [mappingResult array];
             DDLogInfo(@"successfully query app friends with address book contacts, %d returned", (int)mappedObjects.count);
             for (KVPair *pair in mappedObjects) {

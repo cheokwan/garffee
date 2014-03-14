@@ -54,7 +54,7 @@
     testImage = [testImage resizedImageToFitInSize:self.backgroundImageView.frame.size scaleIfSmaller:YES];
     _backgroundImageView.image = testImage;
     
-    _nameLabel.textColor = [TSTheming defaultAccentColor];  // TODO: dynamically change based on background
+    _nameLabel.textColor = [TSTheming defaultAccentColor];  // TODO: dynamically change based on background to avoid clashing
     _nameLabel.text = user.name;
     
     _tableSwitcher.selectedSegmentIndex = 0;

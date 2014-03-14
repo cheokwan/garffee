@@ -1,12 +1,12 @@
 //
-//  TSGameServiceCalls.m
+//  RestManagerGameService.m
 //  ToSavour
 //
 //  Created by LAU Leung Yan on 9/12/13.
 //  Copyright (c) 2013 NBition. All rights reserved.
 //
 
-#import "TSGameServiceCalls.h"
+#import "RestManagerGameService.h"
 
 #import <AFNetworking.h>
 
@@ -15,13 +15,13 @@
 #import "MUserInfo.h"
 #import "RestManager.h"
 
-@implementation TSGameServiceCalls
+@implementation RestManagerGameService
 
-+ (TSGameServiceCalls *)sharedInstance {
++ (RestManagerGameService *)sharedInstance {
     static dispatch_once_t token = 0;
-    __strong static TSGameServiceCalls *instance = nil;
+    __strong static RestManagerGameService *instance = nil;
     dispatch_once(&token, ^{
-        instance = [[TSGameServiceCalls alloc] init];
+        instance = [[RestManagerGameService alloc] init];
     });
     return instance;
 }
@@ -174,9 +174,9 @@
     [operation start];
 }
 
-#pragma mark - DEBUG
-//XXX-ML Debug purpose
-- (void)removeAllGameHistories {
+#pragma mark - Debug Purpose
+
+- (void)removeAllGameHistories {  // XXX-DEBUG: for debug purpose
     NSString *servicePath = @"";
     NSURL *serviceURL = [NSURL URLWithString:[appAPIBaseURLString stringByAppendingPathComponent:servicePath]];
     
@@ -191,6 +191,5 @@
     DDLogDebug(@"%@", request);
     [operation start];
 }
-//XXX-ML
 
 @end

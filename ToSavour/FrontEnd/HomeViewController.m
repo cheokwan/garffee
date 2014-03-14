@@ -27,7 +27,6 @@
 @property (nonatomic, strong)   UIAlertView *confirmClearCartAlertView;
 @end
 
-// TODO: fucking deadlock everywhere, figure out why
 
 @implementation HomeViewController
 @synthesize itemBagButton = _itemBagButton;
@@ -129,6 +128,7 @@
         [cart.pendingOrder removeItemsObject:item];
         [item deleteInContext:[AppDelegate sharedAppDelegate].managedObjectContext];
     }
+    cart.pendingOrder = nil;  // re-generate the pendingOrder object
     
     MOrderInfo *lastOrder = _homeControlView.cachedLastOrder;
     NSArray *lastOrderItems = [lastOrder.items allObjects];

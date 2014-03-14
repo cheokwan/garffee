@@ -51,7 +51,7 @@ typedef enum {
 //UI
 - (void)changeIsFound:(NSString *)changeGroup;
 - (BOOL)isChangeFound:(NSString *)changeGroup;
-- (int)totalNumberOfChanges;
-- (int)numberOfChangesFound;
+- (NSUInteger)totalNumberOfChanges;
+- (NSUInteger)numberOfChangesFound;
 
 @end

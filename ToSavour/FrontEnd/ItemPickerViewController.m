@@ -38,7 +38,6 @@ typedef enum {
 @property (nonatomic, strong)   NSMutableDictionary *cachedItemViews;
 @end
 
-// TODO: all the logic too fucking complicated, refactor
 
 @implementation ItemPickerViewController
 
@@ -125,8 +124,7 @@ typedef enum {
     [self initializeView];
 }
 
-// TODO: so damn ugly, improve this animation code
-
+// TODO: improve this animation code
 - (void)animateChoiceSelection {
     // play selection animation
     NSMutableArray *cells = [NSMutableArray array];

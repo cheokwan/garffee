@@ -574,7 +574,6 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     UIImage *pickedImage = info[UIImagePickerControllerEditedImage];
-    // TODO: save image to disk, generate URL, replace URL in MUserInfo, refresh avatar view
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

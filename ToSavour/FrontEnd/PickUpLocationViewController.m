@@ -16,6 +16,7 @@
 #import <UIView+Helpers/UIView+Helpers.h>
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <UIAlertView-Blocks/UIAlertView+Blocks.h>
+#import "RestManager.h"
 
 #define DEFAULT_ESTIMATED_TIME      5
 #define MAX_ESTIMATED_TIME          99
@@ -203,7 +204,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     PickUpLocationTableViewCell *cell = (PickUpLocationTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
     if (cell.branch != _selectedBranch) {
-        [[TSBranchServiceCalls sharedInstance] fetchEstimatedTime:self branch:_selectedBranch];
+        [[RestManager sharedInstance] queryEstimatedTimeForBranch:_selectedBranch handler:self];
     }
     
     self.selectedBranch = cell.branch;
@@ -236,7 +237,7 @@
     if (isChecked) {
         self.selectedBranch = cell.branch;
         [self.tableView reloadData];
-        [[TSBranchServiceCalls sharedInstance] fetchEstimatedTime:self branch:_selectedBranch];
+        [[RestManager sharedInstance] queryEstimatedTimeForBranch:_selectedBranch handler:self];
     }
 }
 
@@ -260,9 +261,9 @@
 
 #pragma mark - RestManagerResponseHandler
 - (void)restManagerService:(SEL)selector succeededWithOperation:(NSOperation *)operation userInfo:(NSDictionary *)userInfo {
-    if (selector == @selector(fetchEstimatedTime:branch:)) {
-        if (userInfo[@"EstimatedTime"]) {
-            self.estimatedTimeFromWeb = [userInfo[@"EstimatedTime"] intValue];
+    if (selector == @selector(queryEstimatedTimeForBranch:handler:)) {
+        if (userInfo[@"estimatedTime"]) {
+            self.estimatedTimeFromWeb = [userInfo[@"estimatedTime"] intValue];
             self.userEstimateTime = _estimatedTimeFromWeb;
             [self updateTimeLabel:_userEstimateTime animated:YES];
         }

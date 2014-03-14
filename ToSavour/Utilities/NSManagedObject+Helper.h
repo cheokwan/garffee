@@ -15,7 +15,7 @@
 + (NSManagedObject *)existingObjectInContext:(NSManagedObjectContext *)context withPredicate:(NSPredicate *)predicate;
 - (void)deleteInContext:(NSManagedObjectContext *)context;
 + (NSFetchRequest *)fetchRequest;
-+ (void)removeALlObjectsInContext:(NSManagedObjectContext *)context;
++ (void)removeAllObjectsInContext:(NSManagedObjectContext *)context;
 
 - (id)getPrimitiveValueForKey:(NSString *)key;
 - (void)changePrimitiveValue:(id)value forKey:(NSString *)key;

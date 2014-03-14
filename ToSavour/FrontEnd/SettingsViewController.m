@@ -13,6 +13,7 @@
 #import "TSFrontEndIncludes.h"
 #import "TSModelIncludes.h"
 #import <MBProgressHUD/MBProgressHUD.h>
+#import "SessionManager.h"
 
 @interface SettingsViewController ()
 @property (nonatomic, strong)   UIAlertView *logoutAlertView;
@@ -97,21 +98,7 @@
                 spinner.labelText = LS_LOGGING_OUT;
                 spinner.detailsLabelText = LS_PLEASE_WAIT;
                 
-                // nuke the database
-                NSManagedObjectContext *context = [AppDelegate sharedAppDelegate].managedObjectContext;
-                [MUserInfo removeALlObjectsInContext:context];
-                [MProductInfo removeALlObjectsInContext:context];
-                [MProductConfigurableOption removeALlObjectsInContext:context];
-                [MProductOptionChoice removeALlObjectsInContext:context];
-                [MOrderInfo removeALlObjectsInContext:context];
-                [MItemInfo removeALlObjectsInContext:context];
-                [MItemSelectedOption removeALlObjectsInContext:context];
-                [MCouponInfo removeALlObjectsInContext:context];
-                [MGlobalConfiguration removeALlObjectsInContext:context];
-                [MBranch removeALlObjectsInContext:context];
-                [context saveToPersistentStore];
-                // clear facebook session
-                [[FBSession activeSession] closeAndClearTokenInformation];
+                [[SessionManager sharedInstance] logoutAndClearDatabase];
                 
                 [spinner hide:YES];
                 

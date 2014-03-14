@@ -77,7 +77,6 @@
     if (offsetX < self.contentSize.width) {
         [self setContentOffset:CGPointMake(offsetX, self.contentOffset.y) animated:animated];
         
-        // TODO: improve this:
         // if not animated, we assume it's not user triggered, so don't call back the
         // delegate for now to simplify the control flow
         if (animated && [_pickerDelegate respondsToSelector:@selector(pickerAtIndexPath:didSelectItem:atIndex:)]) {
@@ -153,7 +152,6 @@
 
 - (void)snapToColumn {
     // snsp to the nearest whole item
-    // TODO: this might not be the smartest way to calcuate
     CGFloat offsetX = self.contentOffset.x;
     CGFloat offsetXFraction = offsetX - floor(offsetX);
     offsetX = (int)floor(offsetX) % (int)floor(self.itemViewDimension);
