@@ -16,42 +16,32 @@
 
 @implementation TSGamePlayHistory
 
-+(RKObjectMapping *)updateGamePlayHistoryRequestMapping {
-    return [[self gamePlayHistoryResponseMapping] inverseMapping];
-}
-
-+ (RKResponseDescriptor *)gamePlayHistoryResponseDescriptor {
-    return [RKResponseDescriptor responseDescriptorWithMapping:[self gamePlayHistoryResponseMapping] method:RKRequestMethodAny pathPattern:nil keyPath:nil statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
-}
-+ (RKObjectMapping *)gamePlayHistoryResponseMapping {
-    RKObjectMapping *mapping = [RKObjectMapping mappingForClass:[self class]];
-    [mapping addAttributeMappingsFromDictionary:@{@"UserId": @"userId",
-                                                  @"DailyGameId": @"gameId",
-                                                  @"Result": @"result",
-                                                  @"PlayedDateTime" : @"playedDate",
-                                                  @"Id" : @"historyId"
-                                                  }];
-    mapping.valueTransformer = [[RestManager sharedInstance] defaultDotNetValueTransformer];
-    return mapping;
-}
-
 + (RKObjectMapping *)gamePlayHistoryRequestMapping {
     RKObjectMapping *mapping = [RKObjectMapping requestMapping];
-    [mapping addAttributeMappingsFromDictionary:@{@"userId": @"UserId",
-                                                  @"gameId": @"DailyGameId",
-                                                  @"result": @"Result"
+    [mapping addAttributeMappingsFromDictionary:@{@"userId":    @"UserId",
+                                                  @"gameId":    @"DailyGameId",
+                                                  @"result":    @"Result"
                                                   }];
     mapping.valueTransformer = [[RestManager sharedInstance] defaultDotNetValueTransformer];
     return mapping;
 }
 
+#pragma mark - RKMappableObject
 
-- (void)dealloc {
-    self.historyId = nil;
-    self.userId = nil;
-    self.gameId = nil;
-    self.result = nil;
-    self.playedDate = nil;
++ (RKObjectMapping *)defaultObjectMapping {
+    RKObjectMapping *mapping = [RKObjectMapping mappingForClass:self.class];
+    [mapping addAttributeMappingsFromDictionary:@{@"Id":                @"historyId",
+                                                  @"DailyGameId":       @"gameId",
+                                                  @"UserId":            @"userId",
+                                                  @"PlayedDateTime":    @"playedDate",
+                                                  @"Result":            @"result"
+                                                  }];
+    mapping.valueTransformer = [RestManager sharedInstance].defaultDotNetValueTransformer;
+    return mapping;
+}
+
++ (RKResponseDescriptor *)defaultResponseDescriptor {
+    return [RKResponseDescriptor responseDescriptorWithMapping:[self.class defaultObjectMapping] method:RKRequestMethodAny pathPattern:nil keyPath:nil statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
 }
 
 @end

@@ -11,7 +11,8 @@
 #import <AFNetworking/AFNetworking.h>
 #import "TSModelIncludes.h"
 #import "SecurityManager.h"
-#import "MBranch.h"
+#import "TSGame.h"
+#import "TSGamePlayHistory.h"
 
 @interface RestManager()
 @end
@@ -280,7 +281,7 @@
     [self fetchManagedObjectsWithRequest:[self requestWithServiceHostType:RestManagerServiceHostApp endPoint:@"/configurations"] context:[AppDelegate sharedAppDelegate].managedObjectContext sourceSelector:_cmd responseDescriptors:@[[MGlobalConfiguration defaultResponseDescriptor]] persist:YES handler:handler];
 }
 
-- (void)fetchBranches:(__weak id<RestManagerResponseHandler>)handler {
+- (void)fetchAppBranches:(__weak id<RestManagerResponseHandler>)handler {
     [self fetchManagedObjectsWithRequest:[self requestWithServiceHostType:RestManagerServiceHostApp endPoint:@"/storebranches"] context:[AppDelegate sharedAppDelegate].managedObjectContext sourceSelector:_cmd responseDescriptors:@[[MBranch defaultResponseDescriptor]] persist:YES handler:handler];
 }
 
@@ -312,6 +313,14 @@
             DDLogWarn(@"ongoing order has no order id: %@", order);
         }
     }
+}
+
+- (void)fetchAppGameList:(__weak id<RestManagerResponseHandler>)handler {
+    [self fetchObjectWithRequest:[self requestWithServiceHostType:RestManagerServiceHostApp endPoint:@"/games"] sourceSelector:_cmd responseDescriptors:@[[TSGame defaultResponseDescriptor]] handler:handler];
+}
+
+- (void)fetchAppGameHistories:(__weak id<RestManagerResponseHandler>)handler {
+    [self fetchObjectWithRequest:[self requestWithServiceHostType:RestManagerServiceHostApp endPoint:@"/gamehistories"] sourceSelector:_cmd responseDescriptors:@[[TSGamePlayHistory defaultResponseDescriptor]] handler:handler];
 }
 
 #pragma mark - Putting Data
@@ -386,6 +395,107 @@
     
     // TODO: we don't actually need to store the returned coupon
     [self fetchManagedObjectsWithRequest:request context:[AppDelegate sharedAppDelegate].managedObjectContext sourceSelector:_cmd responseDescriptors:@[[MCouponInfo defaultResponseDescriptor]] persist:YES handler:handler];
+}
+
+#pragma mark - Game related
+
+- (void)postGameStart:(__weak id<RestManagerResponseHandler>)handler game:(TSGame *)game {
+    NSManagedObjectContext *mainContext = [AppDelegate sharedAppDelegate].managedObjectContext;
+    MUserInfo *currentUser = [MUserInfo currentAppUserInfoInContext:mainContext];
+    
+    TSGamePlayHistory *history = [[TSGamePlayHistory alloc] init];
+    history.historyId = nil;
+    history.gameId = game.gameId;
+    history.userId = currentUser.appID;
+    history.playedDate = [NSDate date];
+    
+    NSString *servicePath = [NSString stringWithFormat:@"/gamehistories/"];
+    NSURL *serviceURL = [NSURL URLWithString:[appAPIBaseURLString stringByAppendingPathComponent:servicePath]];
+    
+    RKRequestDescriptor *serialization = [RKRequestDescriptor requestDescriptorWithMapping:[TSGamePlayHistory gamePlayHistoryRequestMapping] objectClass:[TSGamePlayHistory class] rootKeyPath:nil method:RKRequestMethodPOST];
+    NSError *error = nil;
+    NSMutableDictionary *jsonDict = [[RKObjectParameterization parametersWithObject:history requestDescriptor:serialization error:&error] mutableCopy];
+    [jsonDict removeObjectForKey:@"Result"];
+    
+    RKDotNetDateFormatter *dateFormatter = [[RestManager sharedInstance] defaultDotNetDateFormatter];
+    jsonDict[@"PlayedDateTime"] = [dateFormatter stringFromDate:history.playedDate];
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:serviceURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60];
+    request.HTTPMethod = @"POST";
+    [request addValue:[RestManager sharedInstance].appToken forHTTPHeaderField:@"Authorization"];
+    request.HTTPBody = [RKMIMETypeSerialization dataFromObject:jsonDict MIMEType:RKMIMETypeJSON error:&error];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject){
+        DDLogDebug(@"SUCCEED");
+        if (responseObject) {
+            NSError *error = nil;
+            NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&error];
+            if (!jsonDict) {
+                DDLogDebug(@"Error parsing JSON: %@", error);
+            } else {
+                TSGamePlayHistory *history = [[TSGamePlayHistory alloc] init];
+                RKMappingOperation *mappingOperation = [[RKMappingOperation alloc] initWithSourceObject:jsonDict destinationObject:history mapping:[TSGamePlayHistory defaultObjectMapping]];
+                NSError *error = nil;
+                [mappingOperation performMapping:&error];
+                if ([handler respondsToSelector:@selector(restManagerService:succeededWithOperation:userInfo:)]) {
+                    [handler restManagerService:_cmd succeededWithOperation:operation userInfo:@{@"gameHistory": history}];
+                }
+            }
+        }
+    }failure:^(AFHTTPRequestOperation *operation, NSError *error){
+        DDLogDebug(@"failed: %@; ERROR: %@", [operation request], error);
+        if ([handler respondsToSelector:@selector(restManagerService:failedWithOperation:error:userInfo:)]) {
+            [handler restManagerService:_cmd failedWithOperation:operation error:error userInfo:nil];
+        }
+    }];
+    DDLogDebug(@"%@", request);
+    [operation start];
+}
+
+- (void)updateGameResult:(__weak id<RestManagerResponseHandler>)handler gameHistory:(TSGamePlayHistory *)gameHistory {
+    NSString *servicePath = [NSString stringWithFormat:@"/gamehistories/%@", gameHistory.gameId];
+    NSURL *serviceURL = [NSURL URLWithString:[appAPIBaseURLString stringByAppendingPathComponent:servicePath]];
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:serviceURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60];
+    request.HTTPMethod = @"PUT";
+    [request addValue:[RestManager sharedInstance].appToken forHTTPHeaderField:@"Authorization"];
+    RKRequestDescriptor *serialization = [RKRequestDescriptor requestDescriptorWithMapping:[TSGamePlayHistory defaultObjectMapping].inverseMapping objectClass:[TSGamePlayHistory class] rootKeyPath:nil method:RKRequestMethodPOST];
+    NSError *error = nil;
+    NSMutableDictionary *jsonDict = [[RKObjectParameterization parametersWithObject:gameHistory requestDescriptor:serialization error:&error] mutableCopy];
+    request.HTTPBody = [RKMIMETypeSerialization dataFromObject:jsonDict MIMEType:RKMIMETypeJSON error:&error];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject){
+        DDLogDebug(@"SUCCEED");
+        if ([handler respondsToSelector:@selector(restManagerService:succeededWithOperation:userInfo:)]) {
+            [handler restManagerService:_cmd succeededWithOperation:operation userInfo:@{@"responseObject": responseObject}];
+        }
+    }failure:^(AFHTTPRequestOperation *operation, NSError *error){
+        DDLogDebug(@"failed: %@; ERROR: %@", [operation request], error);
+        if ([handler respondsToSelector:@selector(restManagerService:failedWithOperation:error:userInfo:)]) {
+            [handler restManagerService:_cmd failedWithOperation:operation error:error userInfo:nil];
+        }
+    }];
+    DDLogDebug(@"%@", request);
+    [operation start];
+}
+
+- (void)removeAllGameHistories {  // XXX-DEBUG: for debug purpose
+    NSString *servicePath = @"";
+    NSURL *serviceURL = [NSURL URLWithString:[appAPIBaseURLString stringByAppendingPathComponent:servicePath]];
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:serviceURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60];
+    [request addValue:[RestManager sharedInstance].appToken forHTTPHeaderField:@"Authorization"];
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject){
+        DDLogDebug(@"SUCCEED removed all game histories");
+    }failure:^(AFHTTPRequestOperation *operation, NSError *error){
+        DDLogDebug(@"FAILED to remove all game histories: %@; ERROR: %@", [operation request], error);
+    }];
+    DDLogDebug(@"%@", request);
+    [operation start];
 }
 
 #pragma mark - Query type

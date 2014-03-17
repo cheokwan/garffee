@@ -12,7 +12,6 @@
 #import <UIView+Helpers/UIView+Helpers.h>
 #import "UIView+Helper.h"
 #import "TSTheming.h"
-#import "RestManagerGameService.h"
 
 typedef enum {
     ImageViewENumNone           = 0,
@@ -102,7 +101,7 @@ typedef enum {
 
 #pragma mark - game logic
 - (void)startGame {
-    [[RestManagerGameService sharedInstance] postGameStart:self game:_gameManager.game];
+    [[RestManager sharedInstance] postGameStart:self game:_gameManager.game];
     _gameState = GameStateStarted;
     [self updateFoundChangesLabel];
     [self startTimer];
@@ -147,7 +146,7 @@ typedef enum {
     _gameState = GameStateEnded;
     TSGamePlayHistory *history = _gameManager.history;
     history.result = @"lose";
-    [[RestManagerGameService sharedInstance] updateGameResult:self gameHistory:history];
+    [[RestManager sharedInstance] updateGameResult:self gameHistory:history];
 }
 
 - (void)winGame {
@@ -158,7 +157,7 @@ typedef enum {
     [_winAlertView show];
     TSGamePlayHistory *history = _gameManager.history;
     history.result = @"win";
-    [[RestManagerGameService sharedInstance] updateGameResult:self gameHistory:history];
+    [[RestManager sharedInstance] updateGameResult:self gameHistory:history];
 }
 
 - (void)dismissSelf {

@@ -141,8 +141,6 @@
 		D27384DE18D0277A00F5B363 /* DailyGameStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D27384DB18D0277A00F5B363 /* DailyGameStoryboard.storyboard */; };
 		D277FAE918D1BC6B0091EC0B /* SessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D277FAE818D1BC6B0091EC0B /* SessionManager.m */; };
 		D277FAEA18D1BC6B0091EC0B /* SessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D277FAE818D1BC6B0091EC0B /* SessionManager.m */; };
-		D277FAED18D2F5F60091EC0B /* RestManagerGameService.m in Sources */ = {isa = PBXBuildFile; fileRef = D277FAEC18D2F5F60091EC0B /* RestManagerGameService.m */; };
-		D277FAEE18D2F5F60091EC0B /* RestManagerGameService.m in Sources */ = {isa = PBXBuildFile; fileRef = D277FAEC18D2F5F60091EC0B /* RestManagerGameService.m */; };
 		D2827DAD1865540100E4A662 /* MGlobalConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DAC1865540100E4A662 /* MGlobalConfiguration.m */; };
 		D2827DB31867DB8800E4A662 /* MProductConfigurableOption.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DB21867DB8800E4A662 /* MProductConfigurableOption.m */; };
 		D2827DB61867E64000E4A662 /* MProductOptionChoice.m in Sources */ = {isa = PBXBuildFile; fileRef = D2827DB51867E64000E4A662 /* MProductOptionChoice.m */; };
@@ -367,8 +365,6 @@
 		D27384DC18D0277A00F5B363 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/DailyGameStoryboard.storyboard; sourceTree = "<group>"; };
 		D277FAE718D1BC6B0091EC0B /* SessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SessionManager.h; path = BackEnd/SessionManager.h; sourceTree = "<group>"; };
 		D277FAE818D1BC6B0091EC0B /* SessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SessionManager.m; path = BackEnd/SessionManager.m; sourceTree = "<group>"; };
-		D277FAEB18D2F5F60091EC0B /* RestManagerGameService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RestManagerGameService.h; path = BackEnd/RestManagerGameService.h; sourceTree = "<group>"; };
-		D277FAEC18D2F5F60091EC0B /* RestManagerGameService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RestManagerGameService.m; path = BackEnd/RestManagerGameService.m; sourceTree = "<group>"; };
 		D2827DAB1865540100E4A662 /* MGlobalConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGlobalConfiguration.h; path = BackEnd/Model/MGlobalConfiguration.h; sourceTree = "<group>"; };
 		D2827DAC1865540100E4A662 /* MGlobalConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGlobalConfiguration.m; path = BackEnd/Model/MGlobalConfiguration.m; sourceTree = "<group>"; };
 		D2827DB11867DB8800E4A662 /* MProductConfigurableOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MProductConfigurableOption.h; path = BackEnd/Model/MProductConfigurableOption.h; sourceTree = "<group>"; };
@@ -767,8 +763,6 @@
 		D293E4F3184356D300B73795 /* BackEnd */ = {
 			isa = PBXGroup;
 			children = (
-				D277FAEB18D2F5F60091EC0B /* RestManagerGameService.h */,
-				D277FAEC18D2F5F60091EC0B /* RestManagerGameService.m */,
 				D27384CB18D0269B00F5B363 /* PhotoHuntManager.h */,
 				D27384CC18D0269B00F5B363 /* PhotoHuntManager.m */,
 				D273849B18D024ED00F5B363 /* AccountInfoTableManager.h */,
@@ -1236,7 +1230,6 @@
 				D2466804185F15F70089D5DB /* AvatarView.m in Sources */,
 				D21DCE7C187AC5B7008CF011 /* FriendsListScrollView.m in Sources */,
 				D27384AC18D0252700F5B363 /* TSGameDownloadManager.m in Sources */,
-				D277FAEE18D2F5F60091EC0B /* RestManagerGameService.m in Sources */,
 				D251CC6C18BB155200093ACE /* SoundwaveTestViewController.m in Sources */,
 				D27384AE18D0252700F5B363 /* TSGamePlayHistory.m in Sources */,
 				D2827DDC186D882D00E4A662 /* ItemGridView.m in Sources */,
@@ -1311,7 +1304,6 @@
 				D273849F18D024ED00F5B363 /* AccountInfoTableManager.m in Sources */,
 				DF9DB5401861D3DA00FD315E /* TSZipArchive.m in Sources */,
 				D239770318474F230002D655 /* TSLogFormatter.m in Sources */,
-				D277FAED18D2F5F60091EC0B /* RestManagerGameService.m in Sources */,
 				D2AC13C4187C3B9B00D81CA6 /* MCouponInfo.m in Sources */,
 				D2EEB4CB18A339030077E5E3 /* UIImage+Resize.m in Sources */,
 				D2827DB31867DB8800E4A662 /* MProductConfigurableOption.m in Sources */,

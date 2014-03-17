@@ -16,6 +16,7 @@
 #import "TSNavigationController.h"
 #import "TSTheming.h"
 #import "TSFrontEndIncludes.h"
+#import "MGlobalConfiguration.h"
 
 #define SCROLL_VIEW_IMAGE_INTERVAL  5.0f
 
@@ -23,13 +24,6 @@
 
 #define IMAGE_NOT_FOUND         @"imageNotFound"
 
-#define GAME_DICT_KEY_GAME_IMAGE_URL        @"GameImageUrl"
-#define GAME_DICT_KEY_GAME_PACKAGE_URL      @"GamePackageUrl"
-#define GAME_DICT_KEY_ID                    @"Id"
-#define GAME_DICT_KEY_NAME                  @"Name"
-#define GAME_DICT_KEY_SPONSOR_IMAGE_URL     @"SponsorImageUrl"
-#define GAME_DICT_KEY_SPONSOR_NAME          @"SponsorName"
-#define GAME_DICT_KEY_TIME_LIMIT            @"TimeLimit"
 
 @interface ChooseGameViewController ()
 @property (nonatomic, strong) NSMutableDictionary *buttonDict;
@@ -45,7 +39,6 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     self.games = [NSMutableArray array];
-    self.serviceCallsStatus = GameServiceCallsStatusNone;
     
     self.spinner = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     _spinner.mode = MBProgressHUDModeIndeterminate;
@@ -102,46 +95,15 @@
 - (void)gameChanged {
     TSGame *game = _games[[self currentPage]];
     [self setChallengeNowButtonEnable:(game.result == GamePlayResultNone)];
-    [_promotionImageView setImageWithURL:[NSURL URLWithString:game.sponsorImageURL] placeholderImage:[UIImage imageNamed:IMAGE_NOT_FOUND]];
-}
-
-- (void)updateGameResultHistories:(NSArray *)histories {
-    RKObjectMapping *mapping = [TSGamePlayHistory gamePlayHistoryResponseMapping];
-    self.histories = [NSMutableArray array];
-    NSMutableDictionary *hashDict = [NSMutableDictionary dictionary];
-    for (NSDictionary *eachHistory in histories) {
-        TSGamePlayHistory *history = [[TSGamePlayHistory alloc] init];
-        RKMappingOperation *mappingOperation = [[RKMappingOperation alloc] initWithSourceObject:eachHistory destinationObject:history mapping:mapping];
-        NSError *error = nil;
-        [mappingOperation performMapping:&error];
-        [_histories addObject:history];
-        if (!hashDict[history.gameId]) {
-            hashDict[history.gameId] = history.result;
-        }
-    }
-    for (TSGame *game in _games) {
-        if (hashDict[game.gameId]) {
-            NSString *resultString = hashDict[game.gameId];
-            if ([resultString isEqualToString:@"win"]) {
-                game.result = GamePlayResultWin;
-            } else if ([resultString isEqualToString:@"lose"]) {
-                game.result = GamePlayResultLose;
-            } else {
-                game.result = GamePlayResultLose;
-            }
-        }
-    }
-    [self gameChanged];
-    [_spinner hide:NO];
+    [_promotionImageView setImageWithURL:[NSURL URLWithString:game.resolvedSponsorImageURL] placeholderImage:[UIImage imageNamed:IMAGE_NOT_FOUND]];
 }
 
 - (void)refetchGamesData {
-    if (_configurationHost) {
-        self.serviceCallsStatus = GameServiceCallsStatusGameList;
-        [((RestManagerGameService *)[RestManagerGameService sharedInstance]) fetchGameList:self];
+    self.configurationHost = [MGlobalConfiguration cachedBlobHostName];
+    if (_configurationHost.length == 0) {
+        [[RestManager sharedInstance] fetchAppConfigurations:self];
     } else {
-        self.serviceCallsStatus = GameServiceCallsStatusConfiguration;
-        [((RestManagerGameService *)[RestManagerGameService sharedInstance]) fetchConfiguration:self];
+        [[RestManager sharedInstance] fetchAppGameList:self];
     }
 }
 
@@ -164,7 +126,7 @@
 - (void)downloadPackage:(TSGame *)game {
     _progressLabel.text = [NSString stringWithFormat:@"%@ %d%%", PROGRESS_LABEL_PREFIX, 0];
     [_progressView setProgress:0.0f animated:NO];
-    [[TSGameDownloadManager getInstance] downloadGamePackage:game.gamePackageURL packageName:game.gamePackageName success:^(NSString *fileFullPath) {
+    [[TSGameDownloadManager getInstance] downloadGamePackage:game.resolvedGamePackageURL packageName:game.gamePackageName success:^(NSString *fileFullPath) {
         game.gamePackageFullPath = fileFullPath;
         [self downloadSucceed:game];
     }failure:^(NSString *fileFullPath) {
@@ -234,7 +196,7 @@
         anImageView.contentMode = UIViewContentModeScaleAspectFit;
         __weak UIImageView *weakImageView = anImageView;
         TSGame *game = [_games objectAtIndex:i];
-        [anImageView setImageWithURL:[NSURL URLWithString:game.gameImageURL] placeholderImage:[UIImage imageNamed:IMAGE_NOT_FOUND] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType){
+        [anImageView setImageWithURL:[NSURL URLWithString:game.resolvedGameImageURL] placeholderImage:[UIImage imageNamed:IMAGE_NOT_FOUND] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType){
             UIImage *anImage = [image resizedImageToSize:weakImageView.frame.size];
             weakImageView.image = anImage;
         }];
@@ -262,7 +224,7 @@
 
 - (void)pageControlValueDidChanged:(id)sender {
     UIPageControl *pageControl = (UIPageControl *)sender;
-    _gamesScrollView.contentOffset = [self contentOffsetOfPage:pageControl.currentPage];
+    _gamesScrollView.contentOffset = [self contentOffsetOfPage:(int)pageControl.currentPage];
 }
 
 #pragma mark - count down view related
@@ -337,70 +299,52 @@
 
 #pragma TSGameServiceCallDelegate
 - (void)restManagerService:(SEL)selector succeededWithOperation:(NSOperation *)operation userInfo:(NSDictionary *)userInfo {
-    NSError *error = nil;
-    if (selector == @selector(fetchGameHistories:)) {
-        NSData *data = userInfo[@"responseObject"];
-        if (data) {
-            NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-            if (!jsonArray) {
-                DDLogDebug(@"Error parsing JSON: %@", error);
-            } else {
-                DDLogDebug(@"");
-                [self updateGameResultHistories:jsonArray];
-            }
-        }
-    } else if (selector == @selector(fetchGameList:)) {
-        NSData *data = userInfo[@"responseObject"];
-        if (data) {
-            NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-            self.games = [NSMutableArray array];
-            if (!jsonArray) {
-                DDLogDebug(@"Error parsing JSON: %@", error);
-            } else {
-                for(NSDictionary *item in jsonArray) {
-                    DDLogDebug(@"Item: %@", item);
-                    TSGame *game = [[TSGame alloc] init];
-                    game.gameId = [item[GAME_DICT_KEY_ID] stringValue];
-                    game.name = item[GAME_DICT_KEY_NAME];
-                    NSString *packageURL = item[GAME_DICT_KEY_GAME_PACKAGE_URL];
-                    packageURL = [packageURL stringByDeletingPathExtension];
-                    packageURL = [packageURL lastPathComponent];
-                    game.gamePackageName = packageURL;
-                    game.gameImageURL = [NSString stringWithFormat:@"%@%@", _configurationHost, item[GAME_DICT_KEY_GAME_IMAGE_URL]];
-                    game.gamePackageURL = [NSString stringWithFormat:@"%@%@", _configurationHost, item[GAME_DICT_KEY_GAME_PACKAGE_URL]];
-                    game.timeLimit = [item[GAME_DICT_KEY_TIME_LIMIT] intValue];
-                    game.sponsorImageURL = [NSString stringWithFormat:@"%@%@", _configurationHost, item[GAME_DICT_KEY_SPONSOR_IMAGE_URL]];
-                    game.sponsorName = item[GAME_DICT_KEY_SPONSOR_NAME];
-                    game.validNumberOfChanges = 5;
-                    [_games addObject:game];
+    if (selector == @selector(fetchAppConfigurations:)) {
+        [self refetchGamesData];
+    } else if (selector == @selector(fetchAppGameList:)) {
+        RKMappingResult *mappingResult = userInfo[@"mappingResult"];
+        if ([mappingResult isKindOfClass:RKMappingResult.class]) {
+            NSArray *mappedObjects = [mappingResult array];
+            DDLogInfo(@"successfully fetched game list, %d returned", (int)mappedObjects.count);
+            for (TSGame *game in mappedObjects) {
+                if (![game isKindOfClass:TSGame.class]) {
+                    continue;
                 }
+                game.gamePackageName = [[game.gamePackageURL stringByDeletingPathExtension] lastPathComponent];
+                [_games addObject:game];
             }
-            DDLogDebug(@"");
+            [self initializeScrollView];
+            [self gameChanged];
+            [[RestManager sharedInstance] fetchAppGameHistories:self];
         }
-        [self initializeScrollView];
-        [self gameChanged];
-        self.serviceCallsStatus = GameServiceCallsStatusGameHistories;
-        [[RestManagerGameService sharedInstance] fetchGameHistories:self];
-    } else if (selector == @selector(fetchConfiguration:)) {
-        NSData *data = userInfo[@"responseObject"];
-        if (data) {
-            NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+    } else if (selector == @selector(fetchAppGameHistories:)) {
+        RKMappingResult *mappingResult = userInfo[@"mappingResult"];
+        if ([mappingResult isKindOfClass:RKMappingResult.class]) {
+            NSArray *mappedObjects = [mappingResult array];
+            DDLogInfo(@"successfully fetched game history, %d returned", (int)mappedObjects.count);
+            NSMutableDictionary *gameResults = [NSMutableDictionary dictionary];
+            for (TSGamePlayHistory *history in mappedObjects) {
+                if (![history isKindOfClass:TSGamePlayHistory.class]) {
+                    continue;
+                }
+                gameResults[history.gameId] = history.result;
+                [_histories addObject:history];
+            }
             
-            if (!jsonArray) {
-                DDLogDebug(@"Error parsing JSON: %@", error);
-            } else {
-                for(NSDictionary *item in jsonArray) {
-                    if (item[@"Value"]) {
-                        self.configurationHost = item[@"Value"];
+            for (TSGame *game in _games) {
+                if (gameResults[game.gameId]) {
+                    NSString *result = gameResults[game.gameId];
+                    if ([result isCaseInsensitiveEqual:@"win"]) {
+                        game.result = GamePlayResultWin;
+                    } else if ([result isCaseInsensitiveEqual:@"lose"]) {
+                        game.result = GamePlayResultLose;
+                    } else {
+                        game.result = GamePlayResultLose;
                     }
                 }
             }
-            if (_configurationHost) {
-                self.serviceCallsStatus = GameServiceCallsStatusGameList;
-                [((RestManagerGameService *)[RestManagerGameService sharedInstance]) fetchGameList:self];
-            } else {
-                DDLogError(@"no configuration host is found");
-            }
+            [self gameChanged];
+            [_spinner hide:NO];
         }
     }
 }

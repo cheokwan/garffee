@@ -8,14 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-@interface TSGamePlayHistory : NSObject
+@interface TSGamePlayHistory : NSObject<RKMappableObject>
 
-@property (nonatomic, strong) NSString *historyId, *userId, *gameId, *result;
-@property (nonatomic) NSDate *playedDate;
+@property (nonatomic, strong) NSString *historyId;
+@property (nonatomic, strong) NSString *userId;
+@property (nonatomic, strong) NSString *gameId;
+@property (nonatomic, strong) NSString *result;
+@property (nonatomic, strong) NSDate *playedDate;
 
 +(RKObjectMapping *)gamePlayHistoryRequestMapping;
-+(RKObjectMapping *)gamePlayHistoryResponseMapping;
-+ (RKResponseDescriptor *)gamePlayHistoryResponseDescriptor;
-+(RKObjectMapping *)updateGamePlayHistoryRequestMapping;
 
 @end

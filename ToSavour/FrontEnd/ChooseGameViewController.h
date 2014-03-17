@@ -13,17 +13,10 @@
 #import "CountDownButton.h"
 #import "PhotoHuntManager.h"
 #import "PhotoHuntViewController.h"
-#import "RestManagerGameService.h"
 #import "RestManager.h"
 
 #define COUNT_DOWN_INTERVAL     1.0f
 
-typedef enum {
-    GameServiceCallsStatusNone = 0,
-    GameServiceCallsStatusConfiguration,
-    GameServiceCallsStatusGameList,
-    GameServiceCallsStatusGameHistories
-} GameServiceCallsStatus;
 
 @class ChooseGameViewController;
 @protocol ChooseGameViewControllerDelegate <NSObject>
@@ -50,7 +43,5 @@ typedef enum {
 @property (nonatomic, strong) IBOutlet CountDownButton *num1Button, *num2Button, *num3Button;
 
 @property (nonatomic, strong) MBProgressHUD *spinner;
-
-@property (nonatomic) GameServiceCallsStatus serviceCallsStatus;
 
 @end

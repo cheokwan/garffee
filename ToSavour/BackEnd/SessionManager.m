@@ -102,13 +102,13 @@
         }
     }
     if (selector == @selector(fetchAppProductInfo:)) {
-        [[RestManager sharedInstance] fetchBranches:self];
+        [[RestManager sharedInstance] fetchAppBranches:self];
         if ([_delegate respondsToSelector:@selector(sessionManagerDidUpdateLoginProgress:)]) {
             CGFloat progress = (CGFloat)SessionManagerLoginStageAppStoreBranches / SessionManagerLoginStageTotal;
             [_delegate sessionManagerDidUpdateLoginProgress:progress];
         }
     }
-    if (selector == @selector(fetchBranches:)) {
+    if (selector == @selector(fetchAppBranches:)) {
         [[RestManager sharedInstance] fetchAppOrderHistories:self];
         if ([_delegate respondsToSelector:@selector(sessionManagerDidUpdateLoginProgress:)]) {
             CGFloat progress = (CGFloat)SessionManagerLoginStageAppOrderHistories / SessionManagerLoginStageTotal;

@@ -7,27 +7,53 @@
 //
 
 #import "TSGame.h"
+#import "MGlobalConfiguration.h"
 
 @implementation TSGame
+
+- (void)initialize {
+    self.result = GamePlayResultNone;
+    self.validNumberOfChanges = 5;
+}
 
 - (id)init {
     self = [super init];
     if (self) {
-        self.result = GamePlayResultNone;
+        [self initialize];
     }
     return self;
 }
 
-- (void)dealloc {
-    self.gameId = nil;
-    self.name = nil;
-    self.sponsorName = nil;
-    self.sponsorImageURL = nil;
-    self.gameImageURL = nil;
-    self.gamePackageURL = nil;
-    self.gamePackageName = nil;
-    self.gamePackageFullPath = nil;
-    self.gamePackageUnzippedFullPath = nil;
+- (NSString *)resolvedGameImageURL {
+    return [[MGlobalConfiguration cachedBlobHostName] stringByAppendingPathComponent:self.gameImageURL];
+}
+
+- (NSString *)resolvedGamePackageURL {
+    return [[MGlobalConfiguration cachedBlobHostName] stringByAppendingPathComponent:self.gamePackageURL];
+}
+
+- (NSString *)resolvedSponsorImageURL {
+    return [[MGlobalConfiguration cachedBlobHostName] stringByAppendingPathComponent:self.sponsorImageURL];
+}
+
+#pragma mark - RKMappableObject
+
++ (RKObjectMapping *)defaultObjectMapping {
+    RKObjectMapping *mapping = [RKObjectMapping mappingForClass:self.class];
+    [mapping addAttributeMappingsFromDictionary:@{@"Id":                @"gameId",
+                                                  @"Name":              @"name",
+                                                  @"GameImageUrl":      @"gameImageURL",
+                                                  @"GamePackageUrl":    @"gamePackageURL",
+                                                  @"SponsorImageUrl":   @"sponsorImageURL",
+                                                  @"SponsorName":       @"sponsorName",
+                                                  @"TimeLimit":         @"timeLimit"
+                                                  }];
+    mapping.valueTransformer = [[RestManager sharedInstance] defaultDotNetValueTransformer];
+    return mapping;
+}
+
++ (RKResponseDescriptor *)defaultResponseDescriptor {
+    return [RKResponseDescriptor responseDescriptorWithMapping:[self.class defaultObjectMapping] method:RKRequestMethodAny pathPattern:nil keyPath:nil statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
 }
 
 @end

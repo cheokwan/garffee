@@ -21,5 +21,6 @@
 #import "MProductInfo.h"
 #import "MCouponInfo.h"
 #import "MGlobalConfiguration.h"
+#import "MBranch.h"
 
 #endif
