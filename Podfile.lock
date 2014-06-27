@@ -1,5 +1,5 @@
 PODS:
-  - AFNetworking (1.3.3)
+  - AFNetworking (1.3.4)
   - CAAnimationBlocks (0.0.1)
   - ChatHeads (1.0):
     - CAAnimationBlocks
@@ -8,8 +8,6 @@ PODS:
     - CocoaLumberjack/Extensions
   - CocoaLumberjack/Core (1.8.0)
   - CocoaLumberjack/Extensions (1.8.0):
-    - CocoaLumberjack/Core
-  - CrashlyticsLumberjack (1.0.1):
     - CocoaLumberjack/Core
   - ECSlidingViewController (2.0.0)
   - Facebook-iOS-SDK (3.12.0)
@@ -51,7 +49,6 @@ PODS:
 DEPENDENCIES:
   - ChatHeads
   - CocoaLumberjack
-  - CrashlyticsLumberjack
   - ECSlidingViewController
   - Facebook-iOS-SDK
   - JSBadgeView
@@ -65,26 +62,25 @@ DEPENDENCIES:
   - UIView+Helpers
 
 SPEC CHECKSUMS:
-  AFNetworking: 61fdd49e2ffe6380378df37b3b6e70630bb9dd66
-  CAAnimationBlocks: b70f877c5b92734abef270152187d3287d84e8f8
-  ChatHeads: 8220d1108b9f7a0b1a7371e063071a264a6662ef
-  CocoaLumberjack: 6ed94046d2ca7fde03a73b3d01b8cfc56574b314
-  CrashlyticsLumberjack: 8ee2adbd0f815d8b111e5f72cd82d39b08430ebc
-  ECSlidingViewController: 9a30cf3c446e39de70128299663fde097d8f3f88
-  Facebook-iOS-SDK: c09f7d80db5c48170ff834bc03ebe774c49d1f5b
-  ISO8601DateFormatterValueTransformer: d0af1f50a9df42db72d7418db31938b8473e0af8
-  JSBadgeView: e879273caddd2fc94b81689668da8a0f0c99a85c
-  MBProgressHUD: 2bbc6f470111daf7f3eaa4eb12b8cbf01c4c0622
-  Reachability: be4883bb93f31e38266ae3365e5600a317aae735
-  RestKit: dc107a0aa4f962575ad0385bac5b3c5e4f591f4e
-  RKValueTransformers: 1562d458b9c9d59ce777bfc5982f2e1aef2e9182
-  SDWebImage: fe7ce01ae4e0a884d168f59c9dd82d35baf8429e
-  SKBounceAnimation: 1d53d07c3496c1f61015e9d93bbaefda8391dc0d
-  SOCKit: 2f3bc4d07910de12dcc202815e07db68a3802581
-  SSZipArchive: 47d0589a15452311749a4eeecb97e12800d127de
-  TransitionKit: 433284465abacdc07852d7db6dd0cc075010059a
-  UIAlertView-Blocks: 7689ad7dd941417e7a7da81507482bc6f4f15bcd
-  UIColor-HexString: 8a3f512f71b6d94a2cf6bdeabcad2f3532f31b5a
-  UIView+Helpers: 9a9d8c9a698b1527728af0a3b4d8572b9a8fbd14
+  AFNetworking: 80c4e0652b08eb34e25b9c0ff3c82556fe5967b4
+  CAAnimationBlocks: 981bfca79ac481f07957aa8357885e620637f926
+  ChatHeads: 1b66a3ca6ae25e6ce04eb64485cf96b43b74bbcc
+  CocoaLumberjack: 2799baf46a4587116e97e85483538e0e92818430
+  ECSlidingViewController: 59d10f0a316017e0a014927f7844a6a944497e2b
+  Facebook-iOS-SDK: 91763fa21b97c175dc072b5278a606b2aff62366
+  ISO8601DateFormatterValueTransformer: a7e1ecf4380d0b561306ced1a3f01bd5f65d2213
+  JSBadgeView: 9590903dac65c8458f4e5b209988458284a65b09
+  MBProgressHUD: c356980b0cd097f19acec959b49dca5eb8ec31be
+  Reachability: 8e9635e3cb4f98e7f825e51147f677ecc694d0e7
+  RestKit: 6b82f862848cbe026ddc297985aa9a766b7e1a38
+  RKValueTransformers: 994503e34bffdbe0159ff6b497290dd1f8d5657f
+  SDWebImage: 35ff1fae2591257fa832ff1a640650620a9a1697
+  SKBounceAnimation: a47c30f67d3e4b948b1823ce5957d72d4382dd73
+  SOCKit: d8d0dd3688ae1026c12367570da8fa8e1a6980fb
+  SSZipArchive: 6dc0ea3fe4b55574bee23c9f01d7c0f8437d59ef
+  TransitionKit: 7877021649a734f3239ed176b7967de29321dcf3
+  UIAlertView-Blocks: b95f5fd76c620f7c66c9b251dea60c3e5fa24860
+  UIColor-HexString: 9cf42ab500ce12fdaf523cdb96ecffd11a28b7ed
+  UIView+Helpers: e8d48ea42a73ac27f6d4b7db888e1ebe67d87d15
 
-COCOAPODS: 0.29.0
+COCOAPODS: 0.33.1

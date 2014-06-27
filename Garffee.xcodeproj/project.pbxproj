@@ -201,8 +201,6 @@
 		D2A9092918B1BEA1008FF6B1 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A9092718B1BEA1008FF6B1 /* SettingsViewController.m */; };
 		D2AC13C4187C3B9B00D81CA6 /* MCouponInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2AC13C3187C3B9B00D81CA6 /* MCouponInfo.m */; };
 		D2AC13C5187C3B9B00D81CA6 /* MCouponInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D2AC13C3187C3B9B00D81CA6 /* MCouponInfo.m */; };
-		D2B49B7618CEAE140002EA45 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2B49B7518CEAE140002EA45 /* Crashlytics.framework */; };
-		D2B49B7718CEAE140002EA45 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2B49B7518CEAE140002EA45 /* Crashlytics.framework */; };
 		D2B9BAA41892835300226B54 /* UIButton+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2B9BAA31892835300226B54 /* UIButton+Helper.m */; };
 		D2B9BAA51892835300226B54 /* UIButton+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2B9BAA31892835300226B54 /* UIButton+Helper.m */; };
 		D2B9BAAC1897867700226B54 /* OrderCompositeImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2B9BAAB1897867700226B54 /* OrderCompositeImageView.m */; };
@@ -396,18 +394,18 @@
 		D293E4B3183DEDEB00B73795 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		D293E4B5183DEDEB00B73795 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D293E4B7183DEDEB00B73795 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		D293E4BB183DEDEB00B73795 /* ToSavour-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ToSavour-Info.plist"; sourceTree = "<group>"; };
+		D293E4BB183DEDEB00B73795 /* Garffee-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Garffee-Info.plist"; sourceTree = "<group>"; };
 		D293E4BD183DEDEB00B73795 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D293E4BF183DEDEB00B73795 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		D293E4C1183DEDEB00B73795 /* ToSavour-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ToSavour-Prefix.pch"; sourceTree = "<group>"; };
+		D293E4C1183DEDEB00B73795 /* Garffee-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Garffee-Prefix.pch"; sourceTree = "<group>"; };
 		D293E4C2183DEDEB00B73795 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D293E4C3183DEDEB00B73795 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		D293E4C6183DEDEB00B73795 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D293E4C9183DEDEB00B73795 /* ToSavour.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ToSavour.xcdatamodel; sourceTree = "<group>"; };
 		D293E4D1183DEDEB00B73795 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		D293E4D7183DEDEB00B73795 /* ToSavourTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ToSavourTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D293E4D7183DEDEB00B73795 /* GarffeeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GarffeeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D293E4D8183DEDEB00B73795 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		D293E4E1183DEDEB00B73795 /* ToSavourTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ToSavourTests-Info.plist"; sourceTree = "<group>"; };
+		D293E4E1183DEDEB00B73795 /* GarffeeTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GarffeeTests-Info.plist"; sourceTree = "<group>"; };
 		D293E4E3183DEDEB00B73795 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D293E4E5183DEDEB00B73795 /* ToSavourTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToSavourTests.m; sourceTree = "<group>"; };
 		D293E4F0183DF24000B73795 /* SlideMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SlideMenuViewController.h; path = FrontEnd/SlideMenuViewController.h; sourceTree = "<group>"; };
@@ -514,7 +512,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D246681D185F15F70089D5DB /* QuartzCore.framework in Frameworks */,
-				D2B49B7718CEAE140002EA45 /* Crashlytics.framework in Frameworks */,
 				D246681E185F15F70089D5DB /* MapKit.framework in Frameworks */,
 				D246681F185F15F70089D5DB /* CoreLocation.framework in Frameworks */,
 				D2466820185F15F70089D5DB /* CoreGraphics.framework in Frameworks */,
@@ -535,7 +532,6 @@
 				D2827DF31875046B00E4A662 /* AddressBook.framework in Frameworks */,
 				D2827DB81867F92100E4A662 /* Security.framework in Frameworks */,
 				D2A67A82185ACA8A00889114 /* QuartzCore.framework in Frameworks */,
-				D2B49B7618CEAE140002EA45 /* Crashlytics.framework in Frameworks */,
 				D2437577184C3498000009D7 /* MapKit.framework in Frameworks */,
 				D293E4F818435DC100B73795 /* CoreLocation.framework in Frameworks */,
 				D293E4B4183DEDEB00B73795 /* CoreGraphics.framework in Frameworks */,
@@ -636,7 +632,7 @@
 			isa = PBXGroup;
 			children = (
 				D293E4AE183DEDEB00B73795 /* Garffee.app */,
-				D293E4D7183DEDEB00B73795 /* ToSavourTests.xctest */,
+				D293E4D7183DEDEB00B73795 /* GarffeeTests.xctest */,
 				D2466832185F15F70089D5DB /* Garffee.app */,
 			);
 			name = Products;
@@ -685,10 +681,10 @@
 		D293E4BA183DEDEB00B73795 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D293E4BB183DEDEB00B73795 /* ToSavour-Info.plist */,
+				D293E4BB183DEDEB00B73795 /* Garffee-Info.plist */,
 				D293E4BC183DEDEB00B73795 /* InfoPlist.strings */,
 				D293E4BF183DEDEB00B73795 /* main.m */,
-				D293E4C1183DEDEB00B73795 /* ToSavour-Prefix.pch */,
+				D293E4C1183DEDEB00B73795 /* Garffee-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -705,7 +701,7 @@
 		D293E4E0183DEDEB00B73795 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D293E4E1183DEDEB00B73795 /* ToSavourTests-Info.plist */,
+				D293E4E1183DEDEB00B73795 /* GarffeeTests-Info.plist */,
 				D293E4E2183DEDEB00B73795 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -971,9 +967,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D24667F8185F15F70089D5DB /* ToSavour Generate Seed DB */ = {
+		D24667F8185F15F70089D5DB /* Garffee Generate Seed DB */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D246682F185F15F70089D5DB /* Build configuration list for PBXNativeTarget "ToSavour Generate Seed DB" */;
+			buildConfigurationList = D246682F185F15F70089D5DB /* Build configuration list for PBXNativeTarget "Garffee Generate Seed DB" */;
 			buildPhases = (
 				D24667F9185F15F70089D5DB /* Check Pods Manifest.lock */,
 				D24667FA185F15F70089D5DB /* Sources */,
@@ -985,14 +981,14 @@
 			);
 			dependencies = (
 			);
-			name = "ToSavour Generate Seed DB";
+			name = "Garffee Generate Seed DB";
 			productName = ToSavour;
 			productReference = D2466832185F15F70089D5DB /* Garffee.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D293E4AD183DEDEB00B73795 /* ToSavour */ = {
+		D293E4AD183DEDEB00B73795 /* Garffee */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D293E4E9183DEDEB00B73795 /* Build configuration list for PBXNativeTarget "ToSavour" */;
+			buildConfigurationList = D293E4E9183DEDEB00B73795 /* Build configuration list for PBXNativeTarget "Garffee" */;
 			buildPhases = (
 				0ECFE2BD39CE4B0E8C10B750 /* Check Pods Manifest.lock */,
 				D293E4AA183DEDEB00B73795 /* Sources */,
@@ -1005,14 +1001,14 @@
 			);
 			dependencies = (
 			);
-			name = ToSavour;
+			name = Garffee;
 			productName = ToSavour;
 			productReference = D293E4AE183DEDEB00B73795 /* Garffee.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D293E4D6183DEDEB00B73795 /* ToSavourTests */ = {
+		D293E4D6183DEDEB00B73795 /* GarffeeTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D293E4EC183DEDEB00B73795 /* Build configuration list for PBXNativeTarget "ToSavourTests" */;
+			buildConfigurationList = D293E4EC183DEDEB00B73795 /* Build configuration list for PBXNativeTarget "GarffeeTests" */;
 			buildPhases = (
 				D293E4D3183DEDEB00B73795 /* Sources */,
 				D293E4D4183DEDEB00B73795 /* Frameworks */,
@@ -1023,9 +1019,9 @@
 			dependencies = (
 				D293E4DE183DEDEB00B73795 /* PBXTargetDependency */,
 			);
-			name = ToSavourTests;
+			name = GarffeeTests;
 			productName = ToSavourTests;
-			productReference = D293E4D7183DEDEB00B73795 /* ToSavourTests.xctest */;
+			productReference = D293E4D7183DEDEB00B73795 /* GarffeeTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -1045,7 +1041,7 @@
 					};
 				};
 			};
-			buildConfigurationList = D293E4A9183DEDEB00B73795 /* Build configuration list for PBXProject "ToSavour" */;
+			buildConfigurationList = D293E4A9183DEDEB00B73795 /* Build configuration list for PBXProject "Garffee" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1058,9 +1054,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D293E4AD183DEDEB00B73795 /* ToSavour */,
-				D293E4D6183DEDEB00B73795 /* ToSavourTests */,
-				D24667F8185F15F70089D5DB /* ToSavour Generate Seed DB */,
+				D293E4AD183DEDEB00B73795 /* Garffee */,
+				D293E4D6183DEDEB00B73795 /* GarffeeTests */,
+				D24667F8185F15F70089D5DB /* Garffee Generate Seed DB */,
 			);
 		};
 /* End PBXProject section */
@@ -1200,7 +1196,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./Crashlytics.framework/run 17a5054321b54f792a7a0e23ba40f02cfaa73054 5d51e0812c4d600d51569f82c8de38e230c720deda5177ac8bc0d6f033e7506d";
+			shellScript = "#./Crashlytics.framework/run 17a5054321b54f792a7a0e23ba40f02cfaa73054 5d51e0812c4d600d51569f82c8de38e230c720deda5177ac8bc0d6f033e7506d";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1401,7 +1397,7 @@
 /* Begin PBXTargetDependency section */
 		D293E4DE183DEDEB00B73795 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D293E4AD183DEDEB00B73795 /* ToSavour */;
+			target = D293E4AD183DEDEB00B73795 /* Garffee */;
 			targetProxy = D293E4DD183DEDEB00B73795 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1450,16 +1446,45 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/jasonwan/workspace/git/tosavour_ios/ToSavour-iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ToSavour/ToSavour-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
 					"RESTKIT_GENERATE_SEED_DB=1",
+				);
+				HEADER_SEARCH_PATHS = (
+					"\"${PODS_ROOT}/Headers\"",
+					"\"${PODS_ROOT}/Headers/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/CAAnimationBlocks\"",
+					"\"${PODS_ROOT}/Headers/ChatHeads\"",
+					"\"${PODS_ROOT}/Headers/CocoaLumberjack\"",
+					"\"${PODS_ROOT}/Headers/CrashlyticsLumberjack\"",
+					"\"${PODS_ROOT}/Headers/ECSlidingViewController\"",
+					"\"${PODS_ROOT}/Headers/Facebook-iOS-SDK\"",
+					"\"${PODS_ROOT}/Headers/Facebook-iOS-SDK/FacebookSDK\"",
+					"\"${PODS_ROOT}/Headers/ISO8601DateFormatterValueTransformer\"",
+					"\"${PODS_ROOT}/Headers/JSBadgeView\"",
+					"\"${PODS_ROOT}/Headers/MBProgressHUD\"",
+					"\"${PODS_ROOT}/Headers/RKValueTransformers\"",
+					"\"${PODS_ROOT}/Headers/Reachability\"",
+					"\"${PODS_ROOT}/Headers/RestKit\"",
+					"\"${PODS_ROOT}/Headers/RestKit/CoreData\"",
+					"\"${PODS_ROOT}/Headers/RestKit/Network\"",
+					"\"${PODS_ROOT}/Headers/RestKit/ObjectMapping\"",
+					"\"${PODS_ROOT}/Headers/RestKit/Support\"",
+					"\"${PODS_ROOT}/Headers/SDWebImage\"",
+					"\"${PODS_ROOT}/Headers/SKBounceAnimation\"",
+					"\"${PODS_ROOT}/Headers/SOCKit\"",
+					"\"${PODS_ROOT}/Headers/SSZipArchive\"",
+					"\"${PODS_ROOT}/Headers/SSZipArchive/minizip\"",
+					"\"${PODS_ROOT}/Headers/TransitionKit\"",
+					"\"${PODS_ROOT}/Headers/UIAlertView-Blocks\"",
+					"\"${PODS_ROOT}/Headers/UIColor-HexString\"",
+					"\"${PODS_ROOT}/Headers/UIView+Helpers\"",
+					"\"${PODS_ROOT}/Headers/Vendor/LibComponentLogging/Core\"",
+					"\"${PODS_ROOT}/Headers/Vendor/LibComponentLogging/NSLog\"",
 				);
 				INFOPLIST_FILE = "ToSavour copy-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
@@ -1477,16 +1502,45 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/jasonwan/workspace/git/tosavour_ios/ToSavour-iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ToSavour/ToSavour-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
 					"RESTKIT_GENERATE_SEED_DB=1",
+				);
+				HEADER_SEARCH_PATHS = (
+					"\"${PODS_ROOT}/Headers\"",
+					"\"${PODS_ROOT}/Headers/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/CAAnimationBlocks\"",
+					"\"${PODS_ROOT}/Headers/ChatHeads\"",
+					"\"${PODS_ROOT}/Headers/CocoaLumberjack\"",
+					"\"${PODS_ROOT}/Headers/CrashlyticsLumberjack\"",
+					"\"${PODS_ROOT}/Headers/ECSlidingViewController\"",
+					"\"${PODS_ROOT}/Headers/Facebook-iOS-SDK\"",
+					"\"${PODS_ROOT}/Headers/Facebook-iOS-SDK/FacebookSDK\"",
+					"\"${PODS_ROOT}/Headers/ISO8601DateFormatterValueTransformer\"",
+					"\"${PODS_ROOT}/Headers/JSBadgeView\"",
+					"\"${PODS_ROOT}/Headers/MBProgressHUD\"",
+					"\"${PODS_ROOT}/Headers/RKValueTransformers\"",
+					"\"${PODS_ROOT}/Headers/Reachability\"",
+					"\"${PODS_ROOT}/Headers/RestKit\"",
+					"\"${PODS_ROOT}/Headers/RestKit/CoreData\"",
+					"\"${PODS_ROOT}/Headers/RestKit/Network\"",
+					"\"${PODS_ROOT}/Headers/RestKit/ObjectMapping\"",
+					"\"${PODS_ROOT}/Headers/RestKit/Support\"",
+					"\"${PODS_ROOT}/Headers/SDWebImage\"",
+					"\"${PODS_ROOT}/Headers/SKBounceAnimation\"",
+					"\"${PODS_ROOT}/Headers/SOCKit\"",
+					"\"${PODS_ROOT}/Headers/SSZipArchive\"",
+					"\"${PODS_ROOT}/Headers/SSZipArchive/minizip\"",
+					"\"${PODS_ROOT}/Headers/TransitionKit\"",
+					"\"${PODS_ROOT}/Headers/UIAlertView-Blocks\"",
+					"\"${PODS_ROOT}/Headers/UIColor-HexString\"",
+					"\"${PODS_ROOT}/Headers/UIView+Helpers\"",
+					"\"${PODS_ROOT}/Headers/Vendor/LibComponentLogging/Core\"",
+					"\"${PODS_ROOT}/Headers/Vendor/LibComponentLogging/NSLog\"",
 				);
 				INFOPLIST_FILE = "ToSavour copy-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
@@ -1578,13 +1632,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/jasonwan/workspace/git/tosavour_ios/ToSavour-iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ToSavour/ToSavour-Prefix.pch";
-				INFOPLIST_FILE = "ToSavour/ToSavour-Info.plist";
+				GCC_PREFIX_HEADER = "ToSavour/Garffee-Prefix.pch";
+				INFOPLIST_FILE = "ToSavour/Garffee-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(PRODUCT_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1600,13 +1651,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/jasonwan/workspace/git/tosavour_ios/ToSavour-iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ToSavour/ToSavour-Prefix.pch";
-				INFOPLIST_FILE = "ToSavour/ToSavour-Info.plist";
+				GCC_PREFIX_HEADER = "ToSavour/Garffee-Prefix.pch";
+				INFOPLIST_FILE = "ToSavour/Garffee-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(PRODUCT_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1630,8 +1678,8 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "ToSavourTests/ToSavourTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "ToSavourTests/GarffeeTests-Info.plist";
+				PRODUCT_NAME = GarffeeTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -1649,8 +1697,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ToSavour/ToSavour-Prefix.pch";
-				INFOPLIST_FILE = "ToSavourTests/ToSavourTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "ToSavourTests/GarffeeTests-Info.plist";
+				PRODUCT_NAME = GarffeeTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -1659,7 +1707,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D246682F185F15F70089D5DB /* Build configuration list for PBXNativeTarget "ToSavour Generate Seed DB" */ = {
+		D246682F185F15F70089D5DB /* Build configuration list for PBXNativeTarget "Garffee Generate Seed DB" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D2466830185F15F70089D5DB /* Debug */,
@@ -1668,7 +1716,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D293E4A9183DEDEB00B73795 /* Build configuration list for PBXProject "ToSavour" */ = {
+		D293E4A9183DEDEB00B73795 /* Build configuration list for PBXProject "Garffee" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D293E4E7183DEDEB00B73795 /* Debug */,
@@ -1677,7 +1725,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D293E4E9183DEDEB00B73795 /* Build configuration list for PBXNativeTarget "ToSavour" */ = {
+		D293E4E9183DEDEB00B73795 /* Build configuration list for PBXNativeTarget "Garffee" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D293E4EA183DEDEB00B73795 /* Debug */,
@@ -1686,7 +1734,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D293E4EC183DEDEB00B73795 /* Build configuration list for PBXNativeTarget "ToSavourTests" */ = {
+		D293E4EC183DEDEB00B73795 /* Build configuration list for PBXNativeTarget "GarffeeTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D293E4ED183DEDEB00B73795 /* Debug */,
